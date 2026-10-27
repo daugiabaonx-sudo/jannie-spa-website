@@ -70,7 +70,7 @@
 	--wp--preset--color--on-error-container: var(--jn-on-error-container);
 
 	/* 2. Typography Families */
-	--jn-font-heading: 'Playfair Display', 'Playfair Display Fallback', Georgia, 'Times New Roman', serif;
+	--jn-font-heading: 'Playfair Display', 'Playfair Display Fallback', 'Playfair Display Italic Fallback', Georgia, 'Times New Roman', serif;
 	--jn-font-body: 'Geist', 'Geist Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 	/* 3. Typography Scale (Exact match with code.html tailwind.config) */

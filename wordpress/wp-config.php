@@ -65,6 +65,10 @@ define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/modules' );
 define( 'WP_PLUGIN_URL', WP_CONTENT_URL . '/modules' );
 define( 'PLUGINDIR', 'app/modules' );
 
+// ** Page Cache (WP Super Cache — Step 8 Task 2) ** //
+define( 'WP_CACHE', true );
+define( 'WPCACHEHOME', WP_PLUGIN_DIR . '/wp-super-cache/' );
+
 define( 'WPMU_PLUGIN_DIR', WP_CONTENT_DIR . '/mu-plugins' );
 define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . '/mu-plugins' );
 

@@ -53,8 +53,11 @@ function jannie_filter_resource_hints( $urls, $relation_type ) {
 add_filter( 'wp_resource_hints', 'jannie_filter_resource_hints', 99, 2 );
 
 /**
- * Preload at most the 2 self-hosted WOFF2 font files used above the fold
- * (Playfair Display Regular/Variable and Geist Variable).
+ * Preload the 2 primary WOFF2 fonts used above the fold
+ * (`playfair-display-vi-normal.woff2` and `geist-vi-normal.woff2`, <= 2 preloaded fonts per Task 4),
+ * using the aliased `/static/ui/` path so the preload URL matches `@font-face` 1:1.
+ * The 3rd accent font (`playfair-display-vi-italic.woff2`) renders immediately with the
+ * metric-matched `'Playfair Display Italic Fallback'` at FCP/LCP and swaps in right after load.
  *
  * @return void
  */
@@ -65,17 +68,29 @@ function jannie_preload_above_fold_fonts() {
 	);
 
 	foreach ( $fonts as $font_url ) {
+		if ( class_exists( 'JN_Hardening_HTML_Headers' ) ) {
+			$font_url = JN_Hardening_HTML_Headers::alias_asset_url( $font_url );
+		}
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin="anonymous" />' . "\n",
 			esc_url( $font_url )
 		);
 	}
+
+	$italic_url = JANNIE_URI . '/assets/fonts/playfair-display-vi-italic.woff2';
+	if ( class_exists( 'JN_Hardening_HTML_Headers' ) ) {
+		$italic_url = JN_Hardening_HTML_Headers::alias_asset_url( $italic_url );
+	}
+	printf(
+		"<noscript><style>@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('%s') format('woff2');}</style></noscript>\n",
+		esc_url( $italic_url )
+	);
 }
-add_action( 'wp_head', 'jannie_preload_above_fold_fonts', 1 );
+add_action( 'wp_head', 'jannie_preload_above_fold_fonts', 9 );
 
 /**
- * Register child theme stylesheets as block editor styles so the iframe editor
- * matches the front-end 1:1.
+ * Register custom responsive image sizes for Hero (4:5), Expert (3:4), and Testimonial Avatars (1:1),
+ * plus register child theme stylesheets for the Block Editor.
  *
  * @return void
  */
@@ -87,6 +102,20 @@ function jannie_setup_editor_styles() {
 			'assets/css/block-styles.css',
 		)
 	);
+
+	// Hero portrait 4:5 responsive steps (400x500, 652x815, 800x1000 full).
+	add_image_size( 'jn-hero-400', 400, 500, true );
+	add_image_size( 'jn-hero-652', 652, 815, true );
+	add_image_size( 'jn-hero-800', 800, 1000, true );
+
+	// Expert consultation 3:4 responsive steps (420x560, 640x853, 750x1000 full).
+	add_image_size( 'jn-expert-420', 420, 560, true );
+	add_image_size( 'jn-expert-640', 640, 853, true );
+	add_image_size( 'jn-expert-750', 750, 1000, true );
+
+	// Testimonial avatars 1:1 (96x96 for 2x retina on 48x48 CSS box, 160x160 full).
+	add_image_size( 'jn-avatar-96', 96, 96, true );
+	add_image_size( 'jn-avatar-160', 160, 160, true );
 }
 add_action( 'after_setup_theme', 'jannie_setup_editor_styles', 20 );
 

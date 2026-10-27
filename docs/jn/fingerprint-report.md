@@ -1,6 +1,6 @@
 # Báo Cáo Quét Dấu Vết WordPress & Hardening (JN Step 7)
 
-- **Thời điểm quét:** `2026-10-27T17:59:50.724Z`
+- **Thời điểm quét:** `2026-10-27T23:28:01.270Z`
 - **Môi trường đích:** `http://localhost:8080`
 - **Công cụ quét:** `scripts/jn-fingerprint-scan.mjs`
 - **Tổng số URL kiểm tra:** **31** (15 trang/route công khai + 16 đường dẫn dò tìm mặc định)
@@ -38,21 +38,21 @@
 
 | # | Trang / Route | URL | HTTP Status | Kích thước (Raw / Gzip) | Kết quả | Chi tiết lỗi (nếu có) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Home | `/` | `200` | 135,061 B / 26,749 B | **PASS** | 0 lỗi |
-| 2 | Coaching | `/coaching/` | `200` | 135,030 B / 26,690 B | **PASS** | 0 lỗi |
-| 3 | Booking | `/booking/` | `200` | 77,514 B / 15,534 B | **PASS** | 0 lỗi |
-| 4 | My Story | `/my-story/` | `200` | 94,088 B / 19,258 B | **PASS** | 0 lỗi |
-| 5 | Course | `/course/` | `200` | 86,616 B / 17,869 B | **PASS** | 0 lỗi |
-| 6 | Client Success Story | `/client-success-story/` | `200` | 94,311 B / 18,048 B | **PASS** | 0 lỗi |
-| 7 | My Favorite Product | `/my-favorite-product/` | `200` | 80,389 B / 16,090 B | **PASS** | 0 lỗi |
-| 8 | Single Product | `/product/so-tay-dinh-huong-su-nghiep/` | `200` | 74,118 B / 15,390 B | **PASS** | 0 lỗi |
-| 9 | Cart | `/cart/` | `200` | 214,042 B / 55,438 B | **PASS** | 0 lỗi |
-| 10 | Checkout | `/checkout/` | `200` | 231,908 B / 57,959 B | **PASS** | 0 lỗi |
-| 11 | My Account (`/tai-khoan/`) | `/tai-khoan/` | `200` | 72,925 B / 14,755 B | **PASS** | 0 lỗi |
-| 12 | Designed 404 Page | `/trang-khong-ton-tai-404/` | `404` | 70,081 B / 13,249 B | **PASS** | 0 lỗi |
-| 13 | RSS Feed (`/feed/` — disabled per ADR-010) | `/feed/` | `404` | 70,081 B / 13,249 B | **PASS** | 0 lỗi |
-| 14 | Robots.txt | `/robots.txt` | `200` | 83 B / 73 B | **PASS** | 0 lỗi |
-| 15 | Sitemap (`/sitemap.xml` — Step 8 SEO) | `/sitemap.xml` | `404` | 70,081 B / 13,249 B | **PASS** | 0 lỗi |
+| 1 | Home | `/` | `200` | 203,561 B / 37,698 B | **PASS** | 0 lỗi |
+| 2 | Coaching | `/coaching/` | `200` | 203,499 B / 37,593 B | **PASS** | 0 lỗi |
+| 3 | Booking | `/booking/` | `200` | 144,093 B / 26,239 B | **PASS** | 0 lỗi |
+| 4 | My Story | `/my-story/` | `200` | 158,980 B / 29,375 B | **PASS** | 0 lỗi |
+| 5 | Course | `/course/` | `200` | 151,442 B / 28,067 B | **PASS** | 0 lỗi |
+| 6 | Client Success Story | `/client-success-story/` | `200` | 159,633 B / 28,332 B | **PASS** | 0 lỗi |
+| 7 | My Favorite Product | `/my-favorite-product/` | `200` | 176,348 B / 31,338 B | **PASS** | 0 lỗi |
+| 8 | Single Product | `/product/so-tay-dinh-huong-su-nghiep/` | `200` | 156,973 B / 27,882 B | **PASS** | 0 lỗi |
+| 9 | Cart | `/cart/` | `200` | 293,541 B / 66,951 B | **PASS** | 0 lỗi |
+| 10 | Checkout | `/checkout/` | `200` | 311,585 B / 69,450 B | **PASS** | 0 lỗi |
+| 11 | My Account (`/tai-khoan/`) | `/tai-khoan/` | `200` | 152,142 B / 26,016 B | **PASS** | 0 lỗi |
+| 12 | Designed 404 Page | `/trang-khong-ton-tai-404/` | `404` | 131,348 B / 22,611 B | **PASS** | 0 lỗi |
+| 13 | RSS Feed (`/feed/` — disabled per ADR-010) | `/feed/` | `404` | 131,348 B / 22,611 B | **PASS** | 0 lỗi |
+| 14 | Robots.txt | `/robots.txt` | `200` | 164 B / 151 B | **PASS** | 0 lỗi |
+| 15 | Sitemap (`/sitemap.xml` — Step 8 SEO) | `/sitemap.xml` | `200` | 1,208 B / 298 B | **PASS** | 0 lỗi |
 
 ---
 
@@ -60,8 +60,8 @@
 
 | # | Mục tiêu thăm dò | URL | HTTP Status | Kích thước (Raw / Gzip) | Kết quả | Chi tiết lỗi (nếu có) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Default Login (`wp-login.php`) | `/wp-login.php` | `404` | 70,081 B / 13,249 B | **PASS** | 0 lỗi |
-| 2 | Admin Directory (`wp-admin/`) | `/wp-admin/` | `404` | 57,168 B / 11,015 B | **PASS** | 0 lỗi |
+| 1 | Default Login (`wp-login.php`) | `/wp-login.php` | `404` | 131,348 B / 22,611 B | **PASS** | 0 lỗi |
+| 2 | Admin Directory (`wp-admin/`) | `/wp-admin/` | `404` | 116,509 B / 19,705 B | **PASS** | 0 lỗi |
 | 3 | XML-RPC (`xmlrpc.php`) | `/xmlrpc.php` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
 | 4 | Core Readme (`readme.html`) | `/readme.html` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
 | 5 | Core License (`license.txt`) | `/license.txt` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
@@ -69,7 +69,7 @@
 | 7 | Live Config (`wp-config.php`) | `/wp-config.php` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
 | 8 | Install Script (`wp-admin/install.php`) | `/wp-admin/install.php` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
 | 9 | Upgrade Script (`wp-admin/upgrade.php`) | `/wp-admin/upgrade.php` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
-| 10 | Author Enumeration (`?author=1`) | `/?author=1` | `404` | 70,081 B / 13,249 B | **PASS** | 0 lỗi |
+| 10 | Author Enumeration (`?author=1`) | `/?author=1` | `404` | 131,348 B / 22,611 B | **PASS** | 0 lỗi |
 | 11 | Legacy REST Prefix (`/wp-json/`) | `/wp-json/` | `404` | 236 B / 203 B | **PASS** | 0 lỗi |
 | 12 | REST Users via Query (`?rest_route=/wp/v2/users`) | `/?rest_route=/wp/v2/users` | `404` | 203 B / 165 B | **PASS** | 0 lỗi |
 | 13 | REST Users via `/api` (`/api/wp/v2/users`) | `/api/wp/v2/users` | `404` | 203 B / 165 B | **PASS** | 0 lỗi |
@@ -85,7 +85,7 @@
 - **Số thẻ `<link rel="stylesheet" href=".../wp-includes/...">` trên các trang nội dung (`/`, `/coaching/`, `/booking/`, `/my-story/`, `/course/`, `/client-success-story/`):** **0 thẻ**.
 - **Đo lường trên `/coaching/`:**
   - Trước Step 7 (Baseline có `sourceURL`, generator, RSD, emoji, `classic-theme-styles`): **137,813 B raw / 27,431 B gzipped** (trong đó 11 khối core block CSS được inline chiếm **25,302 B raw / ~4,860 B gzipped** so với ~112,511 B raw nếu tải file ngoài).
-  - Sau Step 7 (Giữ toàn bộ core block CSS inline nhưng đã gỡ bỏ `sourceURL`, emoji, RSD, generator, comments): **135,030 B raw / 26,690 B gzipped** (giảm **2,778 B raw / 737 B gzipped** so với trước Step 7 và loại bỏ hoàn toàn các request CSS rời tới `/wp-includes/`).
+  - Sau Step 7 (Giữ toàn bộ core block CSS inline nhưng đã gỡ bỏ `sourceURL`, emoji, RSD, generator, comments): **203,499 B raw / 37,593 B gzipped** (giảm **2,778 B raw / 737 B gzipped** so với trước Step 7 và loại bỏ hoàn toàn các request CSS rời tới `/wp-includes/`).
 
 ---
 
@@ -95,7 +95,7 @@ Theo đúng đề bài Mục F và Kế hoạch triển khai đã được phê 
 
 | Nhóm Residual | Ví dụ xuất hiện trong HTML | Số lượng trên `/coaching/` | Số lượng trên `/cart/` | Lý do kỹ thuật chấp thuận (Documented Reason) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Core Block CSS Classes & Custom Properties** | `wp-block-group`, `wp-block-columns`, `wp-block-heading`, `--wp--preset--*` | 531 | 36 | Gutenberg, `theme.json` và `assets/css/block-styles.css` định nghĩa bộ chọn CSS trực tiếp trên `.wp-block-*` và `--wp--preset--*`. Đổi tên các class này sẽ làm hỏng toàn bộ bố cục lưới 12 cột, spacing tokens và làm gãy trình soạn thảo Block Editor. |
-| **WooCommerce Semantic Classes** | `woocommerce`, `wc-block-cart`, `wc-block-checkout`, `woocommerce-notices-wrapper` | 2 | 33 | Các script React của WooCommerce Blocks (Cart/Checkout) và stylesheet `woocommerce.css` truy vấn DOM trực tiếp qua các class `.wc-block-*` và `.woocommerce-*`. Thay đổi chúng sẽ làm hỏng tính năng giỏ hàng, thanh toán và thông báo lỗi. |
-| **Blocksy Structural Prefix (`ct-*`)** | `ct-container`, `ct-header`, `ct-footer`, `data-prefix` | 108 | 112 | Tiền tố trung tính 2 ký tự `ct-` là hệ thống layout khung của theme cha (không chứa tên `blocksy`), được dùng bởi `main.min.css` và `layout-shell.php`. |
+| **Core Block CSS Classes & Custom Properties** | `wp-block-group`, `wp-block-columns`, `wp-block-heading`, `--wp--preset--*` | 610 | 137 | Gutenberg, `theme.json` và `assets/css/block-styles.css` định nghĩa bộ chọn CSS trực tiếp trên `.wp-block-*` và `--wp--preset--*`. Đổi tên các class này sẽ làm hỏng toàn bộ bố cục lưới 12 cột, spacing tokens và làm gãy trình soạn thảo Block Editor. |
+| **WooCommerce Semantic Classes** | `woocommerce`, `wc-block-cart`, `wc-block-checkout`, `woocommerce-notices-wrapper` | 0 | 131 | Các script React của WooCommerce Blocks (Cart/Checkout) và stylesheet `woocommerce.css` truy vấn DOM trực tiếp qua các class `.wc-block-*` và `.woocommerce-*`. Thay đổi chúng sẽ làm hỏng tính năng giỏ hàng, thanh toán và thông báo lỗi. |
+| **Blocksy Structural Prefix (`ct-*`)** | `ct-container`, `ct-header`, `ct-footer`, `data-prefix` | 146 | 152 | Tiền tố trung tính 2 ký tự `ct-` là hệ thống layout khung của theme cha (không chứa tên `blocksy`), được dùng bởi `main.min.css` và `layout-shell.php`. |
 | **ES Module Importmap Specifiers** | `@wordpress/interactivity`, `@woocommerce/stores/woocommerce/cart` | 0 | 0 | Trong `<script type="importmap">`, khóa `@wordpress/interactivity` là bare module specifier được biên dịch cứng bên trong các tệp JS `import ... from "@wordpress/interactivity"`. Trong khi đó, **URL tải tệp thực tế** của importmap đã được ánh xạ sang `/static/core/js/dist/script-modules/interactivity/index.min.js?v=<hash>`. |

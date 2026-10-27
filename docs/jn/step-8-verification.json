@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-10-27T23:53:54.645Z",
+  "checks": {
+    "lhciDashboard": {
+      "totalTargets": 22,
+      "passedTargets": 22,
+      "pass": true
+    },
+    "coachingAvif": {
+      "heroCurrentSrc": "http://localhost:8080/media/2026/10/jn-placeholder-hero-portrait-768x960.avif",
+      "preloadHasAvif": true,
+      "preloadFontsCount": 2,
+      "hasSpeculationRules": true,
+      "consoleErrors": [],
+      "pass": true
+    },
+    "cachedBookingPreselect": {
+      "selectedValue": "Gói Master Mentorship (Lộ trình 3 tháng toàn diện)",
+      "hasTokenInput": true,
+      "pass": true
+    },
+    "accountAssetDiet": {
+      "hasZxcvbn": false,
+      "hasSelectWoo": false,
+      "scriptCount": 7,
+      "consoleErrors": [],
+      "pass": true
+    }
+  }
+}

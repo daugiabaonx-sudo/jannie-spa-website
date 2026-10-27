@@ -1,0 +1,14 @@
+# Jannie Nguyen Academy — Production robots.txt
+User-agent: *
+Allow: /
+Disallow: /phong-lam-viec-7429/
+Disallow: /api/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /order-pay/
+Disallow: /tai-khoan/
+Disallow: /my-account/
+Disallow: /*?add-to-cart=
+Disallow: /*?jn_bf=
+
+Sitemap: https://jannienguyen.vn/sitemap.xml

@@ -57,6 +57,8 @@ wordpress/media/*
 !wordpress/media/.htaccess
 !wordpress/app/
 wordpress/app/*
+!wordpress/app/advanced-cache.php
+!wordpress/app/wp-cache-config.php
 
 # 7a. Child theme: wordpress/app/themes/jannie
 !wordpress/app/themes/

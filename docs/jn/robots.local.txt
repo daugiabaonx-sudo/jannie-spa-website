@@ -1,0 +1,5 @@
+# Jannie Nguyen Academy — Local / Staging robots.txt (Noindex / Disallow All)
+User-agent: *
+Disallow: /
+
+Sitemap: http://localhost:8080/sitemap.xml

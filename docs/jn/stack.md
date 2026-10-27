@@ -1,8 +1,8 @@
 # Hồ Sơ Công Nghệ & Công Cụ Phát Triển (`docs/jn/stack.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship
-> **Cập nhật lần cuối:** 2026-10-27 (JN Step 6 — Đã cài đặt và cấu hình `two-factor` `v0.17.0`, nâng cấp `jn-core` `v1.3.0` với phân hệ Khách hàng CRM, Xuất CSV UTF-8 BOM, Phân quyền Nhân sự & 2FA bắt buộc)
-> **Tham chiếu quy tắc:** `.agent/rules/jn-project.md` (§2 Fixed stack, §3 Engineering, §5 Hide WordPress, §6 Performance)
+> **Cập nhật lần cuối:** 2026-10-28 (JN Step 8 — Đã cài đặt và cấu hình `wp-super-cache` `v3.1.4` và `The SEO Framework` (`autodescription` `v5.2.0`), nâng cấp `jn-performance.php` `v2.0.0` và `jn-hardening.php` `v2.0.0`, tích hợp `mod_brotli`/`mod_deflate`, AVIF/WebP responsive images, Speculative Loading, Third-Party Facade, JSON-LD Schema `@graph` và Lighthouse CI `lighthouserc.json`)
+> **Tham chiếu quy tắc:** `.agent/rules/jn-project.md` (§2 Fixed stack, §3 Engineering, §5 Performance, §6 Hide WordPress)
 
 ---
 
@@ -72,8 +72,8 @@ Tuân thủ nghiêm ngặt `.agent/rules/jn-project.md` §2:
      - `testimonials/`: Quản lý dữ liệu chứng thực học viên có kiểm chứng (chỉ hiển thị đúng 3 đánh giá gốc đã được chủ dự án cung cấp, tuyệt đối không tự bịa thêm).
      - `blocks/`: Đăng ký 3 custom blocks (`jn/icon`, `jn/rating`, `jn/booking-form`) sử dụng JavaScript thuần với biến toàn cục `wp.*` và `ServerSideRender` (không cần bước build phức tạp hay `node_modules` đi kèm plugin).
 3. **Must-Use Plugins (`/app/mu-plugins/`):**
-   - `jn-hardening.php`: Ẩn dấu vết WordPress ("Hide WordPress"), tắt XML-RPC, tắt pingbacks/trackbacks, gỡ bỏ thẻ `<meta name="generator">`, ẩn danh sách user qua REST API (`/api/wp/v2/users`) và `?author=N` đối với khách chưa đăng nhập, xóa tham số `?ver=` khỏi URL tài nguyên, thêm các HTTP Security Headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`).
-   - `jn-performance.php`: Tắt `wp-emoji-release.min.js`, tắt `wp-embed`, gỡ `dashicons` trên giao diện khách (front-end), tắt toàn bộ kết nối tới `fonts.googleapis.com` / `fonts.gstatic.com` / `s.w.org`, thêm gợi ý `preload` cho các file font WOFF2 quan trọng và ảnh LCP, tắt tài nguyên WooCommerce trên các trang tĩnh không liên quan.
+   - `jn-hardening.php` (`v2.0.0`): Ẩn dấu vết WordPress ("Hide WordPress"), tắt XML-RPC, tắt pingbacks/trackbacks, gỡ bỏ thẻ `<meta name="generator">`, ẩn danh sách user qua REST API (`/api/wp/v2/users`) và `?author=N` đối với khách chưa đăng nhập, thay tham số `?ver=` bằng hàm băm SHA-256 10 ký tự `?v=<hash>`, ánh xạ đường dẫn tài nguyên tĩnh sang `/static/{core,core-admin,base,ui,shop,academy,ext}/` và `/api/ajax`, giới hạn đăng nhập sai (`<= 5 lần / 15 phút`), thêm đầy đủ 6 HTTP Security Headers (`Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Content-Security-Policy-Report-Only`).
+   - `jn-performance.php` (`v2.0.0`): Tắt `wp-emoji-release.min.js`, tắt `wp-embed`, gỡ `dashicons`, `comment-reply`, `jquery` và tài nguyên WooCommerce trên các trang nội dung; gỡ `zxcvbn` (`400 KB`) và `selectWoo` trên `/cart/`, `/checkout/`, `/tai-khoan/`; nhúng nội tuyến CSS thiết yếu (`jannie-bundle.min.css` & `woocommerce.css`) và trì hoãn CSS/JS không thiết yếu sau FCP; chuyển đổi ảnh tải lên sang định dạng **AVIF** (`quality = 50`) kèm bản dự phòng **WebP** qua `image_editor_output_format`; thêm `<link rel="preload" as="image" imagesrcset="..." imagesizes="..." fetchpriority="high">` cho ảnh LCP; cấu hình **Speculative Loading** (`prerender`/`moderate`) loại trừ đường dẫn giỏ hàng/thanh toán/đặt lịch; cung cấp cổng **Third-Party Facade** (`0` script bên thứ ba mặc định); tích hợp **The SEO Framework** (`autodescription` `v5.2.0`) kèm JSON-LD Schema `@graph` (`Organization`/`ProfessionalService` + `Person` + `Service`/`Offer`), `/sitemap.xml` và `/robots.txt` theo môi trường; tự động dọn dẹp transient hết hạn và kiểm soát kích thước `autoloaded options` (`< 65 KB`).
 
 ---
 
@@ -81,14 +81,14 @@ Tuân thủ nghiêm ngặt `.agent/rules/jn-project.md` §2:
 
 Theo `.agent/rules/jn-project.md` §2, chỉ những plugin sau được phép cài đặt mà không cần xin phép bổ sung:
 
-| STT | Tên Plugin | Nguồn | Mục đích sử dụng | Bước cài đặt dự kiến |
+| STT | Tên Plugin | Nguồn | Mục đích sử dụng | Bước cài đặt & Phiên bản |
 | :---: | :--- | :--- | :--- | :---: |
-| 1 | **WooCommerce** | `wordpress.org/plugins/woocommerce` | Quản lý đơn hàng (HPOS), khách hàng, sản phẩm dịch vụ coaching/khóa học, cổng thanh toán và trang Tài khoản (`My Account`) | Step 1 (cài đặt) / Step 4–5 (cấu hình) |
-| 2 | **WPS Hide Login** | `wordpress.org/plugins/wps-hide-login` | Đổi đường dẫn đăng nhập quản trị sang `/phong-lam-viec-7429` và trả về `404` cho `/wp-login.php` & `/wp-admin` khi chưa đăng nhập | Step 1 / Step 7 |
-| 3 | **Two Factor** | `wordpress.org/plugins/two-factor` | Xác thực 2 lớp (2FA: TOTP, Email, Backup Codes) cho tài khoản quản trị viên và trợ lý | Step 7 |
-| 4 | **Plugin Page Cache** (*Chọn 1 theo `PROD_WEB_SERVER`*) | `wordpress.org` | **LiteSpeed Cache** nếu máy chủ chạy LiteSpeed/OpenLiteSpeed; ngược lại dùng **WP Super Cache** | Step 8 |
-| 5 | **Plugin SEO nhẹ** (*Chọn 1*) | `wordpress.org` | **The SEO Framework** hoặc **Slim SEO** — tạo thẻ meta, OpenGraph, Schema.org và XML Sitemap chuẩn không làm nặng trang | Step 8 |
-| 6 | **FluentSMTP** | `wordpress.org/plugins/fluent-smtp` | Gửi email giao dịch (xác nhận đăng ký tư vấn, thông báo cho trợ lý) qua SMTP/API tin cậy trên môi trường thực tế | Step 8 / Step 9 |
+| 1 | **WooCommerce** | `wordpress.org/plugins/woocommerce` | Quản lý đơn hàng (HPOS), khách hàng, sản phẩm dịch vụ coaching/khóa học, cổng thanh toán và trang Tài khoản (`My Account`) | Step 4 (`v11.2.1`) |
+| 2 | **WPS Hide Login** | `wordpress.org/plugins/wps-hide-login` | Đổi đường dẫn đăng nhập quản trị sang `/phong-lam-viec-7429` và trả về `404` cho `/wp-login.php` & `/wp-admin` khi chưa đăng nhập | Step 1 / Step 7 (`v1.9.19`) |
+| 3 | **Two Factor** | `wordpress.org/plugins/two-factor` | Xác thực 2 lớp (2FA: TOTP, Email, Backup Codes) cho tài khoản quản trị viên và trợ lý | Step 6 (`v0.17.0`) |
+| 4 | **WP Super Cache** (*Plugin Page Cache theo `ADR-011`*) | `wordpress.org/plugins/wp-super-cache` | Lưu bộ nhớ đệm trang HTML tĩnh (`WP_CACHE = true`, `advanced-cache.php`), loại trừ `/cart/`, `/checkout/`, `/tai-khoan/`, `order-pay`, `/api/` và cookie phiên WooCommerce/đăng nhập (nếu Production dùng LiteSpeed sẽ chuyển sang **LiteSpeed Cache**) | Step 8 (`v3.1.4`) |
+| 5 | **The SEO Framework** (`autodescription`) | `wordpress.org/plugins/autodescription` | Quản lý thẻ tiêu đề, `meta description` tiếng Việt, `canonical`, Open Graph (`1200×630`), `/sitemap.xml` và `/robots.txt` với chữ ký HTML comment bị vô hiệu hóa hoàn toàn | Step 8 (`v5.2.0`) |
+| 6 | **FluentSMTP** | `wordpress.org/plugins/fluent-smtp` | Gửi email giao dịch (xác nhận đăng ký tư vấn, thông báo cho trợ lý) qua SMTP/API tin cậy trên môi trường thực tế | Step 9 (khi có `UNK-11`) |
 | 7 | **Plugin Cổng Thanh Toán Chính Thức** | Nhà cung cấp cổng thanh toán | Chỉ cài đặt sau khi chủ dự án xác nhận cổng thanh toán và cung cấp thông tin định danh Merchant (`PAYMENT_GATEWAYS`) | Sau khi chốt `UNK-05` |
 
 > **Chính sách kiểm soát:** Gỡ bỏ ngay lập tức 2 plugin mặc định đi kèm bộ cài WordPress (`akismet` và `hello.php`) cùng các theme mặc định (`twentytwentythree`, `twentytwentyfour`, `twentytwentyfive`) ở Step 1. Mọi plugin, dịch vụ bên ngoài hoặc CDN khác ngoài danh sách trên đều **bắt buộc phải xin ý kiến phê duyệt của chủ dự án trước khi cài đặt**.

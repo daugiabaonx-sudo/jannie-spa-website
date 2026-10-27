@@ -259,6 +259,8 @@ class JN_Hardening_Endpoints {
 			'Disallow: /cart/',
 			'Disallow: /checkout/',
 			'Disallow: /tai-khoan/',
+			'',
+			'Sitemap: ' . home_url( '/sitemap.xml' ),
 		);
 
 		return implode( "\n", $lines ) . "\n";

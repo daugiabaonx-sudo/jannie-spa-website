@@ -29,12 +29,17 @@ function jannie_register_pattern_categories() {
 add_action( 'init', 'jannie_register_pattern_categories', 5 );
 
 /**
- * Clear cached theme pattern file headers so newly added/edited patterns in
- * `patterns/*.php` are always recognized immediately.
+ * Clear cached theme pattern file headers inside wp-admin so newly added/edited
+ * patterns in `patterns/*.php` are always recognized immediately in the editor,
+ * without flushing the pattern cache on front-end page loads.
  *
  * @return void
  */
 function jannie_refresh_theme_pattern_cache() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	$theme = wp_get_theme();
 	if ( $theme && method_exists( $theme, 'delete_pattern_cache' ) ) {
 		$theme->delete_pattern_cache();

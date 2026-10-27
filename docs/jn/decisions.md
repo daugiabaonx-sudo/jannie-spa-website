@@ -290,6 +290,42 @@ Trong bước **JN Step 7 — Hide WordPress and Harden**:
   - Không làm gãy tính năng tự động cập nhật của WordPress Core, Blocksy hay WooCommerce; trình soạn thảo Gutenberg Block Editor, WooCommerce Store API và biểu mẫu Đặt lịch hoạt động 100% bình thường.
 - **Ràng buộc:** Khi triển khai lên môi trường Production sử dụng Nginx thay vì Apache, cần nạp tệp cấu hình đối xứng `docker/nginx/jn-hardening.conf` vào khối `server {}`.
 
+---
+
+## ADR-011: Chính Sách Object Cache, Page Cache (`wp-super-cache`) & Plugin SEO Nhẹ (`autodescription` — The SEO Framework)
+
+- **Ngày quyết định:** 2026-10-28 (Step 8)
+- **Trạng thái:** Đã chấp thuận & Đã triển khai
+
+### 1. Bối cảnh
+Trong bước **JN Step 8 — PageSpeed optimisation to budget**, dự án cần đưa ra 3 quyết định hạ tầng quan trọng dựa trên `PROJECT CONTEXT CARD` (`PROD_WEB_SERVER = UNKNOWN`, container cục bộ chạy `wordpress:php8.3-apache`):
+1. **Object Cache (Task 10):** Chỉ bật persistent object cache (Redis/Memcached) nếu máy chủ Production thực sự hỗ trợ daemon tương ứng.
+2. **Page Cache (Task 2):** Cần plugin bộ nhớ đệm trang toàn phần (full-page HTML cache) nằm trong danh sách cho phép của `.agent/rules/jn-project.md` (§2) và vận hành thực tế được trên Apache.
+3. **SEO Plugin (Task 9):** Cần một plugin SEO nhẹ duy nhất trong danh sách cho phép (`The SEO Framework` hoặc `Slim SEO`), tắt chữ ký HTML comment, sinh tiêu đề/mô tả tiếng Việt sát nguyên văn wireframe, canonical, Open Graph, `/sitemap.xml`, `robots.txt` và Schema chuẩn.
+
+### 2. Quyết định
+1. **Không cài đặt Redis / Memcached Object Cache ở Giai đoạn 8 (Object Cache Policy):**
+   - Do `PROD_WEB_SERVER` trên `PROJECT CONTEXT CARD` đang ở trạng thái `UNKNOWN` (chưa xác nhận nhà cung cấp hosting Production có cung cấp Redis hay Memcached socket/daemon riêng hay không), dự án **không** cài đặt plugin `redis-cache` hay `object-cache.php` mù quáng ở môi trường local để tránh sai lệch kiến trúc với Production.
+   - Thay vào đó, tối ưu tầng dữ liệu bằng:
+     - **PHP 8.3 OPcache** bật sẵn (`memory_consumption = 128M`, `max_accelerated_files = 10000`, `interned_strings_buffer = 16`).
+     - Tinh giản `wp_options` autoloaded xuống dưới `60 KB` và dọn sạch các transient hết hạn.
+     - Kết hợp `WP_Object_Cache` trong bộ nhớ per-request của WordPress Core với **Page Cache tĩnh** để giảm truy vấn cơ sở dữ liệu về `0` trên các lượt truy cập công khai đã cache.
+   - Nếu ở Step 9 máy chủ Production xác nhận có Redis daemon nội bộ, có thể kích hoạt drop-in Redis ở bước triển khai mà không cần sửa mã nguồn ứng dụng.
+2. **Chọn `WP Super Cache` (`wp-super-cache`) làm Plugin Page Cache chính thức:**
+   - Tương thích gốc với Apache (`.htaccess` / PHP cache mode) đang chạy trong container local và mọi máy chủ Apache/Nginx tiêu chuẩn.
+   - Cấu hình loại trừ tuyệt đối (`Rejected URIs` & `Rejected Cookies`):
+     - Không bao giờ lưu cache cho `/cart/`, `/checkout/`, `/tai-khoan/`, `/my-account/`, `/order-pay/`, `/api/`, `/phong-lam-viec-7429/`, hoặc các yêu cầu có tham số `?jn_bf=`, `?add-to-cart=`, `?wc-ajax=`.
+     - Bỏ qua cache khi trình duyệt gửi cookie phiên đăng nhập (`wordpress_logged_in_*`) hoặc cookie giỏ hàng WooCommerce đang hoạt động (`woocommerce_items_in_cart`, `woocommerce_cart_hash`, `wp_woocommerce_session_*`).
+   - Giữ nguyên khả năng tự động chọn gói dịch vụ qua `?goi=<slug>` ở phía trình duyệt (`booking-form.js` đọc `window.location.search`) và tự động làm mới token chống spam qua `/api/jn/v1/booking/token` để biểu mẫu đặt lịch hoạt động hoàn hảo ngay cả trên trang đã lưu cache tĩnh.
+3. **Chọn `The SEO Framework` (`autodescription`) làm Plugin SEO nhẹ duy nhất:**
+   - Gọn nhẹ, không quảng cáo, không tạo bảng rác và không chèn script front-end.
+   - Vô hiệu hóa hoàn toàn chữ ký HTML comment của plugin (`the_seo_framework_indicator => false`) để tuân thủ tuyệt đối quy tắc ẩn dấu vết WordPress (§6).
+   - Bổ sung đồ thị JSON-LD `@graph` tùy chỉnh gồm `Organization` + `ProfessionalService` + `Person` (Jannie Nguyễn) + `Service`/`Offer` cho 3 gói Coaching (không bịa giá khi `PACKAGE PRICES = UNKNOWN`) và tuyệt đối không gắn `Review`/`AggregateRating` cho các lời chứng thực tự xuất bản (`jn_testimonial`).
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:** Đạt ngân sách hiệu năng Lighthouse Mobile & Desktop (`Performance >= 95–100`, `A11y = 100`, `Best Practices = 100`, `SEO = 100`), giữ `scripts/jn-fingerprint-scan.mjs` ở mức `0 FAIL`, và cấu hình hoàn toàn tái lập được trên Production.
+
+
 
 
 

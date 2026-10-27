@@ -19,6 +19,16 @@ function jannie_enqueue_woocommerce_assets() {
 		return;
 	}
 
+	$woo_css_file = JANNIE_PATH . '/assets/css/woocommerce.css';
+	if ( is_file( $woo_css_file ) && is_readable( $woo_css_file ) && function_exists( 'jannie_minify_css_string' ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$woo_css = jannie_minify_css_string( (string) file_get_contents( $woo_css_file ) );
+		wp_add_inline_style( 'ct-main-styles', $woo_css );
+		wp_register_style( 'jn-woocommerce', false, array( 'jn-block-styles' ), JANNIE_VERSION );
+		wp_enqueue_style( 'jn-woocommerce' );
+		return;
+	}
+
 	wp_enqueue_style(
 		'jn-woocommerce',
 		JANNIE_URI . '/assets/css/woocommerce.css',

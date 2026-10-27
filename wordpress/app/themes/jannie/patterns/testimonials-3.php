@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<!-- wp:group {"className":"jn-testimonial-card__author"} -->
 					<div class="wp-block-group jn-testimonial-card__author">
-						<!-- wp:post-featured-image {"width":"48px","height":"48px","scale":"cover","sizeSlug":"full","className":"jn-testimonial-avatar"} /-->
+						<!-- wp:post-featured-image {"width":"48px","height":"48px","scale":"cover","sizeSlug":"jn-avatar-96","className":"jn-testimonial-avatar"} /-->
 
 						<!-- wp:group {"className":"jn-testimonial-author-meta"} -->
 						<div class="wp-block-group jn-testimonial-author-meta">

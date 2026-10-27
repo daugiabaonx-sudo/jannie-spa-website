@@ -358,7 +358,7 @@ async function main() {
 			{ group: 'Public Pages', name: 'Designed 404 Page', route: '/trang-khong-ton-tai-404/', expectedStatus: 404 },
 			{ group: 'Public Pages', name: 'RSS Feed (`/feed/` — disabled per ADR-010)', route: '/feed/', expectedStatus: 404 },
 			{ group: 'Public Pages', name: 'Robots.txt', route: '/robots.txt', expectedStatus: 200 },
-			{ group: 'Public Pages', name: 'Sitemap (`/sitemap.xml` — Step 8 SEO)', route: '/sitemap.xml', expectedStatus: 404 },
+			{ group: 'Public Pages', name: 'Sitemap (`/sitemap.xml` — Step 8 SEO)', route: '/sitemap.xml', expectedStatus: 200 },
 		];
 
 		const PROBE_PATHS = [

@@ -31,6 +31,17 @@
 }
 
 @font-face {
+	font-family: 'Playfair Display Italic Fallback';
+	font-style: italic;
+	font-weight: 400 900;
+	src: local('Georgia Italic'), local('Times New Roman Italic'), local('Georgia'), local('Times New Roman');
+	size-adjust: 109.5%;
+	ascent-override: 98.8%;
+	descent-override: 22.9%;
+	line-gap-override: 0%;
+}
+
+@font-face {
 	font-family: 'Geist';
 	font-style: normal;
 	font-weight: 100 900;
@@ -49,10 +60,61 @@
 	line-gap-override: 0%;
 }
 
-/* 2. Document & Base Typography */
+/* 2. Document, Critical Resets & Base Typography */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 html {
 	scroll-padding-top: var(--jn-header-height, 100px);
 	scroll-behavior: smooth;
+}
+
+body,
+figure {
+	margin: 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.screen-reader-text,
+.skip-link {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+#offcanvas:not(.active) {
+	position: fixed;
+	inset: 0;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: -1;
+}
+
+@media (min-width: 1000px) {
+	#header [data-device="mobile"] {
+		display: none !important;
+	}
+}
+
+@media (max-width: 999.98px) {
+	#header [data-device="desktop"] {
+		display: none !important;
+	}
 }
 
 body,
@@ -291,7 +353,10 @@ textarea:focus-visible,
 	letter-spacing: 0.05em !important;
 	text-transform: uppercase !important;
 	color: var(--jn-on-surface-variant) !important;
-	padding: 0 0 4px 0 !important;
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	padding: 4px 0 !important;
 	border-bottom: 2px solid transparent;
 	text-decoration: none !important;
 	transition: color var(--jn-transition), border-color var(--jn-transition);

@@ -613,3 +613,35 @@
 		padding: var(--jn-space-lg) !important;
 	}
 }
+
+/* WCAG 2.2 AA Touch Target Sizing (>= 24x24px) for My Account Password Toggle & Lost Password Link */
+.woocommerce form .password-input,
+.woocommerce-page form .password-input {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.woocommerce form .password-input button.show-password-input,
+.woocommerce-page form .password-input button.show-password-input,
+button.show-password-input {
+	min-width: 36px !important;
+	min-height: 36px !important;
+	width: 36px !important;
+	height: 36px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	right: 6px !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	padding: 6px !important;
+}
+
+.woocommerce-LostPassword a {
+	display: inline-flex !important;
+	align-items: center !important;
+	min-height: 32px !important;
+	padding: 6px 4px !important;
+	margin-top: 6px !important;
+}
