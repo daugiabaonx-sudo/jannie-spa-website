@@ -255,5 +255,41 @@ Yêu cầu về Quyền riêng tư (Task 7 — Step 6) quy định: *"Privacy: t
 ### 3. Hệ quả & Ràng buộc
 - **Tích cực:** Bảo toàn dữ liệu vận hành theo mặc định, không bao giờ tự ý xóa dữ liệu khách hàng khi chưa có lệnh kích hoạt của Chủ sở hữu, đồng thời sẵn sàng đáp ứng quy định bảo vệ dữ liệu cá nhân ngay khi bật công tắc.
 
+---
+
+## ADR-010: Vô Hiệu Hóa RSS/Atom/RDF Feeds (`404 Not Found`) & Ánh Xạ Đường Dẫn Tài Nguyên Trung Tính (`/static/*`)
+
+- **Ngày quyết định:** 2026-10-28 (Step 7)
+- **Trạng thái:** Đã chấp thuận & Đã triển khai
+
+### 1. Bối cảnh
+Trong bước **JN Step 7 — Hide WordPress and Harden**:
+1. **Về RSS/Atom/RDF Feeds:** Toàn bộ 10 trang trên website (`Home`, `My Story`, `Coaching`, `Course`, `Client Success Story`, `My Favorite Product`, `Booking`, `Cart`, `Checkout`, `My Account`) là các trang tĩnh/thương mại; website không vận hành chuyên mục Blog tin tức định kỳ. Nếu giữ nguyên các đường dẫn `/feed/`, `/comments/feed/`, `?feed=rss2`, hệ thống sẽ lộ cấu trúc XML đặc trưng của WordPress (`xmlns:wfw`, `xmlns:dc`, `xmlns:sy`, `<generator>`) và lộ thông tin tác giả (`<dc:creator>`).
+2. **Về Đường dẫn Tài nguyên Tĩnh (Task E — Optional Asset Aliasing):** Mặc dù dự án đã đổi `WP_CONTENT_DIR` sang `/app` và `WP_PLUGIN_DIR` sang `/app/modules` từ Step 1, các trang sử dụng Interactivity API, `zxcvbn`, `password-strength-meter` hoặc WooCommerce Blocks vẫn phát sinh yêu cầu tải `/wp-includes/...`, `/wp-admin/js/...`, và lộ tên thư mục theme/plugin (`/app/themes/blocksy/`, `/app/themes/jannie/`, `/app/modules/woocommerce/`).
+
+### 2. Quyết định
+1. **Vô hiệu hóa toàn bộ RSS/Atom/RDF Feeds và trả về HTTP `404 Not Found`:**
+   - Gỡ bỏ thẻ `<link rel="alternate" type="application/rss+xml" ...>` khỏi `<head>` (`feed_links`, `feed_links_extra`).
+   - Xóa các quy tắc rewrite của feed (`feed_rewrite_rules`) và buộc mọi yêu cầu chứa `feed` hoặc truy cập `/feed/`, `/comments/feed/` trả về HTTP `404` thông qua template `404.php` của child theme.
+2. **Áp dụng Ánh xạ Đường dẫn Tài nguyên Trung tính (`/static/*` & `/api/ajax`) kèm Content-Hash Versioning (`?v=<10-char-sha256>`):**
+   - Ánh xạ hai chiều giữa tầng PHP (`style_loader_src`, `script_loader_src`, `script_module_loader_src`, `admin_url`, `wp_template_enhancement_output_buffer`) và tầng máy chủ web (`wordpress/.htaccess` & `docker/nginx/jn-hardening.conf`):
+     - `/wp-includes/*` $\rightarrow$ `/static/core/*`
+     - `/wp-admin/{css,js,images}/*` $\rightarrow$ `/static/core-admin/{css,js,images}/*`
+     - `/app/themes/blocksy/*` $\rightarrow$ `/static/base/*`
+     - `/app/themes/jannie/*` $\rightarrow$ `/static/ui/*`
+     - `/app/modules/woocommerce/*` $\rightarrow$ `/static/shop/*`
+     - `/app/modules/jn-core/*` $\rightarrow$ `/static/academy/*`
+     - `/app/modules/*` $\rightarrow$ `/static/ext/*`
+     - `/wp-admin/admin-ajax.php` (front-end) $\rightarrow$ `/api/ajax`
+   - Thay thế toàn bộ chuỗi truy vấn `?ver=<version>` bằng mã băm nội dung tệp 10 ký tự SHA-256 (`?v=<hash>`) để xóa dấu vết phiên bản WordPress/theme/plugin mà vẫn giữ nguyên cơ chế cache-busting khi nội dung tệp thay đổi.
+   - **Không đổi tên thư mục vật lý trên ổ đĩa** của `blocksy` và các plugin bên thứ ba để bảo toàn tuyệt đối khả năng cập nhật qua `wp core check-update` và `wp plugin update`.
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:**
+  - Trình quét tự động `scripts/jn-fingerprint-scan.mjs` đạt **31/31 PASS (0 FAIL)** trên toàn bộ trang công khai và đường dẫn dò tìm mặc định.
+  - Không làm gãy tính năng tự động cập nhật của WordPress Core, Blocksy hay WooCommerce; trình soạn thảo Gutenberg Block Editor, WooCommerce Store API và biểu mẫu Đặt lịch hoạt động 100% bình thường.
+- **Ràng buộc:** Khi triển khai lên môi trường Production sử dụng Nginx thay vì Apache, cần nạp tệp cấu hình đối xứng `docker/nginx/jn-hardening.conf` vào khối `server {}`.
+
+
 
 

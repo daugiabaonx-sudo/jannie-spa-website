@@ -1,0 +1,67 @@
+# BEGIN JN Hardening
+# =============================================================================
+# JN Step 7 — Server-Level Hide-WordPress, Access Controls & Security Headers
+# =============================================================================
+
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_headers.c>
+	# Strip fingerprinting headers at the server boundary
+	Header always unset X-Powered-By
+	Header always unset X-Pingback
+	Header always unset X-Redirect-By
+
+	# Production-ready security headers
+	Header always setifempty Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	Header always setifempty X-Content-Type-Options "nosniff"
+	Header always setifempty X-Frame-Options "SAMEORIGIN"
+	Header always setifempty Referrer-Policy "strict-origin-when-cross-origin"
+	Header always setifempty Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(self), usb=(), interest-cohort=()"
+	Header always setifempty Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+
+	# 1. Deny default WordPress signature files & install/upgrade scripts with 404
+	RewriteRule ^(?:xmlrpc\.php|wp-trackback\.php|readme\.html|license\.txt|wp-config-sample\.php|wp-config\.php|wp-activate\.php|wp-signup\.php|wp-links-opml\.php|wp-mail\.php)$ - [R=404,L,NC]
+	RewriteRule ^wp-admin/(?:install|upgrade|setup-config|install-helper)\.php$ - [R=404,L,NC]
+
+	# 2. Deny legacy /wp-json/, core sitemaps (/wp-sitemap*.xml) and /wp-content/ with 404
+	RewriteRule ^wp-json(?:/.*)?$ - [R=404,L,NC]
+	RewriteRule ^wp-sitemap.*\.(?:xml|xsl)$ - [R=404,L,NC]
+	RewriteRule ^wp-content(?:/.*)?$ - [R=404,L,NC]
+	RewriteRule ^(?:app|media|wp-includes)/?$ - [R=404,L,NC]
+
+	# 3. Never execute PHP inside the media uploads directory
+	RewriteRule ^media/.*\.(?:php[0-9]?|phtml|phar|inc|pl|py|cgi|sh|asp|aspx|jsp|shtml)$ - [R=404,L,NC]
+
+	# 4. Protect dotfiles, logs, SQL dumps and backups from web access
+	RewriteRule (?:^|/)\.(?:env|git|htaccess|htpasswd|DS_Store) - [R=404,L,NC]
+	RewriteRule \.(?:log|sql|gz|bak|swp|ini|sh)$ - [R=404,L,NC]
+
+	# 5. Neutral Asset URL Aliases (Task E) -> Internal server rewrites
+	RewriteRule ^api/ajax$ wp-admin/admin-ajax.php [L,QSA]
+	RewriteRule ^static/core/(.*)$ wp-includes/$1 [L,QSA]
+	RewriteRule ^static/core-admin/(css|js|images)/(.*)$ wp-admin/$1/$2 [L,QSA]
+	RewriteRule ^static/base/(.*)$ app/themes/blocksy/$1 [L,QSA]
+	RewriteRule ^static/ui/(.*)$ app/themes/jannie/$1 [L,QSA]
+	RewriteRule ^static/shop/(.*)$ app/modules/woocommerce/$1 [L,QSA]
+	RewriteRule ^static/academy/(.*)$ app/modules/jn-core/$1 [L,QSA]
+	RewriteRule ^static/ext/(.*)$ app/modules/$1 [L,QSA]
+</IfModule>
+# END JN Hardening
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

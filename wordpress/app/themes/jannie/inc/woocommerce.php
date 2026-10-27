@@ -20,9 +20,9 @@ function jannie_enqueue_woocommerce_assets() {
 	}
 
 	wp_enqueue_style(
-		'jannie-woocommerce',
+		'jn-woocommerce',
 		JANNIE_URI . '/assets/css/woocommerce.css',
-		array( 'jannie-block-styles' ),
+		array( 'jn-block-styles' ),
 		JANNIE_VERSION
 	);
 }
@@ -179,7 +179,7 @@ function jannie_print_register_deeplink_script() {
 		return;
 	}
 	?>
-	<script id="jannie-register-deeplink">
+	<script id="jn-register-deeplink">
 	(function () {
 		function activateRegisterTarget() {
 			if (window.location.hash !== '#register') {

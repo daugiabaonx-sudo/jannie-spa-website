@@ -65,3 +65,36 @@ function jannie_get_placeholder_media( $key, $default = '' ) {
 		'height' => 1000,
 	);
 }
+
+/**
+ * Render the `jannie/error-404` pattern through `do_blocks()`.
+ *
+ * @return string
+ */
+function jannie_render_404_pattern_markup() {
+	$pattern_file = JANNIE_PATH . '/patterns/error-404.php';
+	if ( ! file_exists( $pattern_file ) ) {
+		return '';
+	}
+
+	ob_start();
+	include $pattern_file;
+	$raw_blocks = (string) ob_get_clean();
+
+	return do_blocks( $raw_blocks );
+}
+add_filter( 'blocksy:404:custom-output', 'jannie_render_404_pattern_markup', 20 );
+
+/**
+ * Localize the 404 document title to Vietnamese so no English "Page not found" string appears.
+ *
+ * @param array<string, string> $parts Document title parts.
+ * @return array<string, string>
+ */
+function jannie_filter_404_document_title( $parts ) {
+	if ( is_404() ) {
+		$parts['title'] = 'Không tìm thấy trang';
+	}
+	return $parts;
+}
+add_filter( 'document_title_parts', 'jannie_filter_404_document_title', 20 );

@@ -284,7 +284,7 @@ add_filter( 'blocksy:footer:copyright:value', 'jannie_filter_footer_copyright', 
  */
 function jannie_print_offcanvas_a11y_script() {
 	?>
-	<script id="jannie-offcanvas-a11y">
+	<script id="jn-offcanvas-a11y">
 	(function () {
 		var offcanvas = document.getElementById('offcanvas');
 		if (!offcanvas) {

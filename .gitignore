@@ -50,7 +50,11 @@ docs/*
 #    plugins/themes, media uploads, and caches are strictly ignored.
 !wordpress/
 wordpress/*
+!wordpress/.htaccess
 !wordpress/wp-config.php
+!wordpress/media/
+wordpress/media/*
+!wordpress/media/.htaccess
 !wordpress/app/
 wordpress/app/*
 
@@ -66,10 +70,12 @@ wordpress/app/modules/*
 !wordpress/app/modules/jn-core/
 !wordpress/app/modules/jn-core/**
 
-# 7c. Must-Use plugins: jn-hardening.php & jn-performance.php
+# 7c. Must-Use plugins: jn-hardening.php (+ jn-hardening/ modules) & jn-performance.php
 !wordpress/app/mu-plugins/
 wordpress/app/mu-plugins/*
 !wordpress/app/mu-plugins/jn-hardening.php
+!wordpress/app/mu-plugins/jn-hardening/
+!wordpress/app/mu-plugins/jn-hardening/**
 !wordpress/app/mu-plugins/jn-performance.php
 
 # 8. Always ignore OS, editor, dependency, secret, cache, and backup artifacts

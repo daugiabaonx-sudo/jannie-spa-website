@@ -29,23 +29,23 @@ require_once JANNIE_PATH . '/inc/woocommerce.php';
  */
 function jannie_enqueue_front_assets() {
 	wp_enqueue_style(
-		'jannie-tokens',
+		'jn-tokens',
 		JANNIE_URI . '/assets/css/tokens.css',
 		array( 'ct-main-styles' ),
 		JANNIE_VERSION
 	);
 
 	wp_enqueue_style(
-		'jannie-base',
+		'jn-base',
 		JANNIE_URI . '/assets/css/base.css',
-		array( 'jannie-tokens' ),
+		array( 'jn-tokens' ),
 		JANNIE_VERSION
 	);
 
 	wp_enqueue_style(
-		'jannie-block-styles',
+		'jn-block-styles',
 		JANNIE_URI . '/assets/css/block-styles.css',
-		array( 'jannie-base' ),
+		array( 'jn-base' ),
 		JANNIE_VERSION
 	);
 }

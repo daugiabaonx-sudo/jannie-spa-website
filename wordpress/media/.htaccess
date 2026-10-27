@@ -1,0 +1,25 @@
+# =============================================================================
+# JN Step 7 — Media Uploads Hardening (/media/)
+# Prevents directory listing and blocks execution of any script files in uploads.
+# =============================================================================
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+	Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule \.(?:php[0-9]?|phtml|phar|inc|pl|py|cgi|sh|asp|aspx|jsp|shtml)$ - [R=404,L,NC]
+</IfModule>
+
+<FilesMatch "\.(?:php[0-9]?|phtml|phar|inc|pl|py|cgi|sh|asp|aspx|jsp|shtml)$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order allow,deny
+		Deny from all
+	</IfModule>
+</FilesMatch>
