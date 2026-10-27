@@ -1,0 +1,770 @@
+/**
+ * Jannie Design System — Self-Hosted Fonts, Base Typography, Layout, Header & Footer.
+ */
+
+/* 1. Self-Hosted Vietnamese Variable Fonts & Metric-Matched Fallbacks */
+@font-face {
+	font-family: 'Playfair Display';
+	font-style: normal;
+	font-weight: 400 900;
+	font-display: swap;
+	src: url('../fonts/playfair-display-vi-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Playfair Display';
+	font-style: italic;
+	font-weight: 400 900;
+	font-display: swap;
+	src: url('../fonts/playfair-display-vi-italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Playfair Display Fallback';
+	font-style: normal;
+	font-weight: 400 900;
+	src: local('Georgia'), local('Times New Roman');
+	size-adjust: 109.5%;
+	ascent-override: 98.8%;
+	descent-override: 22.9%;
+	line-gap-override: 0%;
+}
+
+@font-face {
+	font-family: 'Geist';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/geist-vi-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Geist Fallback';
+	font-style: normal;
+	font-weight: 100 900;
+	src: local('Arial'), local('Helvetica Neue');
+	size-adjust: 102.2%;
+	ascent-override: 98.3%;
+	descent-override: 28.9%;
+	line-gap-override: 0%;
+}
+
+/* 2. Document & Base Typography */
+html {
+	scroll-padding-top: var(--jn-header-height, 100px);
+	scroll-behavior: smooth;
+}
+
+body,
+.editor-styles-wrapper {
+	background-color: var(--jn-surface);
+	color: var(--jn-on-surface);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-md);
+	line-height: var(--jn-lh-body-md);
+	letter-spacing: var(--jn-ls-body-md);
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+	font-family: var(--jn-font-heading);
+	color: var(--jn-ink);
+	font-weight: 400;
+	margin-top: 0;
+}
+
+h1,
+.editor-styles-wrapper h1 {
+	font-size: var(--jn-text-display-lg);
+	line-height: var(--jn-lh-display-lg);
+	letter-spacing: var(--jn-ls-display-lg);
+}
+
+h2,
+.editor-styles-wrapper h2 {
+	font-size: var(--jn-text-headline-lg);
+	line-height: var(--jn-lh-headline-lg);
+	letter-spacing: var(--jn-ls-headline-lg);
+}
+
+h3,
+.editor-styles-wrapper h3 {
+	font-size: var(--jn-text-headline-md);
+	line-height: var(--jn-lh-headline-md);
+	letter-spacing: var(--jn-ls-headline-md);
+	font-weight: 500;
+}
+
+h4,
+.editor-styles-wrapper h4 {
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	letter-spacing: var(--jn-ls-headline-sm);
+	font-weight: 500;
+}
+
+h5,
+.editor-styles-wrapper h5 {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-title-md);
+	line-height: var(--jn-lh-title-md);
+	letter-spacing: var(--jn-ls-title-md);
+	font-weight: 600;
+}
+
+h6,
+.editor-styles-wrapper h6 {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-title-sm);
+	line-height: var(--jn-lh-title-sm);
+	letter-spacing: var(--jn-ls-title-sm);
+	font-weight: 600;
+}
+
+/* 3. Accessibility Focus Ring (Visible 2px Focus Ring) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+.wp-block-button__link:focus-visible {
+	outline: 2px solid var(--jn-champagne-text-sm) !important;
+	outline-offset: 2px !important;
+}
+
+/* 4. Layout Container & Section Rhythm (1360px bounding box, 56/32/20px padding) */
+.jn-container,
+.ct-container {
+	width: 100% !important;
+	max-width: var(--jn-container-max) !important;
+	padding-inline: var(--jn-container-pad) !important;
+	margin-inline: auto !important;
+	box-sizing: border-box !important;
+}
+
+.jn-section,
+.wp-block-group.alignfull > .wp-block-group__inner-container {
+	padding-block: var(--jn-section-rhythm);
+}
+
+/* Landing-page full-width unboxed resets */
+.site-main .entry-content > .alignfull,
+.site-main .entry-content > .wp-block-group {
+	margin-inline: auto;
+}
+
+/* 5. Global Header (Blocksy Header Builder — 100px Sticky Glassmorphism) */
+#header.ct-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background-color: var(--jn-header-bg) !important;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	box-shadow: var(--jn-shadow-header);
+	border-bottom: none;
+}
+
+#header [data-row*="middle"] {
+	min-height: var(--jn-header-height) !important;
+	height: var(--jn-header-height);
+	background-color: transparent !important;
+	display: flex;
+	align-items: center;
+}
+
+#header [data-row*="middle"] > .ct-container {
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--jn-gutter);
+	height: var(--jn-header-height);
+}
+
+#header [data-column="start"],
+#header [data-column="middle"],
+#header [data-column="end"] {
+	display: flex;
+	align-items: center;
+}
+
+#header [data-column="middle"] {
+	flex: 1 1 auto;
+	justify-content: center;
+}
+
+/* Brand Identity: JN Monogram + JANNIE NGUYEN + BEAUTY BLOG */
+#header .site-branding {
+	display: inline-flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: var(--jn-space-md) !important;
+	flex-shrink: 0;
+}
+
+#header .site-logo-container {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: var(--jn-radius-pill);
+	box-shadow: var(--jn-shadow-monogram);
+	flex-shrink: 0;
+	text-decoration: none;
+}
+
+#header .site-logo-container .jn-monogram-svg {
+	width: 44px;
+	height: 44px;
+	display: block;
+}
+
+#header .site-title-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	line-height: 1;
+}
+
+#header .site-title {
+	font-family: var(--jn-font-heading) !important;
+	font-size: var(--jn-text-title-md) !important;
+	line-height: 1 !important;
+	letter-spacing: 0.05em !important;
+	font-weight: 400 !important;
+	text-transform: uppercase !important;
+	color: var(--jn-ink) !important;
+	margin: 0 !important;
+}
+
+#header .site-title a {
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+#header .site-description {
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-sm) !important;
+	line-height: var(--jn-lh-label-sm) !important;
+	letter-spacing: 0.2em !important;
+	font-weight: 600 !important;
+	text-transform: uppercase !important;
+	color: var(--jn-muted-stone) !important;
+	margin: var(--jn-space-xs) 0 0 0 !important;
+}
+
+/* Primary Navigation (7 Wireframe Items) */
+#header .header-menu-1 .menu {
+	display: flex;
+	align-items: center;
+	gap: var(--jn-space-lg);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#header .header-menu-1 .menu > li {
+	margin: 0;
+	padding: 0;
+}
+
+#header .header-menu-1 .menu > li > a.ct-menu-link {
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-md) !important;
+	line-height: var(--jn-lh-label-md) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.05em !important;
+	text-transform: uppercase !important;
+	color: var(--jn-on-surface-variant) !important;
+	padding: 0 0 4px 0 !important;
+	border-bottom: 2px solid transparent;
+	text-decoration: none !important;
+	transition: color var(--jn-transition), border-color var(--jn-transition);
+	white-space: nowrap;
+}
+
+#header .header-menu-1 .menu > li > a.ct-menu-link::before,
+#header .header-menu-1 .menu > li > a.ct-menu-link::after {
+	display: none !important;
+}
+
+#header .header-menu-1 .menu > li > a.ct-menu-link:hover {
+	color: var(--jn-ink) !important;
+}
+
+#header .header-menu-1 .menu > li.current-menu-item > a.ct-menu-link,
+#header .header-menu-1 .menu > li.current_page_item > a.ct-menu-link,
+#header .header-menu-1 .menu > li > a.ct-menu-link[aria-current="page"] {
+	color: var(--jn-ink) !important;
+	font-weight: 600 !important;
+	border-bottom: 2px solid var(--jn-champagne) !important;
+	padding-bottom: 4px !important;
+}
+
+/* Right Actions: Đăng nhập | Đăng ký + Account Icon Button */
+#header .ct-header-text {
+	margin: 0 !important;
+}
+
+.jn-header-actions {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--jn-space-md);
+	flex-shrink: 0;
+}
+
+.jn-header-auth {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--jn-space-sm);
+}
+
+.jn-header-login {
+	padding: var(--jn-space-sm) var(--jn-space-md);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
+	font-weight: 500;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--jn-ink) !important;
+	text-decoration: none !important;
+	transition: color var(--jn-transition);
+	white-space: nowrap;
+}
+
+.jn-header-login:hover {
+	color: var(--jn-champagne-text-sm) !important;
+}
+
+.jn-header-divider {
+	width: 1px;
+	height: 20px;
+	background-color: var(--jn-border);
+	margin-inline: var(--jn-space-xs);
+	display: inline-block;
+}
+
+.jn-header-register {
+	padding: var(--jn-space-sm) var(--jn-space-lg);
+	border-radius: var(--jn-radius-pill);
+	background-color: var(--jn-surface-beige);
+	border: 1px solid var(--jn-border);
+	color: var(--jn-ink) !important;
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
+	font-weight: 500;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	box-shadow: var(--jn-shadow-pill);
+	text-decoration: none !important;
+	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition);
+	white-space: nowrap;
+}
+
+.jn-header-register:hover {
+	background-color: var(--jn-champagne);
+	border-color: var(--jn-champagne);
+	color: var(--jn-surface-cream) !important;
+}
+
+.jn-header-account-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: var(--jn-radius-pill);
+	background-color: var(--jn-primary-deep);
+	color: var(--jn-surface-pure) !important;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	margin-left: var(--jn-space-xs);
+	text-decoration: none !important;
+	transition: background-color var(--jn-transition), transform var(--jn-transition);
+}
+
+.jn-header-account-btn:hover {
+	background-color: var(--jn-secondary);
+}
+
+/* Header Trigger & Off-Canvas Breakpoint (< 1280px) */
+#header .ct-header-trigger {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--jn-radius-pill);
+	border: 1px solid var(--jn-border);
+	background-color: var(--jn-surface-beige);
+	color: var(--jn-ink);
+	align-items: center;
+	justify-content: center;
+	margin-left: var(--jn-space-sm);
+	padding: 0;
+	cursor: pointer;
+	transition: background-color var(--jn-transition), border-color var(--jn-transition);
+}
+
+#header .ct-header-trigger:hover {
+	background-color: var(--jn-surface-container);
+	border-color: var(--jn-champagne);
+}
+
+@media (min-width: 1280px) {
+	#header .ct-header-trigger {
+		display: none !important;
+	}
+}
+
+@media (max-width: 1279.98px) {
+	#header [data-column="middle"] {
+		display: none !important;
+	}
+
+	#header .ct-header-trigger {
+		display: inline-flex !important;
+	}
+}
+
+@media (max-width: 639.98px) {
+	.jn-header-auth {
+		display: none !important;
+	}
+
+	#header .site-title {
+		font-size: 1rem !important;
+	}
+}
+
+/* Off-Canvas Menu Drawer (< 1280px) */
+#offcanvas.ct-panel {
+	background-color: rgba(31, 30, 29, 0.35);
+	backdrop-filter: blur(4px);
+}
+
+#offcanvas .ct-panel-inner {
+	background-color: var(--jn-surface-cream) !important;
+	border-left: 1px solid var(--jn-border);
+	max-width: 360px;
+	width: 88vw;
+}
+
+#offcanvas .ct-panel-actions {
+	padding: var(--jn-space-lg) var(--jn-space-lg) var(--jn-space-sm);
+}
+
+#offcanvas .ct-toggle-close {
+	width: 36px;
+	height: 36px;
+	border-radius: var(--jn-radius-pill);
+	border: 1px solid var(--jn-border);
+	background-color: var(--jn-surface-beige);
+	color: var(--jn-ink);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#offcanvas .ct-toggle-close svg {
+	fill: var(--jn-ink) !important;
+	color: var(--jn-ink) !important;
+}
+
+#offcanvas .ct-panel-content-inner {
+	padding: var(--jn-space-md) var(--jn-space-lg) var(--jn-space-xl);
+	display: flex;
+	flex-direction: column;
+	gap: var(--jn-space-lg);
+}
+
+#offcanvas .mobile-menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--jn-space-xs);
+}
+
+#offcanvas .mobile-menu a.ct-menu-link {
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-title-sm) !important;
+	line-height: var(--jn-lh-title-sm) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.04em !important;
+	text-transform: uppercase !important;
+	color: var(--jn-ink) !important;
+	padding: var(--jn-space-sm) 0 !important;
+	border-bottom: 1px solid var(--jn-border);
+	display: block;
+	text-decoration: none !important;
+}
+
+#offcanvas .mobile-menu li.current-menu-item > a.ct-menu-link,
+#offcanvas .mobile-menu a.ct-menu-link[aria-current="page"] {
+	color: var(--jn-champagne-text-sm) !important;
+	font-weight: 600 !important;
+	border-bottom: 2px solid var(--jn-champagne) !important;
+}
+
+#offcanvas .ct-header-cta .ct-button {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 48px;
+	padding-inline: var(--jn-space-xl);
+	border-radius: var(--jn-radius-pill) !important;
+	background-color: var(--jn-ink) !important;
+	color: var(--jn-surface-cream) !important;
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-md) !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.08em !important;
+	text-transform: uppercase !important;
+	text-decoration: none !important;
+	box-shadow: var(--jn-shadow-btn-primary);
+	transition: background-color var(--jn-transition), color var(--jn-transition);
+}
+
+#offcanvas .ct-header-cta .ct-button:hover {
+	background-color: var(--jn-secondary) !important;
+	color: var(--jn-surface-pure) !important;
+}
+
+/* 6. Global Footer (Blocksy Footer Builder — 6/3/3 Columns + Bottom Bar) */
+#footer.ct-footer {
+	background-color: var(--jn-surface-beige) !important;
+	color: var(--jn-on-surface) !important;
+	padding-block: var(--jn-section-rhythm) !important;
+	margin-top: var(--jn-section-rhythm);
+	border-top: none;
+}
+
+#footer [data-row*="middle"] {
+	background-color: transparent !important;
+	padding-block: 0 !important;
+}
+
+#footer [data-row*="middle"] > .ct-container {
+	display: grid !important;
+	grid-template-columns: 2fr 1fr 1fr !important;
+	gap: var(--jn-space-xl) !important;
+	padding-bottom: var(--jn-space-2xl) !important;
+	border-bottom: none !important;
+}
+
+@media (max-width: 767.98px) {
+	#footer [data-row*="middle"] > .ct-container {
+		grid-template-columns: 1fr !important;
+		gap: var(--jn-space-lg) !important;
+		padding-bottom: var(--jn-space-xl) !important;
+	}
+}
+
+#footer .ct-widget {
+	margin: 0 !important;
+}
+
+.jn-footer-brand {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.jn-footer-brand-link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--jn-space-md);
+	margin-bottom: var(--jn-space-md);
+	text-decoration: none !important;
+}
+
+.jn-footer-monogram-wrap {
+	width: 36px;
+	height: 36px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.jn-footer-wordmark {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-title-md);
+	line-height: 1;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--jn-ink);
+}
+
+.jn-footer-mission {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-md);
+	line-height: 1.625;
+	font-style: italic;
+	color: var(--jn-muted-stone);
+	max-width: 28rem;
+	margin: 0;
+}
+
+.jn-footer-col {
+	display: flex;
+	flex-direction: column;
+	gap: var(--jn-space-sm);
+}
+
+.jn-footer-heading {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--jn-ink);
+	margin-bottom: var(--jn-space-xs);
+	display: block;
+}
+
+.jn-footer-menu-list,
+.jn-footer-contact-list {
+	list-style: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	display: flex;
+	flex-direction: column;
+	gap: var(--jn-space-xs);
+}
+
+.jn-footer-menu-list li,
+.jn-footer-contact-list li {
+	margin: 0;
+	padding: 0;
+}
+
+.jn-footer-menu-list a {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-sm);
+	line-height: var(--jn-lh-body-sm);
+	color: var(--jn-muted-stone) !important;
+	text-decoration: none !important;
+	transition: color var(--jn-transition);
+}
+
+.jn-footer-menu-list a:hover {
+	color: var(--jn-ink) !important;
+}
+
+.jn-footer-contact-item {
+	display: flex;
+	align-items: center;
+	gap: var(--jn-space-xs);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-sm);
+	line-height: var(--jn-lh-body-sm);
+	color: var(--jn-muted-stone);
+}
+
+.jn-footer-contact-item a {
+	color: var(--jn-muted-stone) !important;
+	text-decoration: none !important;
+	transition: color var(--jn-transition);
+}
+
+.jn-footer-contact-item a:hover {
+	color: var(--jn-ink) !important;
+}
+
+/* Footer Bottom Row (Copyright + Legal Links) */
+#footer [data-row*="bottom"] {
+	background-color: transparent !important;
+	padding-block: 0 !important;
+	border-top: none !important;
+}
+
+#footer [data-row*="bottom"] > .ct-container {
+	display: flex !important;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--jn-space-md);
+	padding-top: var(--jn-space-lg) !important;
+	border-top: 1px solid var(--jn-border);
+}
+
+#footer [data-row*="bottom"] > .ct-container > [data-column] {
+	border: none !important;
+	padding: 0 !important;
+}
+
+#footer [data-row*="bottom"] [data-column="menu"] {
+	display: flex;
+	justify-content: flex-end;
+}
+
+@media (max-width: 767.98px) {
+	#footer [data-row*="bottom"] > .ct-container {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	#footer [data-row*="bottom"] [data-column="menu"] {
+		justify-content: center;
+	}
+}
+
+#footer .ct-footer-copyright {
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-body-sm) !important;
+	line-height: var(--jn-lh-body-sm) !important;
+	color: var(--jn-muted-stone) !important;
+	margin: 0 !important;
+}
+
+#footer .ct-footer-copyright p {
+	margin: 0 !important;
+}
+
+#footer #footer-menu .menu,
+#footer .footer-menu-inline .menu,
+#footer [data-id="menu"] .menu {
+	display: flex;
+	align-items: center;
+	gap: var(--jn-space-lg);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#footer #footer-menu .menu a,
+#footer .footer-menu-inline .menu a,
+#footer [data-id="menu"] .menu a {
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-sm) !important;
+	line-height: var(--jn-lh-label-sm) !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.08em !important;
+	text-transform: uppercase !important;
+	color: var(--jn-muted-stone) !important;
+	text-decoration: none !important;
+	transition: color var(--jn-transition);
+}
+
+#footer #footer-menu .menu a:hover,
+#footer .footer-menu-inline .menu a:hover,
+#footer [data-id="menu"] .menu a:hover {
+	color: var(--jn-ink) !important;
+}

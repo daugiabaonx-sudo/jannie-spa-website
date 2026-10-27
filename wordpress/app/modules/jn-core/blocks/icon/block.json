@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/icon",
+	"version": "1.0.0",
+	"title": "JN Icon",
+	"category": "design",
+	"icon": "star-filled",
+	"description": "Server-rendered inline SVG icon from the Jannie Nguyen 19+1 icon sprite.",
+	"keywords": [ "icon", "svg", "jannie", "sparkline" ],
+	"textdomain": "jn-core",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": "check_circle"
+		},
+		"size": {
+			"type": "number",
+			"default": 20
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"text": true,
+			"background": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "jn-block-icon-editor",
+	"render": "file:./render.php"
+}

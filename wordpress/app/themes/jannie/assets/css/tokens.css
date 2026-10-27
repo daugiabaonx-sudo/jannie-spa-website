@@ -1,0 +1,259 @@
+/**
+ * Jannie Design System — Custom Properties & Preset Tokens.
+ *
+ * Source of truth: DESIGN.md, code.html, and wireframe-spec.md (§4 WCAG AA).
+ * Later pattern markup must use presets/variables, never raw hex.
+ */
+
+:root,
+.editor-styles-wrapper {
+	/* 1. Brand & Surface Color Tokens */
+	--jn-ink: var(--theme-palette-color-1, #1F1E1D);
+	--jn-ink-charcoal: var(--theme-palette-color-1, #1F1E1D);
+	--jn-secondary: var(--theme-palette-color-2, #735944);
+	--jn-on-surface: var(--theme-palette-color-3, #1B1C1A);
+	--jn-primary-deep: var(--theme-palette-color-4, #050504);
+	--jn-border: var(--theme-palette-color-5, #E5DFD7);
+	--jn-wireframe-border: var(--theme-palette-color-5, #E5DFD7);
+	--jn-surface-beige: var(--theme-palette-color-6, #F3EFEA);
+	--jn-surface-cream: var(--theme-palette-color-7, #FAF8F5);
+	--jn-surface-pure: var(--theme-palette-color-8, #FFFFFF);
+
+	--jn-surface: #FBF9F6;
+	--jn-surface-container-low: #F5F3F0;
+	--jn-surface-container: #EFEEEB;
+	--jn-surface-container-high: #EAE8E5;
+	--jn-surface-container-highest: #E4E2DF;
+	--jn-surface-dim: #DBDAD7;
+
+	/* Champagne Accent & §4 WCAG AA Text Variants */
+	--jn-champagne: #AC8E76;
+	--jn-champagne-accent: #AC8E76;
+	--jn-champagne-text-sm: #7E6754; /* >= 4.78:1 on #FAF8F5 / #F3EFEA / #FFFFFF */
+	--jn-champagne-text-lg: #A0846E; /* >= 3.16:1 on light surfaces for >= 24px */
+	--jn-muted-stone: #716A61;       /* >= 4.58:1 on #F3EFEA, 5.02:1 on #FAF8F5 */
+	--jn-on-surface-variant: #4A4640;
+	--jn-wireframe-guide: #D1C7BD;
+	--jn-outline: #7B766F;
+	--jn-outline-variant: #CCC6BD;
+
+	/* Semantic Feedback Tokens */
+	--jn-error: #BA1A1A;
+	--jn-error-container: #FFDAD6;
+	--jn-on-error-container: #93000A;
+
+	/* Translucent / Glass Surface Tokens */
+	--jn-header-bg: rgba(250, 248, 245, 0.90);
+	--jn-glass-dark-bg: rgba(31, 30, 29, 0.80);
+	--jn-glass-badge-bg: rgba(31, 30, 29, 0.60);
+	--jn-card-footer-bg: rgba(250, 248, 245, 0.50);
+	--jn-dark-divider: rgba(250, 248, 245, 0.12);
+	--jn-dark-badge-bg: rgba(250, 248, 245, 0.10);
+
+	/* WordPress Preset Color Variable Aliases */
+	--wp--preset--color--palette-color-1: var(--jn-ink);
+	--wp--preset--color--palette-color-2: var(--jn-secondary);
+	--wp--preset--color--palette-color-3: var(--jn-on-surface);
+	--wp--preset--color--palette-color-4: var(--jn-primary-deep);
+	--wp--preset--color--palette-color-5: var(--jn-border);
+	--wp--preset--color--palette-color-6: var(--jn-surface-beige);
+	--wp--preset--color--palette-color-7: var(--jn-surface-cream);
+	--wp--preset--color--palette-color-8: var(--jn-surface-pure);
+	--wp--preset--color--surface: var(--jn-surface);
+	--wp--preset--color--champagne-accent: var(--jn-champagne);
+	--wp--preset--color--champagne-text-sm: var(--jn-champagne-text-sm);
+	--wp--preset--color--champagne-text-lg: var(--jn-champagne-text-lg);
+	--wp--preset--color--muted-stone: var(--jn-muted-stone);
+	--wp--preset--color--on-surface-variant: var(--jn-on-surface-variant);
+	--wp--preset--color--wireframe-guide: var(--jn-wireframe-guide);
+	--wp--preset--color--error: var(--jn-error);
+	--wp--preset--color--on-error-container: var(--jn-on-error-container);
+
+	/* 2. Typography Families */
+	--jn-font-heading: 'Playfair Display', 'Playfair Display Fallback', Georgia, 'Times New Roman', serif;
+	--jn-font-body: 'Geist', 'Geist Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+	/* 3. Fluid Typography Scale (375px <-> 1440px via clamp()) */
+	--jn-text-display-lg: clamp(2.375rem, 1.727rem + 2.76vw, 3.5rem);
+	--jn-lh-display-lg: clamp(2.75rem, 2.03rem + 3.07vw, 4rem);
+	--jn-ls-display-lg: -0.02em;
+
+	--jn-text-headline-lg: clamp(1.75rem, 1.318rem + 1.84vw, 2.5rem);
+	--jn-lh-headline-lg: clamp(2.25rem, 1.818rem + 1.84vw, 3rem);
+	--jn-ls-headline-lg: -0.015em;
+
+	--jn-text-headline-md: clamp(1.5rem, 1.284rem + 0.92vw, 1.875rem);
+	--jn-lh-headline-md: clamp(1.95rem, 1.705rem + 1.04vw, 2.375rem);
+	--jn-ls-headline-md: -0.01em;
+
+	--jn-text-headline-sm: clamp(1.25rem, 1.178rem + 0.31vw, 1.375rem);
+	--jn-lh-headline-sm: clamp(1.625rem, 1.553rem + 0.31vw, 1.75rem);
+	--jn-ls-headline-sm: 0em;
+
+	--jn-text-title-md: 1.125rem;
+	--jn-lh-title-md: 1.625rem;
+	--jn-ls-title-md: -0.01em;
+
+	--jn-text-title-sm: 0.9375rem;
+	--jn-lh-title-sm: 1.375rem;
+	--jn-ls-title-sm: 0.01em;
+
+	--jn-text-body-lg: 1rem;
+	--jn-lh-body-lg: 1.625rem;
+	--jn-ls-body-lg: 0em;
+
+	--jn-text-body-md: 0.875rem;
+	--jn-lh-body-md: 1.375rem;
+	--jn-ls-body-md: 0em;
+
+	--jn-text-body-sm: 0.8125rem;
+	--jn-lh-body-sm: 1.25rem;
+	--jn-ls-body-sm: 0.005em;
+
+	--jn-text-label-md: 0.75rem;
+	--jn-lh-label-md: 1rem;
+	--jn-ls-label-md: 0.06em;
+
+	--jn-text-label-sm: 0.625rem;
+	--jn-lh-label-sm: 0.875rem;
+	--jn-ls-label-sm: 0.1em;
+
+	/* 4. Spacing, Container & Rhythm Scale */
+	--jn-space-xs: 0.25rem;   /* 4px */
+	--jn-space-sm: 0.5rem;    /* 8px */
+	--jn-space-md: 1rem;      /* 16px */
+	--jn-space-lg: 1.5rem;    /* 24px */
+	--jn-space-xl: 2.5rem;    /* 40px */
+	--jn-space-2xl: 4rem;     /* 64px */
+	--jn-space-3xl: 6rem;     /* 96px */
+	--jn-gutter: 1.5rem;      /* 24px */
+	--jn-gutter-mobile: 1rem; /* 16px */
+
+	--jn-container-max: 1360px;
+	--jn-container-pad: 56px;
+	--jn-section-rhythm: 96px;
+	--jn-header-height: 100px;
+
+	/* 5. Border Radius Scale */
+	--jn-radius-sm: 0.25rem;  /* 4px */
+	--jn-radius-md: 0.5rem;   /* 8px */
+	--jn-radius-lg: 0.75rem;  /* 12px */
+	--jn-radius-pill: 9999px; /* full */
+
+	/* 6. Shadows & Elevations (from code.html) */
+	--jn-shadow-header: 0 1px 8px rgba(0, 0, 0, 0.03);
+	--jn-shadow-pill: 0 2px 8px -2px rgba(31, 30, 29, 0.04);
+	--jn-shadow-monogram: 0 2px 8px -2px rgba(31, 30, 29, 0.05);
+	--jn-shadow-card-sm: 0 2px 12px -2px rgba(31, 30, 29, 0.03);
+	--jn-shadow-card: 0 2px 12px -2px rgba(31, 30, 29, 0.04);
+	--jn-shadow-btn-primary: 0 4px 16px rgba(31, 30, 29, 0.10);
+	--jn-shadow-featured: 0 20px 25px -5px rgba(31, 30, 29, 0.14), 0 8px 10px -6px rgba(31, 30, 29, 0.10);
+	--jn-shadow-ambient: 0 20px 40px -15px rgba(27, 28, 26, 0.05);
+
+	/* 7. Transitions & Motion */
+	--jn-duration: 200ms;
+	--jn-ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--jn-transition: var(--jn-duration) var(--jn-ease);
+}
+
+@media (max-width: 1199.98px) {
+	:root,
+	.editor-styles-wrapper {
+		--jn-container-pad: 32px;
+	}
+}
+
+@media (max-width: 767.98px) {
+	:root,
+	.editor-styles-wrapper {
+		--jn-container-pad: 20px;
+		--jn-section-rhythm: 64px;
+		--jn-gutter: 1rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root,
+	.editor-styles-wrapper {
+		--jn-duration: 0ms;
+		--jn-transition: 0ms linear;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* WordPress Editor & Front-end Color Utility Classes (17 Deduplicated Tokens) */
+.has-palette-color-1-color { color: var(--jn-ink) !important; }
+.has-palette-color-1-background-color { background-color: var(--jn-ink) !important; }
+.has-palette-color-1-border-color { border-color: var(--jn-ink) !important; }
+
+.has-palette-color-2-color { color: var(--jn-secondary) !important; }
+.has-palette-color-2-background-color { background-color: var(--jn-secondary) !important; }
+.has-palette-color-2-border-color { border-color: var(--jn-secondary) !important; }
+
+.has-palette-color-3-color { color: var(--jn-on-surface) !important; }
+.has-palette-color-3-background-color { background-color: var(--jn-on-surface) !important; }
+.has-palette-color-3-border-color { border-color: var(--jn-on-surface) !important; }
+
+.has-palette-color-4-color { color: var(--jn-primary-deep) !important; }
+.has-palette-color-4-background-color { background-color: var(--jn-primary-deep) !important; }
+.has-palette-color-4-border-color { border-color: var(--jn-primary-deep) !important; }
+
+.has-palette-color-5-color { color: var(--jn-border) !important; }
+.has-palette-color-5-background-color { background-color: var(--jn-border) !important; }
+.has-palette-color-5-border-color { border-color: var(--jn-border) !important; }
+
+.has-palette-color-6-color { color: var(--jn-surface-beige) !important; }
+.has-palette-color-6-background-color { background-color: var(--jn-surface-beige) !important; }
+.has-palette-color-6-border-color { border-color: var(--jn-surface-beige) !important; }
+
+.has-palette-color-7-color { color: var(--jn-surface-cream) !important; }
+.has-palette-color-7-background-color { background-color: var(--jn-surface-cream) !important; }
+.has-palette-color-7-border-color { border-color: var(--jn-surface-cream) !important; }
+
+.has-palette-color-8-color { color: var(--jn-surface-pure) !important; }
+.has-palette-color-8-background-color { background-color: var(--jn-surface-pure) !important; }
+.has-palette-color-8-border-color { border-color: var(--jn-surface-pure) !important; }
+
+.has-surface-color { color: var(--jn-surface) !important; }
+.has-surface-background-color { background-color: var(--jn-surface) !important; }
+.has-surface-border-color { border-color: var(--jn-surface) !important; }
+
+.has-champagne-accent-color { color: var(--jn-champagne) !important; }
+.has-champagne-accent-background-color { background-color: var(--jn-champagne) !important; }
+.has-champagne-accent-border-color { border-color: var(--jn-champagne) !important; }
+
+.has-champagne-text-sm-color { color: var(--jn-champagne-text-sm) !important; }
+.has-champagne-text-sm-background-color { background-color: var(--jn-champagne-text-sm) !important; }
+.has-champagne-text-sm-border-color { border-color: var(--jn-champagne-text-sm) !important; }
+
+.has-champagne-text-lg-color { color: var(--jn-champagne-text-lg) !important; }
+.has-champagne-text-lg-background-color { background-color: var(--jn-champagne-text-lg) !important; }
+.has-champagne-text-lg-border-color { border-color: var(--jn-champagne-text-lg) !important; }
+
+.has-muted-stone-color { color: var(--jn-muted-stone) !important; }
+.has-muted-stone-background-color { background-color: var(--jn-muted-stone) !important; }
+.has-muted-stone-border-color { border-color: var(--jn-muted-stone) !important; }
+
+.has-on-surface-variant-color { color: var(--jn-on-surface-variant) !important; }
+.has-on-surface-variant-background-color { background-color: var(--jn-on-surface-variant) !important; }
+.has-on-surface-variant-border-color { border-color: var(--jn-on-surface-variant) !important; }
+
+.has-wireframe-guide-color { color: var(--jn-wireframe-guide) !important; }
+.has-wireframe-guide-background-color { background-color: var(--jn-wireframe-guide) !important; }
+.has-wireframe-guide-border-color { border-color: var(--jn-wireframe-guide) !important; }
+
+.has-error-color { color: var(--jn-error) !important; }
+.has-error-background-color { background-color: var(--jn-error) !important; }
+.has-error-border-color { border-color: var(--jn-error) !important; }
+
+.has-on-error-container-color { color: var(--jn-on-error-container) !important; }
+.has-on-error-container-background-color { background-color: var(--jn-on-error-container) !important; }
+.has-on-error-container-border-color { border-color: var(--jn-on-error-container) !important; }

@@ -1,0 +1,135 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": true
+		},
+		"layout": {
+			"contentSize": "var(--theme-block-max-width, 1248px)",
+			"wideSize": "var(--theme-block-wide-max-width, 1360px)",
+			"fullSize": "none"
+		},
+		"spacing": {
+			"blockGap": true,
+			"margin": true,
+			"padding": true,
+			"defaultSpacingSizes": false,
+			"units": [ "px", "em", "rem", "%", "vh", "vw" ],
+			"spacingSizes": [
+				{
+					"name": "Space XS (4px)",
+					"slug": "space-xs",
+					"size": "0.25rem"
+				},
+				{
+					"name": "Space SM (8px)",
+					"slug": "space-sm",
+					"size": "0.5rem"
+				},
+				{
+					"name": "Space MD (16px)",
+					"slug": "space-md",
+					"size": "1rem"
+				},
+				{
+					"name": "Space LG / Gutter (24px)",
+					"slug": "space-lg",
+					"size": "1.5rem"
+				},
+				{
+					"name": "Space XL (40px)",
+					"slug": "space-xl",
+					"size": "2.5rem"
+				},
+				{
+					"name": "Space 2XL (64px)",
+					"slug": "space-2xl",
+					"size": "4rem"
+				},
+				{
+					"name": "Space 3XL (96px)",
+					"slug": "space-3xl",
+					"size": "6rem"
+				}
+			]
+		},
+		"typography": {
+			"fluid": false,
+			"defaultFontSizes": false,
+			"fontFamilies": [
+				{
+					"name": "Playfair Display (Heading Serif)",
+					"slug": "heading",
+					"fontFamily": "var(--jn-font-heading)"
+				},
+				{
+					"name": "Geist (Body & Technical Sans)",
+					"slug": "body",
+					"fontFamily": "var(--jn-font-body)"
+				}
+			],
+			"fontSizes": [
+				{
+					"name": "Label SM (10px)",
+					"slug": "label-sm",
+					"size": "var(--jn-text-label-sm)"
+				},
+				{
+					"name": "Label MD (12px)",
+					"slug": "label-md",
+					"size": "var(--jn-text-label-md)"
+				},
+				{
+					"name": "Body SM (13px)",
+					"slug": "body-sm",
+					"size": "var(--jn-text-body-sm)"
+				},
+				{
+					"name": "Body MD (14px)",
+					"slug": "body-md",
+					"size": "var(--jn-text-body-md)"
+				},
+				{
+					"name": "Title SM (15px)",
+					"slug": "title-sm",
+					"size": "var(--jn-text-title-sm)"
+				},
+				{
+					"name": "Body LG (16px)",
+					"slug": "body-lg",
+					"size": "var(--jn-text-body-lg)"
+				},
+				{
+					"name": "Title MD (18px)",
+					"slug": "title-md",
+					"size": "var(--jn-text-title-md)"
+				},
+				{
+					"name": "Headline SM (20–22px)",
+					"slug": "headline-sm",
+					"size": "var(--jn-text-headline-sm)"
+				},
+				{
+					"name": "Headline MD (24–30px)",
+					"slug": "headline-md",
+					"size": "var(--jn-text-headline-md)"
+				},
+				{
+					"name": "Headline LG (28–40px)",
+					"slug": "headline-lg",
+					"size": "var(--jn-text-headline-lg)"
+				},
+				{
+					"name": "Display LG (38–56px)",
+					"slug": "display-lg",
+					"size": "var(--jn-text-display-lg)"
+				}
+			]
+		}
+	}
+}

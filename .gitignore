@@ -54,11 +54,11 @@ wordpress/*
 !wordpress/app/
 wordpress/app/*
 
-# 7a. Child theme: wordpress/app/themes/blocksy-jn
+# 7a. Child theme: wordpress/app/themes/jannie
 !wordpress/app/themes/
 wordpress/app/themes/*
-!wordpress/app/themes/blocksy-jn/
-!wordpress/app/themes/blocksy-jn/**
+!wordpress/app/themes/jannie/
+!wordpress/app/themes/jannie/**
 
 # 7b. Custom plugin: wordpress/app/modules/jn-core
 !wordpress/app/modules/
