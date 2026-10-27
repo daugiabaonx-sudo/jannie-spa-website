@@ -44,12 +44,13 @@ docs/*
 .agent/rules/*
 !.agent/rules/jn-project.md
 
-# 7. Track ONLY project-owned WordPress code inside ./wordpress/app/
-#    (Child theme blocksy-jn, custom plugin jn-core, and the 2 MU-plugins)
-#    WordPress core files, wp-config.php, third-party plugins/themes, media
-#    uploads, and caches are strictly ignored.
+# 7. Track ONLY project-owned WordPress code inside ./wordpress/
+#    (wp-config.php with no secrets, child theme blocksy-jn, custom plugin
+#    jn-core, and the 2 MU-plugins). WordPress core files, third-party
+#    plugins/themes, media uploads, and caches are strictly ignored.
 !wordpress/
 wordpress/*
+!wordpress/wp-config.php
 !wordpress/app/
 wordpress/app/*
 
@@ -79,6 +80,7 @@ wordpress/app/mu-plugins/*
 **/.env.local
 **/.env.production
 **/backups/
+**/logs/
 **/*.log
 **/__pycache__/
 **/*.pyc

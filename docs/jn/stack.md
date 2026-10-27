@@ -26,7 +26,13 @@ Kết quả kiểm tra trực tiếp môi trường macOS tại thư mục works
 | **Composer** | **CHƯA CÀI ĐẶT** | *Không có trên host* | — | Sẽ chạy qua Docker image `composer:2` hoặc cài trong container dev để chạy PHPUnit & PHPCS/WPCS |
 
 ### Kết luận hạ tầng Step 1
-Do máy trạm host đã có sẵn **Docker (`29.7.2`)**, **Docker Compose (`v5.4.0`)**, **Node.js (`v24.19.0`)** và **Google Chrome (`156.0`)**, nhưng **không cài đặt PHP, MySQL, WP-CLI hay Composer trực tiếp trên macOS**, toàn bộ môi trường chạy WordPress, cơ sở dữ liệu, WP-CLI, PHPUnit và PHPCS + WPCS ở **Step 1** sẽ được đóng gói qua **Docker Compose** gắn kết (bind-mount) trực tiếp thư mục `./wordpress`.
+Do máy trạm host đã có sẵn **Docker (`29.7.2`)**, **Docker Compose (`v5.4.0`)**, **Node.js (`v24.19.0`)** và **Google Chrome (`156.0`)**, nhưng **không cài đặt PHP, MySQL, WP-CLI hay Composer trực tiếp trên macOS**, toàn bộ môi trường chạy WordPress, cơ sở dữ liệu, WP-CLI, Mailpit, PHPUnit và PHPCS + WPCS ở **Step 1** được đóng gói qua **Docker Compose** gắn kết (bind-mount) trực tiếp thư mục `./wordpress`.
+
+- **Alias ngắn gọn để chạy WP-CLI theo yêu cầu (`wpcli` service):**
+  ```zsh
+  alias jnwp='docker compose run --rm wpcli wp'
+  ```
+  *(Hoặc dùng script wrapper `./scripts/wp.sh <lệnh>` tại thư mục gốc workspace).*
 
 ---
 

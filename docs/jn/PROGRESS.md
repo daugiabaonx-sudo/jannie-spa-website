@@ -1,7 +1,7 @@
 # Nhật Ký Tiến Độ & Kế Hoạch Triển Khai (`docs/jn/PROGRESS.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship (WordPress 7.1.3)
-> **Cập nhật lần cuối:** 2026-10-27 (Hoàn tất **JN STEP 0** — Chủ dự án đã chốt `HEADING_FONT = Playfair Display`, sẵn sàng cho Step 1)
+> **Cập nhật lần cuối:** 2026-10-27 (Hoàn tất **JN STEP 1** — Hạ tầng Docker, cài đặt WordPress 7.1.3 tiếng Việt, cấu trúc `/app`, `/modules`, `/media`, `/api`, `phong-lam-viec-7429` & Mailpit; sẵn sàng cho Step 2)
 
 ---
 
@@ -10,8 +10,8 @@
 | Bước | Tên giai đoạn | Trạng thái | Tag Git | Kết quả / Ghi chú chính |
 | :---: | :--- | :---: | :---: | :--- |
 | **Step 0** | **Kiểm toán Wireframe, Đặc tả Kỹ thuật, Quy tắc Dự án & Bảng mẫu Font** | **HOÀN TẤT (Đã duyệt)** | `jn-step-0` | Khởi tạo `.agent/rules/jn-project.md`, `docs/jn/wireframe-spec.md` (khớp 207/207 nút văn bản DOM), `docs/jn/font-specimen.html` + `.png`, `docs/jn/stack.md`, `docs/jn/decisions.md`, `docs/jn/PROGRESS.md`; chốt `HEADING_FONT = Playfair Display`; không chạm vào `./wordpress`. |
-| **Step 1** | **Khởi tạo Docker, Cài đặt WordPress 7.1.3, Cấu trúc `/app` & Khung `blocksy-jn` / `jn-core`** | Sẵn sàng thực thi | `jn-step-1` | Đã đủ điều kiện bắt đầu (đã duyệt Step 0 & chốt `HEADING_FONT = Playfair Display`). |
-| **Step 2** | **Hệ thống Thiết kế (`theme.json`), Tự host Font WOFF2, Bộ 19 SVG Icons & Block `jn/icon`, `jn/rating`** | Chưa bắt đầu | `jn-step-2` | Tự host WOFF2 `Playfair Display` + `Geist` (`latin` + `vietnamese` gộp 1 file/kiểu). |
+| **Step 1** | **Khởi tạo Docker, Cài đặt WordPress 7.1.3, Cấu trúc `/app` & Bảo mật Cài đặt** | **HOÀN TẤT** | `jn-step-1` | Docker (`wordpress` PHP 8.3.36 Apache, `mariadb:11.4`, `wpcli`, `mailpit:v1.22`); đổi đường dẫn sang `/app`, `/app/modules`, `/media`, `/api`; tiền tố bảng `jn_8f4c_`; ngôn ngữ `vi`; WPS Hide Login `/phong-lam-viec-7429`; giữ `twentytwentyfive` (`1.5`) ở trạng thái `inactive` làm recovery theme; Site Health = 0 lỗi nghiêm trọng; snapshot `backups/jn-step-1.sql.gz`. |
+| **Step 2** | **Hệ thống Thiết kế (`theme.json`), Tự host Font WOFF2, Bộ 19 SVG Icons & Block `jn/icon`, `jn/rating`** | **Sẵn sàng thực thi** | `jn-step-2` | Tự host WOFF2 `Playfair Display` + `Geist` (`latin` + `vietnamese` gộp 1 file/kiểu). |
 | **Step 3** | **Xây dựng Header, Footer, Điều hướng Mobile & Trang Coaching bằng Gutenberg Core Blocks + Patterns** | Chưa bắt đầu | `jn-step-3` | Tái tạo chuẩn xác 6 phân đoạn trang Coaching + Header + Footer không dùng Page Builder. |
 | **Step 4** | **Tích hợp WooCommerce HPOS, Sản phẩm Dịch vụ Coaching & Luồng Đặt lịch 3 Bước (`jn-core/booking`)** | Chưa bắt đầu | `jn-step-4` | Xây dựng block `jn/booking-form`, tạo đơn yêu cầu đặt lịch HPOS-safe, chọn trước gói từ CTA. |
 | **Step 5** | **Phân hệ Quản lý Khách hàng (`jn-core/customers`), Chứng thực (`testimonials`) & Trang Tài khoản** | Chưa bắt đầu | `jn-step-5` | Quản lý 3 phân khúc khách hàng, lịch sử tư vấn, cờ đồng ý bảo mật và giao diện `My Account`. |
@@ -39,6 +39,28 @@
    - Đã khởi tạo 4 quyết định kiến trúc nền tảng: `ADR-001` (Stack), `ADR-002` (Booking model), `ADR-003` (Heading font), `ADR-004` (Hide-WordPress scope).
 5. **Tính toàn vẹn của `./wordpress`:**
    - Không có bất kỳ file nào bên trong `./wordpress` bị thay đổi hay thêm mới ở Step 0 (`git status` xác nhận sạch hoàn toàn).
+
+---
+
+## 2b. Kết Quả Nghiệm Thu JN STEP 1
+
+1. **Hạ tầng Docker Compose (`docker-compose.yml`, `docker/`, `.env`, `.env.example`):**
+   - `wordpress`: `jn-wordpress:php8.3-apache` (`PHP 8.3.36` + Apache `mod_rewrite`, `headers`, `expires`), bind-mount trực tiếp `./wordpress:/var/www/html` với `ENTRYPOINT ["docker-php-entrypoint"]` để không bao giờ ghi đè mã nguồn hay tự sinh `wp-config.php`; `memory_limit = 256M`, `upload_max_filesize = 64M`, `post_max_size = 64M`; log gắn ra ngoài web root tại `./logs/wordpress:/var/log/wordpress/debug.log`.
+   - `db`: `mariadb:11.4` (LTS) với named volume `jn_db_data` và healthcheck chuẩn.
+   - `wpcli`: `wordpress:cli-php8.3` chạy theo yêu cầu với cùng mounts và `.env`. Alias ngắn gọn: `alias jnwp='docker compose run --rm wpcli wp'` (hoặc `./scripts/wp.sh`).
+   - `mailpit`: `axllent/mailpit:v1.22` bắt toàn bộ thư SMTP local tại cổng `1025` và giao diện web tại `http://localhost:8025`.
+2. **Các biện pháp bảo mật tại thời điểm cài đặt (Install-Time Hide-WordPress Measures):**
+   - Đổi tên thư mục `./wordpress/wp-content` $\rightarrow$ `./wordpress/app`, `./wordpress/app/plugins` $\rightarrow$ `./wordpress/app/modules`, tạo `./wordpress/app/mu-plugins` và `./wordpress/media`.
+   - Cấu hình `wordpress/wp-config.php` không chứa bất kỳ khóa bí mật nào (đọc toàn bộ DB credentials và 8 salts từ biến môi trường), tiền tố bảng `$table_prefix = jn_8f4c_` (`!= wp_`), `WP_ENVIRONMENT_TYPE = local`, `WP_DEBUG = true`, `WP_DEBUG_DISPLAY = false`, `WP_DEBUG_LOG = /var/log/wordpress/debug.log`, `DISALLOW_FILE_EDIT = true`, `WP_POST_REVISIONS = 10`.
+   - Khởi tạo MU-Plugin `wordpress/app/mu-plugins/jn-hardening.php` (v1.0.0): đổi tiền tố REST API sang `/api` qua `rest_url_prefix`, flush rewrite rules 1 lần, định tuyến email môi trường `local` vào Mailpit, trả về HTTP `404` trực tiếp khi khách chưa đăng nhập truy cập `/wp-admin/` hoặc `/wp-login.php`.
+3. **Cài đặt WordPress 7.1.3 Tiếng Việt & Chính sách Giao diện Dự phòng (`Recovery Theme`):**
+   - Cài đặt với tiêu đề `"Jannie Nguyen"`, tài khoản quản trị không đoán được (`jn_director_7391`), ngôn ngữ Tiếng Việt (`vi` — `<html lang="vi">`), múi giờ `Asia/Ho_Chi_Minh`, định dạng ngày `d/m/Y`, giờ `H:i`, tuần bắt đầu Thứ Hai (`1`), đường dẫn tĩnh `/%postname%/`, `blog_public = 0`, đóng bình luận & pingback mặc định.
+   - Đã xóa bài viết mẫu, trang mẫu, bình luận mẫu và 2 plugin mặc định (`hello`, `akismet`).
+   - **Ghi chú giao diện dự phòng (Recovery Theme):** Đã xóa `twentytwentythree` và `twentytwentyfour`; **giữ lại `twentytwentyfive` (`v1.5`) ở trạng thái `inactive` làm giao diện dự phòng khôi phục (recovery theme)** theo đúng yêu cầu; cài đặt parent theme `blocksy` (`v2.1.60`) và kích hoạt child theme `blocksy-jn` (`v1.0.0`).
+4. **WPS Hide Login & Kiểm định Kỹ thuật:**
+   - Cài đặt và kích hoạt `wps-hide-login` (`v1.9.19`), đặt `LOGIN_SLUG = phong-lam-viec-7429`.
+   - Xác nhận đầy đủ PHP extensions (`gd`, `imagick`, `intl`, `zip`, `exif`, `Zend OPcache`), trình xử lý ảnh `WP_Image_Editor_GD` hỗ trợ cả `image/webp` và `image/avif`, `wp core verify-checksums` đạt 100%, và **Tình trạng website (Site Health) = Tốt (`0` vấn đề nghiêm trọng)** (ảnh chụp tại `docs/jn/step-1-site-health.png` và `docs/jn/step-1-mailpit.png`).
+   - Đã xuất bản sao lưu cơ sở dữ liệu tại `backups/jn-step-1.sql.gz`.
 
 ---
 

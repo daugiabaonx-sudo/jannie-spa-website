@@ -1,0 +1,102 @@
+# =============================================================================
+# JN Project — Local Docker Compose Stack (WordPress 7.1.3 + MariaDB LTS + Mailpit + WP-CLI)
+#
+# Short alias for running WP-CLI on demand:
+#   alias jnwp='docker compose run --rm wpcli wp'
+# Example usage:
+#   jnwp core version
+#   jnwp plugin list
+# =============================================================================
+
+services:
+  db:
+    image: mariadb:11.4
+    container_name: jn-db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - jn_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks:
+      - jn_net
+
+  mailpit:
+    image: axllent/mailpit:v1.22
+    container_name: jn-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 5s
+      retries: 6
+    networks:
+      - jn_net
+
+  wordpress:
+    build:
+      context: ./docker/wordpress
+      dockerfile: Dockerfile
+    image: jn-wordpress:php8.3-apache
+    container_name: jn-wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./logs/wordpress:/var/log/wordpress
+      - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/zz-jn-custom.ini:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:80/ -o /dev/null || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - jn_net
+
+  wpcli:
+    image: wordpress:cli-php8.3
+    container_name: jn-wpcli
+    profiles:
+      - cli
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./logs/wordpress:/var/log/wordpress
+      - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/zz-jn-custom.ini:ro
+      - ./scripts:/scripts:ro
+      - ./backups:/backups
+    working_dir: /var/www/html
+    networks:
+      - jn_net
+
+volumes:
+  jn_db_data:
+    name: jn_db_data
+
+networks:
+  jn_net:
+    name: jn_net
