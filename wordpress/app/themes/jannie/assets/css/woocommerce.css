@@ -1,0 +1,508 @@
+/**
+ * Jannie Design System — WooCommerce Blocks, Product Collection, Checkout, Order-Pay & My Account Styles.
+ *
+ * Uses CSS custom properties from `tokens.css` (`--jn-*`) exclusively — zero raw hex values.
+ */
+
+/* ==========================================================================
+   1. Commerce Page Container & Editorial Shell
+   ========================================================================== */
+
+.jn-commerce-page:not(.page-id-12) .entry-content {
+	max-width: var(--jn-container-max);
+	margin-inline: auto;
+	padding-inline: var(--jn-container-pad);
+	padding-bottom: var(--jn-section-rhythm);
+}
+
+.woocommerce-cart .entry-content,
+.woocommerce-checkout .entry-content,
+.woocommerce-account .entry-content {
+	padding-top: var(--jn-space-2xl);
+}
+
+/* Suppress default Blocksy page title hero on commerce pages */
+.page-id-12 .hero-section,
+.woocommerce-cart .hero-section,
+.woocommerce-checkout .hero-section,
+.woocommerce-account .hero-section {
+	display: none !important;
+}
+
+/* ==========================================================================
+   2. Product Collection Block (`/my-favorite-product/`)
+   ========================================================================== */
+
+.wp-block-woocommerce-product-collection {
+	max-width: var(--jn-container-max);
+	margin-inline: auto;
+	padding-inline: var(--jn-container-pad);
+	padding-top: var(--jn-space-2xl);
+	padding-bottom: var(--jn-section-rhythm);
+}
+
+.wp-block-woocommerce-product-template {
+	gap: var(--jn-gutter) !important;
+}
+
+.wp-block-woocommerce-product-template li.wc-block-product,
+.woocommerce ul.products li.product {
+	background-color: var(--jn-surface-pure);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-lg);
+	box-shadow: var(--jn-shadow-card);
+	transition: transform var(--jn-transition), box-shadow var(--jn-transition), border-color var(--jn-transition);
+	display: flex;
+	flex-direction: column;
+}
+
+.wp-block-woocommerce-product-template li.wc-block-product:hover,
+.woocommerce ul.products li.product:hover {
+	transform: translateY(-2px);
+	border-color: var(--jn-champagne-accent);
+	box-shadow: var(--jn-shadow-ambient);
+}
+
+.wc-block-components-product-image {
+	border-radius: var(--jn-radius-md);
+	overflow: hidden;
+	background-color: var(--jn-surface-beige);
+	margin-bottom: var(--jn-space-md) !important;
+}
+
+.wc-block-components-product-image img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	display: block;
+}
+
+.wp-block-woocommerce-product-template .wp-block-post-title,
+.wc-block-components-product-title,
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+	font-family: var(--jn-font-heading) !important;
+	font-size: var(--jn-text-headline-sm) !important;
+	line-height: var(--jn-lh-headline-sm) !important;
+	font-weight: 500 !important;
+	color: var(--jn-ink) !important;
+	margin-top: 0 !important;
+	margin-bottom: var(--jn-space-xs) !important;
+}
+
+.wp-block-woocommerce-product-template .wp-block-post-title a,
+.wc-block-components-product-title a {
+	color: var(--jn-ink) !important;
+	text-decoration: none !important;
+	transition: color var(--jn-transition);
+}
+
+.wp-block-woocommerce-product-template .wp-block-post-title a:hover,
+.wc-block-components-product-title a:hover {
+	color: var(--jn-secondary) !important;
+}
+
+/* Prices & Sale Badges (WCAG AA >= 4.78:1 via --jn-champagne-text-sm) */
+.wc-block-components-product-price,
+.price,
+.woocommerce-Price-amount {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-lg);
+	font-weight: 600;
+	color: var(--jn-champagne-text-sm);
+}
+
+.wc-block-components-product-sale-badge,
+.woocommerce span.onsale {
+	background-color: var(--jn-surface-beige) !important;
+	color: var(--jn-champagne-text-sm) !important;
+	border: 1px solid var(--jn-border) !important;
+	border-radius: var(--jn-radius-pill) !important;
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-sm) !important;
+	font-weight: 600 !important;
+	letter-spacing: var(--jn-ls-label-sm) !important;
+	text-transform: uppercase !important;
+	padding: 4px 12px !important;
+}
+
+/* Add-to-cart Button in Product Collection */
+.wp-block-button.wc-block-components-product-button {
+	margin-top: auto;
+	padding-top: var(--jn-space-md);
+}
+
+.wp-block-button.wc-block-components-product-button .wp-block-button__link,
+.woocommerce ul.products li.product .button {
+	width: 100%;
+	min-height: 46px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--jn-ink) !important;
+	color: var(--jn-surface-cream) !important;
+	border: 1px solid var(--jn-ink) !important;
+	border-radius: var(--jn-radius-pill) !important;
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-label-md) !important;
+	font-weight: 600 !important;
+	letter-spacing: var(--jn-ls-label-md) !important;
+	text-transform: uppercase !important;
+	padding: 12px 24px !important;
+	text-decoration: none !important;
+	box-shadow: var(--jn-shadow-btn-primary);
+	transition: background-color var(--jn-transition), border-color var(--jn-transition), transform var(--jn-transition);
+}
+
+.wp-block-button.wc-block-components-product-button .wp-block-button__link:hover,
+.woocommerce ul.products li.product .button:hover {
+	background-color: var(--jn-secondary) !important;
+	border-color: var(--jn-secondary) !important;
+	color: var(--jn-surface-pure) !important;
+}
+
+/* Empty / No-Results State on `/my-favorite-product/` */
+.wp-block-woocommerce-product-collection-no-results {
+	background-color: var(--jn-surface-beige);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-2xl) var(--jn-space-xl);
+	text-align: center;
+	max-width: 760px;
+	margin-inline: auto;
+}
+
+.wp-block-woocommerce-product-collection-no-results p {
+	color: var(--jn-muted-stone);
+	font-size: var(--jn-text-body-lg);
+	line-height: var(--jn-lh-body-lg);
+	margin-bottom: var(--jn-space-sm);
+}
+
+/* ==========================================================================
+   3. WooCommerce Cart Block & Checkout Block (`woocommerce/cart`, `woocommerce/checkout`)
+   ========================================================================== */
+
+.wp-block-woocommerce-cart,
+.wp-block-woocommerce-checkout {
+	font-family: var(--jn-font-body);
+	color: var(--jn-ink);
+}
+
+.wc-block-components-checkout-step__title,
+.wc-block-cart__totals-title,
+.wp-block-woocommerce-empty-cart-block h2 {
+	font-family: var(--jn-font-heading) !important;
+	color: var(--jn-ink) !important;
+	font-weight: 500 !important;
+	letter-spacing: var(--jn-ls-headline-sm) !important;
+}
+
+.wc-block-components-checkout-step__description {
+	color: var(--jn-muted-stone) !important;
+	font-size: var(--jn-text-body-md) !important;
+}
+
+/* Order Summary Card */
+.wp-block-woocommerce-checkout-order-summary-block,
+.wp-block-woocommerce-cart-order-summary-block {
+	background-color: var(--jn-surface-beige);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-lg);
+}
+
+/* Form Inputs, Selects & Textareas (Cart/Checkout Blocks + Classic Endpoints) */
+.wc-block-components-text-input input[type="text"],
+.wc-block-components-text-input input[type="email"],
+.wc-block-components-text-input input[type="tel"],
+.wc-block-components-text-input input[type="password"],
+.wc-block-components-text-input input[type="number"],
+.wc-block-components-select .wc-blocks-components-select__select,
+.wc-block-components-textarea,
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select {
+	min-height: 50px !important;
+	background-color: var(--jn-surface-pure) !important;
+	border: 1px solid var(--jn-border) !important;
+	border-radius: var(--jn-radius-md) !important;
+	color: var(--jn-ink) !important;
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-body-lg) !important;
+	transition: border-color var(--jn-transition), box-shadow var(--jn-transition);
+}
+
+.wc-block-components-text-input input:focus,
+.wc-block-components-select .wc-blocks-components-select__select:focus,
+.wc-block-components-textarea:focus,
+.woocommerce form .form-row input.input-text:focus,
+.woocommerce form .form-row textarea:focus,
+.woocommerce form .form-row select:focus {
+	border-color: var(--jn-champagne-text-sm) !important;
+	outline: 2px solid var(--jn-champagne-text-sm) !important;
+	outline-offset: 1px !important;
+	box-shadow: none !important;
+}
+
+/* Floating input labels: enforce WCAG AA >= 4.5:1 contrast using --jn-muted-stone */
+.wc-block-components-text-input label,
+.wc-block-components-combobox .wc-block-components-combobox-control label,
+.wc-blocks-components-select .wc-blocks-components-select__label {
+	color: var(--jn-muted-stone) !important;
+	opacity: 1 !important;
+}
+
+/* Virtual-only Checkout: hide country selector & physical address fields (Vietnam VN is pre-selected) */
+.jn-checkout-virtual-only .wc-block-components-country-input,
+.jn-checkout-virtual-only .wc-block-components-address-form__country,
+.jn-checkout-virtual-only .wc-block-components-address-form__company,
+.jn-checkout-virtual-only .wc-block-components-address-form__address_1,
+.jn-checkout-virtual-only .wc-block-components-address-form__address_2,
+.jn-checkout-virtual-only .wc-block-components-address-form__city,
+.jn-checkout-virtual-only .wc-block-components-address-form__state,
+.jn-checkout-virtual-only .wc-block-components-address-form__postcode,
+.jn-checkout-virtual-only .wc-block-components-address-form__last_name {
+	display: none !important;
+}
+
+/* Primary Buttons across Cart, Checkout, Order-Pay, and My Account */
+.wc-block-components-button.wp-element-button,
+.wc-block-components-checkout-place-order-button,
+.wc-block-cart__submit-button,
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #payment #place_order {
+	min-height: 50px !important;
+	background-color: var(--jn-ink) !important;
+	color: var(--jn-surface-cream) !important;
+	border: 1px solid var(--jn-ink) !important;
+	border-radius: var(--jn-radius-pill) !important;
+	font-family: var(--jn-font-body) !important;
+	font-size: var(--jn-text-body-md) !important;
+	font-weight: 600 !important;
+	letter-spacing: var(--jn-ls-title-sm) !important;
+	padding: 12px 28px !important;
+	text-decoration: none !important;
+	box-shadow: var(--jn-shadow-btn-primary);
+	transition: background-color var(--jn-transition), border-color var(--jn-transition), color var(--jn-transition);
+	cursor: pointer;
+}
+
+.wc-block-components-button.wp-element-button:hover,
+.wc-block-components-checkout-place-order-button:hover,
+.wc-block-cart__submit-button:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #payment #place_order:hover {
+	background-color: var(--jn-secondary) !important;
+	border-color: var(--jn-secondary) !important;
+	color: var(--jn-surface-pure) !important;
+}
+
+/* Notices & Feedback Banners */
+.wc-block-components-notice-banner,
+.woocommerce-message,
+.woocommerce-info {
+	background-color: var(--jn-surface-beige) !important;
+	border: 1px solid var(--jn-border) !important;
+	border-radius: var(--jn-radius-md) !important;
+	color: var(--jn-ink) !important;
+	font-family: var(--jn-font-body) !important;
+}
+
+.wc-block-components-notice-banner.is-error,
+.woocommerce-error {
+	background-color: var(--jn-error-container) !important;
+	border-color: var(--jn-error) !important;
+	color: var(--jn-on-error-container) !important;
+	border-radius: var(--jn-radius-md) !important;
+}
+
+/* Payment Method Accordion Cards in Checkout Block & Order-Pay */
+.wc-block-components-radio-control-accordion-option,
+#add_payment_method #payment ul.payment_methods,
+.woocommerce-cart #payment ul.payment_methods,
+.woocommerce-checkout #payment ul.payment_methods {
+	background-color: var(--jn-surface-pure);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-md);
+}
+
+/* ==========================================================================
+   4. Order-Pay (`order-pay`) & Order-Received (`order-received`) Endpoints
+   ========================================================================== */
+
+.woocommerce-order-pay #order_review,
+.woocommerce-order-received .woocommerce-order {
+	max-width: 840px;
+	margin-inline: auto;
+	background-color: var(--jn-surface-pure);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-xl);
+	box-shadow: var(--jn-shadow-card);
+}
+
+.woocommerce-bacs-bank-details {
+	background-color: var(--jn-surface-beige);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-md);
+	padding: var(--jn-space-lg);
+	margin-block: var(--jn-space-lg);
+}
+
+.woocommerce-bacs-bank-details h2,
+.woocommerce-bacs-bank-details h3 {
+	font-family: var(--jn-font-heading);
+	color: var(--jn-ink);
+	margin-top: 0;
+}
+
+/* ==========================================================================
+   5. My Account (`/tai-khoan/`) — Login, Register (`#register`), Dashboard & Orders
+   ========================================================================== */
+
+.jn-myaccount-header {
+	text-align: center;
+	max-width: 680px;
+	margin-inline: auto;
+	margin-bottom: var(--jn-space-2xl);
+}
+
+.jn-myaccount-eyebrow {
+	display: inline-block;
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
+	letter-spacing: var(--jn-ls-label-sm);
+	text-transform: uppercase;
+	font-weight: 600;
+	color: var(--jn-champagne-text-sm);
+	margin-bottom: var(--jn-space-sm);
+}
+
+.jn-myaccount-title {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-lg);
+	line-height: var(--jn-lh-headline-lg);
+	letter-spacing: var(--jn-ls-headline-lg);
+	font-weight: 500;
+	color: var(--jn-ink);
+	margin-top: 0;
+	margin-bottom: var(--jn-space-sm);
+}
+
+.jn-myaccount-subtitle {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-lg);
+	line-height: var(--jn-lh-body-lg);
+	color: var(--jn-muted-stone);
+	margin: 0;
+}
+
+/* 2-Column Login & Register Cards (`#customer_login`) */
+#customer_login.col2-set {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--jn-space-xl) !important;
+	max-width: 1080px;
+	margin-inline: auto;
+	align-items: start;
+}
+
+#customer_login.col2-set > .u-column1,
+#customer_login.col2-set > .u-column2 {
+	width: 100% !important;
+	float: none !important;
+	background-color: var(--jn-surface-pure);
+	border: 1px solid var(--jn-border) !important;
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-xl) !important;
+	box-shadow: var(--jn-shadow-card);
+	transition: border-color var(--jn-transition), box-shadow var(--jn-transition);
+}
+
+#customer_login.col2-set > .u-column2.is-register-highlighted {
+	border-color: var(--jn-champagne-text-sm) !important;
+	box-shadow: 0 0 0 2px var(--jn-champagne-text-sm), var(--jn-shadow-ambient);
+}
+
+#customer_login h2 {
+	font-family: var(--jn-font-heading) !important;
+	font-size: var(--jn-text-headline-md) !important;
+	line-height: var(--jn-lh-headline-md) !important;
+	font-weight: 500 !important;
+	color: var(--jn-ink) !important;
+	margin-top: 0 !important;
+	margin-bottom: var(--jn-space-lg) !important;
+}
+
+#customer_login form.woocommerce-form {
+	border: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Logged-in My Account Navigation & Content Panel */
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--jn-space-xs);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a {
+	display: flex;
+	align-items: center;
+	padding: 12px 18px;
+	border-radius: var(--jn-radius-md);
+	color: var(--jn-on-surface-variant);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-md);
+	font-weight: 500;
+	text-decoration: none;
+	border: 1px solid transparent;
+	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover {
+	background-color: var(--jn-surface-beige);
+	color: var(--jn-ink);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a {
+	background-color: var(--jn-ink);
+	color: var(--jn-surface-cream);
+	border-color: var(--jn-ink);
+	font-weight: 600;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content {
+	background-color: var(--jn-surface-pure);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-xl);
+	box-shadow: var(--jn-shadow-card);
+}
+
+@media (max-width: 991.98px) {
+	#customer_login.col2-set {
+		grid-template-columns: 1fr;
+		gap: var(--jn-space-lg) !important;
+	}
+
+	#customer_login.col2-set > .u-column1,
+	#customer_login.col2-set > .u-column2,
+	.woocommerce-account .woocommerce-MyAccount-content,
+	.woocommerce-order-pay #order_review,
+	.woocommerce-order-received .woocommerce-order {
+		padding: var(--jn-space-lg) !important;
+	}
+}

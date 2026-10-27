@@ -1,0 +1,249 @@
+{
+  "timestamp": "2026-10-27T13:44:30.952Z",
+  "networkScoping": {
+    "/coaching/": {
+      "totalRequests": 18,
+      "allRequestUrls": [
+        "http://localhost:8080/coaching/",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-normal.woff2",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/geist-vi-normal.woff2",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.min.css?ver=2.1.60",
+        "http://localhost:8080/app/themes/jannie/assets/css/tokens.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/base.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/block-styles.css?ver=1.0.0",
+        "http://localhost:8080/media/2026/10/jn-placeholder-hero-portrait.webp",
+        "http://localhost:8080/media/2026/10/jn-placeholder-expert-consultation.webp",
+        "http://localhost:8080/media/2026/10/jn-placeholder-avatar-minh-thao.webp",
+        "http://localhost:8080/media/2026/10/jn-placeholder-avatar-ngoc-bich.webp",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.js?ver=2.1.60",
+        "http://localhost:8080/app/modules/jn-core/blocks/booking-form/view.js?ver=1.1.0",
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z'/%3E%3C/svg%3E",
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z'/%3E%3C/svg%3E",
+        "data:image/svg+xml,%3Csvg width='21' height='13' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5.379L20.621 2.5 10.5 12.621.379 2.5 2.5.379l8 8z' fill='%234F5D6D' fill-rule='nonzero'/%3E%3C/svg%3E",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-italic.woff2",
+        "http://localhost:8080/media/2026/10/jn-monogram-icon-150x150.png"
+      ],
+      "wooAssetsCount": 0,
+      "wooAssets": [],
+      "cartFragmentCount": 0
+    },
+    "/my-story/": {
+      "totalRequests": 13,
+      "allRequestUrls": [
+        "http://localhost:8080/my-story/",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-normal.woff2",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/geist-vi-normal.woff2",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.min.css?ver=2.1.60",
+        "http://localhost:8080/app/themes/jannie/assets/css/tokens.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/base.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/block-styles.css?ver=1.0.0",
+        "http://localhost:8080/media/2026/10/jn-placeholder-expert-consultation.webp",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.js?ver=2.1.60",
+        "http://localhost:8080/app/modules/jn-core/blocks/booking-form/view.js?ver=1.1.0",
+        "data:image/svg+xml,%3Csvg width='21' height='13' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5.379L20.621 2.5 10.5 12.621.379 2.5 2.5.379l8 8z' fill='%234F5D6D' fill-rule='nonzero'/%3E%3C/svg%3E",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-italic.woff2",
+        "http://localhost:8080/media/2026/10/jn-monogram-icon-150x150.png"
+      ],
+      "wooAssetsCount": 0,
+      "wooAssets": [],
+      "cartFragmentCount": 0
+    },
+    "/booking/": {
+      "totalRequests": 12,
+      "allRequestUrls": [
+        "http://localhost:8080/booking/",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-normal.woff2",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/geist-vi-normal.woff2",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.min.css?ver=2.1.60",
+        "http://localhost:8080/app/themes/jannie/assets/css/tokens.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/base.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/jannie/assets/css/block-styles.css?ver=1.0.0",
+        "http://localhost:8080/app/themes/blocksy/static/bundle/main.js?ver=2.1.60",
+        "http://localhost:8080/app/modules/jn-core/blocks/booking-form/view.js?ver=1.1.0",
+        "data:image/svg+xml,%3Csvg width='21' height='13' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5.379L20.621 2.5 10.5 12.621.379 2.5 2.5.379l8 8z' fill='%234F5D6D' fill-rule='nonzero'/%3E%3C/svg%3E",
+        "http://localhost:8080/app/themes/jannie/assets/fonts/playfair-display-vi-italic.woff2",
+        "http://localhost:8080/media/2026/10/jn-monogram-icon-150x150.png"
+      ],
+      "wooAssetsCount": 0,
+      "wooAssets": [],
+      "cartFragmentCount": 0
+    }
+  },
+  "packageProtectionAndOrderPay": {
+    "directAddToCartBlocked": true,
+    "singleProductRedirectUrl": "http://localhost:8080/coaching/#coaching-tiers",
+    "orderPayUrl": "http://localhost:8080/checkout/order-pay/175/?pay_for_order=true&key=wc_order_Qdgo1iHyPU5ZT",
+    "hasPackageTitle": true,
+    "hasFormattedVnd": true,
+    "hasCodOption": false,
+    "hasPlaceOrderBtn": true,
+    "orderPayCompletedRedirectUrl": "http://localhost:8080/checkout/order-received/175/?key=wc_order_Qdgo1iHyPU5ZT",
+    "orderPaySucceeded": true,
+    "bankDetailsShown": true
+  },
+  "myFavoriteProductResponsive": {
+    "375x812": {
+      "hasHorizontalOverflow": false,
+      "hasDemoCard": true,
+      "hasVndPrice": false
+    },
+    "768x1024": {
+      "hasHorizontalOverflow": false,
+      "hasDemoCard": true,
+      "hasVndPrice": false
+    },
+    "1024x768": {
+      "hasHorizontalOverflow": false,
+      "hasDemoCard": true,
+      "hasVndPrice": false
+    },
+    "1440x900": {
+      "hasHorizontalOverflow": false,
+      "hasDemoCard": true,
+      "hasVndPrice": false
+    }
+  },
+  "guestOrderFlow": {
+    "emailFilled": true,
+    "nameFilled": true,
+    "phoneFilled": true,
+    "termsChecked": true,
+    "visibleFields": [
+      {
+        "id": "email",
+        "name": "contact_email",
+        "type": "email",
+        "label": "Địa chỉ email"
+      },
+      {
+        "id": "billing-first_name",
+        "name": "billing_first_name",
+        "type": "text",
+        "label": "Họ và tên"
+      },
+      {
+        "id": "billing-phone",
+        "name": "billing_phone",
+        "type": "tel",
+        "label": "Số điện thoại / Zalo"
+      },
+      {
+        "id": "radio-control-wc-payment-method-options-bacs",
+        "name": "radio-control-wc-payment-method-options",
+        "type": "radio",
+        "label": "Chuyển khoản ngân hàng (VietQR / 24/7)"
+      },
+      {
+        "id": "checkbox-control-0",
+        "name": "",
+        "type": "checkbox",
+        "label": "Thêm ghi chú cho đơn hàng của bạn"
+      },
+      {
+        "id": "terms-and-conditions",
+        "name": "",
+        "type": "checkbox",
+        "label": "Bạn phải chấp nhận Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi để tiếp tục mua hàng."
+      }
+    ],
+    "guestOrderId": 176,
+    "guestOrderReceivedUrl": "http://localhost:8080/checkout/order-received/176/?key=wc_order_bqQkOWibOXgF8"
+  },
+  "loggedInOrderFlow": {
+    "headerRegisterHref": "http://localhost:8080/tai-khoan/#register",
+    "isRegisterFormHighlighted": true,
+    "customerEmail": "hocvien.step4.1793108719142@example.com",
+    "myAccountDashboardUrl": "http://localhost:8080/tai-khoan/#register",
+    "isCustomerLoggedIn": true,
+    "customerOrderId": 177,
+    "customerOrderReceivedUrl": "http://localhost:8080/checkout/order-received/177/?key=wc_order_gV2bdBjZUyx7B"
+  },
+  "adminHposAndMyAccount": {
+    "hposAdminUrl": "http://localhost:8080/wp-admin/admin.php?page=wc-orders",
+    "guestVisibleInHpos": true,
+    "customerVisibleInHpos": true,
+    "packageVisibleInHpos": true,
+    "customerSeesOrderInMyAccount": true,
+    "customerSeesCompletedStatus": true
+  },
+  "mailpitEmails": {
+    "totalEmailsCaptured": 8,
+    "subjects": [
+      {
+        "subject": "Đơn hàng của bạn từ JANNIE NGUYEN đang trên đường vận chuyển!",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "hocvien.step4.1793108719142@example.com"
+        ]
+      },
+      {
+        "subject": "Đơn hàng tại JANNIE NGUYEN đã được đặt!",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "hocvien.step4.1793108719142@example.com"
+        ]
+      },
+      {
+        "subject": "[JANNIE NGUYEN]: Bạn có một đơn hàng mới: #177",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "admin@example.com"
+        ]
+      },
+      {
+        "subject": "Tài khoản của bạn ở JANNIE NGUYEN đã được tạo!",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "hocvien.step4.1793108719142@example.com"
+        ]
+      },
+      {
+        "subject": "Đơn hàng tại JANNIE NGUYEN đã được đặt!",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "khach.guest@example.com"
+        ]
+      },
+      {
+        "subject": "[JANNIE NGUYEN]: Bạn có một đơn hàng mới: #176",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "admin@example.com"
+        ]
+      },
+      {
+        "subject": "Đơn hàng tại JANNIE NGUYEN đã được đặt!",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "ngoc.coaching@example.com"
+        ]
+      },
+      {
+        "subject": "[JANNIE NGUYEN]: Bạn có một đơn hàng mới: #175",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": [
+          "admin@example.com"
+        ]
+      }
+    ],
+    "sampleEmailVerification": {
+      "id": "aVnm3txYdPtyYMPf8WoUNp",
+      "subject": "Đơn hàng của bạn từ JANNIE NGUYEN đang trên đường vận chuyển!",
+      "from": {
+        "Name": "Jannie Nguyen Academy",
+        "Address": "contact@jannienguyen.vn"
+      },
+      "to": [
+        {
+          "Name": "",
+          "Address": "hocvien.step4.1793108719142@example.com"
+        }
+      ],
+      "hasLogoImg": true,
+      "hasBrandBgColor": true,
+      "hasBrandBaseColor": true,
+      "hasVietnameseFooter": true,
+      "hasFormattedVnd": true
+    }
+  }
+}

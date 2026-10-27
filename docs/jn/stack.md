@@ -1,7 +1,7 @@
 # Hồ Sơ Công Nghệ & Công Cụ Phát Triển (`docs/jn/stack.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship
-> **Cập nhật lần cuối:** 2026-10-27 (JN Step 0)
+> **Cập nhật lần cuối:** 2026-10-27 (JN Step 4 — Đã cài đặt và cấu hình WooCommerce `v11.2.1` + gói ngôn ngữ `vi`, HPOS, Blocksy `v2.1.60`, child theme `jannie`, `jn-core` `v1.1.0`)
 > **Tham chiếu quy tắc:** `.agent/rules/jn-project.md` (§2 Fixed stack, §3 Engineering, §5 Hide WordPress, §6 Performance)
 
 ---
@@ -45,26 +45,29 @@ Tuân thủ nghiêm ngặt `.agent/rules/jn-project.md` §2:
    - Đặt tại `./wordpress/`.
    - Tuyệt đối không chỉnh sửa bất kỳ file nào thuộc WordPress Core.
    - Tách thư mục nội dung khỏi đường dẫn mặc định `wp-content`: sử dụng `WP_CONTENT_DIR` / `WP_CONTENT_URL` trỏ về `/app`, `PLUGINDIR` / `WP_PLUGIN_DIR` trỏ về `/app/modules`, đường dẫn upload trỏ về `/media`, và tiền tố REST API đổi thành `/api`.
-2. **Parent Theme — Blocksy (Free, từ `wordpress.org`):**
+2. **Parent Theme — Blocksy (`v2.1.60`, Free, từ `wordpress.org`, `Tested up to: 7.1`) + gói ngôn ngữ `vi`:**
    - Chỉ sử dụng bản miễn phí (**không dùng Blocksy Pro**).
    - **Blocksy Companion (Free):** Chỉ cài đặt nếu có tính năng miễn phí bắt buộc nằm trong đó và phải ghi rõ lý do trong `docs/jn/decisions.md` (mặc định: không cài đặt nếu child theme + `theme.json` đã đáp ứng đủ).
-3. **Child Theme — `blocksy-jn` (`/app/themes/blocksy-jn`):**
-   - Chứa toàn bộ phần trình bày giao diện (presentation layer): `style.css` (header tối giản không lộ chữ WordPress/Blocksy ở HTML công khai), `theme.json` (khai báo toàn bộ bảng màu Luxury Warm Ivory, thang chữ fluid `clamp()`, khoảng cách, bo góc, bóng đổ), `functions.php`, các Block Style Variations, Block Patterns (`jn/coaching-*`), và tài sản tự host (`assets/fonts/*.woff2`, `assets/icons/*.svg`, `assets/js/*.js`).
+3. **Child Theme — `jannie` (`/app/themes/jannie`):**
+   - Chứa toàn bộ phần trình bày giao diện (presentation layer): `style.css` (header tối giản không lộ chữ WordPress/Blocksy ở HTML công khai), `theme.json` (khai báo toàn bộ bảng màu Luxury Warm Ivory, thang chữ fluid `clamp()`, khoảng cách, bo góc, bóng đổ), `functions.php`, `inc/woocommerce.php`, `assets/css/woocommerce.css`, các Block Style Variations, Block Patterns (`jannie/*`), và tài sản tự host (`assets/fonts/*.woff2`, `assets/img/jn-email-logo.svg`).
 4. **Trình dựng trang — Gutenberg Core Blocks + 3 Custom Blocks nội bộ:**
-   - **Được phép:** Các block cốt lõi của WordPress (`core/group`, `core/columns`, `core/column`, `core/heading`, `core/paragraph`, `core/buttons`, `core/button`, `core/image`, `core/list`, `core/list-item`, `core/separator`, `core/navigation`, `core/site-title`, `core/template-part`) kết hợp với Block Style Variations, Block Patterns, Synced Patterns và 3 block riêng của dự án:
-     - `jn/icon` (chèn inline SVG từ bộ 19 icon đã trích xuất, thay thế font Material Symbols 4 MB).
+   - **Được phép:** Các block cốt lõi của WordPress (`core/group`, `core/columns`, `core/column`, `core/heading`, `core/paragraph`, `core/buttons`, `core/button`, `core/image`, `core/list`, `core/list-item`, `core/separator`, `core/navigation`, `core/site-title`, `core/template-part`), các khối WooCommerce (`woocommerce/product-collection`, `woocommerce/cart`, `woocommerce/checkout`) kết hợp với Block Style Variations, Block Patterns, Synced Patterns và 3 block riêng của dự án:
+     - `jn/icon` (chèn inline SVG từ bộ 19 icon đã trích xuất + `sparkline`, thay thế font Material Symbols 4 MB).
      - `jn/rating` (hiển thị cụm 5 ngôi sao SVG với nhãn `aria-label` chuẩn WCAG).
      - `jn/booking-form` (render biểu mẫu ứng tuyển/đặt lịch phía server, hỗ trợ chọn trước gói từ tham số URL hoặc sự kiện click ở bảng gói, kiểm tra nonce, honeypot, rate-limit và lưu đơn).
    - **Bị cấm tuyệt đối:** Elementor và mọi page builder khác; các thư viện block bên thứ ba (Spectra, Kadence Blocks, Stackable, GenerateBlocks, Otter...); dùng `core/html` hoặc shortcode để dựng bố cục.
 
 ### 2.2. Thương mại Điện tử & Nghiệp vụ Đặt lịch (`jn-core` + MU-Plugins)
-1. **WooCommerce (Bản chính thức từ `wordpress.org`):**
-   - Bật **HPOS (High-Performance Order Storage)** (`wc_orders` tables) ngay từ khi khởi tạo ở Step 1.
-   - Sử dụng các trang WooCommerce Blocks chuẩn (**Cart Block**, **Checkout Block**, **My Account Block**).
-   - Tắt hoàn toàn các script/style của WooCommerce trên những trang tiếp thị không có giỏ hàng/thanh toán (như trang `/coaching/`).
-2. **Custom Plugin — `jn-core` (`/app/modules/jn-core`):**
+1. **WooCommerce (`v11.2.1` — bản ổn định mới nhất tương thích WordPress 7.1, từ `wordpress.org`) + gói ngôn ngữ Tiếng Việt (`vi`):**
+   - Cài đặt sạch ở Step 4: tắt theo dõi sử dụng (`woocommerce_allow_tracking = no`), tắt gợi ý Marketplace (`woocommerce_show_marketplace_suggestions = no`), không cài plugin phụ đi kèm, tắt Order Attribution (`woocommerce_feature_order_attribution_enabled = no` — xem `ADR-005`).
+   - Bật **HPOS (High-Performance Order Storage)** (`OrderTableDataStore`, tắt đồng bộ ngược `custom_orders_table_data_sync_enabled = no`).
+   - Tiền tệ `VND`, `0` chữ số thập phân, dấu phân cách hàng nghìn `"."`, dấu thập phân `","`, ký hiệu `₫` đứng sau cách 1 khoảng trắng (`right_space` → `450.000 ₫`).
+   - Sử dụng các trang WooCommerce Blocks chuẩn (**Product Collection** trên `/my-favorite-product/` được chỉ định làm `woocommerce_shop_page_id` theo `ADR-006`, **Cart Block** trên `/cart/`, **Checkout Block** trên `/checkout/`, và **My Account** trên `/tai-khoan/`).
+   - Tắt hoàn toàn các script/style của WooCommerce và `wc-cart-fragments` trên những trang nội dung không có giỏ hàng/thanh toán (`/coaching/`, `/my-story/`, `/booking/`...).
+2. **Custom Plugin — `jn-core` (`v1.1.0`, `/app/modules/jn-core`):**
+   - Khai báo tương thích chính thức với `custom_order_tables` (HPOS) và `cart_checkout_blocks`.
    - Tổ chức theo các thư mục tính năng rõ ràng:
-     - `booking/`: Xử lý biểu mẫu đặt lịch 3 bước (yêu cầu tư vấn → trợ lý xác nhận khung giờ trong 24 giờ → phiên 1:1 online hoặc tại Academy), tạo sản phẩm dịch vụ WooCommerce cho 3 gói (`1:1 Private Coaching`, `Career & Skill Upgrade`, `Business & Salon Mentorship`), lưu trữ yêu cầu đặt lịch gắn với đơn hàng/khách hàng WooCommerce qua WooCommerce CRUD (tương thích 100% HPOS), quản lý trạng thái lịch hẹn và gửi email thông báo.
+     - `booking/`: Quản lý 3 sản phẩm dịch vụ ảo (`Virtual`, `Simple`, danh mục `"Coaching & Mentorship"`) đặt tên khớp nguyên văn 100% với tùy chọn trong biểu mẫu (`"Gói Tư Vấn Cá Nhân 1:1 (30 Phút)"`, `"Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)"`, `"Gói Master Mentorship (3 Tháng)"`), giữ ở trạng thái `Draft` khi giá bán `UNKNOWN` (`UNK-01`), ẩn khỏi danh mục sản phẩm và chặn thêm trực tiếp vào giỏ hàng nhưng cho phép thanh toán qua liên kết `order-pay` của đơn hàng `pending`; rút gọn trường thanh toán cho giỏ hàng chỉ gồm sản phẩm ảo (chỉ hỏi Họ và tên, Số điện thoại / Zalo, Địa chỉ email + ô tích Điều khoản); ẩn COD đối với sản phẩm ảo.
      - `customers/`: Quản lý hồ sơ khách hàng trên nền WooCommerce Customers + Order Meta, phân loại theo 3 nhóm đối tượng (`Cá nhân`, `Thợ / Học viên`, `Chủ cơ sở thẩm mỹ, phun xăm, spa`), lưu lịch sử tư vấn và cờ đồng ý bảo mật dữ liệu (consent).
      - `testimonials/`: Quản lý dữ liệu chứng thực học viên có kiểm chứng (chỉ hiển thị đúng 3 đánh giá gốc đã được chủ dự án cung cấp, tuyệt đối không tự bịa thêm).
      - `blocks/`: Đăng ký 3 custom blocks (`jn/icon`, `jn/rating`, `jn/booking-form`) sử dụng JavaScript thuần với biến toàn cục `wp.*` và `ServerSideRender` (không cần bước build phức tạp hay `node_modules` đi kèm plugin).

@@ -20,6 +20,7 @@ require_once JANNIE_PATH . '/inc/setup.php';
 require_once JANNIE_PATH . '/inc/block-styles.php';
 require_once JANNIE_PATH . '/inc/patterns.php';
 require_once JANNIE_PATH . '/inc/layout-shell.php';
+require_once JANNIE_PATH . '/inc/woocommerce.php';
 
 /**
  * Enqueue front-end design system stylesheets.

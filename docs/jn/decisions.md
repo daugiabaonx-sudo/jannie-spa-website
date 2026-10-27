@@ -1,7 +1,7 @@
 # Nhật Ký Quyết Định Kiến Trúc — ADR Log (`docs/jn/decisions.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship
-> **Cập nhật lần cuối:** 2026-10-27 (JN Step 0)
+> **Cập nhật lần cuối:** 2026-10-27 (JN Step 4 — Bổ sung ADR-005 & ADR-006)
 > **Định dạng:** Architecture Decision Records (Bối cảnh → Quyết định → Hệ quả & Ràng buộc)
 
 ---
@@ -113,3 +113,56 @@ Yêu cầu cốt lõi của dự án là ẩn toàn bộ dấu vết mặc đị
 ### 3. Hệ quả & Ràng buộc
 - **Tích cực:** Mã nguồn HTML và các đường dẫn tài nguyên công khai hoàn toàn sạch dấu vết `wp-content`, `wp-includes`, `wp-json`, `wp-login.php`, `xmlrpc.php`; trình quét tự động không thể dò tìm tài khoản quản trị hay đường dẫn đăng nhập; việc nâng cấp WordPress Core và WooCommerce vẫn diễn ra trơn tru.
 - **Kiểm thử bắt buộc (Step 7):** Phải vượt qua bộ kịch bản kiểm thử tự động kiểm tra mã phản hồi HTTP (`404`/`403`) và quét toàn bộ DOM HTML của khách chưa đăng nhập để xác nhận không rò rỉ chữ ký WordPress.
+
+---
+
+## ADR-005: Vô Hiệu Hóa Mặc Định Tính Năng Theo Dõi Nguồn Đơn Hàng (`WooCommerce Order Attribution`)
+
+- **Ngày quyết định:** 2026-10-27 (Step 4)
+- **Trạng thái:** Đã chấp thuận (Approved — Theo `.agent/rules/jn-project.md` §5 & `PROJECT CONTEXT CARD`)
+
+### 1. Bối cảnh
+Từ WooCommerce 8.5+, tính năng **Order Attribution** (`woocommerce_feature_order_attribution_enabled`) được bật mặc định trên mọi cửa hàng mới. Khi bật, WooCommerce tự động chèn 2 tập tin JavaScript (`sourcebuster.min.js` và `order-attribution.min.js`, tổng cộng ~18 KB raw) cùng thẻ `<wc-order-attribution-inputs>` trên **tất cả các trang giao diện khách** (bao gồm cả các trang nội dung tĩnh như `/coaching/`, `/my-story/`, `/booking/`), đồng thời ghi một loạt cookie theo dõi phiên truy cập của người dùng (`sbjs_migrations`, `sbjs_current`, `sbjs_first`, `sbjs_udata`, `sbjs_session`...).
+
+Trong khi đó:
+1. **`PROJECT CONTEXT CARD`** quy định rõ: `TRACKING / CHAT WIDGETS: none`.
+2. **Quy tắc Hiệu năng (§5 & Task 10 Step 4)** yêu cầu: Không tải bất kỳ tài nguyên CSS/JS nào của WooCommerce trên các trang nội dung (`/coaching/`, `/my-story/`, `/booking/`...) và giữ ngân sách JS tổng cộng dưới ngưỡng tối thiểu.
+3. **Quyền riêng tư (Privacy by Default):** Không đặt cookie theo dõi hành vi trên trình duyệt của khách khi chưa có yêu cầu phân tích tiếp thị từ chủ dự án.
+
+### 2. Quyết định
+1. **Tắt mặc định tính năng Order Attribution (`woocommerce_feature_order_attribution_enabled = no`)** ngay trong quá trình cấu hình WooCommerce ở Step 4.
+2. **Chặn đăng ký script dự phòng trong `jn-performance.php`:** Ngay cả khi một bản cập nhật WooCommerce tương lai kiểm tra lại cờ này, `jn-performance.php` đảm bảo không nạp `sourcebuster-js` hay `wc-order-attribution` trên giao diện khách.
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:** Loại bỏ hoàn toàn 2 request JS và toàn bộ cookie `sbjs_*` trên mọi trang của website; tuân thủ tuyệt đối chính sách không theo dõi (`TRACKING: none`) và ngân sách hiệu năng Lighthouse Mobile ≥ 95.
+- **Khả năng mở rộng:** Nếu sau này chủ dự án muốn bật theo dõi nguồn chiến dịch UTM trên trang Thanh toán, có thể bật lại có điều kiện hoặc đọc trực tiếp tham số UTM ở phía máy chủ mà không cần tải `sourcebuster.min.js` trên toàn trang.
+
+---
+
+## ADR-006: Chọn Trang `"My Favorite Product"` (`/my-favorite-product/`) Làm Trang Cửa Hàng WooCommerce (`woocommerce_shop_page_id`) Nhưng Giữ Nguyên Bố Cục Gutenberg
+
+- **Ngày quyết định:** 2026-10-27 (Step 4)
+- **Trạng thái:** Đã chấp thuận (Approved — Step 4 Task 6)
+
+### 1. Bối cảnh
+Trong sơ đồ điều hướng của website Jannie Nguyễn (`docs/jn/wireframe-spec.md` mục `2a`), không có mục nào mang tên `"Shop"` hay `"Cửa hàng"` chung chung. Thay vào đó, 3 nhóm sản phẩm/dịch vụ được phân bổ vào 3 trang chuyên biệt theo đúng cấu trúc thương hiệu cá nhân:
+- **Dịch vụ Cố vấn 1:1:** Trang `/coaching/` (chỉ đăng ký qua biểu mẫu tư vấn, ẩn khỏi danh mục mua trực tiếp).
+- **Khóa học:** Trang `/course/` (danh mục `"Khóa học"`).
+- **Sản phẩm khuyên dùng:** Trang **`"My Favorite Product"` (`/my-favorite-product/`)** hiển thị các sản phẩm thuộc danh mục `"Sản phẩm yêu thích"` bằng pattern tiêu đề phân đoạn (`jannie/page-intro`) kết hợp khối **WooCommerce Product Collection (`woocommerce/product-collection`)**.
+
+Nếu để `woocommerce_shop_page_id` trống hoặc trỏ sang một trang `/shop/` riêng biệt không có trên thanh điều hướng:
+- Nút *"Quay lại cửa hàng"* (`Return to shop` / `Browse products`) bên trong khối **WooCommerce Empty Cart (`woocommerce/empty-cart-block`)**, trang Tài khoản (`My Account → Orders` khi chưa có đơn hàng) và các đường dẫn breadcrumb của WooCommerce sẽ trỏ về trang `/shop/` lạ lẫm hoặc trả về `404`.
+- Ngược lại, nếu gán `woocommerce_shop_page_id` vào `/my-favorite-product/` mà không kiểm soát template archive của WooCommerce, WordPress sẽ coi `/my-favorite-product/` là `is_post_type_archive( 'product' )` và thay thế toàn bộ nội dung khối Gutenberg của trang bằng vòng lặp archive PHP mặc định của theme (làm mất khối `jannie/page-intro` và cấu hình `woocommerce/product-collection`).
+
+### 2. Quyết định
+1. **Gán `woocommerce_shop_page_id` trỏ chính thức vào trang `"My Favorite Product"` (`/my-favorite-product/`).**
+2. **Bảo toàn 100% nội dung Gutenberg của trang `/my-favorite-product/`:**
+   - Khi truy cập `/my-favorite-product/`, hệ thống hiển thị nguyên vẹn nội dung khối Gutenberg đã dựng trên trang (`jannie/page-intro` + `woocommerce/product-collection` lọc theo danh mục `"Sản phẩm yêu thích"` kèm khối trạng thái trống thương hiệu hóa), thay vì để template archive sản phẩm mặc định của WooCommerce/Blocksy ghi đè.
+   - Bất kỳ đường dẫn `/shop/` hoặc `/cua-hang/` mặc định nào (nếu có) đều được chuyển hướng `301` sạch sẽ về `/my-favorite-product/`.
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:**
+  - Mọi liên kết *"Quay lại cửa hàng"* từ Giỏ hàng trống (`/gio-hang/`), Tài khoản (`/tai-khoan/orders/`) và hệ thống WooCommerce đều dẫn khách hàng về đúng trang **`/my-favorite-product/`** có trong thanh điều hướng chính.
+  - Chủ dự án có thể chỉnh sửa trực quan tiêu đề, mô tả mở đầu và lưới sản phẩm của trang `"My Favorite Product"` ngay trong trình soạn thảo Gutenberg (`Block Editor`) giống hệt các trang nội dung khác.
+  - Các gói `"Coaching & Mentorship"` (`catalog_visibility = hidden`, `status = draft`) không bao giờ bị rò rỉ ra trang `"My Favorite Product"`.
+
