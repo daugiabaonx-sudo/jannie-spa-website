@@ -88,7 +88,7 @@ class JN_Booking_Admin {
 			'edit.php?post_type=' . JN_Booking_CPT::POST_TYPE,
 			'Cài đặt Lịch hẹn — Jannie Nguyễn',
 			'Cài đặt',
-			JN_Booking_Roles::CAP_MANAGE,
+			JN_Booking_Roles::CAP_SETTINGS,
 			'jn-booking-settings',
 			array( __CLASS__, 'render_settings_page' )
 		);
@@ -149,12 +149,15 @@ class JN_Booking_Admin {
 				break;
 
 			case 'jn_customer':
-				$name    = (string) get_post_meta( $post_id, '_jn_customer_name', true );
-				$email   = (string) get_post_meta( $post_id, '_jn_customer_email', true );
-				$user_id = (int) get_post_meta( $post_id, '_jn_customer_user_id', true );
-				echo '<strong>' . esc_html( $name ) . '</strong>';
+				$name     = (string) get_post_meta( $post_id, '_jn_customer_name', true );
+				$email    = (string) get_post_meta( $post_id, '_jn_customer_email', true );
+				$phone    = (string) get_post_meta( $post_id, '_jn_customer_phone', true );
+				$user_id  = (int) get_post_meta( $post_id, '_jn_customer_user_id', true );
+				$cust_key = $user_id > 0 ? 'user:' . $user_id : 'guest:' . ( '' !== $email ? strtolower( $email ) : $phone );
+				$crm_url  = admin_url( 'admin.php?page=jn-customers&action=view&customer_key=' . rawurlencode( $cust_key ) );
+				echo '<strong><a href="' . esc_url( $crm_url ) . '">' . esc_html( $name ) . '</a></strong>';
 				if ( $user_id > 0 ) {
-					echo ' <a href="' . esc_url( get_edit_user_link( $user_id ) ) . '" class="jn-sub-meta">(TK #' . esc_html( (string) $user_id ) . ')</a>';
+					echo ' <a href="' . esc_url( $crm_url ) . '" class="jn-sub-meta">(TK #' . esc_html( (string) $user_id ) . ')</a>';
 				} else {
 					echo ' <span class="jn-sub-meta">(Khách vãng lai)</span>';
 				}
@@ -1270,8 +1273,8 @@ class JN_Booking_Admin {
 	 * @return void
 	 */
 	public static function render_settings_page(): void {
-		if ( ! JN_Booking_Roles::user_can_manage_bookings() ) {
-			wp_die( 'Bạn không có quyền truy cập cài đặt lịch hẹn.' );
+		if ( ! JN_Booking_Roles::user_can_manage_booking_settings() ) {
+			wp_die( 'Bạn không có quyền truy cập cài đặt lịch hẹn.', 'Từ chối truy cập', array( 'response' => 403 ) );
 		}
 
 		$settings = JN_Booking_Settings::get_all();
@@ -1360,6 +1363,19 @@ class JN_Booking_Admin {
 							</p>
 						</td>
 					</tr>
+
+					<tr>
+						<th scope="row">Lưu giữ lịch hẹn khách vãng lai đã hủy (Retention)</th>
+						<td>
+							<label>
+								<input type="checkbox" name="retention_cancelled_guest_enabled" value="yes" <?php checked( 'yes', (string) $settings['retention_cancelled_guest_enabled'] ); ?> />
+								Tự động ẩn danh / xóa dữ liệu cá nhân trên các lịch hẹn của khách vãng lai ở trạng thái <code>Đã hủy</code> quá hạn (Mặc định: <code>Tắt</code> — Quyết định của chủ dự án theo <code>ADR-009</code>)
+							</label>
+							<p style="margin-top:8px;">
+								<label>Thời hạn lưu giữ trước khi ẩn danh: <input type="number" name="retention_cancelled_guest_days" value="<?php echo esc_attr( (string) ( $settings['retention_cancelled_guest_days'] ?? 90 ) ); ?>" min="7" class="small-text" /> ngày</label>
+							</p>
+						</td>
+					</tr>
 				</table>
 
 				<?php submit_button( 'Lưu Cài Đặt Lịch Hẹn' ); ?>
@@ -1374,7 +1390,7 @@ class JN_Booking_Admin {
 	 * @return void
 	 */
 	public static function handle_save_settings(): void {
-		if ( ! JN_Booking_Roles::user_can_manage_bookings() ) {
+		if ( ! JN_Booking_Roles::user_can_manage_booking_settings() ) {
 			wp_die( 'Bạn không có quyền lưu cài đặt này.', 'Từ chối truy cập', array( 'response' => 403 ) );
 		}
 
@@ -1386,6 +1402,9 @@ class JN_Booking_Admin {
 		}
 		if ( ! isset( $raw['auto_create_account'] ) ) {
 			$raw['auto_create_account'] = 'no';
+		}
+		if ( ! isset( $raw['retention_cancelled_guest_enabled'] ) ) {
+			$raw['retention_cancelled_guest_enabled'] = 'no';
 		}
 
 		JN_Booking_Settings::update( $raw );

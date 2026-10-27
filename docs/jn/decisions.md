@@ -196,4 +196,64 @@ Chọn **Phương án A (Private CPT `jn_booking` kết hợp WooCommerce HPOS)*
 - **Tích cực:** Kiến trúc gọn sạch, tuân thủ 100% chuẩn WordPress & WooCommerce HPOS CRUD, hỗ trợ đầy đủ 12 buổi Mentorship trên 1 đơn hàng và dễ dàng bảo trì lâu dài.
 - **Ràng buộc:** Mọi thao tác chuyển trạng thái lịch hẹn phải đi qua tầng dịch vụ `JN_Booking_Service` để kiểm tra máy trạng thái ở phía máy chủ và ghi nhận đầy đủ vào `_jn_status_timeline`.
 
+---
+
+## ADR-008: Xây Dựng Màn Hình Quản Trị `"Khách hàng"` Chuyên Biệt (`admin.php?page=jn-customers`) Thay Vì Chỉ Lọc Màn Hình `Users`
+
+- **Ngày quyết định:** 2026-10-27 (Step 6)
+- **Trạng thái:** Đã chấp thuận (Approved — Step 6 Customer Management & Staff Accounts)
+
+### 1. Bối cảnh
+Yêu cầu của Step 6 đặt ra bài toán: *"Staff can see and manage every customer — whether they came from a booking, an order or a registration — in one place, and staff accounts follow least privilege"* và cho phép lựa chọn kiến trúc: *"Khách hàng admin screen (dedicated screen or the Users screen filtered to customers — ADR)"*.
+
+Theo `PROJECT CONTEXT CARD`:
+- **`AUTO-CREATE CUSTOMER ACCOUNT ON BOOKING: no`** — Khách hàng gửi yêu cầu đặt lịch tư vấn từ biểu mẫu trực tuyến hoặc thanh toán đơn hàng khách vãng lai (`Guest Checkout`) **không** tự động sinh bản ghi `WP_User` trong bảng `wp_users`.
+- Vai trò **`Trợ lý lịch hẹn` (`jn_booking_assistant`)** cần xem, tìm kiếm theo mọi định dạng SĐT (`0908…`, `+84908…`), phân loại khách hàng, ghi chú nội bộ và tạo lịch hẹn điện thoại/trực tiếp (`Walk-in`), nhưng theo nguyên tắc đặc quyền tối thiểu (`Least Privilege`), trợ lý **không** được cấp quyền `list_users` / `edit_users` trên màn hình `users.php` của WordPress (nơi chứa cả tài khoản Quản trị và Nhân sự).
+
+### 2. Quyết định
+1. **Xây dựng màn hình quản trị chuyên biệt `"Khách hàng"` (`admin.php?page=jn-customers`, điều khiển bởi quyền `manage_jn_customers`):**
+   - Hợp nhất trực tiếp cả **3 nguồn khách hàng** vào một danh bạ duy nhất:
+     1. Khách hàng đã đăng ký tài khoản (`WP_User` / `WC_Customer`, khóa `user:<ID>`).
+     2. Khách hàng vãng lai từ lịch hẹn (`jn_booking` có `_jn_customer_user_id = 0`, khóa `guest:<email_hoặc_sđt>`).
+     3. Khách hàng vãng lai từ đơn hàng WooCommerce HPOS (`WC_Order` có `customer_id = 0`, khóa `guest:<email_hoặc_sđt>`).
+   - Cung cấp trang **Chi tiết khách hàng** (`admin.php?page=jn-customers&action=view&customer_key=...`) hiển thị đầy đủ: Hồ sơ CRM 10 trường, Cảnh báo trùng lặp SĐT/Email (`jn_customer_duplicate_log`), biểu mẫu **"Tạo lịch hẹn"** nhanh cho yêu cầu qua điện thoại/trực tiếp, Lịch sử lịch hẹn, Lịch sử đơn hàng HPOS kèm liên kết, Dòng thời gian Ghi chú nội bộ (chỉ nhân sự thấy), và Nhật ký đồng ý bảo mật (chỉ đọc).
+2. **Đồng bộ hai chiều (`Bidirectional Sync`) với WooCommerce Billing & `user-edit.php`:**
+   - Đối với khách hàng đã có tài khoản `WP_User`, mọi cập nhật trên màn hình `"Khách hàng"` (Họ tên, SĐT `+84…`, Email, Tên cơ sở, Tỉnh/Thành) đều đồng bộ tức thì sang `WC_Customer` (`billing_first_name`, `billing_phone`, `billing_email`, `billing_company`, `billing_city`, `billing_state`) để báo cáo **WooCommerce Customers / Analytics** luôn nhất quán 100%.
+   - Đồng thời vẫn hiển thị các trường CRM trên màn hình `user-edit.php` dành cho Quản trị viên và Quản lý cửa hàng.
+   - Khi khách vãng lai đăng ký hoặc đăng nhập với cùng email đã xác thực, toàn bộ lịch hẹn vãng lai, đơn hàng HPOS vãng lai và hồ sơ CRM vãng lai (`jn_guest_crm_profiles`) được tự động gắn kết và hợp nhất vào tài khoản `WP_User`.
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:**
+  - Nhân sự nhìn thấy 100% khách hàng (kể cả khách đặt lịch chưa tạo tài khoản) tại một nơi duy nhất mà không vi phạm chính sách `AUTO-CREATE CUSTOMER ACCOUNT ON BOOKING: no`.
+  - Đảm bảo đặc quyền tối thiểu: `Trợ lý lịch hẹn` (`jn_booking_assistant`) làm việc trọn vẹn trên màn hình `"Khách hàng"` mà không cần quyền truy cập bảng `users.php` của hệ thống.
+- **Ràng buộc:** Tầng dịch vụ `JN_Customer_Service` và `JN_Customer_Profile` chịu trách nhiệm giữ đồng bộ giữa hồ sơ CRM và `WC_Customer`.
+
+---
+
+## ADR-009: Chính Sách Lưu Trữ Lịch Hẹn Khách Vãng Lai Đã Hủy (`Cancelled Guest Bookings Retention — Mặc Định Tắt`)
+
+- **Ngày quyết định:** 2026-10-27 (Step 6)
+- **Trạng thái:** Đã chấp thuận — Ghi nhận là Quyết định của Chủ sở hữu (`Owner Decision`)
+
+### 1. Bối cảnh
+Yêu cầu về Quyền riêng tư (Task 7 — Step 6) quy định: *"Privacy: the exporter and eraser include the CRM fields; a retention setting for cancelled guest bookings (default off, logged as an owner decision)"*.
+
+Đối với các yêu cầu đặt lịch của khách vãng lai (`_jn_customer_user_id = 0`) đã chuyển sang trạng thái **`Đã hủy` (`jn_cancelled`)**:
+- Một mặt, Học viện có thể muốn giữ lại lịch sử liên hệ để đối chiếu khi khách hàng liên hệ lại sau vài tháng.
+- Mặt khác, theo nguyên tắc tối thiểu hóa dữ liệu cá nhân (Data Minimization), chủ sở hữu cần có công tắc cấu hình để tự động ẩn danh hóa dữ liệu cá nhân (PII) của các lịch hẹn vãng lai đã hủy sau một khoảng thời gian nhất định nếu muốn.
+
+### 2. Quyết định
+1. **Bổ sung cấu hình Lưu trữ lịch hẹn vãng lai đã hủy trong `Lịch hẹn → Cài đặt` (`JN_Booking_Settings`):**
+   - `retention_cancelled_guest_enabled`: **Mặc định `'no'` (Tắt)**.
+   - `retention_cancelled_guest_days`: **Mặc định `90` ngày** (khi bật).
+2. **Ghi nhật ký quyết định của Chủ sở hữu (`jn_owner_decisions_log`):**
+   - Trạng thái mặc định tắt (`default off`) và mọi thay đổi bật/tắt cấu hình này trên trang Cài đặt đều được ghi nhận có dấu thời gian (`Asia/Ho_Chi_Minh`) và người thực hiện vào `wp_options` (`jn_owner_decisions_log`).
+3. **Tác vụ định kỳ (`jn_daily_cancelled_guest_booking_cleanup`):**
+   - Khi `retention_cancelled_guest_enabled === 'no'`, tác vụ WP-Cron hàng ngày không thực hiện bất kỳ thao tác xóa/ẩn danh nào.
+   - Khi Chủ sở hữu chủ động bật (`'yes'`), các bản ghi `jn_booking` có trạng thái `jn_cancelled`, `_jn_customer_user_id = 0` và cũ hơn số ngày cấu hình sẽ được tự động ẩn danh hóa thông tin cá nhân (`JN_Booking_Privacy::anonymize_booking_post`) và xóa hồ sơ vãng lai tương ứng.
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:** Bảo toàn dữ liệu vận hành theo mặc định, không bao giờ tự ý xóa dữ liệu khách hàng khi chưa có lệnh kích hoạt của Chủ sở hữu, đồng thời sẵn sàng đáp ứng quy định bảo vệ dữ liệu cá nhân ngay khi bật công tắc.
+
+
 

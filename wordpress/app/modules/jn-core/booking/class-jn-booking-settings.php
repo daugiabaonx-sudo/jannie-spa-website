@@ -72,11 +72,13 @@ class JN_Booking_Settings {
 				'60-phut'            => 0,
 				'mentorship-3-thang' => 0,
 			),
-			'waitlist_note'       => self::DEFAULT_WAITLIST_NOTE,
-			'auto_create_account' => 'no',
-			'consent_text'        => self::DEFAULT_CONSENT_TEXT,
-			'privacy_page_id'     => $privacy_page_id,
-			'privacy_version'     => '1.0',
+			'waitlist_note'                     => self::DEFAULT_WAITLIST_NOTE,
+			'auto_create_account'               => 'no',
+			'consent_text'                      => self::DEFAULT_CONSENT_TEXT,
+			'privacy_page_id'                   => $privacy_page_id,
+			'privacy_version'                   => '1.0',
+			'retention_cancelled_guest_enabled' => 'no',
+			'retention_cancelled_guest_days'    => 90,
 		);
 	}
 
@@ -222,8 +224,87 @@ class JN_Booking_Settings {
 			$current['privacy_version'] = '' !== $ver ? $ver : '1.0';
 		}
 
+		// 7. Retention setting for cancelled guest bookings (default off, logged as an owner decision).
+		if ( array_key_exists( 'retention_cancelled_guest_enabled', $raw ) ) {
+			$new_ret = ( 'yes' === $raw['retention_cancelled_guest_enabled'] || '1' === (string) $raw['retention_cancelled_guest_enabled'] || true === $raw['retention_cancelled_guest_enabled'] )
+				? 'yes'
+				: 'no';
+			if ( $new_ret !== (string) $current['retention_cancelled_guest_enabled'] ) {
+				self::log_owner_decision(
+					'retention_cancelled_guest_enabled',
+					(string) $current['retention_cancelled_guest_enabled'],
+					$new_ret
+				);
+			}
+			$current['retention_cancelled_guest_enabled'] = $new_ret;
+		}
+
+		if ( isset( $raw['retention_cancelled_guest_days'] ) ) {
+			$days                                      = max( 7, absint( $raw['retention_cancelled_guest_days'] ) );
+			$current['retention_cancelled_guest_days'] = $days;
+		}
+
 		update_option( self::OPTION_KEY, $current, false );
 		return $current;
+	}
+
+	/**
+	 * Ensure default settings and the initial owner decision (`ADR-009`: `retention_cancelled_guest_enabled = no`)
+	 * are recorded in `wp_options`.
+	 *
+	 * @return void
+	 */
+	public static function ensure_defaults(): void {
+		$all = self::get_all();
+		update_option( self::OPTION_KEY, $all, false );
+
+		$log = self::get_owner_decisions_log();
+		if ( empty( $log ) ) {
+			self::log_owner_decision(
+				'retention_cancelled_guest_enabled',
+				'unset',
+				(string) $all['retention_cancelled_guest_enabled']
+			);
+		}
+	}
+
+	/**
+	 * Record an owner decision audit entry when privacy/retention policies are changed.
+	 *
+	 * @param string $setting_key Setting key.
+	 * @param string $old_value   Previous value.
+	 * @param string $new_value   New value.
+	 * @return void
+	 */
+	public static function log_owner_decision( string $setting_key, string $old_value, string $new_value ): void {
+		$log = get_option( 'jn_owner_decision_log', array() );
+		if ( ! is_array( $log ) ) {
+			$log = array();
+		}
+		$tz     = new \DateTimeZone( 'Asia/Ho_Chi_Minh' );
+		$now_vn = new \DateTimeImmutable( 'now', $tz );
+
+		array_unshift(
+			$log,
+			array(
+				'timestamp'   => $now_vn->format( 'c' ),
+				'actor_id'    => get_current_user_id(),
+				'setting_key' => $setting_key,
+				'old_value'   => $old_value,
+				'new_value'   => $new_value,
+			)
+		);
+		update_option( 'jn_owner_decision_log', array_slice( $log, 0, 100 ), false );
+	}
+
+	/**
+	 * Return the owner decision audit log (`jn_owner_decision_log`).
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public static function get_owner_decisions_log(): array {
+		$log = get_option( 'jn_owner_decision_log', array() );
+		return is_array( $log ) ? $log : array();
 	}
 
 	/**

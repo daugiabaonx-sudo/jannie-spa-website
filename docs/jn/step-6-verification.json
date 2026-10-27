@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-10-27T17:02:35.125Z",
+  "staffLogin2FA": {
+    "staffUser": "tro_ly_lich_hen",
+    "roleLabel": "Trợ lý lịch hẹn",
+    "twoFactorPromptShown": true,
+    "otpDeliveredToMailpit": true,
+    "loggedInAdminUrl": "http://localhost:8080/wp-admin/",
+    "loginSucceeded": true
+  },
+  "customersListScreen": {
+    "heading": "Khách Hàng (CRM Hợp Nhất)",
+    "headers": [
+      "Khách hàng",
+      "SĐT / Zalo",
+      "Email",
+      "Loại khách",
+      "Lịch hẹn",
+      "Đơn hàng",
+      "Tổng chi tiêu",
+      "Lịch hẹn gần nhất",
+      "Tags"
+    ],
+    "rowCount": 4,
+    "hasExportBtn": true,
+    "hasDupBadge": false,
+    "hasLanAnh": true,
+    "hasMinhThao": true,
+    "hasNgocBichGuest": true
+  },
+  "customersFiltersAndSearch": {
+    "searchValue": "0908 234 567",
+    "selectedType": "chu_co_so",
+    "selectedTag": "VIP",
+    "pendingChecked": true,
+    "matchingRowCount": 2,
+    "matchesLanAnhE164Phone": true
+  },
+  "customerDetailScreen": {
+    "customerName": "Trần Thị Lan Anh Tài khoản #48",
+    "hasDuplicateWarningBanner": true,
+    "hasProfileForm": true,
+    "hasCreateBookingForm": true,
+    "hasBookingHistory": true,
+    "hasOrderHistory": true,
+    "hasInternalNotesTimeline": true,
+    "hasReadOnlyConsentLog": true,
+    "exportCsvHref": ""
+  },
+  "csvHttpStreamCheck": {
+    "ok": true,
+    "status": 200,
+    "contentType": "text/csv; charset=UTF-8",
+    "contentDisposition": "attachment; filename=\"jn-khach-hang-2026-10-28-000253.csv\"",
+    "bomBytes": [
+      239,
+      187,
+      191
+    ],
+    "hasUtf8Bom": true,
+    "containsVietnameseHeader": true,
+    "containsLanAnhRow": true
+  }
+}

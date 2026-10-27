@@ -1,7 +1,7 @@
 # Hồ Sơ Công Nghệ & Công Cụ Phát Triển (`docs/jn/stack.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship
-> **Cập nhật lần cuối:** 2026-10-27 (JN Step 4 — Đã cài đặt và cấu hình WooCommerce `v11.2.1` + gói ngôn ngữ `vi`, HPOS, Blocksy `v2.1.60`, child theme `jannie`, `jn-core` `v1.1.0`)
+> **Cập nhật lần cuối:** 2026-10-27 (JN Step 6 — Đã cài đặt và cấu hình `two-factor` `v0.17.0`, nâng cấp `jn-core` `v1.3.0` với phân hệ Khách hàng CRM, Xuất CSV UTF-8 BOM, Phân quyền Nhân sự & 2FA bắt buộc)
 > **Tham chiếu quy tắc:** `.agent/rules/jn-project.md` (§2 Fixed stack, §3 Engineering, §5 Hide WordPress, §6 Performance)
 
 ---
@@ -64,11 +64,11 @@ Tuân thủ nghiêm ngặt `.agent/rules/jn-project.md` §2:
    - Tiền tệ `VND`, `0` chữ số thập phân, dấu phân cách hàng nghìn `"."`, dấu thập phân `","`, ký hiệu `₫` đứng sau cách 1 khoảng trắng (`right_space` → `450.000 ₫`).
    - Sử dụng các trang WooCommerce Blocks chuẩn (**Product Collection** trên `/my-favorite-product/` được chỉ định làm `woocommerce_shop_page_id` theo `ADR-006`, **Cart Block** trên `/cart/`, **Checkout Block** trên `/checkout/`, và **My Account** trên `/tai-khoan/`).
    - Tắt hoàn toàn các script/style của WooCommerce và `wc-cart-fragments` trên những trang nội dung không có giỏ hàng/thanh toán (`/coaching/`, `/my-story/`, `/booking/`...).
-2. **Custom Plugin — `jn-core` (`v1.1.0`, `/app/modules/jn-core`):**
+2. **Custom Plugin — `jn-core` (`v1.3.0`, `/app/modules/jn-core`):**
    - Khai báo tương thích chính thức với `custom_order_tables` (HPOS) và `cart_checkout_blocks`.
    - Tổ chức theo các thư mục tính năng rõ ràng:
-     - `booking/`: Quản lý 3 sản phẩm dịch vụ ảo (`Virtual`, `Simple`, danh mục `"Coaching & Mentorship"`) đặt tên khớp nguyên văn 100% với tùy chọn trong biểu mẫu (`"Gói Tư Vấn Cá Nhân 1:1 (30 Phút)"`, `"Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)"`, `"Gói Master Mentorship (3 Tháng)"`), giữ ở trạng thái `Draft` khi giá bán `UNKNOWN` (`UNK-01`), ẩn khỏi danh mục sản phẩm và chặn thêm trực tiếp vào giỏ hàng nhưng cho phép thanh toán qua liên kết `order-pay` của đơn hàng `pending`; rút gọn trường thanh toán cho giỏ hàng chỉ gồm sản phẩm ảo (chỉ hỏi Họ và tên, Số điện thoại / Zalo, Địa chỉ email + ô tích Điều khoản); ẩn COD đối với sản phẩm ảo.
-     - `customers/`: Quản lý hồ sơ khách hàng trên nền WooCommerce Customers + Order Meta, phân loại theo 3 nhóm đối tượng (`Cá nhân`, `Thợ / Học viên`, `Chủ cơ sở thẩm mỹ, phun xăm, spa`), lưu lịch sử tư vấn và cờ đồng ý bảo mật dữ liệu (consent).
+     - `booking/`: Quản lý 3 sản phẩm dịch vụ ảo (`Virtual`, `Simple`, danh mục `"Coaching & Mentorship"`), CPT `jn_booking` riêng tư, máy trạng thái lịch hẹn (`Chờ xác nhận` → `Đã xác nhận lịch` → `Hoàn thành` | `Vắng mặt` / `Đã hủy`), kiểm tra trùng khung giờ, đồng bộ đơn hàng HPOS `WC_Order`, quản lý lộ trình 12 buổi Mentorship, sinh file lịch `.ics` (`Asia/Ho_Chi_Minh`), email giao dịch Tiếng Việt, phân quyền 4 vai trò nhân sự (`JN_Booking_Roles`) kèm ép buộc 2FA (`two-factor` `v0.17.0`) và cô lập tài khoản khách hàng khỏi `/wp-admin/`.
+     - `customers/`: Quản lý hồ sơ khách hàng hợp nhất (`JN_Customer_Profile`, `JN_Customer_Service`, `JN_Customer_Admin`, `JN_CSV_Exporter`, `JN_Booking_Privacy`) đồng bộ 2 chiều với `WC_Customer`, tự động gắn lịch hẹn & đơn hàng vãng lai vào tài khoản khi đăng ký/đăng nhập, cảnh báo trùng SĐT/Email (`jn_customer_duplicate_log`), màn hình `"Khách hàng"` chuyên biệt, xuất CSV UTF-8 có BOM, và công cụ Xuất/Xóa dữ liệu cá nhân kèm chính sách lưu trữ lịch hẹn vãng lai đã hủy (`ADR-008`, `ADR-009`).
      - `testimonials/`: Quản lý dữ liệu chứng thực học viên có kiểm chứng (chỉ hiển thị đúng 3 đánh giá gốc đã được chủ dự án cung cấp, tuyệt đối không tự bịa thêm).
      - `blocks/`: Đăng ký 3 custom blocks (`jn/icon`, `jn/rating`, `jn/booking-form`) sử dụng JavaScript thuần với biến toàn cục `wp.*` và `ServerSideRender` (không cần bước build phức tạp hay `node_modules` đi kèm plugin).
 3. **Must-Use Plugins (`/app/mu-plugins/`):**
