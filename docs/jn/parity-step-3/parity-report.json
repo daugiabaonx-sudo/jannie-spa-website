@@ -1,0 +1,1018 @@
+{
+  "375": {
+    "s1-hero": {
+      "wf": {
+        "width": 375,
+        "height": 1171,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 375,
+        "height": 1135,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": -36
+      }
+    },
+    "s2-pillars": {
+      "wf": {
+        "width": 375,
+        "height": 2266,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 375,
+        "height": 1858,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -408
+      }
+    },
+    "s3-tiers": {
+      "wf": {
+        "width": 375,
+        "height": 2990,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 375,
+        "height": 2488,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -502
+      }
+    },
+    "s4-expert": {
+      "wf": {
+        "width": 375,
+        "height": 1455,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 375,
+        "height": 1402,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -53
+      }
+    },
+    "s5-testimonials": {
+      "wf": {
+        "width": 375,
+        "height": 1754,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 375,
+        "height": 1443,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -311
+      }
+    },
+    "s6-booking": {
+      "wf": {
+        "width": 375,
+        "height": 2038,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 48
+      },
+      "wp": {
+        "width": 375,
+        "height": 2004,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 375,
+        "containerPaddingLeft": 20,
+        "containerPaddingRight": 20,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 40
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -36,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": -34
+      }
+    }
+  },
+  "768": {
+    "s1-hero": {
+      "wf": {
+        "width": 768,
+        "height": 1382,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 768,
+        "height": 1418,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": 36
+      }
+    },
+    "s2-pillars": {
+      "wf": {
+        "width": 768,
+        "height": 1121,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 768,
+        "height": 1034,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -87
+      }
+    },
+    "s3-tiers": {
+      "wf": {
+        "width": 768,
+        "height": 1965,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 768,
+        "height": 1955,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -10
+      }
+    },
+    "s4-expert": {
+      "wf": {
+        "width": 768,
+        "height": 1572,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 768,
+        "height": 1628,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": 56
+      }
+    },
+    "s5-testimonials": {
+      "wf": {
+        "width": 768,
+        "height": 974,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 768,
+        "height": 818,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -156
+      }
+    },
+    "s6-booking": {
+      "wf": {
+        "width": 768,
+        "height": 1418,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 48
+      },
+      "wp": {
+        "width": 768,
+        "height": 1557,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 768,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 40
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": 139
+      }
+    }
+  },
+  "1024": {
+    "s1-hero": {
+      "wf": {
+        "width": 1024,
+        "height": 578,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 56,
+        "headingLineHeight": 64,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1024,
+        "height": 578,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 56,
+        "headingLineHeight": 64,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": 0
+      }
+    },
+    "s2-pillars": {
+      "wf": {
+        "width": 1024,
+        "height": 917,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1024,
+        "height": 777,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -140
+      }
+    },
+    "s3-tiers": {
+      "wf": {
+        "width": 1024,
+        "height": 1126,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1024,
+        "height": 1090,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -36
+      }
+    },
+    "s4-expert": {
+      "wf": {
+        "width": 1024,
+        "height": 699,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1024,
+        "height": 707,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": 8
+      }
+    },
+    "s5-testimonials": {
+      "wf": {
+        "width": 1024,
+        "height": 728,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1024,
+        "height": 675,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -53
+      }
+    },
+    "s6-booking": {
+      "wf": {
+        "width": 1024,
+        "height": 1091,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 48
+      },
+      "wp": {
+        "width": 1024,
+        "height": 1034,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1024,
+        "containerPaddingLeft": 32,
+        "containerPaddingRight": 32,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 40
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": -24,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": -57
+      }
+    }
+  },
+  "1440": {
+    "s1-hero": {
+      "wf": {
+        "width": 1360,
+        "height": 636,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 56,
+        "headingLineHeight": 64,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1425,
+        "height": 636,
+        "paddingTop": 40,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 56,
+        "headingLineHeight": 64,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": 0
+      }
+    },
+    "s2-pillars": {
+      "wf": {
+        "width": 1440,
+        "height": 758,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1440,
+        "height": 734,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -24
+      }
+    },
+    "s3-tiers": {
+      "wf": {
+        "width": 1360,
+        "height": 1023,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1440,
+        "height": 1013,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 22,
+        "h3LineHeight": 28,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -10
+      }
+    },
+    "s4-expert": {
+      "wf": {
+        "width": 1440,
+        "height": 867,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1440,
+        "height": 867,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(250, 248, 245)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 50,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": 0
+      }
+    },
+    "s5-testimonials": {
+      "wf": {
+        "width": 1360,
+        "height": 638,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "wp": {
+        "width": 1440,
+        "height": 628,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 30,
+        "headingLineHeight": 38,
+        "headingColor": "rgb(31, 30, 29)",
+        "h3FontSize": 15,
+        "h3LineHeight": 22,
+        "inputHeight": null
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": 0,
+        "heightDiff": -10
+      }
+    },
+    "s6-booking": {
+      "wf": {
+        "width": 1440,
+        "height": 933,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 48
+      },
+      "wp": {
+        "width": 1440,
+        "height": 987,
+        "paddingTop": 96,
+        "paddingBottom": 96,
+        "backgroundColor": "rgb(243, 239, 234)",
+        "containerWidth": 1360,
+        "containerPaddingLeft": 56,
+        "containerPaddingRight": 56,
+        "headingFontSize": 40,
+        "headingLineHeight": 48,
+        "headingColor": "rgb(250, 248, 245)",
+        "h3FontSize": null,
+        "h3LineHeight": null,
+        "inputHeight": 40
+      },
+      "diffs": {
+        "paddingTopDiff": 0,
+        "paddingBottomDiff": 0,
+        "containerPaddingLeftDiff": 0,
+        "headingFontSizeDiff": 0,
+        "h3FontSizeDiff": null,
+        "heightDiff": 54
+      }
+    }
+  }
+}

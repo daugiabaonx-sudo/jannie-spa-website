@@ -18,6 +18,7 @@ define( 'JANNIE_URI', get_stylesheet_directory_uri() );
 require_once JANNIE_PATH . '/inc/palette.php';
 require_once JANNIE_PATH . '/inc/setup.php';
 require_once JANNIE_PATH . '/inc/block-styles.php';
+require_once JANNIE_PATH . '/inc/patterns.php';
 require_once JANNIE_PATH . '/inc/layout-shell.php';
 
 /**

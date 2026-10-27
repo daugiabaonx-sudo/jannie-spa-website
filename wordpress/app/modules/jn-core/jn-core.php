@@ -23,5 +23,7 @@ define( 'JN_CORE_URL', plugin_dir_url( __FILE__ ) );
 
 require_once JN_CORE_PATH . 'blocks/icon/class-jn-icon-sprite.php';
 require_once JN_CORE_PATH . 'blocks/class-jn-blocks.php';
+require_once JN_CORE_PATH . 'testimonials/class-jn-testimonials.php';
 
 JN_Blocks::init();
+JN_Testimonials::init();

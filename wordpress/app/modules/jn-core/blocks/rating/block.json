@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/rating",
+	"version": "1.0.0",
+	"title": "JN Star Rating",
+	"category": "design",
+	"icon": "star-filled",
+	"description": "Server-rendered 1–5 star SVG rating from CPT jn_testimonial meta or explicit block attribute (zero front-end JS).",
+	"keywords": [ "rating", "stars", "testimonial", "jannie" ],
+	"textdomain": "jn-core",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"rating": {
+			"type": "number",
+			"default": 0
+		},
+		"size": {
+			"type": "number",
+			"default": 18
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "jn-block-rating-editor",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/booking-form",
+	"version": "1.0.0",
+	"title": "JN Booking Form",
+	"category": "widgets",
+	"icon": "calendar-alt",
+	"description": "Server-rendered Coaching & Mentorship booking request form with ?goi= package preselection and progressive enhancement.",
+	"keywords": [ "booking", "form", "coaching", "jannie" ],
+	"textdomain": "jn-core",
+	"attributes": {
+		"defaultPackage": {
+			"type": "string",
+			"default": "60-phut"
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "jn-block-booking-form-editor",
+	"viewScript": "jn-block-booking-form-view",
+	"render": "file:./render.php"
+}
