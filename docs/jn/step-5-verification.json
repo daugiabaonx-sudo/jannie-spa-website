@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-10-27T15:45:55.318Z",
+  "assetBudget": {
+    "viewJsRawBytes": 11211,
+    "viewJsGzippedBytes": 3785,
+    "within5KbCompressedBudget": true,
+    "nonFormPageTested": "http://localhost:8080/chinh-sach-bao-mat/",
+    "nonFormPageBookingAssetsCount": 0,
+    "nonFormPageWcAssetsCount": 0,
+    "coachingBookingViewJsLoaded": true,
+    "coachingWcAssetsCount": 0
+  },
+  "publicJsFlow": {
+    "defaultSelectedPkg": "Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)",
+    "selectedAfter30Click": "Gói Tư Vấn Cá Nhân 1:1 (30 Phút)",
+    "selectedAfter60Click": "Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)",
+    "isVisible": true,
+    "isError": false,
+    "text": "Cảm ơn bạn! Yêu cầu đã được ghi nhận. Đội ngũ trợ lý của Jannie Nguyễn sẽ liên hệ trực tiếp qua số điện thoại của bạn trong vòng 24 giờ.",
+    "submitHidden": true,
+    "matchesVerbatimWireframeText": true
+  },
+  "noJsPrgFlow": {
+    "serverPreselectedPkg": "Gói Tư Vấn Cá Nhân 1:1 (30 Phút)",
+    "redirectedUrl": "http://localhost:8080/coaching/?jn_bf=bs8ebo3FOo8x#booking-form",
+    "hasPrgQueryParam": true,
+    "isVisible": true,
+    "isError": false,
+    "text": "Cảm ơn bạn! Yêu cầu đã được ghi nhận. Đội ngũ trợ lý của Jannie Nguyễn sẽ liên hệ trực tiếp qua số điện thoại của bạn trong vòng 24 giờ.",
+    "matchesVerbatimWireframeText": true
+  },
+  "cachedPageFlow": {
+    "staleTokenInjected": "1700000000.cachedhtml.stalehmacsignature",
+    "refreshedToken": "1793115981.TQ5lut1Diz.458eab2d2c0137e664c0cb6f672cf40f35a7dc1043281ce686a696357b5e3564",
+    "tokenWasRefreshedViaRest": true,
+    "isVisible": true,
+    "isError": false,
+    "text": "Cảm ơn bạn! Yêu cầu đã được ghi nhận. Đội ngũ trợ lý của Jannie Nguyễn sẽ liên hệ trực tiếp qua số điện thoại của bạn trong vòng 24 giờ.",
+    "matchesVerbatimWireframeText": true
+  },
+  "staffAdminFlow": {
+    "pendingBadgeCount": "3",
+    "rowCount": 3,
+    "khueBookingId": 252,
+    "tranBookingId": 254,
+    "statusPill": "Đã xác nhận lịch",
+    "payPill": "Chờ thanh toán",
+    "payUrl": "http://localhost:8080/checkout/order-pay/255/?pay_for_order=true&key=wc_order_872579bONoyy2",
+    "orderLink": "",
+    "bookingCode": "JN-202610-0252",
+    "primaryOrderId": 255,
+    "agendaHasBookings": true,
+    "wcEmailsListed": {
+      "hasNewRequestEmail": true,
+      "hasStaffAlertEmail": true,
+      "hasConfirmedEmail": true,
+      "hasPaymentReceivedEmail": true,
+      "hasCancelledEmail": true
+    }
+  },
+  "mailpitVerification": {
+    "totalEmailsInMailpit": 8,
+    "confirmedEmailId": "dDzPiJvg3GHSWVm6SQYpfn",
+    "confirmedEmailSubject": "[Jannie Nguyễn] Đã xác nhận lịch hẹn Coaching (JN-202610-0254) & Thông tin thanh toán",
+    "hasIcsAttachment": true,
+    "icsFileName": "lich-hen-jn-202610-0254.ics",
+    "icsContainsVcalendar": true,
+    "icsContainsHoChiMinhTz": false,
+    "icsContainsZoomLink": false,
+    "emailHtmlContainsOrderPayUrl": true,
+    "emailHtmlContainsZoomLink": false
+  },
+  "orderPayAndSyncFlow": {
+    "orderPayUrl": "http://localhost:8080/checkout/order-pay/255/?pay_for_order=true&key=wc_order_872579bONoyy2",
+    "orderReceivedUrl": "http://localhost:8080/checkout/order-received/255/?key=wc_order_872579bONoyy2",
+    "orderReceivedReached": true,
+    "syncedBookingPaymentLabel": "Đã thanh toán",
+    "staffPaymentEmailReceived": true,
+    "staffPaymentEmailSubject": "[Nội bộ Jannie Nguyễn] Đã thanh toán lịch hẹn JN-202610-0252 (Đơn hàng #255)"
+  },
+  "myAccountEndpointFlow": {
+    "navHasLichHenCuaToi": true,
+    "bookingCodeVisible": true,
+    "statusConfirmedVisible": true,
+    "paidBadgeVisible": true,
+    "zoomLinkVisible": true,
+    "icsDownloadLinkVisible": true,
+    "payNowButtonVisibleForUnpaidBooking": true
+  }
+}

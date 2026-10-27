@@ -166,3 +166,34 @@ Nếu để `woocommerce_shop_page_id` trống hoặc trỏ sang một trang `/s
   - Chủ dự án có thể chỉnh sửa trực quan tiêu đề, mô tả mở đầu và lưới sản phẩm của trang `"My Favorite Product"` ngay trong trình soạn thảo Gutenberg (`Block Editor`) giống hệt các trang nội dung khác.
   - Các gói `"Coaching & Mentorship"` (`catalog_visibility = hidden`, `status = draft`) không bao giờ bị rò rỉ ra trang `"My Favorite Product"`.
 
+---
+
+## ADR-007: Lựa Chọn Mô Hình Lưu Trữ Đặt Lịch — Private CPT `jn_booking` Kết Hợp WooCommerce HPOS (`WC_Order` & `WC_Customer`)
+
+- **Ngày quyết định:** 2026-10-27 (Step 5)
+- **Trạng thái:** Đã chấp thuận (Approved — Step 5 Booking Engine)
+
+### 1. Bối cảnh
+Theo quy trình tiếp nhận 3 bước của wireframe (`1. Gửi yêu cầu thông tin → 2. Trợ lý xác nhận khung giờ trong 24 giờ → 3. Bước vào phiên làm việc 1:1`) và `PROJECT CONTEXT CARD` (`BOOKING MODEL: request-based`, `PAYMENT POLICY: pay after the assistant confirms the slot`, `AUTO-CREATE CUSTOMER ACCOUNT ON BOOKING: no`), hệ thống cần lưu trữ hồ sơ yêu cầu đặt lịch, quản lý vòng đời trạng thái (`Chờ xác nhận` → `Đã xác nhận lịch` → `Hoàn thành` | `Vắng mặt`, hoặc `Đã hủy`), hỗ trợ lộ trình `Master Mentorship` (1 đơn hàng ghi danh liên kết tới tối đa 12 buổi hẹn 1:1), và dẫn xuất trạng thái thanh toán từ đơn hàng WooCommerce.
+
+Hai phương án lưu trữ chính được đặt lên bàn cân:
+1. **Phương án A — Private Custom Post Type `jn_booking` + Post Meta chuẩn hóa, liên kết 2 chiều với `WC_Order` (HPOS) và `WC_Customer`.**
+2. **Phương án B — Tạo bảng cơ sở dữ liệu tùy chỉnh riêng (`wp_jn_bookings`, `wp_jn_booking_meta`).**
+
+### 2. Quyết định
+Chọn **Phương án A (Private CPT `jn_booking` kết hợp WooCommerce HPOS)** vì các lý do kỹ thuật sau:
+1. **Tách bạch Hồ sơ Tư vấn (Intake/Scheduling) và Chứng từ Tài chính (`WC_Order`):**
+   - Khi khách hàng mới gửi biểu mẫu (`Chờ xác nhận`), chưa có khung giờ chốt và chưa phát sinh nghĩa vụ thanh toán. Việc lưu yêu cầu vào `jn_booking` và chỉ khởi tạo `WC_Order` (trạng thái `pending`) khi trợ lý xác nhận lịch (`Đã xác nhận lịch`) giúp báo cáo doanh thu và danh sách đơn hàng HPOS của WooCommerce không bị nhiễu bởi các yêu cầu khảo sát chưa chốt hoặc trùng lặp.
+   - Với gói `Master Mentorship (3 Tháng)`, 1 đơn hàng `WC_Order` duy nhất được liên kết với tối đa 12 bản ghi buổi hẹn `jn_booking` (sử dụng quan hệ phân cấp tự nhiên `post_parent` của CPT), cho phép trợ lý xếp lịch, gửi thư mời `.ics` và điểm danh từng buổi (`Hoàn thành` / `Vắng mặt`) độc lập mà không sinh thêm đơn hàng giả.
+2. **Tận dụng Hạ tầng Quản trị, Phân quyền & Quyền riêng tư Bản địa của WordPress:**
+   - CPT `jn_booking` tích hợp trực tiếp với `WP_List_Table`, bộ lọc truy vấn, thao tác hàng loạt (`Bulk Actions`), cơ chế ánh xạ quyền chi tiết (`capability_type => array( 'jn_booking', 'jn_bookings' )`, `map_meta_cap => true`) cho vai trò `"Trợ lý lịch hẹn"` (`jn_booking_assistant`), và công cụ Xuất/Xóa dữ liệu cá nhân của WordPress (`wp_privacy_personal_data_exporters` / `erasers`) mà không phải duy trì hệ thống migration `dbDelta` riêng.
+3. **Phù hợp Tuyệt đối với Quy mô Dữ liệu & Ngân sách Hiệu năng:**
+   - Học viện Jannie Nguyễn vận hành theo mô hình cố vấn 1:1 cao cấp giới hạn số lượng học viên mỗi tháng (quy mô vài trăm đến vài nghìn lịch hẹn mỗi năm). Với quy mô này, truy vấn trên bảng `posts` + các khóa meta định danh (`_jn_confirmed_start_ts`, `_jn_customer_phone`, `_jn_customer_email`, `_jn_order_id`, `_jn_package_product_id`) đạt tốc độ `< 2 ms`, không mang lại lợi ích thực tế nào nếu đánh đổi bằng độ phức tạp của bảng SQL riêng.
+4. **Cô lập Bảo mật Tuyệt đối:**
+   - `jn_booking` được đăng ký với `public => false`, `publicly_queryable => false`, `exclude_from_search => true`, `show_in_nav_menus => false`, `has_archive => false`, `rewrite => false`, `query_var => false`, `show_in_rest => false` và loại trừ tường minh khỏi XML Sitemaps (`wp_sitemaps_post_types`).
+
+### 3. Hệ quả & Ràng buộc
+- **Tích cực:** Kiến trúc gọn sạch, tuân thủ 100% chuẩn WordPress & WooCommerce HPOS CRUD, hỗ trợ đầy đủ 12 buổi Mentorship trên 1 đơn hàng và dễ dàng bảo trì lâu dài.
+- **Ràng buộc:** Mọi thao tác chuyển trạng thái lịch hẹn phải đi qua tầng dịch vụ `JN_Booking_Service` để kiểm tra máy trạng thái ở phía máy chủ và ghi nhận đầy đủ vào `_jn_status_timeline`.
+
+

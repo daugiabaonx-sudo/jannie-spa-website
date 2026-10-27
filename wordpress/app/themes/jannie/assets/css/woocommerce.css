@@ -492,6 +492,113 @@
 	box-shadow: var(--jn-shadow-card);
 }
 
+/* 6. My Account "Lịch hẹn của tôi" (`/tai-khoan/lich-hen/`) */
+.jn-myaccount-bookings__title {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-md);
+	line-height: var(--jn-lh-headline-md);
+	font-weight: 500;
+	color: var(--jn-ink);
+	margin-top: 0;
+	margin-bottom: var(--jn-space-xs);
+}
+
+.jn-myaccount-bookings__desc {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-md);
+	line-height: var(--jn-lh-body-md);
+	color: var(--jn-muted-stone);
+	margin-top: 0;
+	margin-bottom: var(--jn-space-lg);
+}
+
+.jn-myaccount-bookings__empty {
+	background-color: var(--jn-surface-beige);
+	border: 1px solid var(--jn-border);
+	border-radius: var(--jn-radius-lg);
+	padding: var(--jn-space-xl);
+	text-align: center;
+}
+
+.jn-myaccount-bookings__empty p {
+	font-size: var(--jn-text-body-lg);
+	color: var(--jn-muted-stone);
+	margin-top: 0;
+	margin-bottom: var(--jn-space-md);
+}
+
+.jn-bookings-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: var(--jn-font-body);
+}
+
+.jn-bookings-table th,
+.jn-bookings-table td {
+	padding: var(--jn-space-md);
+	border-bottom: 1px solid var(--jn-border);
+	vertical-align: top;
+	text-align: left;
+	font-size: var(--jn-text-body-sm);
+	line-height: var(--jn-lh-body-sm);
+}
+
+.jn-bookings-table th {
+	font-size: var(--jn-text-label-sm);
+	text-transform: uppercase;
+	letter-spacing: var(--jn-ls-label-sm);
+	color: var(--jn-muted-stone);
+	background-color: var(--jn-surface-beige);
+}
+
+.jn-myaccount-bookings__sub {
+	display: inline-block;
+	margin-top: 2px;
+	font-size: var(--jn-text-label-sm);
+	color: var(--jn-muted-stone);
+}
+
+.jn-myaccount-status {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: var(--jn-radius-pill);
+	font-size: var(--jn-text-label-sm);
+	font-weight: 600;
+	background-color: var(--jn-surface-beige);
+	color: var(--jn-ink);
+}
+
+.jn-myaccount-status--jn_confirmed,
+.jn-myaccount-status--jn_completed {
+	background-color: var(--jn-surface-cream);
+	border: 1px solid var(--jn-champagne);
+	color: var(--jn-ink);
+}
+
+.jn-myaccount-status--jn_cancelled,
+.jn-myaccount-status--jn_no_show {
+	background-color: var(--jn-error-container);
+	color: var(--jn-on-error-container);
+}
+
+.jn-myaccount-payment {
+	display: inline-block;
+	margin-top: 4px;
+	font-size: var(--jn-text-label-sm);
+	color: var(--jn-champagne-text-sm);
+	font-weight: 600;
+}
+
+.jn-booking-ics-link {
+	display: inline-block;
+	margin-top: 6px;
+	font-size: var(--jn-text-label-sm);
+	font-weight: 600;
+	color: var(--jn-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--jn-champagne);
+}
+
 @media (max-width: 991.98px) {
 	#customer_login.col2-set {
 		grid-template-columns: 1fr;

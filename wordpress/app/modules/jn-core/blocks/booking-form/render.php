@@ -1,14 +1,14 @@
 <?php
 /**
- * Server-side render callback template for the `jn/booking-form` block.
+ * Server-side render callback template for the `jn/booking-form` block (Step 5 Booking Engine).
  *
  * Renders the wireframe registration form verbatim with:
+ * - Dynamic package options from bookable WooCommerce products (`JN_Coaching_Packages::get_bookable_packages_for_form()`)
  * - Server-side package preselection from `?goi=<package-key>` (no-JS support)
  * - Default selection: "Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)"
- * - Required markers, autocomplete="name|tel|email", inputmode="tel"
- * - Unchecked privacy policy consent checkbox (flagged UNK-09 for owner/legal review)
- * - Hidden honeypot field (hidden from sighted users and assistive technologies)
- * - aria-live region for validation errors and local Step 3 submission notice
+ * - Optional monthly capacity waitlist banner (`JN_Booking_Service::is_package_at_capacity()`)
+ * - Page-cache-safe stateless signed token + REST endpoint attributes built strictly with `rest_url()`
+ * - Post/Redirect/Get (PRG) no-JS submission feedback
  *
  * @var array<string, mixed> $attributes Block attributes.
  * @var string               $content    Block inner content (empty).
@@ -21,24 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$jn_packages = array(
-	'60-phut'            => array(
-		'value' => 'Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)',
-		'label' => 'Gói Coaching Chuyên Nghiệp 1:1 (60 Phút) — Dành cho thợ & chủ Spa',
-	),
-	'30-phut'            => array(
-		'value' => 'Gói Tư Vấn Cá Nhân 1:1 (30 Phút)',
-		'label' => 'Gói Tư Vấn Cá Nhân 1:1 (30 Phút) — Định hình vẻ đẹp riêng',
-	),
-	'mentorship-3-thang' => array(
-		'value' => 'Gói Master Mentorship (3 Tháng)',
-		'label' => 'Gói Master Mentorship (Lộ trình 3 tháng toàn diện)',
-	),
-);
+$jn_packages = JN_Coaching_Packages::get_bookable_packages_for_form();
 
 $jn_selected_key = isset( $attributes['defaultPackage'] ) ? sanitize_key( (string) $attributes['defaultPackage'] ) : '60-phut';
 if ( ! isset( $jn_packages[ $jn_selected_key ] ) ) {
-	$jn_selected_key = '60-phut';
+	$jn_selected_key = isset( $jn_packages['60-phut'] ) ? '60-phut' : (string) array_key_first( $jn_packages );
 }
 
 // Preselect package on the server when `?goi=<package key>` is present in the URL.
@@ -52,7 +39,7 @@ if ( isset( $_GET['goi'] ) && is_string( $_GET['goi'] ) ) {
 		$jn_selected_key = $jn_key_goi;
 	} else {
 		foreach ( $jn_packages as $jn_pkg_slug => $jn_pkg_data ) {
-			if ( $jn_pkg_data['value'] === $jn_raw_goi ) {
+			if ( $jn_pkg_data['value'] === $jn_raw_goi || $jn_pkg_data['label'] === $jn_raw_goi ) {
 				$jn_selected_key = $jn_pkg_slug;
 				break;
 			}
@@ -60,12 +47,21 @@ if ( isset( $_GET['goi'] ) && is_string( $_GET['goi'] ) ) {
 	}
 }
 
-$jn_selected_value = $jn_packages[ $jn_selected_key ]['value'];
+$jn_selected_value = isset( $jn_packages[ $jn_selected_key ]['value'] )
+	? (string) $jn_packages[ $jn_selected_key ]['value']
+	: 'Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)';
 
-$jn_privacy_url = get_privacy_policy_url();
-if ( empty( $jn_privacy_url ) ) {
-	$jn_privacy_url = home_url( '/chinh-sach-bao-mat/' );
+$jn_formats       = (array) JN_Booking_Settings::get( 'formats', array() );
+$jn_time_windows  = (array) JN_Booking_Settings::get( 'time_windows', array() );
+$jn_waitlist_note = (string) JN_Booking_Settings::get( 'waitlist_note', JN_Booking_Settings::DEFAULT_WAITLIST_NOTE );
+$jn_privacy_meta  = JN_Booking_Settings::get_privacy_metadata();
+$jn_privacy_url   = (string) $jn_privacy_meta['url'];
+
+$jn_capacity_map = array();
+foreach ( array_keys( $jn_packages ) as $jn_pkg_slug ) {
+	$jn_capacity_map[ $jn_pkg_slug ] = JN_Booking_Service::is_package_at_capacity( $jn_pkg_slug );
 }
+$jn_selected_at_capacity = ! empty( $jn_capacity_map[ $jn_selected_key ] );
 
 $jn_expand_icon = JN_Icon_Sprite::render(
 	array(
@@ -83,15 +79,19 @@ $jn_send_icon = JN_Icon_Sprite::render(
 	)
 );
 
-// Nonce for local submission check on no-JS fallback.
-$jn_submitted_notice = false;
-if ( isset( $_POST['jn_booking_step3_nonce'] ) ) {
-	$jn_nonce = sanitize_text_field( wp_unslash( $_POST['jn_booking_step3_nonce'] ) );
-	$jn_hp    = isset( $_POST['jn_website_hp'] ) ? sanitize_text_field( wp_unslash( $_POST['jn_website_hp'] ) ) : '';
-	if ( wp_verify_nonce( $jn_nonce, 'jn_booking_step3_preview' ) && '' === $jn_hp ) {
-		$jn_submitted_notice = true;
-	}
-}
+// Consume Post/Redirect/Get (PRG) flash result when submitted without JavaScript.
+$jn_prg_flash     = JN_Booking_REST::consume_prg_flash();
+$jn_is_success    = is_array( $jn_prg_flash ) && ! empty( $jn_prg_flash['ok'] );
+$jn_is_error      = is_array( $jn_prg_flash ) && empty( $jn_prg_flash['ok'] );
+$jn_error_message = $jn_is_error && isset( $jn_prg_flash['message'] ) ? (string) $jn_prg_flash['message'] : '';
+
+// Issue initial token backdated by MIN_FILL_SECONDS so server-rendered no-JS submissions work immediately,
+// while JS mode refreshes a live short-lived signed token on first interaction via `rest_url()`.
+$jn_initial_issued = time();
+$jn_form_token     = JN_Booking_Service::issue_form_token( $jn_initial_issued );
+$jn_submit_url     = rest_url( JN_Booking_REST::NAMESPACE . '/bookings' );
+$jn_token_url      = rest_url( JN_Booking_REST::NAMESPACE . '/booking/token' );
+$jn_current_url    = home_url( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '/' );
 
 $jn_wrapper_attributes = get_block_wrapper_attributes(
 	array(
@@ -100,8 +100,20 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 );
 ?>
 <div <?php echo $jn_wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-	<form class="jn-booking-form" id="coaching-registration-form" method="post" action="#booking-form" novalidate>
-		<?php wp_nonce_field( 'jn_booking_step3_preview', 'jn_booking_step3_nonce' ); ?>
+	<form
+		class="jn-booking-form"
+		id="coaching-registration-form"
+		method="post"
+		action=""
+		data-submit-url="<?php echo esc_url( $jn_submit_url ); ?>"
+		data-token-url="<?php echo esc_url( $jn_token_url ); ?>"
+		data-min-fill="<?php echo esc_attr( (string) JN_Booking_Service::MIN_FILL_SECONDS ); ?>"
+		novalidate
+	>
+		<input type="hidden" name="jn_booking_submit_action" value="1" />
+		<input type="hidden" name="_jn_form_token" id="jn-form-token" value="<?php echo esc_attr( $jn_form_token ); ?>" data-issued-at="<?php echo esc_attr( (string) $jn_initial_issued ); ?>" />
+		<input type="hidden" name="_jn_landing_url" id="jn-landing-url" value="<?php echo esc_url( $jn_current_url ); ?>" />
+		<input type="hidden" name="_jn_referrer" id="jn-referrer" value="" />
 
 		<!-- Honeypot field hidden from people and assistive technology -->
 		<div class="jn-booking-form__hp" aria-hidden="true">
@@ -133,11 +145,22 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 			<div class="jn-booking-form__select-wrap">
 				<select class="jn-booking-form__select" id="package-select" name="package_code" required aria-required="true">
 					<?php foreach ( $jn_packages as $jn_pkg_slug => $jn_pkg ) : ?>
-						<option value="<?php echo esc_attr( $jn_pkg['value'] ); ?>" data-package-key="<?php echo esc_attr( $jn_pkg_slug ); ?>" <?php selected( $jn_selected_value, $jn_pkg['value'] ); ?>><?php echo esc_html( $jn_pkg['label'] ); ?></option>
+						<?php $jn_at_cap = ! empty( $jn_capacity_map[ $jn_pkg_slug ] ); ?>
+						<option
+							value="<?php echo esc_attr( $jn_pkg['value'] ); ?>"
+							data-package-key="<?php echo esc_attr( $jn_pkg_slug ); ?>"
+							data-at-capacity="<?php echo $jn_at_cap ? '1' : '0'; ?>"
+							<?php selected( $jn_selected_value, $jn_pkg['value'] ); ?>
+						><?php echo esc_html( $jn_pkg['label'] ); ?></option>
 					<?php endforeach; ?>
 				</select>
 				<?php echo $jn_expand_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
+			<p
+				class="jn-booking-form__waitlist-note<?php echo $jn_selected_at_capacity ? ' is-visible' : ''; ?>"
+				id="jn-booking-waitlist-note"
+				<?php echo $jn_selected_at_capacity ? '' : 'hidden'; ?>
+			><?php echo esc_html( $jn_waitlist_note ); ?></p>
 		</div>
 
 		<!-- Row 4: Preferred Mode & Time Preference -->
@@ -146,8 +169,9 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 				<label class="jn-booking-form__label" for="coaching-format">Hình Thức Gặp</label>
 				<div class="jn-booking-form__select-wrap">
 					<select class="jn-booking-form__select" id="coaching-format" name="coaching_format">
-						<option value="online">Online Trực Tuyến (Zoom High-Res)</option>
-						<option value="in-person">Trực tiếp tại Academy (TP.HCM)</option>
+						<?php foreach ( $jn_formats as $jn_fmt_key => $jn_fmt_label ) : ?>
+							<option value="<?php echo esc_attr( $jn_fmt_key ); ?>"><?php echo esc_html( $jn_fmt_label ); ?></option>
+						<?php endforeach; ?>
 					</select>
 					<?php echo $jn_expand_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
@@ -156,9 +180,9 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 				<label class="jn-booking-form__label" for="time-preference">Khung Giờ Thuận Tiện</label>
 				<div class="jn-booking-form__select-wrap">
 					<select class="jn-booking-form__select" id="time-preference" name="time_preference">
-						<option value="morning">Buổi sáng (09:00 - 11:30)</option>
-						<option value="afternoon">Buổi chiều (14:00 - 17:30)</option>
-						<option value="weekend">Cuối tuần (Thứ 7)</option>
+						<?php foreach ( $jn_time_windows as $jn_win_key => $jn_win_label ) : ?>
+							<option value="<?php echo esc_attr( $jn_win_key ); ?>"><?php echo esc_html( $jn_win_label ); ?></option>
+						<?php endforeach; ?>
 					</select>
 					<?php echo $jn_expand_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
@@ -171,7 +195,7 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 			<textarea class="jn-booking-form__textarea" id="notes" name="notes" rows="3" placeholder="Chia sẻ ngắn gọn tình trạng kỹ thuật, lượng khách hiện tại hoặc câu hỏi bạn mong muốn giải quyết nhất cùng Jannie..."></textarea>
 		</div>
 
-		<!-- Row 6: Privacy Policy Consent Checkbox (Unchecked by default; wording flagged UNK-09 for owner/legal review) -->
+		<!-- Row 6: Privacy Policy Consent Checkbox (Unchecked by default) -->
 		<div class="jn-booking-form__consent">
 			<input class="jn-booking-form__checkbox" type="checkbox" id="privacy-consent" name="privacy_consent" value="1" required aria-required="true" />
 			<label class="jn-booking-form__consent-label" for="privacy-consent">
@@ -181,18 +205,27 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 
 		<!-- Submit Trigger -->
 		<div class="jn-booking-form__submit-wrap">
-			<button class="jn-booking-form__submit" id="submit-btn" type="submit">
+			<button class="jn-booking-form__submit<?php echo $jn_is_success ? ' is-hidden' : ''; ?>" id="submit-btn" type="submit">
 				<span>Gửi Yêu Cầu Xếp Lịch Coaching</span>
 				<?php echo $jn_send_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</button>
 		</div>
 
-		<!-- Accessible Live Region for Validation Errors and Step 3 Local Notice / Wireframe Success Text -->
-		<div class="jn-booking-form__feedback<?php echo $jn_submitted_notice ? ' is-visible' : ''; ?>" id="form-feedback" role="status" aria-live="polite" aria-atomic="true">
-			<?php if ( $jn_submitted_notice ) : ?>
-				<p class="jn-booking-form__feedback-dev">[Thông báo hệ thống: Chức năng đặt lịch trực tuyến đang hoàn thiện ở Step 5 — dữ liệu hiện chỉ kiểm thử cục bộ trên trình duyệt.]</p>
+		<!-- Accessible Live Region for Validation Errors and Wireframe Verbatim Success Text -->
+		<?php
+		$jn_feedback_classes = 'jn-booking-form__feedback';
+		if ( $jn_is_success ) {
+			$jn_feedback_classes .= ' is-visible';
+		} elseif ( $jn_is_error ) {
+			$jn_feedback_classes .= ' is-visible is-error';
+		}
+		?>
+		<div class="<?php echo esc_attr( $jn_feedback_classes ); ?>" id="form-feedback" role="status" aria-live="polite" aria-atomic="true">
+			<?php if ( $jn_is_error ) : ?>
+				<?php echo esc_html( $jn_error_message ); ?>
+			<?php else : ?>
+				<p class="jn-booking-form__feedback-copy"><span class="jn-booking-form__feedback-strong">Cảm ơn bạn!</span> Yêu cầu đã được ghi nhận. Đội ngũ trợ lý của Jannie Nguyễn sẽ liên hệ trực tiếp qua số điện thoại của bạn trong vòng 24 giờ.</p>
 			<?php endif; ?>
-			<p class="jn-booking-form__feedback-copy"><span class="jn-booking-form__feedback-strong">Cảm ơn bạn!</span> Yêu cầu đã được ghi nhận. Đội ngũ trợ lý của Jannie Nguyễn sẽ liên hệ trực tiếp qua số điện thoại của bạn trong vòng 24 giờ.</p>
 		</div>
 	</form>
 </div>

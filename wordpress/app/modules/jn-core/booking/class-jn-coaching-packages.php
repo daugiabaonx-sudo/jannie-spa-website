@@ -252,13 +252,102 @@ class JN_Coaching_Packages {
 		);
 
 		foreach ( $products as $product ) {
-			$pkg_key = (string) $product->get_meta( '_jn_package_key', true );
-			if ( $pkg_key === $clean_key || $product->get_name() === $key_or_title ) {
+			$pkg_key    = (string) $product->get_meta( '_jn_package_key', true );
+			$form_label = (string) $product->get_meta( '_jn_form_label', true );
+			if (
+				$pkg_key === $clean_key ||
+				$product->get_name() === $key_or_title ||
+				$form_label === $key_or_title ||
+				( is_numeric( $key_or_title ) && (int) $product->get_id() === (int) $key_or_title )
+			) {
 				return $product;
 			}
 		}
 
 		return null;
+	}
+
+	/**
+	 * Return ordered array of bookable WooCommerce package options for the booking form.
+	 *
+	 * Default order places the 60-minute package first per wireframe specification.
+	 *
+	 * @return array<string, array<string, mixed>>
+	 */
+	public static function get_bookable_packages_for_form(): array {
+		$defs     = self::get_package_definitions();
+		$order    = array( '60-phut', '30-phut', 'mentorship-3-thang' );
+		$packages = array();
+
+		if ( function_exists( 'wc_get_products' ) ) {
+			$products = wc_get_products(
+				array(
+					'status'     => array( 'publish', 'draft', 'private' ),
+					'limit'      => 20,
+					'meta_key'   => '_jn_bookable', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value' => 'yes', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				)
+			);
+
+			$by_key = array();
+			foreach ( $products as $product ) {
+				if ( ! $product instanceof \WC_Product ) {
+					continue;
+				}
+				$key = (string) $product->get_meta( '_jn_package_key', true );
+				if ( '' === $key ) {
+					$key = sanitize_key( $product->get_slug() );
+				}
+				$def_label  = isset( $defs[ $key ]['form_label'] ) ? $defs[ $key ]['form_label'] : $product->get_name();
+				$form_label = (string) $product->get_meta( '_jn_form_label', true );
+				if ( '' === $form_label ) {
+					$form_label = $def_label;
+				}
+				$raw_duration = (string) $product->get_meta( '_jn_duration', true );
+				$duration_min = is_numeric( $raw_duration ) ? max( 15, (int) $raw_duration ) : 60;
+				$sessions     = max( 1, (int) $product->get_meta( '_jn_sessions', true ) );
+
+				$by_key[ $key ] = array(
+					'product_id'   => (int) $product->get_id(),
+					'key'          => $key,
+					'value'        => $product->get_name(),
+					'label'        => $form_label,
+					'duration_min' => $duration_min,
+					'sessions'     => $sessions,
+					'price'        => $product->get_regular_price(),
+				);
+			}
+
+			foreach ( $order as $pref_key ) {
+				if ( isset( $by_key[ $pref_key ] ) ) {
+					$packages[ $pref_key ] = $by_key[ $pref_key ];
+					unset( $by_key[ $pref_key ] );
+				}
+			}
+			foreach ( $by_key as $extra_key => $extra_pkg ) {
+				$packages[ $extra_key ] = $extra_pkg;
+			}
+		}
+
+		// Fallback to canonical definitions if products are not yet seeded.
+		if ( empty( $packages ) ) {
+			foreach ( $order as $pref_key ) {
+				if ( isset( $defs[ $pref_key ] ) ) {
+					$d                     = $defs[ $pref_key ];
+					$packages[ $pref_key ] = array(
+						'product_id'   => 0,
+						'key'          => $pref_key,
+						'value'        => $d['title'],
+						'label'        => $d['form_label'],
+						'duration_min' => is_numeric( $d['duration'] ) ? (int) $d['duration'] : 60,
+						'sessions'     => (int) $d['sessions'],
+						'price'        => (string) $d['price'],
+					);
+				}
+			}
+		}
+
+		return $packages;
 	}
 
 	/**

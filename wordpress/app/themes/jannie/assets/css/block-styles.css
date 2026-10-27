@@ -1505,6 +1505,22 @@ ol.jn-booking-steps > li strong {
 	pointer-events: none;
 }
 
+.jn-booking-form__waitlist-note {
+	padding: var(--jn-space-sm) var(--jn-space-md);
+	border-radius: var(--jn-radius-md);
+	background-color: var(--jn-surface-cream);
+	border-left: 3px solid var(--jn-champagne);
+	color: var(--jn-ink);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-body-sm);
+	line-height: var(--jn-lh-body-sm);
+	margin-top: var(--jn-space-xs);
+}
+
+.jn-booking-form__waitlist-note.is-hidden {
+	display: none !important;
+}
+
 .jn-booking-form__consent {
 	display: flex;
 	align-items: flex-start;
