@@ -54,7 +54,7 @@ Dưới đây là toàn bộ các trang được tham chiếu qua thuộc tính 
 
 - **Phát hiện lỗi nghiêm trọng ở font tiêu đề gốc (`Bodoni Moda`)**: Font `Bodoni Moda` trên Google Fonts có dải `latin-ext` dừng ở `U+024F` và hoàn toàn **không có các ký tự tiếng Việt thuộc khối Latin Extended Additional (`U+1EA0–U+1EF9`: ă, â, đ, ê, ô, ơ, ư và các dấu thanh tổ hợp ồ, ợ, ế, ậ, ữ, ẫ...)**. Khi hiển thị tiêu đề tiếng Việt, trình duyệt rơi về font serif hệ thống (Times/Times New Roman) cho từng chữ cái có dấu, làm chữ nhảy cao độ và lệch nét đậm nhạt ngay trong cùng một từ.
 - **Hiệu chỉnh §4**:
-  - Font tiêu đề (`HEADING_FONT`): Mặc định trong Project Context Card là **`Libre Bodoni`** (hoặc lựa chọn giữa `Libre Bodoni`, `Playfair Display`, `Noto Serif Display` sau khi chủ dự án duyệt ảnh chụp `docs/jn/font-specimen.html`).
+  - Font tiêu đề (`HEADING_FONT`): Chủ dự án đã phê duyệt sử dụng **`Playfair Display`** cho toàn bộ website (sau khi đối chiếu `docs/jn/font-specimen.html` giữa `Bodoni Moda`, `Libre Bodoni`, `Playfair Display` và `Noto Serif Display`).
   - Font nội dung (`BODY_FONT`): **`Geist`** (hỗ trợ đầy đủ tiếng Việt).
   - Cả hai font bắt buộc **tự host dạng WOFF2** (gộp dải `latin` + `vietnamese` vào 1 file mỗi kiểu chữ, tổng cộng `<= 3` file font mỗi trang nội dung, dùng `font-display: swap` kèm fallback khớp metric).
 
@@ -513,7 +513,7 @@ Theo **Quy tắc §1 & §7**, mọi thông tin `UNKNOWN` từ `PROJECT CONTEXT C
 
 | Mã ID | Hạng mục `UNKNOWN` | Giá trị hiện tại trong Context Card / Wireframe | Bước bị ảnh hưởng (`Step Blocked`) | Chặn ra mắt công khai (`Blocks Launch?`) | Giải pháp tạm thời an toàn trong quá trình phát triển |
 |:---|:---|:---|:---|:---:|:---|
-| **UNK-01** | **`HEADING_FONT` (Xác nhận cuối cùng)** | Mặc định đề xuất: `Libre Bodoni` (cần duyệt qua `docs/jn/font-specimen.html` so với `Bodoni Moda`, `Playfair Display`, `Noto Serif Display`) | **Chặn Step 2** (Đóng gói WOFF2 trong Child Theme) | **Có** | Dừng ở cuối Step 0, gửi ảnh chụp `font-specimen.html` để chủ dự án chốt font tiêu đề trước khi vào Step 1–2. |
+| **UNK-01** | **`HEADING_FONT` (Đã chốt bởi Chủ dự án)** | **ĐÃ CHỐT: `Playfair Display`** (đã được chủ dự án phê duyệt sau khi đối chiếu `docs/jn/font-specimen.html`) | **Đã giải quyết ở Step 0** (Sẵn sàng đóng gói WOFF2 ở Step 2) | **Không (Đã chốt)** | Tự host WOFF2 bộ font **`Playfair Display`** (gộp `latin` + `vietnamese`) cho toàn bộ tiêu đề website. |
 | **UNK-02** | **`PROD_DOMAIN`** | `UNKNOWN` | Step 7 (Hardening/SSL), Step 8 (SEO canonical/sitemap), Step 9 (Go-live) | **Có** | Dùng biến môi trường `WP_HOME` / `WP_SITEURL` (`http://localhost:8080` ở môi trường Docker local). |
 | **UNK-03** | **`PROD_WEB_SERVER + PHP`** | `UNKNOWN` | Step 7 (Rewrite rules `.htaccess` vs Nginx conf) & Step 8 (Chọn LiteSpeed Cache hay WP Super Cache theo §2) | **Có** | Viết bộ quy tắc cho cả Apache/LiteSpeed (`.htaccess`) và Nginx (`docker/nginx.conf`), đóng gói cấu hình cache trừu tượng. |
 | **UNK-04** | **`BRAND CONTACT — Số điện thoại / Zalo`** | `(+84) 908-XXX-XXX` | Step 2 (Footer) & Step 4 (Section 6) | **Có** | Giữ nguyên chuỗi `contact@jannienguyen.vn • (+84) 908-XXX-XXX` từ wireframe, cấu hình qua hằng số/setting để thay 1 chỗ khi có số thật. |

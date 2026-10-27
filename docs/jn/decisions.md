@@ -63,10 +63,10 @@ Trong wireframe tĩnh, nút gửi chỉ gọi `setTimeout()` giả lập và ph�
 
 ---
 
-## ADR-003: Giải Pháp Font Chữ Tiêu Đề Tiếng Việt (`HEADING_FONT`) & Tự Host WOFF2
+## ADR-003: Giải Pháp Font Chữ Tiêu Đề Tiếng Việt (`HEADING_FONT = Playfair Display`) & Tự Host WOFF2
 
-- **Ngày quyết định:** 2026-10-27 (Step 0 — Đang chờ chủ dự án xác nhận lựa chọn cuối cùng trước Step 1)
-- **Trạng thái:** Đề xuất mặc định **Libre Bodoni** (Proposed Default — Awaiting Owner Confirmation)
+- **Ngày quyết định:** 2026-10-27 (Step 0 — Đã được chủ dự án phê duyệt chính thức)
+- **Trạng thái:** Đã chấp thuận (Approved — **`Playfair Display`** cho toàn bộ website)
 
 ### 1. Bối cảnh
 Bản thiết kế gốc (`code.html` và `DESIGN.md`) chỉ định font **`Bodoni Moda`** từ Google Fonts cho toàn bộ tiêu đề (`H1`, `H2`, `H3` và các con số thống kê lớn). Tuy nhiên, qua kiểm tra bảng mã Unicode và dựng trang đối chiếu thực tế (`docs/jn/font-specimen.html`, chụp ảnh tại `docs/jn/font-specimen.png`), gói `latin-ext` của **`Bodoni Moda` hoàn toàn không chứa khối ký tự tiếng Việt mở rộng `U+1EA0–U+1EF9`** (như `ồ`, `ợ`, `ế`, `ậ`, `ữ`, `ứ`, `ể`, `ả`, `ẩ`, `ẫ`...). Hệ quả là mọi tiêu đề tiếng Việt trên trang bị trình duyệt trộn lẫn hai phông chữ khác nhau ngay trong cùng một từ (các chữ cái cơ bản hiển thị bằng Bodoni Moda, còn chữ cái có dấu kép rơi về `Times New Roman`), phá vỡ tính thẩm mỹ cao cấp của thương hiệu.
@@ -75,17 +75,14 @@ Ngoài ra, theo `.agent/rules/jn-project.md` §3 & §6, trang web chính thức 
 
 ### 2. Quyết định
 1. **Loại bỏ `Bodoni Moda` khỏi danh sách sử dụng thực tế** do thiếu glyph tiếng Việt.
-2. **Đề xuất 3 phương án thay thế hỗ trợ 100% tiếng Việt** (đã được trình bày trực quan ở kích thước `56px`, `40px`, `22px` trong `docs/jn/font-specimen.html` và `docs/jn/font-specimen.png`):
-   - **Phương án A (Mặc định đề xuất — `Libre Bodoni`):** Giữ đúng tinh thần thiết kế gốc nhất — là dòng chữ Bodoni cổ điển với độ tương phản nét thanh/nét đậm cao, chân chữ phẳng sắc nét, chữ nghiêng (`italic`) thanh lịch và hỗ trợ đầy đủ 100% dấu tiếng Việt.
-   - **Phương án B (`Playfair Display`):** Phong cách serif tạp chí (editorial) mềm mại hơn, phần chữ nghiêng (`italic`) có độ uốn lượn bay bổng.
-   - **Phương án C (`Noto Serif Display`):** Trục chữ thẳng đứng hiện đại, nét mảnh sắc sảo kiểu tạp chí thời trang cao cấp, khoảng cách dấu tiếng Việt rất thoáng.
+2. **Chốt sử dụng `Playfair Display` làm `HEADING_FONT` cho toàn bộ website** theo quyết định phê duyệt của chủ dự án sau khi đối chiếu bảng mẫu `docs/jn/font-specimen.png` (mang phong cách editorial serif sang trọng, chữ nghiêng `italic` bay bổng và hỗ trợ đầy đủ 100% dấu tiếng Việt).
 3. **Quy trình đóng gói tự host (Self-hosted WOFF2 tại Step 2):**
-   - Ngay sau khi chủ dự án chốt font tiêu đề (`HEADING_FONT`, mặc định: **Libre Bodoni**), hệ thống sẽ dùng `fontTools` (`pyftsubset`) gộp dải ký tự `latin` + `vietnamese` thành **1 file `.woff2` duy nhất cho mỗi kiểu chữ** (Regular `400`, SemiBold `600`, Italic `400i`), kết hợp với font nội dung **`Geist`** (Regular `400`, Medium `500`, SemiBold `600`).
+   - Dùng `fontTools` (`pyftsubset`) gộp dải ký tự `latin` + `vietnamese` của **`Playfair Display`** và **`Geist`** thành **1 file `.woff2` duy nhất cho mỗi kiểu chữ**, đảm bảo tổng số file font trên mỗi trang nội dung `<= 3` file theo ngân sách hiệu năng cứng (§5).
    - Cấu hình `font-display: swap` cùng fallback khớp chỉ số kích thước (`size-adjust`, `ascent-override`, `descent-override`) để chỉ số `CLS` luôn dưới `0.02`.
 
 ### 3. Hệ quả & Ràng buộc
 - **Tích cực:** Khắc phục triệt để lỗi vỡ phông chữ tiếng Việt trên mọi thiết bị; loại bỏ hoàn toàn yêu cầu mạng tới `fonts.googleapis.com` và `fonts.gstatic.com`.
-- **Hành động tiếp theo:** Chờ chủ dự án phê duyệt lựa chọn font tiêu đề ở cuối Step 0 trước khi đóng gói file `.woff2` ở Step 2.
+- **Hành động tiếp theo:** Đóng gói các file `.woff2` của `Playfair Display` và `Geist` ở Step 2.
 
 ---
 
