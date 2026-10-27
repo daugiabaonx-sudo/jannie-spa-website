@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JN Font Specimen — Bodoni Moda vs. Libre Bodoni, Playfair Display &amp; Noto Serif Display</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Geist:wght@400;500;600&family=Libre+Bodoni:ital,wght@0,400..600;1,400..600&family=Noto+Serif+Display:ital,wght@0,400..600;1,400..600&family=Playfair+Display:ital,wght@0,400..600;1,400..600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --surface: #fbf9f6;
+      --surface-cream: #FAF8F5;
+      --surface-beige: #F3EFEA;
+      --surface-pure: #FFFFFF;
+      --ink-charcoal: #1F1E1D;
+      --accent-display: #A0846E;
+      --accent-small: #7E6754;
+      --muted-stone: #716A61;
+      --border: #E5DFD7;
+      --error: #ba1a1a;
+      --error-bg: #ffdad6;
+      --ok: #1b5e20;
+      --ok-bg: #e8f5e9;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--surface);
+      color: var(--ink-charcoal);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 32px 40px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      max-width: 1520px;
+      margin: 0 auto 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-small);
+      margin-bottom: 6px;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    header p {
+      font-size: 13px;
+      color: var(--muted-stone);
+      max-width: 780px;
+      margin-top: 4px;
+    }
+    .grid {
+      max-width: 1520px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .card {
+      background: var(--surface-pure);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 12px -2px rgba(31, 30, 29, 0.04);
+    }
+    .card.recommended {
+      border: 2px solid var(--ink-charcoal);
+      box-shadow: 0 8px 28px -4px rgba(31, 30, 29, 0.1);
+    }
+    .card.broken {
+      border-color: #e2b4b0;
+      background: #fffdfb;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .font-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-charcoal);
+    }
+    .font-meta {
+      font-size: 12px;
+      color: var(--muted-stone);
+      margin-top: 2px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+    .badge-fail {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+    .badge-default {
+      background: var(--ink-charcoal);
+      color: var(--surface-cream);
+    }
+    .badge-pass {
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+    .size-group {
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .size-group:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .size-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-small);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .specimen-item {
+      margin-bottom: 10px;
+    }
+    .specimen-item:last-child {
+      margin-bottom: 0;
+    }
+    .sz-56 {
+      font-size: 56px;
+      line-height: 64px;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+    }
+    .sz-40 {
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: -0.015em;
+      font-weight: 400;
+    }
+    .sz-22 {
+      font-size: 22px;
+      line-height: 28px;
+      letter-spacing: 0em;
+      font-weight: 400;
+    }
+    .accent-italic {
+      font-style: italic;
+      color: var(--accent-display);
+    }
+    .f-bodoni-moda {
+      font-family: 'Bodoni Moda', 'Times New Roman', serif;
+    }
+    .f-libre-bodoni {
+      font-family: 'Libre Bodoni', serif;
+    }
+    .f-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+    .f-noto-serif {
+      font-family: 'Noto Serif Display', serif;
+    }
+    .glyph-probe {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: var(--surface-beige);
+      border-radius: 6px;
+      font-size: 18px;
+    }
+    .glyph-probe span.label {
+      font-family: 'Geist', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted-stone);
+      display: block;
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="eyebrow">JN STEP 0 — BẢNG ĐỐI CHIẾU FONT TIÊU ĐỀ TIẾNG VIỆT (56PX / 40PX / 22PX)</div>
+      <h1>Kiểm Chứng Hiển Thị Dấu Tiếng Việt (`U+1EA0–U+1EF9`) Trên 4 Font Serif</h1>
+      <p>
+        <strong>Phát hiện kỹ thuật:</strong> Font <code>Bodoni Moda</code> trong wireframe gốc không có bộ ký tự tiếng Việt mở rộng (<code>ồ, ợ, ế, ậ, ữ, ứ, ể...</code>), khiến trình duyệt phải trộn lẫn <code>Times New Roman</code> ngay giữa từ. Ba ứng viên thay thế (<code>Libre Bodoni</code> mặc định, <code>Playfair Display</code>, <code>Noto Serif Display</code>) đều hỗ trợ đầy đủ 100% tiếng Việt.
+      </p>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- 1. BODONI MODA -->
+    <section class="card broken">
+      <div class="card-header">
+        <div>
+          <div class="font-title">1. Bodoni Moda (Wireframe gốc)</div>
+          <div class="font-meta">Thiếu dải Unicode U+1EA0–U+1EF1 → Lỗi trộn font (Ransom-note effect)</div>
+        </div>
+        <span class="badge badge-fail">LỖI DẤU TIẾNG VIỆT</span>
+      </div>
+
+      <div class="size-group f-bodoni-moda">
+        <span class="size-label">56px / Line-height 64px (Display-LG)</span>
+        <div class="specimen-item sz-56">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-56">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-56">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-56">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-56">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-bodoni-moda">
+        <span class="size-label">40px / Line-height 48px (Headline-LG)</span>
+        <div class="specimen-item sz-40">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-40">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-40">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-40">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-40">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-bodoni-moda">
+        <span class="size-label">22px / Line-height 28px (Headline-SM)</span>
+        <div class="specimen-item sz-22">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-22">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-22">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-22">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-22">Ứng Tuyển Mentorship</div>
+        <div class="glyph-probe">
+          <span class="label">Chuỗi kiểm tra ký tự U+1EA0–U+1EF9:</span>
+          Đồng • Lợi • Chương • Đẹp • Thực • Cảm • Nhận • Kết • Ứng • Tuyển
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LIBRE BODONI (DEFAULT) -->
+    <section class="card recommended">
+      <div class="card-header">
+        <div>
+          <div class="font-title">2. Libre Bodoni (Mặc định đề xuất — HEADING_FONT)</div>
+          <div class="font-meta">Chuẩn dáng Bodoni cổ điển, tương phản nét cao, đầy đủ 100% glyph tiếng Việt</div>
+        </div>
+        <span class="badge badge-default">MẶC ĐỊNH KHUYÊN CHỌN</span>
+      </div>
+
+      <div class="size-group f-libre-bodoni">
+        <span class="size-label">56px / Line-height 64px (Display-LG)</span>
+        <div class="specimen-item sz-56">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-56">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-56">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-56">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-56">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-libre-bodoni">
+        <span class="size-label">40px / Line-height 48px (Headline-LG)</span>
+        <div class="specimen-item sz-40">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-40">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-40">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-40">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-40">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-libre-bodoni">
+        <span class="size-label">22px / Line-height 28px (Headline-SM)</span>
+        <div class="specimen-item sz-22">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-22">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-22">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-22">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-22">Ứng Tuyển Mentorship</div>
+        <div class="glyph-probe">
+          <span class="label">Chuỗi kiểm tra ký tự U+1EA0–U+1EF9:</span>
+          Đồng • Lợi • Chương • Đẹp • Thực • Cảm • Nhận • Kết • Ứng • Tuyển
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PLAYFAIR DISPLAY -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="font-title">3. Playfair Display</div>
+          <div class="font-meta">Editorial serif mềm mại, chữ nghiêng (italic) bay bổng, đầy đủ tiếng Việt</div>
+        </div>
+        <span class="badge badge-pass">HỖ TRỢ ĐẦY ĐỦ TIẾNG VIỆT</span>
+      </div>
+
+      <div class="size-group f-playfair">
+        <span class="size-label">56px / Line-height 64px (Display-LG)</span>
+        <div class="specimen-item sz-56">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-56">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-56">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-56">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-56">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-playfair">
+        <span class="size-label">40px / Line-height 48px (Headline-LG)</span>
+        <div class="specimen-item sz-40">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-40">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-40">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-40">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-40">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-playfair">
+        <span class="size-label">22px / Line-height 28px (Headline-SM)</span>
+        <div class="specimen-item sz-22">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-22">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-22">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-22">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-22">Ứng Tuyển Mentorship</div>
+        <div class="glyph-probe">
+          <span class="label">Chuỗi kiểm tra ký tự U+1EA0–U+1EF9:</span>
+          Đồng • Lợi • Chương • Đẹp • Thực • Cảm • Nhận • Kết • Ứng • Tuyển
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. NOTO SERIF DISPLAY -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="font-title">4. Noto Serif Display</div>
+          <div class="font-meta">Trục đứng hiện đại, nét mảnh sắc sảo kiểu tạp chí thời trang, đầy đủ tiếng Việt</div>
+        </div>
+        <span class="badge badge-pass">HỖ TRỢ ĐẦY ĐỦ TIẾNG VIỆT</span>
+      </div>
+
+      <div class="size-group f-noto-serif">
+        <span class="size-label">56px / Line-height 64px (Display-LG)</span>
+        <div class="specimen-item sz-56">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-56">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-56">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-56">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-56">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-noto-serif">
+        <span class="size-label">40px / Line-height 48px (Headline-LG)</span>
+        <div class="specimen-item sz-40">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-40">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-40">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-40">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-40">Ứng Tuyển Mentorship</div>
+      </div>
+
+      <div class="size-group f-noto-serif">
+        <span class="size-label">22px / Line-height 28px (Headline-SM)</span>
+        <div class="specimen-item sz-22">Coaching &amp; Đồng Hành <span class="accent-italic">Chuyên Sâu</span></div>
+        <div class="specimen-item sz-22">Lợi Ích Của Chương Trình Coaching</div>
+        <div class="specimen-item sz-22">Hơn 20 Năm Đồng Hành Cùng <span class="accent-italic">Vẻ Đẹp Đích Thực</span></div>
+        <div class="specimen-item sz-22">Cảm Nhận Học Viên &amp; Kết Quả Thực Tế</div>
+        <div class="specimen-item sz-22">Ứng Tuyển Mentorship</div>
+        <div class="glyph-probe">
+          <span class="label">Chuỗi kiểm tra ký tự U+1EA0–U+1EF9:</span>
+          Đồng • Lợi • Chương • Đẹp • Thực • Cảm • Nhận • Kết • Ứng • Tuyển
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

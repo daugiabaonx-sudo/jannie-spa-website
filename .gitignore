@@ -1,0 +1,84 @@
+# =============================================================================
+# JN Project Whitelist .gitignore
+# Strategy: Ignore everything by default (*), then explicitly unignore ONLY
+# project-owned paths. WordPress core, third-party themes/plugins, uploads,
+# caches, backups/, node_modules/, .env, and pre-existing workspace folders
+# remain strictly untracked.
+# =============================================================================
+
+# 1. Ignore everything at workspace root by default
+*
+
+# 2. Track .gitignore and root-level Docker / test / lint config templates
+!.gitignore
+!docker-compose.yml
+!docker-compose.*.yml
+!.env.example
+!phpcs.xml.dist
+!phpunit.xml.dist
+!playwright.config.js
+!playwright.config.ts
+!lighthouserc.js
+!lighthouserc.json
+
+# 3. Track Docker configuration directory
+!docker/
+!docker/**
+
+# 4. Track project scripts and automated test suites
+!scripts/
+!scripts/**
+!tests/
+!tests/**
+
+# 5. Track project documentation (docs/jn/)
+!docs/
+docs/*
+!docs/jn/
+!docs/jn/**
+
+# 6. Track ONLY .agent/rules/jn-project.md inside .agent/
+!.agent/
+.agent/*
+!.agent/rules/
+.agent/rules/*
+!.agent/rules/jn-project.md
+
+# 7. Track ONLY project-owned WordPress code inside ./wordpress/app/
+#    (Child theme blocksy-jn, custom plugin jn-core, and the 2 MU-plugins)
+#    WordPress core files, wp-config.php, third-party plugins/themes, media
+#    uploads, and caches are strictly ignored.
+!wordpress/
+wordpress/*
+!wordpress/app/
+wordpress/app/*
+
+# 7a. Child theme: wordpress/app/themes/blocksy-jn
+!wordpress/app/themes/
+wordpress/app/themes/*
+!wordpress/app/themes/blocksy-jn/
+!wordpress/app/themes/blocksy-jn/**
+
+# 7b. Custom plugin: wordpress/app/modules/jn-core
+!wordpress/app/modules/
+wordpress/app/modules/*
+!wordpress/app/modules/jn-core/
+!wordpress/app/modules/jn-core/**
+
+# 7c. Must-Use plugins: jn-hardening.php & jn-performance.php
+!wordpress/app/mu-plugins/
+wordpress/app/mu-plugins/*
+!wordpress/app/mu-plugins/jn-hardening.php
+!wordpress/app/mu-plugins/jn-performance.php
+
+# 8. Always ignore OS, editor, dependency, secret, cache, and backup artifacts
+**/.DS_Store
+**/node_modules/
+**/vendor/
+**/.env
+**/.env.local
+**/.env.production
+**/backups/
+**/*.log
+**/__pycache__/
+**/*.pyc
