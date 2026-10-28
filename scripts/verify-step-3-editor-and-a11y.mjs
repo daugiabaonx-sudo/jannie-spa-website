@@ -11,7 +11,7 @@
  *    - Checking `#privacy-consent` and submitting displays the local Step 3 notice
  *      ("chức năng đang hoàn thiện") and the wireframe confirmation message.
  * 2. Block Editor Check (Task 7):
- *    - Logs into `/phong-lam-viec-7429`
+ *    - Logs into `/<WP_LOGIN_SLUG>`
  *    - Opens Coaching page (`post=9&action=edit`) in the Block Editor
  *    - Opens List View and captures `docs/jn/step-3-editor-list-view.png`
  *    - Moves/drags Section 2 (`Value Pillars`) to a new position and back, capturing
@@ -104,7 +104,7 @@ async function captureViewportScreenshot(cdp, outPath) {
 async function run() {
   const env = loadEnv();
   const base = (env.WP_HOME || 'http://localhost:8080').replace(/\/$/, '');
-  const slug = env.WP_LOGIN_SLUG || 'phong-lam-viec-7429';
+  const slug = ( env.WP_LOGIN_SLUG || ( () => { throw new Error( 'WP_LOGIN_SLUG is missing from .env' ); } )() );
   const user = env.WP_ADMIN_USER;
   const pass = env.WP_ADMIN_PASSWORD;
 

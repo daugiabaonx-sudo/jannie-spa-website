@@ -6,5 +6,7 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-# Run due WordPress scheduled events every 5 minutes via WP-CLI (preferred) or PHP CLI:
-*/5 * * * * www-data cd /var/www/PROD_DOMAIN/wordpress && /usr/local/bin/wp cron event run --due-now >/dev/null 2>&1 || /usr/bin/php /var/www/PROD_DOMAIN/wordpress/wp-cron.php >/dev/null 2>&1
+# Run due WordPress scheduled events every 5 minutes via WP-CLI (preferred) or PHP CLI.
+# wp-config.php loads /var/www/PROD_DOMAIN/.env.production itself, so no environment is needed here.
+# Output is appended to a log (create once: touch + chown www-data, rotate with logrotate) so failures are visible.
+*/5 * * * * www-data cd /var/www/PROD_DOMAIN/wordpress && { /usr/local/bin/wp cron event run --due-now --quiet || /usr/bin/php /var/www/PROD_DOMAIN/wordpress/wp-cron.php; } >> /var/log/jannie-wp-cron.log 2>&1

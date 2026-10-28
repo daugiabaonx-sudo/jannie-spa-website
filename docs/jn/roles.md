@@ -25,7 +25,7 @@ Hệ thống phân quyền của Học viện Jannie Nguyễn được thiết k
 | **1. Bảo mật & Đăng nhập** | | | | | |
 | Truy cập `/wp-admin/` & hiển thị Admin Bar | ✅ Có | ✅ Có | ✅ Có | ✅ Có | ❌ Chặn (Chuyển hướng `/tai-khoan/`) |
 | Bắt buộc Xác thực 2 lớp (`Two Factor` — 2FA) | ✅ Bắt buộc | ✅ Bắt buộc | ✅ Bắt buộc | ✅ Bắt buộc | ⚪ Không bắt buộc |
-| Đường dẫn đăng nhập nhân sự (`/phong-lam-viec-7429`) | ✅ Có | ✅ Có | ✅ Có | ✅ Có | ✅ Có (hoặc `/tai-khoan/`) |
+| Đường dẫn đăng nhập nhân sự (`/<WP_LOGIN_SLUG>`) | ✅ Có | ✅ Có | ✅ Có | ✅ Có | ✅ Có (hoặc `/tai-khoan/`) |
 | **2. Quản lý Khách hàng CRM (`Khách hàng`)** | | | | | |
 | Xem danh sách & tìm kiếm khách hàng (`manage_jn_customers`) | ✅ Có | ✅ Có | ✅ Có | ❌ Không | ❌ Không |
 | Xem hồ sơ chi tiết, lịch sử lịch hẹn, đơn hàng & nhật ký đồng ý bảo mật | ✅ Có | ✅ Có | ✅ Có | ❌ Không | ❌ Không *(chỉ xem của chính mình tại `/tai-khoan/`)* |
@@ -77,6 +77,6 @@ Do trường `STAFF ACCOUNTS` trong `PROJECT CONTEXT CARD` hiện đang ở tr�
    - `two_factor_enabled_providers_for_user`: Đảm bảo mọi tài khoản thuộc 4 vai trò nhân sự luôn có ít nhất `Two_Factor_Email` được kích hoạt làm phương thức dự phòng ngay từ lần đăng nhập đầu tiên, đồng thời cho phép nhân sự bật thêm `Two_Factor_Totp` và `Two_Factor_Backup_Codes` trong trang Hồ sơ cá nhân.
    - `two_factor_is_required_for_user`: Trả về `true` cho mọi tài khoản nhân sự.
 3. **Luồng đăng nhập nhân sự:**
-   - Nhân sự truy cập đường dẫn đăng nhập ẩn `/phong-lam-viec-7429`.
+   - Nhân sự truy cập đường dẫn đăng nhập ẩn `/<WP_LOGIN_SLUG>`.
    - Sau khi nhập đúng tên đăng nhập và mật khẩu, hệ thống chặn phiên đăng nhập hoàn tất, hiển thị màn hình yêu cầu mã xác thực 2 lớp (`Mã xác thực`) và gửi mã OTP 8 chữ số qua email (hoặc nhận mã TOTP 6 chữ số từ ứng dụng).
    - Chỉ khi xác thực 2FA thành công, cookie phiên đăng nhập `wp-admin` mới được cấp phát.

@@ -6,7 +6,7 @@ Toàn bộ đơn hàng (bao gồm cả đơn phí dịch vụ **Coaching / Mento
 
 ## 1. Xem Danh Sách & Chi Tiết Đơn Hàng
 
-1. Đăng nhập vào trang quản trị `/phong-lam-viec-7429`.
+1. Đăng nhập vào trang quản trị `/<WP_LOGIN_SLUG>`.
 2. Chọn menu **WooCommerce → Đơn hàng (`Orders`)** ở cột bên trái.
 3. Ý nghĩa các trạng thái đơn hàng thường gặp:
    - **`Chờ thanh toán` (`Pending payment`):** Đơn hàng gói Coaching vừa được tạo khi trợ lý xác nhận lịch hẹn, đang chờ học viên bấm liên kết `order-pay` trong email để thanh toán.

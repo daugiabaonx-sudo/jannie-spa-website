@@ -2,12 +2,50 @@
 /**
  * Production WordPress Configuration — Jannie Nguyen Website (`deploy/wp-config.production.php`).
  *
- * Copy this file to `/var/www/<PROD_DOMAIN>/wordpress/wp-config.php` on the production host
- * alongside a root-owned (0600) `.env.production` loaded into the PHP-FPM / Apache / LiteSpeed
- * environment. Contains zero hardcoded secrets.
+ * Copy this file to `/var/www/<PROD_DOMAIN>/wordpress/wp-config.php` on the production host.
+ * Secrets live in `/var/www/<PROD_DOMAIN>/.env.production` (outside the web root, `root:www-data 0640`),
+ * which this file loads itself so PHP-FPM, system cron and WP-CLI all read the same values
+ * (override the path with the `JN_ENV_FILE` environment variable). Contains zero hardcoded secrets.
  *
  * @package JannieNguyen
  */
+
+/**
+ * Load `KEY=VALUE` lines from an env file into the process environment.
+ *
+ * Variables already provided by the server/shell environment take precedence. Supports `#` comments,
+ * an optional `export ` prefix and single/double quoted values (as written by deploy/generate-salts.sh).
+ *
+ * @param string $path Absolute path to the env file.
+ * @return void
+ */
+function jn_load_env_file( string $path ): void {
+	if ( ! is_readable( $path ) ) {
+		return;
+	}
+	$lines = file( $path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+	foreach ( false === $lines ? array() : $lines as $line ) {
+		$line = trim( $line );
+		if ( '' === $line || '#' === $line[0] || false === strpos( $line, '=' ) ) {
+			continue;
+		}
+		list( $key, $value ) = array_map( 'trim', explode( '=', $line, 2 ) );
+		if ( 0 === strpos( $key, 'export ' ) ) {
+			$key = trim( substr( $key, 7 ) );
+		}
+		if ( ! preg_match( '/^[A-Z][A-Z0-9_]*$/', $key ) || false !== getenv( $key ) ) {
+			continue;
+		}
+		$quote = strlen( $value ) >= 2 ? $value[0] : '';
+		if ( ( '"' === $quote || "'" === $quote ) && substr( $value, -1 ) === $quote ) {
+			$value = substr( $value, 1, -1 );
+		}
+		putenv( "{$key}={$value}" );
+		$_ENV[ $key ] = $value;
+	}
+}
+
+jn_load_env_file( false !== getenv( 'JN_ENV_FILE' ) ? (string) getenv( 'JN_ENV_FILE' ) : dirname( __DIR__ ) . '/.env.production' );
 
 /**
  * Retrieve an environment variable with a safe fallback.
@@ -29,6 +67,29 @@ function jn_env( string $key, string $default = '' ): string {
 	}
 	return $default;
 }
+
+// ** 0. Fail closed: never boot production with empty credentials, salts or a placeholder URL ** //
+$jn_required_env = array( 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT' );
+$jn_missing_env  = array_values(
+	array_filter(
+		$jn_required_env,
+		static fn( string $key ): bool => '' === jn_env( $key )
+			|| false !== strpos( jn_env( $key ), 'PROD_DOMAIN' )
+			|| false !== strpos( jn_env( $key ), 'REPLACE_WITH_' )
+	)
+);
+if ( ! empty( $jn_missing_env ) ) {
+	$jn_env_message = 'Production configuration incomplete — missing or placeholder: ' . implode( ', ', $jn_missing_env ) . '. Check .env.production (JN_ENV_FILE).';
+	if ( 'cli' === PHP_SAPI ) {
+		fwrite( STDERR, $jn_env_message . "\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
+		exit( 1 );
+	}
+	error_log( $jn_env_message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+	http_response_code( 503 );
+	header( 'Retry-After: 300' );
+	exit( 'Service temporarily unavailable.' );
+}
+unset( $jn_required_env, $jn_missing_env );
 
 // ** 1. Database settings (loaded strictly from environment variables) ** //
 define( 'DB_NAME', jn_env( 'DB_NAME' ) );
@@ -87,8 +148,7 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === strtolower( (str
 }
 define( 'FORCE_SSL_ADMIN', true );
 
-// Disable pseudo-cron on page requests; run real OS cron every 5 minutes (see deploy/cron.d-jannie-wordpress):
-// */5 * * * * www-data /usr/bin/php /var/www/PROD_DOMAIN/wordpress/wp-cron.php >/dev/null 2>&1
+// Disable pseudo-cron on page requests; the real OS cron runs every 5 minutes (see deploy/cron.d-jannie-wordpress).
 define( 'DISABLE_WP_CRON', true );
 
 define( 'DISALLOW_FILE_EDIT', true );

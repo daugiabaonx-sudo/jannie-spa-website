@@ -33,9 +33,10 @@ services:
     image: axllent/mailpit:v1.22
     container_name: jn-mailpit
     restart: unless-stopped
+    # Loopback only: Mailpit has no auth and holds every password-reset / booking email.
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
     healthcheck:
       test: ["CMD", "/mailpit", "readyz"]
       interval: 5s
@@ -56,8 +57,9 @@ services:
         condition: service_healthy
       mailpit:
         condition: service_healthy
+    # Loopback only: the local admin/login must not be reachable from the LAN.
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     env_file:
       - .env
     volumes:

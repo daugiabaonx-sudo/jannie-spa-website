@@ -111,7 +111,7 @@ async function captureElementClip(cdp, selector, outPath, padding = 0) {
 async function main() {
 	const env = loadEnv();
 	const base = (env.WP_HOME || 'http://localhost:8080').replace(/\/$/, '');
-	const slug = env.WP_LOGIN_SLUG || 'phong-lam-viec-7429';
+	const slug = ( env.WP_LOGIN_SLUG || ( () => { throw new Error( 'WP_LOGIN_SLUG is missing from .env' ); } )() );
 	const user = env.WP_ADMIN_USER;
 	const pass = env.WP_ADMIN_PASSWORD;
 

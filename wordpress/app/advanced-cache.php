@@ -4,7 +4,7 @@
  *
  * Bypasses page cache before phase 1 when:
  * - Request URI targets Cart, Checkout, My Account (/tai-khoan/), order-pay, REST/AJAX (/api/),
- *   admin/login (/phong-lam-viec-7429/), robots.txt, or sitemap.xml
+ *   wp-admin (the hidden login screen is never cached: JN_Hardening_Branding_Auth::disable_login_page_cache), robots.txt, or sitemap.xml
  * - Query string exists (?goi=, ?jn_bf=, ?add-to-cart=, etc.)
  * - Request carries a logged-in cookie or an active WooCommerce cart cookie
  *
@@ -25,7 +25,7 @@ $jn_has_qs  = ! empty( $_GET ) || ( false !== strpos( $jn_req_uri, '?' ) );
 $jn_bypass_cache = $jn_has_qs || ( isset( $_SERVER['REQUEST_METHOD'] ) && 'GET' !== $_SERVER['REQUEST_METHOD'] && 'HEAD' !== $_SERVER['REQUEST_METHOD'] );
 
 if ( ! $jn_bypass_cache && '' !== $jn_req_uri ) {
-	if ( preg_match( '#^/(?:cart|checkout|order-pay|tai-khoan|my-account|api|phong-lam-viec-7429|wp-admin|wp-json)(?:/|$|\?)|(?:robots\.txt|sitemap.*\.xml|order-pay)#i', $jn_req_uri ) ) {
+	if ( preg_match( '#^/(?:cart|checkout|order-pay|tai-khoan|my-account|api|wp-admin|wp-json)(?:/|$|\?)|(?:robots\.txt|sitemap.*\.xml|order-pay)#i', $jn_req_uri ) ) {
 		$jn_bypass_cache = true;
 	}
 }

@@ -45,7 +45,9 @@ def fetch(url, follow_redirects=True):
 def main():
     env = load_env()
     base = env.get("WP_HOME", "http://localhost:8080").rstrip("/")
-    slug = env.get("WP_LOGIN_SLUG", "phong-lam-viec-7429")
+    slug = env.get("WP_LOGIN_SLUG")
+    if not slug:
+        raise SystemExit("WP_LOGIN_SLUG is missing from .env")
     admin_user = env.get("WP_ADMIN_USER")
     admin_pass = env.get("WP_ADMIN_PASSWORD")
 

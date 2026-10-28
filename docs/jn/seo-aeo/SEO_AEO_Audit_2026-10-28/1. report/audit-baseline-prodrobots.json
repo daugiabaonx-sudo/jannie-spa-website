@@ -3,9 +3,9 @@
   "generated_at": "2026-10-28T10:20:11+0700",
   "skill_dir": "/Users/daugiabao/Documents/SUNEXT/Spa/Website/.agent/skills/sunext-semrush-ahrefs-os",
   "robots_source": "file",
-  "robots_body": "# Jannie Nguyen Academy — Production robots.txt\nUser-agent: *\nAllow: /\nDisallow: /phong-lam-viec-7429/\nDisallow: /api/\nDisallow: /cart/\nDisallow: /checkout/\nDisallow: /order-pay/\nDisallow: /tai-khoan/\nDisallow: /my-account/\nDisallow: /*?add-to-cart=\nDisallow: /*?jn_bf=\n\nSitemap: https://jannienguyen.vn/sitemap.xml\n",
+  "robots_body": "# Jannie Nguyen Academy — Production robots.txt\nUser-agent: *\nAllow: /\nDisallow: /<WP_LOGIN_SLUG>/\nDisallow: /api/\nDisallow: /cart/\nDisallow: /checkout/\nDisallow: /order-pay/\nDisallow: /tai-khoan/\nDisallow: /my-account/\nDisallow: /*?add-to-cart=\nDisallow: /*?jn_bf=\n\nSitemap: https://jannienguyen.vn/sitemap.xml\n",
   "robots_disallow": [
-    "/phong-lam-viec-7429/",
+    "/<WP_LOGIN_SLUG>/",
     "/api/",
     "/cart/",
     "/checkout/",

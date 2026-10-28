@@ -7,7 +7,7 @@
  *    Renders `jannie/error-404` pattern with Warm Ivory background, Playfair Display H1,
  *    CTAs to `/` and `/coaching/#booking-form`, and 0 console/asset errors.
  * 2. Branded Login Screen (`docs/jn/step-7-branded-login.png`):
- *    Renders `/phong-lam-viec-7429/` with JN monogram SVG, Warm Ivory background,
+ *    Renders the hidden login slug with JN monogram SVG, Warm Ivory background,
  *    "Đăng nhập — Jannie Nguyen Academy" title (no "WordPress"), and 0 console/asset errors.
  * 3. Login Rate-Limiting Lockout E2E (`docs/jn/step-7-rate-limit-lockout.png`):
  *    Triggers 5 failed login attempts on `/tai-khoan/` and verifies the Vietnamese 15-minute
@@ -26,6 +26,12 @@ import { spawn, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+
+// Hidden login slug comes from the environment or .env (never hardcoded in the repository).
+const LOGIN_SLUG = process.env.WP_LOGIN_SLUG || ( ( fs.existsSync( '.env' ) ? fs.readFileSync( '.env', 'utf8' ) : '' ).match( /^WP_LOGIN_SLUG=["']?([^"'\n]+)/m ) || [] )[ 1 ];
+if ( ! LOGIN_SLUG ) {
+	throw new Error( 'WP_LOGIN_SLUG is missing (.env or environment)' );
+}
 
 const CHROME_BIN = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const ROOT_DIR = process.cwd();
@@ -243,12 +249,12 @@ async function main() {
 		console.log( '   404 check:', report.checks.page404.pass ? 'PASS' : 'FAIL', info404 );
 
 		// -----------------------------------------------------------------
-		// 2. Branded Login Screen (/phong-lam-viec-7429/)
+		// 2. Branded Login Screen (hidden login slug)
 		// -----------------------------------------------------------------
-		console.log( '2. Verifying Branded Login Screen (/phong-lam-viec-7429/)...' );
+		console.log( '2. Verifying Branded Login Screen (hidden login slug)...' );
 		await cdp.setViewport( 1440, 960, false );
 		cdp.resetLogs();
-		await cdp.navigateAndWait( 'http://localhost:8080/phong-lam-viec-7429/', 2000 );
+		await cdp.navigateAndWait( `http://localhost:8080/${ LOGIN_SLUG }/`, 2000 );
 
 		const loginInfo = await cdp.eval( `({
 			title: document.title,

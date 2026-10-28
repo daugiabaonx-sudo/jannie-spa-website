@@ -35,7 +35,6 @@ $cache_rejected_uri = array(
 	'^/tai-khoan(/|$|\\?)',
 	'^/my-account(/|$|\\?)',
 	'^/api(/|$|\\?)',
-	'^/phong-lam-viec-7429(/|$|\\?)',
 	'add-to-cart=',
 	'wc-ajax=',
 	'jn_bf=',

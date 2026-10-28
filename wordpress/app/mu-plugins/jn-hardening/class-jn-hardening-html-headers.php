@@ -565,7 +565,7 @@ class JN_Hardening_HTML_Headers {
 		$html = (string) preg_replace( '/"generator"\s*:\s*"[^"]*"\s*,?\s*/', '', $html );
 
 		// 6. Sanitize URL-encoded wcSettings payload on WooCommerce Cart/Checkout blocks so it never leaks
-		// wpVersion, wcVersion, wpLoginUrl (/phong-lam-viec-7429/), /wp-admin/, or /app/modules/woocommerce/.
+		// wpVersion, wcVersion, wpLoginUrl (hidden login slug), /wp-admin/, or /app/modules/woocommerce/.
 		if ( false !== strpos( $html, 'var wcSettings = JSON.parse( decodeURIComponent(' ) ) {
 			$html = (string) preg_replace_callback(
 				"/var wcSettings = JSON\.parse\( decodeURIComponent\( '([^']+)' \) \);/",

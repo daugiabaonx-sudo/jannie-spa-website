@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 1 );
 }
 
+// Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
+require_once __DIR__ . '/lib/jn-env-guard.php';
+jn_require_non_production( basename( __FILE__ ) );
+
 require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';

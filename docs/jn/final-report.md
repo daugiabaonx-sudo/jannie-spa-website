@@ -183,7 +183,7 @@ Toàn bộ bộ công cụ triển khai và khôi phục thảm họa đã đư�
 | **Bộ nhớ đệm Trang (Page Cache)** | `WP Super Cache` | `3.1.4` | **Active** | Hoặc chuyển sang `LiteSpeed Cache` nếu host chạy LiteSpeed |
 | **SEO Kỹ thuật** | `The SEO Framework` (`autodescription`) | `5.2.0` | **Active** | Đã tắt HTML comment chữ ký |
 | **Xác thực 2 lớp (2FA)** | `Two Factor` | `0.17.0` | **Active** | Bắt buộc đối với toàn bộ 4 vai trò nhân sự |
-| **Ẩn đường dẫn đăng nhập** | `WPS Hide Login` | `1.9.19` | **Active** | Đường dẫn đăng nhập: `/phong-lam-viec-7429` |
+| **Ẩn đường dẫn đăng nhập** | `WPS Hide Login` | `1.9.19` | **Active** | Đường dẫn đăng nhập: `/<WP_LOGIN_SLUG>` |
 | **Gửi thư SMTP Production** | `FluentSMTP` | `2.4.1` | **Installed (Inactive on Local)** | Kích hoạt trên Production khi cấu hình `UNK-11` |
 
 ---

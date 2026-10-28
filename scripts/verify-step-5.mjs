@@ -227,7 +227,7 @@ async function main() {
 	const env = loadEnv();
 	const BASE_URL = env.WP_HOME || 'http://localhost:8080';
 	const MAILPIT_URL = `http://localhost:${env.MAILPIT_UI_PORT || '8025'}`;
-	const LOGIN_SLUG = env.WPS_HIDE_LOGIN_SLUG || 'phong-lam-viec-7429';
+	const LOGIN_SLUG = ( env.WPS_HIDE_LOGIN_SLUG || env.WP_LOGIN_SLUG || ( () => { throw new Error( 'WP_LOGIN_SLUG is missing from .env' ); } )() );
 	const ADMIN_USER = env.WP_ADMIN_USER || 'jannie_admin';
 	const ADMIN_PASS = env.WP_ADMIN_PASSWORD || '';
 

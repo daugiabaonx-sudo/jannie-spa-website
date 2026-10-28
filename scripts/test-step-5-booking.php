@@ -12,6 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
+require_once __DIR__ . '/lib/jn-env-guard.php';
+jn_require_non_production( basename( __FILE__ ) );
+
 $GLOBALS['jn_tests_total']  = 0;
 $GLOBALS['jn_tests_passed'] = 0;
 $GLOBALS['jn_tests_failed'] = array();

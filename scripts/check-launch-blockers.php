@@ -18,6 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
+require_once __DIR__ . '/lib/jn-env-guard.php';
+jn_require_non_production( basename( __FILE__ ) );
+
 global $wpdb;
 
 echo "=================================================================\n";
@@ -147,8 +151,15 @@ update_option( 'jn_guest_crm_profiles', array(), false );
 update_option( 'jn_customer_duplicate_log', array(), false );
 
 // 2f. Delete any non-staff test users (preserve only the 4 canonical staff accounts).
+// The administrator login is configuration (WP_ADMIN_USER), never committed. Without it this cleanup
+// would treat the administrator as a test user and delete it, so abort instead.
+$jn_admin_login = (string) getenv( 'WP_ADMIN_USER' );
+if ( '' === $jn_admin_login ) {
+	fwrite( STDERR, "Refusing to clean users: WP_ADMIN_USER is not set in the environment (.env).\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
+	exit( 1 );
+}
 $canonical_staff_logins = array(
-	'jn_director_7391',
+	$jn_admin_login,
 	'quan_ly_cua_hang',
 	'tro_ly_lich_hen',
 	'bien_tap_noi_dung',

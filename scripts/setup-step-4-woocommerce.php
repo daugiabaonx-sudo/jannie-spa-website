@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
+require_once __DIR__ . '/lib/jn-env-guard.php';
+jn_require_non_production( basename( __FILE__ ) );
+
 echo "=== 1. Configuring WooCommerce Onboarding, Privacy & Tracking Flags ===\n";
 update_option( 'woocommerce_allow_tracking', 'no' );
 update_option( 'woocommerce_show_marketplace_suggestions', 'no' );

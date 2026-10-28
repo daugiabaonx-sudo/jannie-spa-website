@@ -6,7 +6,7 @@ Website Jannie Nguyễn được xây dựng hoàn toàn bằng trình soạn th
 
 ## 1. Mở Trang Cần Chỉnh Sửa & Bật "Xem Danh Sách" (`List View`)
 
-1. Đăng nhập vào cổng quản trị `/phong-lam-viec-7429`.
+1. Đăng nhập vào cổng quản trị `/<WP_LOGIN_SLUG>`.
 2. Ở thanh menu bên trái, chọn **Trang (`Pages`) → Tất cả các trang (`All Pages`)**.
 3. Di chuột vào trang muốn sửa (ví dụ: **Coaching**, **Home**, **My Story**) và bấm **Chỉnh sửa (`Edit`)**.
 4. Ở góc trên cùng bên trái của màn hình soạn thảo, bấm vào biểu tượng **3 vạch ngang lệch (`Document Overview / List View`)** để mở cây cấu trúc các phân đoạn của trang.

@@ -17,6 +17,8 @@
 #   ./deploy/db-search-replace.sh <PROD_DOMAIN> --apply      # Apply after reviewing dry-run
 # =============================================================================
 set -euo pipefail
+# DB snapshots contain customer PII and password hashes: keep them private to the operator.
+umask 077
 
 PROD_DOMAIN="${1:-}"
 MODE="${2:---dry-run}"
@@ -41,6 +43,13 @@ mkdir -p "${BACKUP_DIR}"
 # Detect WP-CLI runner (local Docker wrapper or host `wp` binary on production server)
 if [[ -x "./scripts/wp.sh" ]] && command -v docker >/dev/null 2>&1; then
   WP_CMD=("./scripts/wp.sh")
+  # The Docker wrapper targets the LOCAL development database. A live rewrite there breaks the
+  # local site (URLs + blog_public), so --apply must run on the server unless explicitly allowed.
+  if [[ "${MODE}" == "--apply" && "${JN_ALLOW_LOCAL_APPLY:-}" != "1" ]]; then
+    echo "ERROR: --apply would rewrite the LOCAL Docker database (detected ./scripts/wp.sh)."
+    echo "Run this script on the production server, or set JN_ALLOW_LOCAL_APPLY=1 if you really intend a local rewrite."
+    exit 1
+  fi
 elif command -v wp >/dev/null 2>&1; then
   WP_CMD=("wp" "--path=${WP_PATH:-./wordpress}")
 else

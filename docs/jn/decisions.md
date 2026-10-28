@@ -101,12 +101,12 @@ Yêu cầu cốt lõi của dự án là ẩn toàn bộ dấu vết mặc đị
    - Đổi thư mục tải lên phương tiện từ `/wp-content/uploads` sang **`/media`** (`upload_path`, `upload_url_path`).
    - Đổi tiền tố REST API từ `/wp-json` sang **`/api`** thông qua filter `rest_url_prefix`.
    - Sử dụng tiền tố bảng cơ sở dữ liệu ngẫu nhiên (ví dụ: `jn7x_`, tuyệt đối không dùng `wp_`).
-   - Đặt đường dẫn đăng nhập tùy chỉnh tại **`/phong-lam-viec-7429`** (qua `WPS Hide Login` kết hợp quy tắc bảo vệ trong `jn-hardening.php`).
+   - Đặt đường dẫn đăng nhập tùy chỉnh tại **`/<WP_LOGIN_SLUG>`** (qua `WPS Hide Login` kết hợp quy tắc bảo vệ trong `jn-hardening.php`).
 2. **Bảo toàn khả năng cập nhật trên ổ đĩa (Disk Updatability Rule):**
    - **Không đổi tên thư mục trên đĩa** của parent theme (`blocksy`) hay các plugin bên thứ ba (`woocommerce`, `wps-hide-login`, `two-factor`...) bên trong `/app/themes/` và `/app/modules/` để trình cập nhật của WordPress/WP-CLI vẫn hoạt động bình thường.
    - Thay vào đó, sử dụng quy tắc rewrite trên máy chủ web (`.htaccess` / cấu hình Apache/Nginx) và bộ lọc URL tài nguyên trong `jn-hardening.php` để ánh xạ các đường dẫn tài nguyên tĩnh ra ngoài thành các đường dẫn trung lập (không chứa chuỗi `wp-content`, `wp-includes`, `blocksy`, hay `?ver=X.Y.Z` trong mã nguồn HTML trả về cho khách).
 3. **Khóa chặt các điểm rò rỉ thông tin (Hardening Controls tại Step 1 & Step 7):**
-   - Khi chưa đăng nhập: truy cập `/wp-admin`, `/wp-login.php`, `/xmlrpc.php`, `/readme.html`, `/license.txt`, `/wp-config-sample.php` đều trả về mã trạng thái **`404 Not Found`** (hoặc bị chặn truy cập hoàn toàn, tuyệt đối không chuyển hướng `302` tới trang đăng nhập mới `/phong-lam-viec-7429`).
+   - Khi chưa đăng nhập: truy cập `/wp-admin`, `/wp-login.php`, `/xmlrpc.php`, `/readme.html`, `/license.txt`, `/wp-config-sample.php` đều trả về mã trạng thái **`404 Not Found`** (hoặc bị chặn truy cập hoàn toàn, tuyệt đối không chuyển hướng `302` tới trang đăng nhập mới `/<WP_LOGIN_SLUG>`).
    - Gỡ bỏ thẻ `<meta name="generator">`, `X-Pingback`, link header `rel="https://api.w.org/"` nếu cần ẩn, tắt tính năng liệt kê tác giả qua `/api/wp/v2/users` (trả về `401`/`403`) và `?author=N` (trả về `404`).
    - Tắt chỉnh sửa file trong trang quản trị (`DISALLOW_FILE_EDIT = true`), ẩn bình luận mặc định trên các trang tĩnh/dịch vụ, và thiết lập đầy đủ các HTTP Security Headers.
 
@@ -314,7 +314,7 @@ Trong bước **JN Step 8 — PageSpeed optimisation to budget**, dự án cần
 2. **Chọn `WP Super Cache` (`wp-super-cache`) làm Plugin Page Cache chính thức:**
    - Tương thích gốc với Apache (`.htaccess` / PHP cache mode) đang chạy trong container local và mọi máy chủ Apache/Nginx tiêu chuẩn.
    - Cấu hình loại trừ tuyệt đối (`Rejected URIs` & `Rejected Cookies`):
-     - Không bao giờ lưu cache cho `/cart/`, `/checkout/`, `/tai-khoan/`, `/my-account/`, `/order-pay/`, `/api/`, `/phong-lam-viec-7429/`, hoặc các yêu cầu có tham số `?jn_bf=`, `?add-to-cart=`, `?wc-ajax=`.
+     - Không bao giờ lưu cache cho `/cart/`, `/checkout/`, `/tai-khoan/`, `/my-account/`, `/order-pay/`, `/api/`, `/<WP_LOGIN_SLUG>/`, hoặc các yêu cầu có tham số `?jn_bf=`, `?add-to-cart=`, `?wc-ajax=`.
      - Bỏ qua cache khi trình duyệt gửi cookie phiên đăng nhập (`wordpress_logged_in_*`) hoặc cookie giỏ hàng WooCommerce đang hoạt động (`woocommerce_items_in_cart`, `woocommerce_cart_hash`, `wp_woocommerce_session_*`).
    - Giữ nguyên khả năng tự động chọn gói dịch vụ qua `?goi=<slug>` ở phía trình duyệt (`booking-form.js` đọc `window.location.search`) và tự động làm mới token chống spam qua `/api/jn/v1/booking/token` để biểu mẫu đặt lịch hoạt động hoàn hảo ngay cả trên trang đã lưu cache tĩnh.
 3. **Chọn `The SEO Framework` (`autodescription`) làm Plugin SEO nhẹ duy nhất:**
@@ -368,7 +368,7 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 2. **Ngoại lệ Lighthouse có văn bản (§5 "documented WooCommerce-core exception"):** trên 3 trang tiện ích, audit `is-crawlable` được phép fail; mọi audit SEO khác phải đạt (`scripts/run-step-8-lhci.mjs`, `lighthouserc.json`).
 3. Một builder `JN_SEO_Robots::build_robots_txt()` phục vụ cả route `/robots.txt` lẫn filter `robots_txt`. Lighthouse/PSI trên môi trường `local` nhận **đúng** nội dung production; khách thường ở local nhận `Disallow: /`.
    - **Không** `Disallow` các trang `noindex` (`/cart/`, `/checkout/`, `/tai-khoan/`, tìm kiếm): nếu chặn crawl, bot không đọc được `noindex` và URL vẫn có thể bị index dạng "bị chặn bởi robots.txt". Chỉ chặn `/api/`, `?add-to-cart=`, `?jn_bf=`.
-   - **Không** liệt kê slug đăng nhập ẩn (`/phong-lam-viec-7429/`) trong robots.txt (file công khai — liệt kê sẽ làm lộ URL đăng nhập, trái §6); trang đăng nhập đã có `noindex` của core.
+   - **Không** liệt kê slug đăng nhập ẩn (`/<WP_LOGIN_SLUG>/`) trong robots.txt (file công khai — liệt kê sẽ làm lộ URL đăng nhập, trái §6); trang đăng nhập đã có `noindex` của core.
    - Tôn trọng "Ngăn công cụ tìm kiếm" (`blog_public = 0`) trên staging / production trước go-live: robots meta giữ `noindex` của core và robots.txt trả `Disallow: /`. Chỉ môi trường `local` mô phỏng chính sách production để đo Lighthouse.
    - Trang không thuộc danh sách index của dự án (trang riêng tư/có mật khẩu, archive, trang chủ dự án tự đặt `noindex` trong TSF…) giữ nguyên quyết định của The SEO Framework.
 4. **Q2 (giả định):** cho phép bot tìm kiếm & trả lời AI (`OAI-SearchBot`, `ChatGPT-User`, `GPTBot`, `PerplexityBot`, `ClaudeBot`, `Claude-SearchBot`, `Google-Extended`, `Applebot-Extended`…) — liệt kê chung nhóm `User-agent: *` (RFC 9309) để thừa hưởng cùng luật Disallow. Muốn chặn bot huấn luyện: bỏ tên khỏi `JN_SEO_Robots::AI_AGENTS` và thêm nhóm `Disallow: /` riêng.

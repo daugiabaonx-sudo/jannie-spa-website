@@ -3,12 +3,12 @@
  * JN Hardening — Branding Traces, Vietnamese Transactional Emails & Auth Hardening (Tasks C & D).
  *
  * - Replaces default WordPress favicon (`w-logo-blue.png`) with the Jannie Nguyen monogram SVG.
- * - Brands the custom login screen (`/phong-lam-viec-7429`) in Warm Ivory & Playfair Display,
+ * - Brands the custom (hidden-slug) login screen in Warm Ivory & Playfair Display,
  *   removing all WordPress logos, titles, and links.
  * - Routes all outgoing emails from "Jannie Nguyen Academy <contact@jannienguyen.vn>" with
  *   warm Vietnamese copy (never "WordPress <wordpress@...>").
  * - Rate-limits failed login attempts (max 5 failures per 15 minutes per HMAC-hashed IP or username/email)
- *   across both `/phong-lam-viec-7429` and WooCommerce My Account (`/tai-khoan/`).
+ *   across both the hidden-slug login screen and WooCommerce My Account (`/tai-khoan/`).
  * - Restricts Application Passwords strictly to administrators (`manage_options`).
  * - Forces core `users_can_register` off (`0`) so only WooCommerce controls customer registration.
  *
@@ -46,7 +46,10 @@ class JN_Hardening_Branding_Auth {
 		remove_action( 'do_faviconico', 'do_faviconico' );
 		add_action( 'do_faviconico', array( __CLASS__, 'serve_brand_favicon' ), 1 );
 
-		// 2. Branded login screen (/phong-lam-viec-7429) & admin footer credits.
+		// 2. Branded (hidden-slug) login screen & admin footer credits.
+		// The slug itself is configuration, not code: WPS Hide Login's `whl_page` follows WP_LOGIN_SLUG.
+		add_filter( 'pre_option_whl_page', array( __CLASS__, 'filter_login_slug_from_env' ) );
+		add_action( 'login_init', array( __CLASS__, 'disable_login_page_cache' ), 0 );
 		add_filter( 'login_headerurl', array( __CLASS__, 'filter_login_header_url' ), 999 );
 		add_filter( 'login_headertext', array( __CLASS__, 'filter_login_header_text' ), 999 );
 		add_filter( 'login_title', array( __CLASS__, 'filter_login_title' ), 999, 2 );
@@ -114,6 +117,30 @@ class JN_Hardening_Branding_Auth {
 	}
 
 	/**
+	 * Read the hidden login slug (WPS Hide Login `whl_page`) from the WP_LOGIN_SLUG environment variable,
+	 * so the secret lives in `.env` / `.env.production` and can be rotated without a code or DB change.
+	 *
+	 * @param mixed $pre Short-circuit value (false = read the stored option).
+	 * @return mixed
+	 */
+	public static function filter_login_slug_from_env( $pre ) {
+		$slug = sanitize_title( (string) getenv( 'WP_LOGIN_SLUG' ) );
+		return '' !== $slug ? $slug : $pre;
+	}
+
+	/**
+	 * Never write the login screen to the page cache, whatever its (secret) slug is.
+	 *
+	 * @return void
+	 */
+	public static function disable_login_page_cache(): void {
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
+		nocache_headers();
+	}
+
+	/**
 	 * Point the login logo link to the site homepage instead of wordpress.org.
 	 *
 	 * @return string
@@ -145,7 +172,7 @@ class JN_Hardening_Branding_Auth {
 	}
 
 	/**
-	 * Render custom luxury editorial styling for the login screen (`/phong-lam-viec-7429`).
+	 * Render custom luxury editorial styling for the hidden-slug login screen.
 	 *
 	 * @return void
 	 */

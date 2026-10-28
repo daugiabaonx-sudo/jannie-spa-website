@@ -210,7 +210,7 @@
         "prod_domain": "UNKNOWN",
         "prod_web_server": "UNKNOWN (Both Apache/LiteSpeed .htaccess and Nginx configs prepared in deploy/)",
         "staff_accounts": [
-          "jn_director_7391",
+          "<WP_ADMIN_USER>",
           "quan_ly_cua_hang",
           "tro_ly_lich_hen",
           "bien_tap_noi_dung"

@@ -2,7 +2,20 @@
 # JN Step 9 — Production File-Sync Exclude Manifest (`deploy/rsync-exclude.txt`)
 # Usage with rsync from workspace root `./wordpress/` to production web root:
 #   rsync -avz --delete --exclude-from=deploy/rsync-exclude.txt ./wordpress/ user@host:/var/www/PROD_DOMAIN/wordpress/
+# Always run the same command with `--dry-run` first and review every `deleting` line.
+#
+# Patterns are matched relative to the transfer root (`./wordpress/`). Excluded paths are
+# neither uploaded nor deleted on the server, even with `--delete`.
 # =============================================================================
+
+# Production-owned paths inside the web root — NEVER overwritten or deleted by a code deploy.
+# /media/ holds customer & WooCommerce uploads (sync initial media once, without --delete);
+# wp-config.php and .htaccess are installed from deploy/ templates on the server (runbook 2.3).
+/media/
+/wp-config.php
+/.htaccess
+/app/cache/
+/app/upgrade/
 
 # Workspace-level & dev-only folders (never inside production web root)
 /backups
@@ -36,7 +49,6 @@
 .claude/
 .env
 .env.*
-!.env.production.example
 
 # Dev tool configs & build artifacts
 package.json

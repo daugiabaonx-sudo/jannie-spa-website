@@ -3,7 +3,7 @@
  * JN Step 6 — Comprehensive Browser E2E Verification (`scripts/verify-step-6.mjs`).
  *
  * Uses Google Chrome via CDP to verify and capture required screenshots:
- * 1. `docs/jn/step-6-staff-login-2fa.png` — Staff login (`tro_ly_lich_hen`) at `/phong-lam-viec-7429`
+ * 1. `docs/jn/step-6-staff-login-2fa.png` — Staff login (`tro_ly_lich_hen`) at `/<WP_LOGIN_SLUG>`
  *    requiring Two Factor (2FA) OTP, retrieving the 8-digit code from Mailpit, and completing login.
  * 2. `docs/jn/step-6-customers-list.png` — Unified "Khách hàng" (`admin.php?page=jn-customers`) directory
  *    showing customers from bookings, orders, and registrations, KPI strip, 9 columns, duplicate warnings, and CSV export.
@@ -218,7 +218,7 @@ async function main() {
 	const env = loadEnv();
 	const BASE_URL = env.WP_HOME || 'http://localhost:8080';
 	const MAILPIT_URL = `http://localhost:${env.MAILPIT_UI_PORT || '8025'}`;
-	const LOGIN_SLUG = env.WPS_HIDE_LOGIN_SLUG || 'phong-lam-viec-7429';
+	const LOGIN_SLUG = ( env.WPS_HIDE_LOGIN_SLUG || env.WP_LOGIN_SLUG || ( () => { throw new Error( 'WP_LOGIN_SLUG is missing from .env' ); } )() );
 
 	console.log('1. Preparing Step 6 E2E seed data via WP-CLI...');
 	const prep = runHelper('prepare');

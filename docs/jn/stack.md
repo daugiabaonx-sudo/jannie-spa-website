@@ -84,7 +84,7 @@ Theo `.agent/rules/jn-project.md` §2, chỉ những plugin sau được phép c
 | STT | Tên Plugin | Nguồn | Mục đích sử dụng | Bước cài đặt & Phiên bản |
 | :---: | :--- | :--- | :--- | :---: |
 | 1 | **WooCommerce** | `wordpress.org/plugins/woocommerce` | Quản lý đơn hàng (HPOS), khách hàng, sản phẩm dịch vụ coaching/khóa học, cổng thanh toán và trang Tài khoản (`My Account`) | Step 4 (`v11.2.1`) |
-| 2 | **WPS Hide Login** | `wordpress.org/plugins/wps-hide-login` | Đổi đường dẫn đăng nhập quản trị sang `/phong-lam-viec-7429` và trả về `404` cho `/wp-login.php` & `/wp-admin` khi chưa đăng nhập | Step 1 / Step 7 (`v1.9.19`) |
+| 2 | **WPS Hide Login** | `wordpress.org/plugins/wps-hide-login` | Đổi đường dẫn đăng nhập quản trị sang `/<WP_LOGIN_SLUG>` và trả về `404` cho `/wp-login.php` & `/wp-admin` khi chưa đăng nhập | Step 1 / Step 7 (`v1.9.19`) |
 | 3 | **Two Factor** | `wordpress.org/plugins/two-factor` | Xác thực 2 lớp (2FA: TOTP, Email, Backup Codes) cho tài khoản quản trị viên và trợ lý | Step 6 (`v0.17.0`) |
 | 4 | **WP Super Cache** (*Plugin Page Cache theo `ADR-011`*) | `wordpress.org/plugins/wp-super-cache` | Lưu bộ nhớ đệm trang HTML tĩnh (`WP_CACHE = true`, `advanced-cache.php`), loại trừ `/cart/`, `/checkout/`, `/tai-khoan/`, `order-pay`, `/api/` và cookie phiên WooCommerce/đăng nhập (nếu Production dùng LiteSpeed sẽ chuyển sang **LiteSpeed Cache**) | Step 8 (`v3.1.4`) |
 | 5 | **The SEO Framework** (`autodescription`) | `wordpress.org/plugins/autodescription` | Quản lý thẻ tiêu đề, `meta description` tiếng Việt, `canonical`, Open Graph (`1200×630`), `/sitemap.xml` và `/robots.txt` với chữ ký HTML comment bị vô hiệu hóa hoàn toàn | Step 8 (`v5.2.0`) |

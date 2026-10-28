@@ -846,7 +846,6 @@ function jn_filter_speculation_rules_exclude_paths( $exclude_paths ) {
 		'/*logout*',
 		'/*jn_bf=*',
 		'/booking/*\\?*',
-		'/phong-lam-viec-7429/*',
 	);
 
 	return array_values( array_unique( array_merge( $exclude_paths, $custom_exclusions ) ) );

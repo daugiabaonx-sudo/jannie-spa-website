@@ -50,7 +50,7 @@ PROJECT CONTEXT CARD (write UNKNOWN for anything not known yet)
 - PROD_DOMAIN: UNKNOWN
 - PROD_WEB_SERVER + PHP: UNKNOWN
 - ADMIN_EMAIL: admin@example.com
-- LOGIN_SLUG: phong-lam-viec-7429
+- LOGIN_SLUG: <WP_LOGIN_SLUG>
 - DIR NAMES: content = app; plugins = modules; uploads = media; REST prefix = api
 - HEADING_FONT: Playfair Display
 - BRAND CONTACT: email contact@jannienguyen.vn; phone/Zalo UNKNOWN; address "TP. Hồ Chí Minh, Việt Nam" (full address UNKNOWN); hours "Thứ Hai - Thứ Bảy: 09:00 - 18:00"
