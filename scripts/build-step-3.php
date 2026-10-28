@@ -179,6 +179,7 @@ $pattern_tiers        = jn_render_pattern_file( 'pricing-tiers-3.php' );
 $pattern_expert       = jn_render_pattern_file( 'expert-intro.php' );
 $pattern_testimonials = jn_render_pattern_file( 'testimonials-3.php' );
 $pattern_booking      = jn_render_pattern_file( 'booking-section.php' );
+$pattern_faq          = jn_render_pattern_file( 'faq.php' );
 
 $synced_testimonials_id = jn_upsert_synced_pattern(
 	'jn-synced-testimonials-3',
@@ -295,6 +296,7 @@ $pages_spec = array(
 				$pattern_tiers,
 				$pattern_expert,
 				$ref_testimonials_block,
+				$pattern_faq,
 				$ref_booking_block,
 			)
 		),
@@ -385,6 +387,7 @@ $pages_spec = array(
 					'Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.'
 				),
 				$ref_booking_block,
+				$pattern_faq,
 			)
 		),
 	),

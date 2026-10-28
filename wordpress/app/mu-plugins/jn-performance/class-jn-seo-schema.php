@@ -272,20 +272,33 @@ class JN_SEO_Schema {
 	 * @return array<int, array{question: string, answer: string}>
 	 */
 	public static function extract_faq_from_blocks( string $content ): array {
-		$entries = array();
-		self::walk_blocks( parse_blocks( $content ), $entries );
+		$entries   = array();
+		$seen_refs = array();
+		self::walk_blocks( parse_blocks( $content ), $entries, $seen_refs );
 		return $entries;
 	}
 
 	/**
 	 * Recursive block walker for extract_faq_from_blocks().
 	 *
-	 * @param array<int, array<string, mixed>>                    $blocks  Parsed blocks.
-	 * @param array<int, array{question: string, answer: string}> $entries Collected entries (by reference).
+	 * @param array<int, array<string, mixed>>                    $blocks    Parsed blocks.
+	 * @param array<int, array{question: string, answer: string}> $entries   Collected entries (by reference).
+	 * @param array<int, bool>                                    $seen_refs Visited `wp_block` IDs to guard against cycles.
 	 * @return void
 	 */
-	private static function walk_blocks( array $blocks, array &$entries ): void {
+	private static function walk_blocks( array $blocks, array &$entries, array &$seen_refs = array() ): void {
 		foreach ( $blocks as $block ) {
+			if ( 'core/block' === ( $block['blockName'] ?? '' ) && ! empty( $block['attrs']['ref'] ) ) {
+				$ref_id = (int) $block['attrs']['ref'];
+				if ( $ref_id > 0 && empty( $seen_refs[ $ref_id ] ) ) {
+					$seen_refs[ $ref_id ] = true;
+					$ref_post             = get_post( $ref_id );
+					if ( $ref_post instanceof WP_Post && 'wp_block' === $ref_post->post_type && 'publish' === $ref_post->post_status ) {
+						self::walk_blocks( parse_blocks( (string) $ref_post->post_content ), $entries, $seen_refs );
+					}
+				}
+				continue;
+			}
 			$classes = (string) ( $block['attrs']['className'] ?? '' );
 			if ( 'core/details' === $block['blockName'] && preg_match( '/(^|\s)jn-faq-item(\s|$)/', $classes ) ) {
 				$html = self::block_html( $block );
@@ -302,7 +315,7 @@ class JN_SEO_Schema {
 				continue;
 			}
 			if ( ! empty( $block['innerBlocks'] ) ) {
-				self::walk_blocks( $block['innerBlocks'], $entries );
+				self::walk_blocks( $block['innerBlocks'], $entries, $seen_refs );
 			}
 		}
 	}
@@ -341,18 +354,20 @@ class JN_SEO_Schema {
 		$crumbs    = array();
 		$faq       = array();
 
-		if ( ! is_front_page() && $queried instanceof WP_Post ) {
-			$crumbs = array(
-				array(
-					'name' => 'Trang chủ',
-					'url'  => home_url( '/' ),
-				),
-				array(
-					'name' => get_the_title( $queried ),
-					'url'  => $canonical,
-				),
-			);
-			$faq    = self::extract_faq_from_blocks( (string) $queried->post_content );
+		if ( $queried instanceof WP_Post ) {
+			$faq = self::extract_faq_from_blocks( (string) $queried->post_content );
+			if ( ! is_front_page() ) {
+				$crumbs = array(
+					array(
+						'name' => 'Trang chủ',
+						'url'  => home_url( '/' ),
+					),
+					array(
+						'name' => get_the_title( $queried ),
+						'url'  => $canonical,
+					),
+				);
+			}
 		}
 
 		return array(

@@ -216,6 +216,26 @@ $jn_faq_graph = JN_SEO_Schema::build_graph( array_merge( $jn_ctx, array( 'faq' =
 jn_step10_assert( in_array( 'FAQPage', jn_step10_types( $jn_faq_graph['@graph'] ), true ), 'FAQPage node is emitted when FAQ entries exist' );
 jn_step10_assert( ! in_array( 'FAQPage', $jn_types, true ), 'No FAQPage node without FAQ entries' );
 
+$jn_sync_block_id = wp_insert_post(
+	array(
+		'post_type'    => 'wp_block',
+		'post_status'  => 'publish',
+		'post_title'   => 'Temp Synced FAQ Test',
+		'post_content' => '<!-- wp:details {"className":"jn-faq-item"} --><details class="wp-block-details jn-faq-item"><summary>Câu hỏi đồng bộ?</summary><!-- wp:paragraph --><p>Trả lời đồng bộ.</p><!-- /wp:paragraph --></details><!-- /wp:details -->',
+	)
+);
+$jn_synced_faq = array();
+if ( is_wp_error( $jn_sync_block_id ) || (int) $jn_sync_block_id <= 0 ) {
+	echo '[WARN] Could not create temp wp_block: ' . ( is_wp_error( $jn_sync_block_id ) ? $jn_sync_block_id->get_error_message() : 'unknown error' ) . "\n";
+} else {
+	try {
+		$jn_synced_faq = JN_SEO_Schema::extract_faq_from_blocks( sprintf( '<!-- wp:block {"ref":%d} /-->', (int) $jn_sync_block_id ) );
+	} finally {
+		wp_delete_post( (int) $jn_sync_block_id, true );
+	}
+}
+jn_step10_assert( 1 === count( $jn_synced_faq ) && 'Câu hỏi đồng bộ?' === $jn_synced_faq[0]['question'], 'extract_faq_from_blocks resolves synced pattern core/block refs' );
+
 // -----------------------------------------------------------------------------
 // 4. F3 — robots.txt single source of truth
 // -----------------------------------------------------------------------------
@@ -261,6 +281,7 @@ jn_step10_assert( false !== strpos( $jn_llms, home_url( '/coaching/' ) ), 'llms.
 jn_step10_assert( false === strpos( $jn_llms, '/cart/' ) && false === strpos( $jn_llms, '/tai-khoan/' ), 'llms.txt lists no utility pages' );
 jn_step10_assert( false === strpos( $jn_llms, 'wp-' ) && false === strpos( $jn_llms, 'WordPress' ), 'llms.txt reveals no WordPress traces' );
 jn_step10_assert( false === strpos( $jn_llms, '908' ) && false === stripos( $jn_llms, 'SUNEXT' ), 'llms.txt contains no invented phone or template residue' );
+jn_step10_assert( false !== strpos( $jn_llms, '## Câu hỏi thường gặp' ) && false !== strpos( $jn_llms, 'Buổi tư vấn 1:1 cùng Jannie Nguyễn diễn ra ở đâu?' ), 'llms.txt exports published FAQ section from /coaching/' );
 
 // -----------------------------------------------------------------------------
 // 7. HTTP integration (rendered pages)
@@ -336,6 +357,13 @@ foreach ( $jn_content_pages as $jn_path ) {
 
 $jn_story = jn_step10_jsonld_nodes( wp_remote_retrieve_body( jn_step10_http_get( '/my-story/' ) ) );
 jn_step10_assert( array() === array_diff( array( 'ProfilePage', 'BreadcrumbList', 'Person' ), jn_step10_types( $jn_story['nodes'] ) ), '/my-story/ renders ProfilePage + BreadcrumbList + Person' );
+
+foreach ( array( '/coaching/', '/booking/' ) as $jn_faq_route ) {
+	$jn_route_ld  = jn_step10_jsonld_nodes( wp_remote_retrieve_body( jn_step10_http_get( $jn_faq_route ) ) );
+	$jn_faq_nodes = array_values( array_filter( $jn_route_ld['nodes'], static fn( $n ) => in_array( 'FAQPage', (array) ( $n['@type'] ?? array() ), true ) ) );
+	$jn_faq_count = isset( $jn_faq_nodes[0]['mainEntity'] ) && is_array( $jn_faq_nodes[0]['mainEntity'] ) ? count( $jn_faq_nodes[0]['mainEntity'] ) : 0;
+	jn_step10_assert( 1 === count( $jn_faq_nodes ) && 5 === $jn_faq_count, "{$jn_faq_route} renders FAQPage node with all 5 approved Group-A Q&As" );
+}
 
 $jn_shop_html = wp_remote_retrieve_body( jn_step10_http_get( '/my-favorite-product/' ) );
 jn_step10_assert( 1 === preg_match_all( '#<h1[\s>]#', $jn_shop_html ), '/my-favorite-product/ (shop page) renders exactly one H1 (Blocksy archive hero suppressed)' );

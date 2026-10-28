@@ -77,6 +77,19 @@ class JN_SEO_Llms {
 			$lines[] = sprintf( '- [%s](%s): %s', $pkg['name'], home_url( '/coaching/' ), $pkg['description'] );
 		}
 
+		$coaching_page = get_page_by_path( 'coaching' );
+		$faq_entries   = ( $coaching_page instanceof WP_Post && 'publish' === $coaching_page->post_status )
+			? JN_SEO_Schema::extract_faq_from_blocks( (string) $coaching_page->post_content )
+			: array();
+		if ( ! empty( $faq_entries ) ) {
+			$lines[] = '';
+			$lines[] = '## Câu hỏi thường gặp';
+			$lines[] = '';
+			foreach ( $faq_entries as $entry ) {
+				$lines[] = sprintf( '- **%s** %s', $entry['question'], $entry['answer'] );
+			}
+		}
+
 		$lines[] = '';
 		$lines[] = '## Chính sách';
 		$lines[] = '';
