@@ -26,6 +26,16 @@ class JN_Booking_Privacy {
 	public const CRON_RETENTION_HOOK = 'jn_daily_cancelled_guest_booking_cleanup';
 
 	/**
+	 * Replacement name written over anonymized customer records.
+	 */
+	public const ANONYMIZED_NAME = 'Khách hàng đã ẩn danh';
+
+	/**
+	 * Replacement for erased free-text fields.
+	 */
+	public const REDACTED_TEXT = '[Đã xóa theo yêu cầu quyền riêng tư]';
+
+	/**
 	 * Register WordPress personal data exporter, eraser, and retention hooks.
 	 *
 	 * @return void
@@ -162,6 +172,15 @@ class JN_Booking_Privacy {
 			? implode( ', ', $profile['tags'] )
 			: '';
 
+		$note_entries = array();
+		if ( ! empty( $profile['internal_notes'] ) && is_array( $profile['internal_notes'] ) ) {
+			foreach ( $profile['internal_notes'] as $note ) {
+				if ( is_array( $note ) && '' !== (string) ( $note['content'] ?? '' ) ) {
+					$note_entries[] = sprintf( '%s: %s', (string) ( $note['timestamp'] ?? '' ), (string) $note['content'] );
+				}
+			}
+		}
+
 		$source_label = JN_Customer_Profile::get_source_label( (string) ( $profile['source_type'] ?? '' ) );
 		if ( ! empty( $profile['source_detail'] ) ) {
 			$source_label .= ' (' . (string) $profile['source_detail'] . ')';
@@ -209,6 +228,10 @@ class JN_Booking_Privacy {
 					'name'  => 'Nhật ký đồng ý bảo mật (Consent Log)',
 					'value' => ! empty( $consent_entries ) ? implode( ' | ', $consent_entries ) : 'Chưa ghi nhận',
 				),
+				array(
+					'name'  => 'Ghi chú nội bộ của Học viện',
+					'value' => ! empty( $note_entries ) ? implode( ' | ', $note_entries ) : 'Không có',
+				),
 			),
 		);
 	}
@@ -233,6 +256,7 @@ class JN_Booking_Privacy {
 
 		$items_removed = false;
 		$user          = get_user_by( 'email', $clean_email );
+		$person_phones = self::collect_phones_for_email( $clean_email, $user instanceof \WP_User ? (int) $user->ID : 0 );
 
 		if ( $user instanceof \WP_User && $user->ID > 0 ) {
 			$user_id   = (int) $user->ID;
@@ -249,23 +273,47 @@ class JN_Booking_Privacy {
 				JN_Customer_Profile::META_TAGS_CSV,
 				JN_Customer_Profile::META_INTERNAL_NOTES,
 				JN_Customer_Profile::META_CONSENT_LOG,
+				JN_Customer_Service::META_EMAIL_VERIFIED,
+				'first_name',
+				'last_name',
+				'nickname',
+				'billing_first_name',
+				'billing_last_name',
+				'billing_email',
 				'billing_phone',
 				'billing_company',
+				'billing_address_1',
+				'billing_address_2',
 				'billing_city',
 				'billing_state',
+				'billing_postcode',
+				'billing_country',
 			);
 
 			foreach ( $meta_keys as $meta_key ) {
 				delete_user_meta( $user_id, $meta_key );
 			}
 
+			// display_name is a users-table column (not meta) and the CRM writes the full name into it.
+			wp_update_user(
+				array(
+					'ID'           => $user_id,
+					'display_name' => self::ANONYMIZED_NAME,
+				)
+			);
+
 			$items_removed = true;
 		}
 
-		// Remove matching guest CRM profiles.
+		// Remove matching guest CRM profiles (email-keyed and phone-keyed).
 		$guest_key = 'guest:' . $clean_email;
 		if ( JN_Customer_Profile::delete_guest_profile( $guest_key ) ) {
 			$items_removed = true;
+		}
+		foreach ( $person_phones as $phone ) {
+			if ( JN_Customer_Profile::delete_guest_profile( 'guest:' . $phone ) ) {
+				$items_removed = true;
+			}
 		}
 
 		// Also check all guest profiles whose stored email matches.
@@ -284,6 +332,9 @@ class JN_Booking_Privacy {
 			$target_keys = array( $guest_key );
 			if ( $user instanceof \WP_User && $user->ID > 0 ) {
 				$target_keys[] = 'user:' . (int) $user->ID;
+			}
+			foreach ( $person_phones as $phone ) {
+				$target_keys[] = 'guest:' . $phone;
 			}
 			$filtered = array();
 			foreach ( $dup_logs as $entry ) {
@@ -308,6 +359,49 @@ class JN_Booking_Privacy {
 			'messages'       => array(),
 			'done'           => true,
 		);
+	}
+
+	/**
+	 * Collect every normalized phone number recorded for the person behind an email address
+	 * (account meta, guest CRM profiles and bookings), so phone-keyed CRM records can be erased too.
+	 *
+	 * Must run before the booking eraser anonymizes `_jn_customer_phone`.
+	 *
+	 * @param string $clean_email Lowercased email address.
+	 * @param int    $user_id     Matching user ID (0 when none).
+	 * @return string[] Unique `+84…` phone numbers.
+	 */
+	private static function collect_phones_for_email( string $clean_email, int $user_id ): array {
+		$raw = array();
+		if ( $user_id > 0 ) {
+			$raw[] = (string) get_user_meta( $user_id, JN_Customer_Profile::META_PHONE_E164, true );
+			$raw[] = (string) get_user_meta( $user_id, 'billing_phone', true );
+		}
+
+		foreach ( JN_Customer_Profile::get_all_guest_profiles() as $key => $record ) {
+			$is_match = 'guest:' . $clean_email === (string) $key
+				|| ( is_array( $record ) && strtolower( (string) ( $record['email'] ?? '' ) ) === $clean_email );
+			if ( $is_match && is_array( $record ) ) {
+				$raw[] = (string) ( $record['phone_e164'] ?? '' );
+			}
+		}
+
+		$booking_ids = get_posts(
+			array(
+				'post_type'      => JN_Booking_CPT::POST_TYPE,
+				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+				'meta_key'       => '_jn_customer_email', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $clean_email, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			)
+		);
+		foreach ( $booking_ids as $booking_id ) {
+			$raw[] = (string) get_post_meta( (int) $booking_id, '_jn_customer_phone', true );
+		}
+
+		$phones = array_map( array( 'JN_Customer_Service', 'normalize_vn_phone' ), $raw );
+		return array_values( array_unique( array_filter( $phones ) ) );
 	}
 
 	/**
@@ -465,8 +559,10 @@ class JN_Booking_Privacy {
 	 * @param int    $page          Batch page number.
 	 * @return array<string, mixed>
 	 */
-	public static function erase_personal_data( string $email_address, int $page = 1 ): array {
-		$booking_ids    = self::get_booking_ids_for_email( $email_address, $page );
+	public static function erase_personal_data( string $email_address, int $page = 1 ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		// Always query page 1: each pass anonymizes `_jn_customer_email`, so the matching set shrinks and an
+		// offset based on `$page` would skip records. Core keeps calling until `done` is true.
+		$booking_ids    = self::get_booking_ids_for_email( $email_address, 1 );
 		$items_removed  = false;
 		$items_retained = false;
 		$messages       = array();
@@ -498,18 +594,28 @@ class JN_Booking_Privacy {
 	 */
 	public static function anonymize_booking_post( int $booking_id, string $anon_email = 'deleted@site.invalid', string $note = '' ): void {
 		update_post_meta( $booking_id, '_jn_customer_user_id', 0 );
-		update_post_meta( $booking_id, '_jn_customer_name', 'Khách hàng đã ẩn danh' );
+		update_post_meta( $booking_id, '_jn_customer_name', self::ANONYMIZED_NAME );
 		update_post_meta( $booking_id, '_jn_customer_phone', '' );
 		update_post_meta( $booking_id, '_jn_customer_phone_raw', '' );
 		update_post_meta( $booking_id, '_jn_customer_email', $anon_email );
-		update_post_meta( $booking_id, '_jn_goals', '[Đã xóa theo yêu cầu quyền riêng tư]' );
+		update_post_meta( $booking_id, '_jn_goals', self::REDACTED_TEXT );
 		update_post_meta( $booking_id, '_jn_source', array() );
 		update_post_meta( $booking_id, '_jn_meeting_link', '' );
+		update_post_meta( $booking_id, '_jn_staff_notes', '' );
+		update_post_meta( $booking_id, '_jn_location', '' );
+		update_post_meta( $booking_id, '_jn_referrer', '' );
+		update_post_meta( $booking_id, '_jn_landing_url', '' );
 
+		// Keep the status history (audit trail) but drop the free-text notes, which may quote the person.
 		$timeline = get_post_meta( $booking_id, '_jn_status_timeline', true );
-		if ( ! is_array( $timeline ) ) {
-			$timeline = array();
-		}
+		$timeline = is_array( $timeline )
+			? array_map(
+				static fn( $entry ) => is_array( $entry ) && '' !== (string) ( $entry['note'] ?? '' )
+					? array_merge( $entry, array( 'note' => self::REDACTED_TEXT ) )
+					: $entry,
+				$timeline
+			)
+			: array();
 		$timeline[] = array(
 			'actor_id'   => get_current_user_id(),
 			'actor_name' => 'Hệ thống Quyền riêng tư',

@@ -317,6 +317,18 @@ class JN_Customer_Profile {
 			return new \WP_Error( 'invalid_user', 'Không tìm thấy tài khoản khách hàng.' );
 		}
 
+		// The CRM edits customer accounts only: staff/admin identities are never writable from here.
+		if ( JN_Booking_Roles::is_staff_user( $user ) ) {
+			return new \WP_Error(
+				'forbidden_customer_target',
+				'Không thể chỉnh sửa tài khoản nhân sự hoặc quản trị từ hồ sơ khách hàng.',
+				array( 'status' => 403 )
+			);
+		}
+
+		// Validate every identity field before writing anything, so a rejected edit leaves no partial update.
+		$raw_phone  = '';
+		$norm_phone = (string) get_user_meta( $user_id, '_jn_phone_e164', true );
 		if ( isset( $data['phone'] ) && '' !== trim( (string) $data['phone'] ) ) {
 			$raw_phone  = sanitize_text_field( (string) $data['phone'] );
 			$norm_phone = JN_Customer_Service::normalize_vn_phone( $raw_phone );
@@ -326,30 +338,35 @@ class JN_Customer_Profile {
 					'Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam (ví dụ: 0908 123 456 hoặc +84 908 123 456).'
 				);
 			}
-			update_user_meta( $user_id, '_jn_phone_e164', $norm_phone );
-			update_user_meta( $user_id, '_jn_phone_raw', $raw_phone );
-		} else {
-			$norm_phone = (string) get_user_meta( $user_id, '_jn_phone_e164', true );
 		}
 
+		$clean_email = strtolower( sanitize_email( $user->user_email ) );
 		if ( isset( $data['email'] ) && '' !== trim( (string) $data['email'] ) ) {
 			$clean_email = strtolower( sanitize_email( (string) $data['email'] ) );
 			if ( '' === $clean_email || ! is_email( $clean_email ) ) {
 				return new \WP_Error( 'invalid_email', 'Địa chỉ email không hợp lệ.' );
 			}
-			if ( $clean_email !== strtolower( $user->user_email ) ) {
-				$email_owner = get_user_by( 'email', $clean_email );
-				if ( ! $email_owner || (int) $email_owner->ID === $user_id ) {
-					wp_update_user(
-						array(
-							'ID'         => $user_id,
-							'user_email' => $clean_email,
-						)
-					);
-				}
+			$email_owner = get_user_by( 'email', $clean_email );
+			if ( $email_owner instanceof \WP_User && (int) $email_owner->ID !== $user_id ) {
+				return new \WP_Error( 'email_in_use', 'Địa chỉ email này đã thuộc về một tài khoản khác.' );
 			}
-		} else {
-			$clean_email = strtolower( sanitize_email( $user->user_email ) );
+		}
+
+		if ( '' !== $raw_phone ) {
+			update_user_meta( $user_id, '_jn_phone_e164', $norm_phone );
+			update_user_meta( $user_id, '_jn_phone_raw', $raw_phone );
+		}
+
+		if ( $clean_email !== strtolower( $user->user_email ) ) {
+			$updated = wp_update_user(
+				array(
+					'ID'         => $user_id,
+					'user_email' => $clean_email,
+				)
+			);
+			if ( is_wp_error( $updated ) ) {
+				return $updated;
+			}
 		}
 
 		$full_name = isset( $data['full_name'] )
@@ -478,7 +495,14 @@ class JN_Customer_Profile {
 				$wc_customer->set_billing_country( 'VN' );
 				$wc_customer->save();
 			}
-		} catch ( \Exception $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+		} catch ( \Exception $e ) {
+			// Log IDs only (no PII); the CRM meta above is already saved, only the WC_Customer mirror failed.
+			if ( function_exists( 'wc_get_logger' ) ) {
+				wc_get_logger()->error(
+					sprintf( 'sync_user_to_wc_customer failed for user #%d: %s', $user_id, $e->getMessage() ),
+					array( 'source' => 'jn-core' )
+				);
+			}
 		} finally {
 			self::$is_syncing = false;
 		}
@@ -573,6 +597,9 @@ class JN_Customer_Profile {
 			$user_id = (int) substr( $customer_key, 5 );
 			if ( $user_id <= 0 || ! get_userdata( $user_id ) ) {
 				return new \WP_Error( 'invalid_user', 'Không tìm thấy khách hàng.' );
+			}
+			if ( JN_Booking_Roles::is_staff_user( $user_id ) ) {
+				return new \WP_Error( 'forbidden_customer_target', 'Không thể ghi chú vào tài khoản nhân sự hoặc quản trị.', array( 'status' => 403 ) );
 			}
 			$notes = get_user_meta( $user_id, '_jn_internal_notes', true );
 			if ( ! is_array( $notes ) ) {
@@ -1083,7 +1110,8 @@ class JN_Customer_Profile {
 			if ( '' === (string) get_user_meta( $user_id, '_jn_full_name', true ) && '' !== $name ) {
 				update_user_meta( $user_id, '_jn_full_name', $name );
 			}
-			if ( '' !== $phone ) {
+			// Fill-only: a booking submission (possibly anonymous) must never replace a stored account phone.
+			if ( '' !== $phone && '' === (string) get_user_meta( $user_id, '_jn_phone_e164', true ) ) {
 				update_user_meta( $user_id, '_jn_phone_e164', $phone );
 			}
 			if ( '' !== $phone_raw && '' === (string) get_user_meta( $user_id, '_jn_phone_raw', true ) ) {

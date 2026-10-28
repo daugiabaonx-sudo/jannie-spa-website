@@ -122,7 +122,10 @@ class JN_Testimonials {
 					'single'            => true,
 					'default'           => '',
 					'sanitize_callback' => 'sanitize_textarea_field',
-					'show_in_rest'      => true,
+					// The admin note is staff-only (verification/consent status) and is edited in the PHP meta box,
+					// so it is never exposed to REST, where published testimonials are readable anonymously.
+					'show_in_rest'      => 'jn_admin_note' !== $meta_key,
+					'auth_callback'     => static fn( $allowed, $key, $post_id ) => current_user_can( 'edit_post', (int) $post_id ),
 				)
 			);
 		}

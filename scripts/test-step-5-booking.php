@@ -330,8 +330,16 @@ if ( ! is_wp_error( $new_cust_id ) ) {
 	$created_user_ids[] = (int) $new_cust_id;
 }
 jn_assert(
+	! is_wp_error( $new_cust_id ) && 0 === (int) get_post_meta( $booking_1_id, '_jn_customer_user_id', true ),
+	'Guest-to-customer linking: registering alone (unverified email) does NOT attach the prior guest booking'
+);
+// Completing the emailed set-password link proves email ownership (Step 11 / review H4).
+if ( ! is_wp_error( $new_cust_id ) ) {
+	do_action( 'after_password_reset', get_userdata( (int) $new_cust_id ), wp_generate_password( 16, true ) );
+}
+jn_assert(
 	! is_wp_error( $new_cust_id ) && (int) $new_cust_id === (int) get_post_meta( $booking_1_id, '_jn_customer_user_id', true ),
-	'Guest-to-customer linking: registering with matching email automatically links prior guest booking'
+	'Guest-to-customer linking: verifying the email via the set-password link attaches the prior guest booking'
 );
 
 // Test AUTO-CREATE = yes.

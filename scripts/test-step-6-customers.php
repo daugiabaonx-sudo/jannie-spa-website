@@ -413,7 +413,15 @@ $registered_uid = wp_insert_user(
 );
 $created_user_ids[] = (int) $registered_uid;
 
-// Verify automatic linking triggered by `user_register`.
+// Registration alone does not prove email ownership (Step 11 / review H4): nothing is attached yet.
+jn_s6_assert(
+	0 === (int) get_post_meta( $guest_booking_id, '_jn_customer_user_id', true ),
+	'Guest-to-account linking: registration with an unverified email does NOT attach guest data'
+);
+
+// Completing the emailed set-password link verifies the email and triggers linking.
+do_action( 'after_password_reset', get_userdata( (int) $registered_uid ), wp_generate_password( 16, true ) );
+
 $reloaded_order  = wc_get_order( $guest_order_id );
 $merged_profile  = JN_Customer_Profile::get_user_profile( (int) $registered_uid );
 
@@ -421,7 +429,7 @@ jn_s6_assert(
 	(int) $registered_uid === (int) get_post_meta( $guest_booking_id, '_jn_customer_user_id', true )
 	&& $reloaded_order instanceof \WC_Order
 	&& (int) $registered_uid === (int) $reloaded_order->get_customer_id(),
-	'Guest-to-account linking (on registration): Both guest booking AND guest HPOS order automatically attached to new user ID'
+	'Guest-to-account linking (after email verification): Both guest booking AND guest HPOS order attached to the user ID'
 );
 
 jn_s6_assert(

@@ -30,6 +30,11 @@ class JN_Customer_Service {
 	const DUPLICATE_LOG_OPTION = 'jn_customer_duplicate_log';
 
 	/**
+	 * User meta holding the lowercase email proven via an emailed password (re)set link.
+	 */
+	const META_EMAIL_VERIFIED = '_jn_email_verified';
+
+	/**
 	 * Register hooks.
 	 *
 	 * @return void
@@ -37,8 +42,55 @@ class JN_Customer_Service {
 	public static function init(): void {
 		add_action( 'user_register', array( __CLASS__, 'handle_user_registered' ), 20, 1 );
 		add_action( 'woocommerce_created_customer', array( __CLASS__, 'handle_wc_customer_created' ), 20, 1 );
-		add_action( 'woocommerce_save_account_details', array( __CLASS__, 'handle_user_registered' ), 20, 1 );
 		add_action( 'wp_login', array( __CLASS__, 'handle_user_login' ), 20, 2 );
+		add_action( 'after_password_reset', array( __CLASS__, 'mark_email_verified' ), 20, 1 );
+
+		// New accounts receive a set-password link by email instead of choosing a password on the form,
+		// so completing that link is the proof of email ownership that guest-data linking relies on.
+		add_filter( 'pre_option_woocommerce_registration_generate_password', array( __CLASS__, 'force_registration_password_link' ) );
+	}
+
+	/**
+	 * Force WooCommerce to email a set-password link on registration (`woocommerce_registration_generate_password`).
+	 *
+	 * @return string
+	 */
+	public static function force_registration_password_link(): string {
+		return 'yes';
+	}
+
+	/**
+	 * Whether the user's current account email has been proven via an emailed password (re)set link.
+	 *
+	 * The stored value is the verified address itself, so changing `user_email` invalidates it.
+	 *
+	 * @param int $user_id User ID.
+	 * @return bool
+	 */
+	public static function is_email_verified( int $user_id ): bool {
+		$user = get_userdata( $user_id );
+		if ( ! $user instanceof \WP_User ) {
+			return false;
+		}
+		$verified = strtolower( (string) get_user_meta( $user_id, self::META_EMAIL_VERIFIED, true ) );
+		return '' !== $verified && strtolower( (string) $user->user_email ) === $verified;
+	}
+
+	/**
+	 * Mark the account email as verified once a password (re)set from the emailed link completes,
+	 * then attach the guest bookings/orders that were placed with that email.
+	 *
+	 * Fired by both WordPress core and WooCommerce (`after_password_reset`).
+	 *
+	 * @param \WP_User|mixed $user User whose password was reset.
+	 * @return void
+	 */
+	public static function mark_email_verified( $user ): void {
+		if ( ! $user instanceof \WP_User || '' === (string) $user->user_email ) {
+			return;
+		}
+		update_user_meta( (int) $user->ID, self::META_EMAIL_VERIFIED, strtolower( (string) $user->user_email ) );
+		self::link_guest_bookings_to_user( (int) $user->ID );
 	}
 
 	/**
@@ -282,34 +334,36 @@ class JN_Customer_Service {
 		$email = strtolower( sanitize_email( $data['email'] ?? '' ) );
 		$phone = self::normalize_vn_phone( (string) ( $data['phone'] ?? '' ) );
 
-		// Check if email matches User A while phone matches User B (or vice versa).
+		// The public form is unauthenticated: only the logged-in owner may update their own account,
+		// an anonymous submission is attached to an account only when that account's email is verified
+		// (the same rule as guest linking), and it never writes to the account.
+		$current_user_id = get_current_user_id();
+
 		$email_user = '' !== $email ? get_user_by( 'email', $email ) : false;
 		if ( $email_user instanceof \WP_User && ! JN_Booking_Roles::is_staff_user( (int) $email_user->ID ) ) {
 			$user_id = (int) $email_user->ID;
-			self::sync_user_contact_meta( $user_id, $name, $email, $phone );
 			self::check_and_log_duplicates_for_customer( 'user:' . $user_id, $email, $phone, 'booking_upsert' );
-			return $user_id;
+			if ( $current_user_id === $user_id ) {
+				self::sync_user_contact_meta( $user_id, $name, $email, $phone );
+				return $user_id;
+			}
+			return self::is_email_verified( $user_id ) ? $user_id : 0;
 		}
 
-		// If no user has this email, check if another user has this phone.
+		// A phone match alone proves nothing about who submitted the form: log it for staff review only.
 		$phone_user = '' !== $phone ? self::find_existing_user( '', $phone ) : null;
 		if ( $phone_user instanceof \WP_User ) {
-			$phone_user_email = strtolower( sanitize_email( $phone_user->user_email ) );
-			if ( '' !== $email && '' !== $phone_user_email && $email !== $phone_user_email ) {
-				// Duplicate phone across two different emails! Log warning and do NOT auto-merge when auto_create is off.
-				self::check_and_log_duplicates_for_customer(
-					'guest:' . $email,
-					$email,
-					$phone,
-					'booking_phone_conflict_with_user_' . $phone_user->ID
-				);
-				if ( 'yes' !== (string) JN_Booking_Settings::get( 'auto_create_account', 'no' ) ) {
-					return 0;
-				}
+			$phone_user_id = (int) $phone_user->ID;
+			if ( $current_user_id === $phone_user_id ) {
+				self::sync_user_contact_meta( $phone_user_id, $name, $email, $phone );
+				return $phone_user_id;
 			}
-			$user_id = (int) $phone_user->ID;
-			self::sync_user_contact_meta( $user_id, $name, $email, $phone );
-			return $user_id;
+			self::check_and_log_duplicates_for_customer(
+				'' !== $email ? 'guest:' . $email : 'guest:' . $phone,
+				$email,
+				$phone,
+				'booking_phone_conflict_with_user_' . $phone_user_id
+			);
 		}
 
 		$auto_create = (string) JN_Booking_Settings::get( 'auto_create_account', 'no' );
@@ -365,7 +419,10 @@ class JN_Customer_Service {
 		}
 
 		if ( '' !== $normalized_phone ) {
-			update_user_meta( $user_id, '_jn_phone_e164', $normalized_phone );
+			// Fill-only: an explicit profile edit (`update_user_profile`) is the only way to change a stored phone.
+			if ( '' === (string) get_user_meta( $user_id, '_jn_phone_e164', true ) ) {
+				update_user_meta( $user_id, '_jn_phone_e164', $normalized_phone );
+			}
 			$current_billing_phone = (string) get_user_meta( $user_id, 'billing_phone', true );
 			if ( '' === $current_billing_phone ) {
 				update_user_meta( $user_id, 'billing_phone', $normalized_phone );
@@ -451,23 +508,16 @@ class JN_Customer_Service {
 			return 0;
 		}
 
-		$email         = strtolower( sanitize_email( $user->user_email ) );
-		$billing_phone = (string) get_user_meta( $user_id, 'billing_phone', true );
-		$e164_phone    = (string) get_user_meta( $user_id, '_jn_phone_e164', true );
-		$norm_phone    = self::normalize_vn_phone( '' !== $e164_phone ? $e164_phone : $billing_phone );
-
-		if ( '' !== $norm_phone && '' === $e164_phone ) {
-			update_user_meta( $user_id, '_jn_phone_e164', $norm_phone );
+		// Guest data is personal data of whoever owns the email: attach it only once this account has
+		// proven it controls that email. Phone numbers are self-declared and never used for linking.
+		if ( JN_Booking_Roles::is_staff_user( $user ) || ! self::is_email_verified( $user_id ) ) {
+			return 0;
 		}
 
-		// Merge any stored guest CRM profiles for this email or phone.
-		if ( class_exists( 'JN_Customer_Profile' ) ) {
-			if ( '' !== $email ) {
-				JN_Customer_Profile::merge_guest_profile_into_user( $user_id, 'guest:' . $email );
-			}
-			if ( '' !== $norm_phone ) {
-				JN_Customer_Profile::merge_guest_profile_into_user( $user_id, 'guest:' . $norm_phone );
-			}
+		$email = strtolower( sanitize_email( $user->user_email ) );
+
+		if ( class_exists( 'JN_Customer_Profile' ) && '' !== $email ) {
+			JN_Customer_Profile::merge_guest_profile_into_user( $user_id, 'guest:' . $email );
 		}
 
 		$meta_or = array();
@@ -477,20 +527,10 @@ class JN_Customer_Service {
 				'value' => $email,
 			);
 		}
-		if ( '' !== $norm_phone ) {
-			$meta_or[] = array(
-				'key'   => '_jn_customer_phone',
-				'value' => $norm_phone,
-			);
-		}
 
 		$linked_count = 0;
 
 		if ( ! empty( $meta_or ) ) {
-			if ( count( $meta_or ) > 1 ) {
-				$meta_or['relation'] = 'OR';
-			}
-
 			$booking_ids = get_posts(
 				array(
 					'post_type'      => JN_Booking_CPT::POST_TYPE,
@@ -941,7 +981,7 @@ class JN_Customer_Service {
 			// Check if it's a valid user ID even if not in default role list.
 			if ( 0 === strpos( $customer_key, 'user:' ) ) {
 				$uid = (int) substr( $customer_key, 5 );
-				if ( $uid > 0 && get_userdata( $uid ) ) {
+				if ( $uid > 0 && get_userdata( $uid ) && ! JN_Booking_Roles::is_staff_user( $uid ) ) {
 					$map = self::build_unified_customer_map( $uid );
 				}
 			}
@@ -1049,6 +1089,10 @@ class JN_Customer_Service {
 		$goals       = sanitize_textarea_field( (string) ( $payload['goals'] ?? '' ) );
 		$staff_notes = sanitize_textarea_field( (string) ( $payload['staff_notes'] ?? '' ) );
 		$user_id     = isset( $payload['user_id'] ) ? absint( $payload['user_id'] ) : 0;
+
+		if ( $user_id > 0 && ( ! get_userdata( $user_id ) || JN_Booking_Roles::is_staff_user( $user_id ) ) ) {
+			return new \WP_Error( 'invalid_customer', 'Tài khoản khách hàng không hợp lệ.', array( 'status' => 400 ) );
+		}
 
 		if ( 0 === $user_id ) {
 			$existing = self::find_existing_user( $email, '' );

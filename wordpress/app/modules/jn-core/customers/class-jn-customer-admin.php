@@ -825,7 +825,11 @@ class JN_Customer_Admin {
 
 		if ( 0 === strpos( $customer_key, 'user:' ) ) {
 			$user_id = (int) substr( $customer_key, 5 );
-			$res     = JN_Customer_Profile::update_user_profile( $user_id, $payload );
+			// `edit_user` runs the role policy in JN_Booking_Roles::restrict_user_and_domain_capabilities().
+			if ( ! current_user_can( 'edit_user', $user_id ) ) {
+				wp_die( 'Bạn không có quyền chỉnh sửa tài khoản này.', 'Từ chối truy cập', array( 'response' => 403 ) );
+			}
+			$res = JN_Customer_Profile::update_user_profile( $user_id, $payload );
 		} else {
 			$res = JN_Customer_Profile::update_guest_profile( $customer_key, $payload );
 		}
