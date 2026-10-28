@@ -645,3 +645,30 @@ button.show-password-input {
 	padding: 6px 4px !important;
 	margin-top: 6px !important;
 }
+
+form.woocommerce-form-login .woocommerce-form-login__rememberme,
+.woocommerce-form-login__rememberme {
+	display: flex !important;
+	align-items: center !important;
+	gap: 10px !important;
+	min-height: 36px !important;
+	padding: 6px 0 !important;
+	margin: 10px 0 16px 0 !important;
+	width: fit-content !important;
+}
+
+form.woocommerce-form-login input[type="checkbox"]#rememberme,
+input.woocommerce-form__input-checkbox[type="checkbox"],
+.woocommerce-form__input-checkbox,
+#rememberme {
+	min-width: 26px !important;
+	min-height: 26px !important;
+	width: 26px !important;
+	height: 26px !important;
+	margin: 4px 8px 4px 0 !important;
+	padding: 0 !important;
+	vertical-align: middle !important;
+	accent-color: var(--jn-ink);
+	cursor: pointer;
+}
+

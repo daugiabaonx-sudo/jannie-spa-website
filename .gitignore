@@ -21,9 +21,11 @@
 !lighthouserc.js
 !lighthouserc.json
 
-# 3. Track Docker configuration directory
+# 3. Track Docker and Deployment Kit configuration directories
 !docker/
 !docker/**
+!deploy/
+!deploy/**
 
 # 4. Track project scripts and automated test suites
 !scripts/

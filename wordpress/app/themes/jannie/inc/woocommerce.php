@@ -225,6 +225,48 @@ function jannie_print_register_deeplink_script() {
 add_action( 'wp_footer', 'jannie_print_register_deeplink_script', 35 );
 
 /**
+ * Ensure WooCommerce Cart/Checkout React Blocks `div[aria-label]` nodes always have valid ARIA roles
+ * (`role="region"` on order summary and `role="status"` on skeleton elements) so WCAG 2.1/2.2 AA
+ * (`aria-prohibited-attr`) passes with 0 violations before and after hydration.
+ *
+ * @return void
+ */
+function jannie_print_wc_blocks_a11y_script() {
+	if ( ! function_exists( 'jn_is_commerce_page' ) || ! jn_is_commerce_page() ) {
+		return;
+	}
+	?>
+	<script id="jn-wc-blocks-a11y">
+	(function () {
+		function patchAriaProhibitedNodes() {
+			var summaries = document.querySelectorAll('.wc-block-components-order-summary[aria-label]:not([role])');
+			for (var i = 0; i < summaries.length; i++) {
+				summaries[i].setAttribute('role', 'region');
+			}
+			var skeletons = document.querySelectorAll('.wc-block-components-skeleton__element[aria-label]:not([role])');
+			for (var j = 0; j < skeletons.length; j++) {
+				skeletons[j].setAttribute('role', 'status');
+			}
+			var genericDivs = document.querySelectorAll('.wp-block-woocommerce-checkout div[aria-label]:not([role]), .wp-block-woocommerce-cart div[aria-label]:not([role])');
+			for (var k = 0; k < genericDivs.length; k++) {
+				genericDivs[k].setAttribute('role', 'region');
+			}
+		}
+		patchAriaProhibitedNodes();
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', patchAriaProhibitedNodes);
+		}
+		if (typeof MutationObserver !== 'undefined' && document.body) {
+			var obs = new MutationObserver(patchAriaProhibitedNodes);
+			obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-label'] });
+		}
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'jannie_print_wc_blocks_a11y_script', 36 );
+
+/**
  * Brand WooCommerce transactional emails with Jannie Nguyen design tokens and typography.
  *
  * @param string $css Default WooCommerce email stylesheet.

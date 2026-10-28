@@ -1,0 +1,242 @@
+{
+  "generated_at": "2026-10-28T02:33:58+00:00",
+  "waiver": {
+    "waived_by": "Project Owner",
+    "waived_at": "2026-10-28T08:40:55+07:00",
+    "statement": "oke hãy làm đi ,tôi chưa muốn cung cấp ngay thông tin thật",
+    "scope": [
+      "UNK-01",
+      "UNK-02",
+      "UNK-03",
+      "UNK-04",
+      "UNK-05",
+      "UNK-07",
+      "UNK-08",
+      "UNK-09",
+      "UNK-10",
+      "UNK-11",
+      "UNK-13",
+      "UNK-14"
+    ],
+    "remote_policy": "Do not touch any remote server, DNS, payment provider or real customer email until owner explicitly writes \"deploy\"."
+  },
+  "unwaived_open_count": 0,
+  "fluent_smtp_ready": true,
+  "blockers": [
+    {
+      "id": "BL-01",
+      "unknown_ids": [
+        "UNK-02",
+        "UNK-07"
+      ],
+      "title": "Ảnh thật thay thế toàn bộ ảnh PLACEHOLDER (không dùng ảnh AI của Jannie hoặc học viên) & ảnh Open Graph 1200x630",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "placeholder_attachments_count": 5,
+        "placeholder_attachments": [
+          {
+            "id": 90,
+            "title": "PLACEHOLDER – Chân dung học viên Phương Uyên",
+            "file": "2026/10/jn-placeholder-avatar-phuong-uyen.webp"
+          },
+          {
+            "id": 89,
+            "title": "PLACEHOLDER – Chân dung học viên Ngọc Bích",
+            "file": "2026/10/jn-placeholder-avatar-ngoc-bich.webp"
+          },
+          {
+            "id": 88,
+            "title": "PLACEHOLDER – Chân dung học viên Minh Thảo",
+            "file": "2026/10/jn-placeholder-avatar-minh-thao.webp"
+          },
+          {
+            "id": 87,
+            "title": "PLACEHOLDER – Chuyên gia Jannie Nguyễn tư vấn khách hàng tại viện thẩm mỹ",
+            "file": "2026/10/jn-placeholder-expert-consultation.webp"
+          },
+          {
+            "id": 86,
+            "title": "PLACEHOLDER – Chân dung nghệ thuật chuyên gia Jannie Nguyễn tại studio",
+            "file": "2026/10/jn-placeholder-hero-portrait.webp"
+          }
+        ],
+        "og_image": {
+          "url": "http://localhost:8080/media/2026/10/jn-placeholder-og-1200x630.webp",
+          "width": 1200,
+          "height": 630,
+          "bytes": 9886
+        }
+      },
+      "how_to_replace": "Vào Thư viện (Media) hoặc trực tiếp trong trình sửa trang Gutenberg → nhấp vào từng ảnh giữ chỗ (ID 86..90) → chọn \"Thay thế\" (Replace) bằng ảnh chụp thật đã thu nhỏ <= 2000px."
+    },
+    {
+      "id": "BL-02",
+      "unknown_ids": [
+        "UNK-03"
+      ],
+      "title": "Xác minh 3 lời chứng thực với sự đồng ý của khách hàng & Chủ dự án xác nhận số liệu thống kê / giải thưởng",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "testimonials_pending_verification": [
+          {
+            "id": 91,
+            "client": "Minh Thảo",
+            "admin_note": "cần xác minh & xin phép khách"
+          },
+          {
+            "id": 92,
+            "client": "Ngọc Bích",
+            "admin_note": "cần xác minh & xin phép khách"
+          },
+          {
+            "id": 93,
+            "client": "Phương Uyên",
+            "admin_note": "cần xác minh & xin phép khách"
+          }
+        ],
+        "claims_in_wireframe": [
+          "20+ Năm Thực Chiến",
+          "98% Tỷ Lệ Tối Ưu Hóa",
+          "+180% Doanh Thu",
+          "Tỷ lệ quay lại > 85%",
+          "Nghệ Nhân Bàn Tay Vàng — Oscar for Beauty"
+        ]
+      },
+      "how_to_replace": "Vào menu \"Lời chứng thực\" trong WP Admin → cập nhật nội dung/ảnh thật đã được khách đồng ý và xóa ghi chú \"cần xác minh & xin phép khách\"."
+    },
+    {
+      "id": "BL-03",
+      "unknown_ids": [
+        "UNK-01",
+        "UNK-04",
+        "UNK-05"
+      ],
+      "title": "Điền Số điện thoại / Zalo, Địa chỉ đầy đủ, Tài khoản ngân hàng nhận chuyển khoản & Giá 3 gói Coaching",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "phone_placeholder": "(+84) 908-XXX-XXX",
+        "address_current": "TP. Hồ Chí Minh, Việt Nam",
+        "bacs_accounts": [
+          {
+            "account_name": "JANNIE NGUYEN ACADEMY (PLACEHOLDER - CHƯA DÙNG THẬT)",
+            "account_number": "0000000000 (PLACEHOLDER)",
+            "bank_name": "Ngân hàng TMCP Ngoại thương Việt Nam - Vietcombank (PLACEHOLDER)",
+            "sort_code": "Chi nhánh TP. Hồ Chí Minh",
+            "iban": "",
+            "bic": ""
+          }
+        ],
+        "coaching_packages": [
+          {
+            "id": 163,
+            "title": "Gói Tư Vấn Cá Nhân 1:1 (30 Phút)",
+            "status": "draft",
+            "price": "",
+            "price_on_request": ""
+          },
+          {
+            "id": 164,
+            "title": "Gói Coaching Chuyên Nghiệp 1:1 (60 Phút)",
+            "status": "draft",
+            "price": "",
+            "price_on_request": ""
+          },
+          {
+            "id": 165,
+            "title": "Gói Master Mentorship (3 Tháng)",
+            "status": "draft",
+            "price": "",
+            "price_on_request": ""
+          }
+        ]
+      },
+      "how_to_replace": "1) Vào Lịch hẹn → Cài đặt để cập nhật địa chỉ Học viện; 2) Vào WooCommerce → Cài đặt → Thanh toán → Chuyển khoản ngân hàng (BACS) để điền STK thật; 3) Vào Sản phẩm để điền giá VND và chuyển 3 gói Coaching (ID 163, 164, 165) sang Đã xuất bản nếu muốn công khai giá."
+    },
+    {
+      "id": "BL-04",
+      "unknown_ids": [
+        "UNK-09"
+      ],
+      "title": "Chủ dự án rà soát và phê duyệt Chính sách bảo mật, Điều khoản dịch vụ & câu chữ ô Consent (khuyến nghị luật sư duyệt)",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "privacy_page_id": 15,
+        "privacy_has_placeholder": true,
+        "terms_page_id": 16,
+        "terms_has_placeholder": true,
+        "consent_version": "v1.0-draft"
+      },
+      "how_to_replace": "Vào Trang → mở \"Chính sách bảo mật\" và \"Điều khoản dịch vụ\" để thay phần [CẦN NỘI DUNG: ...] bằng văn bản pháp lý chính thức; vào Lịch hẹn → Cài đặt để cập nhật câu chữ Consent."
+    },
+    {
+      "id": "BL-05",
+      "unknown_ids": [
+        "UNK-05"
+      ],
+      "title": "Thông tin định danh Cổng thanh toán trực tuyến (nếu sử dụng ngoài Chuyển khoản ngân hàng)",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "payment_policy": "Pay after the assistant confirms the slot (payment link by email)",
+        "enabled_gateways": [
+          "bacs (Virtual & Physical)",
+          "cod (Physical only)"
+        ]
+      },
+      "how_to_replace": "Mặc định sử dụng Chuyển khoản ngân hàng (BACS) qua liên kết order-pay. Chỉ cài plugin cổng thanh toán chính thức khi chủ dự án có tài khoản Merchant."
+    },
+    {
+      "id": "BL-06",
+      "unknown_ids": [
+        "UNK-11"
+      ],
+      "title": "Production SMTP với xác thực SPF / DKIM / DMARC cho tên miền gửi thư",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "fluent_smtp_installed": true,
+        "sender_identity": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "local_transport": "Mailpit (localhost:1025)"
+      },
+      "how_to_replace": "Trên máy chủ Production: kích hoạt plugin FluentSMTP đã cài sẵn, nhập khóa SMTP/API cho contact@jannienguyen.vn và cấu hình 3 bản ghi DNS SPF, DKIM, DMARC."
+    },
+    {
+      "id": "BL-07a",
+      "unknown_ids": [
+        "UNK-10",
+        "UNK-14"
+      ],
+      "title": "Tên miền Production (PROD_DOMAIN), Máy chủ đích (PROD_WEB_SERVER) & Email thật cho tài khoản nhân sự",
+      "status": "WAIVED_BY_OWNER",
+      "details": {
+        "prod_domain": "UNKNOWN",
+        "prod_web_server": "UNKNOWN (Both Apache/LiteSpeed .htaccess and Nginx configs prepared in deploy/)",
+        "staff_accounts": [
+          "jn_director_7391",
+          "quan_ly_cua_hang",
+          "tro_ly_lich_hen",
+          "bien_tap_noi_dung"
+        ]
+      },
+      "how_to_replace": "Sử dụng bộ công cụ trong thư mục deploy/ khi có PROD_DOMAIN và cập nhật email thật của 4 nhân sự trong Thành viên → Tất cả thành viên."
+    },
+    {
+      "id": "BL-07b",
+      "unknown_ids": [],
+      "title": "Xóa toàn bộ sản phẩm DEMO, trang kiểm thử / specimen, đơn hàng test và lịch hẹn test",
+      "status": "RESOLVED",
+      "details": {
+        "remaining_demo_products": 0,
+        "remaining_test_pages": 0,
+        "remaining_test_bookings": 0,
+        "remaining_test_orders": 0,
+        "cleaned_in_this_run": {
+          "demo_products": [],
+          "test_pages": [],
+          "test_bookings": [],
+          "test_orders": [],
+          "test_users": []
+        }
+      },
+      "how_to_replace": "Đã tự động dọn sạch 100% sản phẩm DEMO, trang test/specimen, đơn hàng và lịch hẹn kiểm thử."
+    }
+  ]
+}

@@ -318,11 +318,14 @@ function jannie_print_offcanvas_a11y_script() {
 			if (closeBtn) {
 				closeBtn.click();
 			}
-			var returnTarget = lastTrigger || document.querySelector('#header .ct-header-trigger');
+			var returnTarget = lastTrigger || document.querySelector('#header [data-device="mobile"] .ct-header-trigger') || document.querySelector('#header .ct-header-trigger');
 			if (returnTarget) {
 				setTimeout(function () {
 					returnTarget.focus();
 				}, 80);
+				setTimeout(function () {
+					returnTarget.focus();
+				}, 240);
 			}
 		});
 	})();

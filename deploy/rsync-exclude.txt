@@ -1,0 +1,68 @@
+# =============================================================================
+# JN Step 9 — Production File-Sync Exclude Manifest (`deploy/rsync-exclude.txt`)
+# Usage with rsync from workspace root `./wordpress/` to production web root:
+#   rsync -avz --delete --exclude-from=deploy/rsync-exclude.txt ./wordpress/ user@host:/var/www/PROD_DOMAIN/wordpress/
+# =============================================================================
+
+# Workspace-level & dev-only folders (never inside production web root)
+/backups
+/backups/
+/node_modules
+/node_modules/
+**/node_modules/
+/tests
+/tests/
+/docs
+/docs/
+/scripts
+/scripts/
+/docker
+/docker/
+/deploy
+/deploy/
+/logs
+/logs/
+/stitch_jannie_nguyen_website_wireframe
+/stitch_jannie_nguyen_website_wireframe/
+
+# Version control, agent configs & local environment secrets
+.git
+.git/
+.gitignore
+.gitattributes
+.agent
+.agent/
+.claude
+.claude/
+.env
+.env.*
+!.env.production.example
+
+# Dev tool configs & build artifacts
+package.json
+package-lock.json
+lighthouserc.js
+lighthouserc.json
+playwright.config.js
+playwright.config.ts
+phpunit.xml
+phpunit.xml.dist
+phpcs.xml
+phpcs.xml.dist
+composer.json
+composer.lock
+
+# Local caches, logs, SQL dumps & OS metadata
+.DS_Store
+**/.DS_Store
+*.log
+*.sql
+*.sql.gz
+*.bak
+*.swp
+/app/cache/supercache/*
+/app/cache/blogs/*
+/app/debug.log
+/wp-config-sample.php
+/readme.html
+/license.txt

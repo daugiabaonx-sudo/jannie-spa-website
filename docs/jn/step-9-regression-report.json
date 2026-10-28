@@ -1,0 +1,440 @@
+{
+  "generatedAt": "2026-10-28T02:31:32.305Z",
+  "axeEveryPage": [
+    {
+      "name": "Home",
+      "path": "/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 32,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Coaching",
+      "path": "/coaching/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 32,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "My Story",
+      "path": "/my-story/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 31,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Course",
+      "path": "/course/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 30,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Client Success Story",
+      "path": "/client-success-story/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 32,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "My Favorite Product",
+      "path": "/my-favorite-product/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 23,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Booking",
+      "path": "/booking/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 30,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Cart",
+      "path": "/cart/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 24,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Checkout",
+      "path": "/checkout/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 30,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "My Account",
+      "path": "/tai-khoan/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 28,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Privacy Policy",
+      "path": "/chinh-sach-bao-mat/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 23,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Terms & Conditions",
+      "path": "/dieu-khoan-dich-vu/",
+      "httpStatus": 200,
+      "expectedStatus": 200,
+      "axeViolations": 0,
+      "axePasses": 23,
+      "violations": [],
+      "pass": true
+    },
+    {
+      "name": "Designed 404 Page",
+      "path": "/trang-khong-ton-tai-404/",
+      "httpStatus": 404,
+      "expectedStatus": 404,
+      "axeViolations": 0,
+      "axePasses": 23,
+      "violations": [],
+      "pass": true
+    }
+  ],
+  "visualParity4Widths": [
+    {
+      "viewportWidth": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "horizontalOverflowPx": 0,
+      "headerHeightPx": 100,
+      "heroPaddingTop": "40px",
+      "sectionPaddingTop": "96px",
+      "sectionPaddingBottom": "96px",
+      "expectedSectionPadding": "96px",
+      "h1FontFamily": "\"Playfair Display\", \"Playfair Display Fallback\", \"Playfair Display Italic Fallback\", Georgia, \"Times New Roman\", serif",
+      "screenshot": "docs/jn/step-9-parity-375.png",
+      "pass": true
+    },
+    {
+      "viewportWidth": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "horizontalOverflowPx": 0,
+      "headerHeightPx": 100,
+      "heroPaddingTop": "40px",
+      "sectionPaddingTop": "96px",
+      "sectionPaddingBottom": "96px",
+      "expectedSectionPadding": "96px",
+      "h1FontFamily": "\"Playfair Display\", \"Playfair Display Fallback\", \"Playfair Display Italic Fallback\", Georgia, \"Times New Roman\", serif",
+      "screenshot": "docs/jn/step-9-parity-768.png",
+      "pass": true
+    },
+    {
+      "viewportWidth": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "horizontalOverflowPx": 0,
+      "headerHeightPx": 100,
+      "heroPaddingTop": "40px",
+      "sectionPaddingTop": "96px",
+      "sectionPaddingBottom": "96px",
+      "expectedSectionPadding": "96px",
+      "h1FontFamily": "\"Playfair Display\", \"Playfair Display Fallback\", \"Playfair Display Italic Fallback\", Georgia, \"Times New Roman\", serif",
+      "screenshot": "docs/jn/step-9-parity-1024.png",
+      "pass": true
+    },
+    {
+      "viewportWidth": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflowPx": 0,
+      "headerHeightPx": 100,
+      "heroPaddingTop": "40px",
+      "sectionPaddingTop": "96px",
+      "sectionPaddingBottom": "96px",
+      "expectedSectionPadding": "96px",
+      "h1FontFamily": "\"Playfair Display\", \"Playfair Display Fallback\", \"Playfair Display Italic Fallback\", Georgia, \"Times New Roman\", serif",
+      "screenshot": "docs/jn/step-9-parity-1440.png",
+      "pass": true
+    }
+  ],
+  "keyboardOnlyPass": {
+    "firstTabStop": {
+      "tag": "A",
+      "className": "skip-link screen-reader-text",
+      "text": "Chuyển đến phần nội dung",
+      "outlineWidth": "2px",
+      "outlineStyle": "solid"
+    },
+    "ctaFocusRing": {
+      "outlineWidth": "2px",
+      "outlineStyle": "solid"
+    },
+    "selectedPackageViaKeyboardEnter": "Gói Tư Vấn Cá Nhân 1:1 (30 Phút)",
+    "formFieldsFocusCheck": [
+      {
+        "id": "full-name",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "phone-number",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "email-address",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "package-select",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "coaching-format",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "time-preference",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "notes",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "privacy-consent",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      {
+        "id": "submit-btn",
+        "isFocused": true,
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      }
+    ],
+    "mobileDrawerKeyboardOpen": true,
+    "mobileDrawerEscapeCloseAndFocusReturn": {
+      "drawerClosed": true,
+      "focusReturnedToToggle": true
+    },
+    "pass": true
+  },
+  "crossBrowserSmoke": [
+    {
+      "browser": "chromium",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "homeStatus": 200,
+      "coachingStatus": 200,
+      "accountStatus": 200,
+      "tierPreselected": "Gói Master Mentorship (3 Tháng)",
+      "bookingSubmittedSuccess": true,
+      "consoleErrorsCount": 0,
+      "pageErrorsCount": 0,
+      "screenshot": "docs/jn/step-9-cross-browser-chromium.png",
+      "pass": true
+    },
+    {
+      "browser": "firefox",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:157.0) Gecko/20100101 Firefox/157.0",
+      "homeStatus": 200,
+      "coachingStatus": 200,
+      "accountStatus": 200,
+      "tierPreselected": "Gói Master Mentorship (3 Tháng)",
+      "bookingSubmittedSuccess": true,
+      "consoleErrorsCount": 0,
+      "pageErrorsCount": 0,
+      "screenshot": "docs/jn/step-9-cross-browser-firefox.png",
+      "pass": true
+    },
+    {
+      "browser": "webkit",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+      "homeStatus": 200,
+      "coachingStatus": 200,
+      "accountStatus": 200,
+      "tierPreselected": "Gói Master Mentorship (3 Tháng)",
+      "bookingSubmittedSuccess": true,
+      "consoleErrorsCount": 0,
+      "pageErrorsCount": 0,
+      "screenshot": "docs/jn/step-9-cross-browser-webkit.png",
+      "pass": true
+    }
+  ],
+  "internalBrokenLinks": {
+    "totalChecked": 92,
+    "brokenCount": 0,
+    "hrefHashCount": 0,
+    "brokenLinks": [],
+    "hrefHashViolations": [],
+    "pass": true
+  },
+  "errorPages": {
+    "notFoundStatus": 404,
+    "notFoundHeading": "Trang Bạn Tìm Kiếm Không Tồn Tại Hoặc Đã Chuyển Đi",
+    "formValidationErrorMessage": "Vui lòng điền đầy đủ thông tin bắt buộc: Đồng ý Chính sách bảo mật.",
+    "pass": true
+  },
+  "emailTemplates": {
+    "triggeredTemplatesCount": 15,
+    "mailpitCapturedCount": 15,
+    "allVietnameseBranded": true,
+    "hasIcsAttachmentEmail": true,
+    "screenshot": "docs/jn/step-9-all-emails-mailpit.png",
+    "emails": [
+      {
+        "id": "A6BnJnWykWa78iBtQjaSjs",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Mã xác thực đăng nhập 2 lớp — Jannie Nguyen Academy",
+        "attachments": 0
+      },
+      {
+        "id": "eYFEYsJ3negZ9EB2XescjX",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyen Academy] Xác nhận cập nhật địa chỉ email",
+        "attachments": 0
+      },
+      {
+        "id": "B5YCJPTvJxuc6taf59sXYP",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyen Academy] Xác nhận thay đổi mật khẩu thành công",
+        "attachments": 0
+      },
+      {
+        "id": "J2oGAPcHWS7K4R6Eoqzng5",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyen Academy] Đặt lại mật khẩu tài khoản của bạn",
+        "attachments": 0
+      },
+      {
+        "id": "mGKjx4K9YVKbS57jDDC277",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyễn] Thông báo hủy lịch hẹn Coaching (JN-202610-0466)",
+        "attachments": 0
+      },
+      {
+        "id": "ASyJs6rdztrdNrAf53jUkA",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "contact@jannienguyen.vn, admin@example.com",
+        "subject": "[Nội bộ Jannie Nguyễn] Đã thanh toán lịch hẹn JN-202610-0466 (Đơn hàng #467)",
+        "attachments": 0
+      },
+      {
+        "id": "YJXVDmtkTZYoMEfZWhieq8",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Một ghi chú đã được thêm vào đơn hàng của bạn từ JANNIE NGUYEN",
+        "attachments": 0
+      },
+      {
+        "id": "7oUVf3Crwp5ULxfAyKU4LA",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Đơn hàng của bạn từ JANNIE NGUYEN đang trên đường vận chuyển!",
+        "attachments": 0
+      },
+      {
+        "id": "Wzjj8ygCNEF27H8ddt49JE",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Đơn hàng tại JANNIE NGUYEN đã được đặt!",
+        "attachments": 0
+      },
+      {
+        "id": "EeYaNJ2fTXDVGE4PvJyMmz",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Đơn hàng tại JANNIE NGUYEN đã được đặt!",
+        "attachments": 0
+      },
+      {
+        "id": "BXWcKVGVtewUTxbGK5KQed",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "admin@example.com",
+        "subject": "[JANNIE NGUYEN]: Bạn có một đơn hàng mới: #467",
+        "attachments": 0
+      },
+      {
+        "id": "LKKHur7ZD9UMjSTsJHCpCs",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyễn] Đã xác nhận lịch hẹn Coaching (JN-202610-0466) & Thông tin thanh toán",
+        "attachments": 1
+      },
+      {
+        "id": "JZtTv5LZFT2P2xz5bmrLAg",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "contact@jannienguyen.vn, admin@example.com",
+        "subject": "[Nội bộ Jannie Nguyễn] Yêu cầu xếp lịch mới JN-202610-0466 — Trần Minh Ngọc (Step 9 Audit)",
+        "attachments": 0
+      },
+      {
+        "id": "BFSmm2hn65G952URJcQ6rg",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "[Jannie Nguyễn] Đã tiếp nhận yêu cầu xếp lịch Coaching (JN-202610-0466)",
+        "attachments": 0
+      },
+      {
+        "id": "6gZVCzMHhSU3VojFfYFK8m",
+        "from": "Jannie Nguyen Academy <contact@jannienguyen.vn>",
+        "to": "hocvien.step9@example.com",
+        "subject": "Tài khoản của bạn ở JANNIE NGUYEN đã được tạo!",
+        "attachments": 0
+      }
+    ],
+    "pass": true
+  },
+  "allPassed": true
+}

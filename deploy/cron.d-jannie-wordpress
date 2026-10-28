@@ -1,0 +1,10 @@
+# =============================================================================
+# Jannie Nguyen Website — Real System Cron (`deploy/cron.d-jannie-wordpress`)
+# Install at: `/etc/cron.d/jannie-wordpress` (chmod 0644, owned by root:root)
+# Replaces WordPress pseudo-cron (`DISABLE_WP_CRON = true` in wp-config.php)
+# =============================================================================
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Run due WordPress scheduled events every 5 minutes via WP-CLI (preferred) or PHP CLI:
+*/5 * * * * www-data cd /var/www/PROD_DOMAIN/wordpress && /usr/local/bin/wp cron event run --due-now >/dev/null 2>&1 || /usr/bin/php /var/www/PROD_DOMAIN/wordpress/wp-cron.php >/dev/null 2>&1

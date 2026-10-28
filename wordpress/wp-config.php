@@ -74,14 +74,17 @@ define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . '/mu-plugins' );
 
 define( 'UPLOADS', 'media' );
 
-// ** Debugging & logging (log stored outside web root) ** //
-define( 'WP_DEBUG', 'production' !== WP_ENVIRONMENT_TYPE );
+// ** Debugging & logging (disabled in production; log stored outside web root in local/staging) ** //
+$jn_is_production = ( 'production' === WP_ENVIRONMENT_TYPE );
+define( 'WP_DEBUG', ! $jn_is_production );
 define( 'WP_DEBUG_DISPLAY', false );
-define( 'WP_DEBUG_LOG', '/var/log/wordpress/debug.log' );
+define( 'WP_DEBUG_LOG', $jn_is_production ? false : '/var/log/wordpress/debug.log' );
 // phpcs:ignore WordPress.PHP.IniSet.display_errors_Disallowed
 @ini_set( 'display_errors', '0' );
 
-// ** Security & editorial hygiene ** //
+// ** Security, SSL, Cron & editorial hygiene ** //
+define( 'FORCE_SSL_ADMIN', $jn_is_production || 'true' === jn_env( 'FORCE_SSL_ADMIN', 'false' ) );
+define( 'DISABLE_WP_CRON', $jn_is_production || 'true' === jn_env( 'DISABLE_WP_CRON', 'false' ) );
 define( 'DISALLOW_FILE_EDIT', true );
 define( 'WP_POST_REVISIONS', 10 );
 define( 'CORE_UPGRADE_SKIP_NEW_BUNDLED', true );

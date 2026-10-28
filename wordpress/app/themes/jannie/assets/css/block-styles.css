@@ -389,7 +389,7 @@ ul.is-style-verified > li::before,
 
 /* 8. Section Resets & Pattern Containers */
 .jn-section {
-	padding-block: var(--jn-section-rhythm);
+	padding-block: var(--jn-section-rhythm) !important;
 	margin-block: 0 !important;
 }
 
@@ -411,14 +411,21 @@ ul.is-style-verified > li::before,
 	top: calc(-1 * var(--jn-space-xl));
 	pointer-events: none;
 	user-select: none;
-	opacity: 0.1;
+	font-size: 0 !important;
+	color: transparent !important;
+	margin: 0 !important;
+	z-index: 1;
+}
+
+.jn-hero-watermark::before {
+	content: '1:1';
 	font-family: var(--jn-font-heading);
 	font-size: 220px;
 	line-height: 1;
 	letter-spacing: -0.05em;
 	color: var(--jn-ink);
-	margin: 0 !important;
-	z-index: 1;
+	opacity: 0.1;
+	display: block;
 }
 
 .jn-hero-grid {

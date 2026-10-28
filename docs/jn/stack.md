@@ -1,7 +1,7 @@
 # Hồ Sơ Công Nghệ & Công Cụ Phát Triển (`docs/jn/stack.md`)
 
 > **Dự án:** Website Jannie Nguyễn — Luxury Beauty Academy & Mentorship
-> **Cập nhật lần cuối:** 2026-10-28 (JN Step 8 — Đã cài đặt và cấu hình `wp-super-cache` `v3.1.4` và `The SEO Framework` (`autodescription` `v5.2.0`), nâng cấp `jn-performance.php` `v2.0.0` và `jn-hardening.php` `v2.0.0`, tích hợp `mod_brotli`/`mod_deflate`, AVIF/WebP responsive images, Speculative Loading, Third-Party Facade, JSON-LD Schema `@graph` và Lighthouse CI `lighthouserc.json`)
+> **Cập nhật lần cuối:** 2026-10-28 (JN Step 9 — Hoàn tất 100% kiểm thử hồi quy đa trình duyệt Chromium/Firefox/WebKit, cài sẵn `fluent-smtp` `v2.4.1`, đóng gói bộ công cụ triển khai Production `deploy/`, hoàn thiện 8 tài liệu bàn giao tiếng Việt `docs/jn/handover/` và báo cáo nghiệm thu `docs/jn/final-report.md`)
 > **Tham chiếu quy tắc:** `.agent/rules/jn-project.md` (§2 Fixed stack, §3 Engineering, §5 Performance, §6 Hide WordPress)
 
 ---
@@ -88,7 +88,7 @@ Theo `.agent/rules/jn-project.md` §2, chỉ những plugin sau được phép c
 | 3 | **Two Factor** | `wordpress.org/plugins/two-factor` | Xác thực 2 lớp (2FA: TOTP, Email, Backup Codes) cho tài khoản quản trị viên và trợ lý | Step 6 (`v0.17.0`) |
 | 4 | **WP Super Cache** (*Plugin Page Cache theo `ADR-011`*) | `wordpress.org/plugins/wp-super-cache` | Lưu bộ nhớ đệm trang HTML tĩnh (`WP_CACHE = true`, `advanced-cache.php`), loại trừ `/cart/`, `/checkout/`, `/tai-khoan/`, `order-pay`, `/api/` và cookie phiên WooCommerce/đăng nhập (nếu Production dùng LiteSpeed sẽ chuyển sang **LiteSpeed Cache**) | Step 8 (`v3.1.4`) |
 | 5 | **The SEO Framework** (`autodescription`) | `wordpress.org/plugins/autodescription` | Quản lý thẻ tiêu đề, `meta description` tiếng Việt, `canonical`, Open Graph (`1200×630`), `/sitemap.xml` và `/robots.txt` với chữ ký HTML comment bị vô hiệu hóa hoàn toàn | Step 8 (`v5.2.0`) |
-| 6 | **FluentSMTP** | `wordpress.org/plugins/fluent-smtp` | Gửi email giao dịch (xác nhận đăng ký tư vấn, thông báo cho trợ lý) qua SMTP/API tin cậy trên môi trường thực tế | Step 9 (khi có `UNK-11`) |
+| 6 | **FluentSMTP** | `wordpress.org/plugins/fluent-smtp` | Gửi email giao dịch (xác nhận đăng ký tư vấn, thông báo cho trợ lý) qua SMTP/API tin cậy trên môi trường thực tế | Step 9 (`v2.4.1` — đã cài sẵn tại `/app/modules/fluent-smtp`, kích hoạt khi có `UNK-11`) |
 | 7 | **Plugin Cổng Thanh Toán Chính Thức** | Nhà cung cấp cổng thanh toán | Chỉ cài đặt sau khi chủ dự án xác nhận cổng thanh toán và cung cấp thông tin định danh Merchant (`PAYMENT_GATEWAYS`) | Sau khi chốt `UNK-05` |
 
 > **Chính sách kiểm soát:** Gỡ bỏ ngay lập tức 2 plugin mặc định đi kèm bộ cài WordPress (`akismet` và `hello.php`) cùng các theme mặc định (`twentytwentythree`, `twentytwentyfour`, `twentytwentyfive`) ở Step 1. Mọi plugin, dịch vụ bên ngoài hoặc CDN khác ngoài danh sách trên đều **bắt buộc phải xin ý kiến phê duyệt của chủ dự án trước khi cài đặt**.
