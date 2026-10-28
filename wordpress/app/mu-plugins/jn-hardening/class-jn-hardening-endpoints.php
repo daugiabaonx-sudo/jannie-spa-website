@@ -282,7 +282,7 @@ class JN_Hardening_Endpoints {
 			header( 'Content-Type: text/html; charset=UTF-8', true );
 		}
 
-		ob_start( array( 'JN_Hardening_HTML_Headers', 'scrub_html_output' ) );
+		ob_start( array( 'JN_Hardening_HTML_Headers', 'scrub_buffer' ) );
 
 		$template_404 = get_query_template( '404' );
 		if ( $template_404 && file_exists( $template_404 ) ) {

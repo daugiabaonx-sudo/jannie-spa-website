@@ -39,6 +39,28 @@ class JN_Hardening_HTML_Headers {
 	public static bool $rendering_public_404 = false;
 
 	/**
+	 * Set once the response has been scrubbed, so nested output buffers do not scrub it again.
+	 *
+	 * @var bool
+	 */
+	private static bool $did_scrub = false;
+
+	/**
+	 * Path (under the remapped `/api` REST prefix) that receives CSP violation reports.
+	 */
+	const CSP_REPORT_PATH = '/api/jn/v1/csp-report';
+
+	/**
+	 * Largest CSP report body accepted, in bytes.
+	 */
+	const CSP_REPORT_MAX_BYTES = 8192;
+
+	/**
+	 * CSP reports accepted per client IP per window.
+	 */
+	const CSP_REPORT_MAX_PER_WINDOW = 30;
+
+	/**
 	 * Check whether the current request is an authenticated wp-admin backend session.
 	 *
 	 * @return bool
@@ -75,6 +97,7 @@ class JN_Hardening_HTML_Headers {
 		add_filter( 'x_redirect_by', '__return_false', 999 );
 		add_filter( 'wp_headers', array( __CLASS__, 'filter_wp_headers' ), 999, 1 );
 		add_action( 'send_headers', array( __CLASS__, 'send_security_headers' ), 999 );
+		add_action( 'rest_api_init', array( __CLASS__, 'register_csp_report_route' ) );
 		add_action( 'login_init', array( __CLASS__, 'send_security_headers' ), 1 );
 
 		// 3. Core block style on-demand loading & inlining on content pages (Task B).
@@ -104,7 +127,7 @@ class JN_Hardening_HTML_Headers {
 		add_filter( 'body_class', array( __CLASS__, 'scrub_body_classes' ), 999, 1 );
 
 		// 7. HTML output buffer scrubbing (comments, sourceURLs, inline JSON paths, residual ?ver=).
-		add_filter( 'wp_template_enhancement_output_buffer', array( __CLASS__, 'scrub_html_output' ), 999, 1 );
+		add_filter( 'wp_template_enhancement_output_buffer', array( __CLASS__, 'scrub_buffer' ), 999, 1 );
 		add_action( 'template_redirect', array( __CLASS__, 'start_fallback_output_buffer' ), -9999 );
 		add_action( 'login_init', array( __CLASS__, 'start_fallback_output_buffer' ), 1 );
 	}
@@ -259,7 +282,7 @@ class JN_Hardening_HTML_Headers {
 	public static function filter_wp_headers( array $headers ): array {
 		unset( $headers['X-Pingback'], $headers['x-pingback'], $headers['X-Powered-By'], $headers['x-powered-by'] );
 
-		if ( 'cli' === PHP_SAPI ) {
+		if ( self::php_sends_security_headers() ) {
 			foreach ( self::get_security_headers() as $name => $value ) {
 				$headers[ $name ] = $value;
 			}
@@ -269,8 +292,22 @@ class JN_Hardening_HTML_Headers {
 	}
 
 	/**
-	 * Remove fingerprinting headers via PHP header_remove().
-	 * Note: Apache mod_headers (`wordpress/.htaccess`) emits the 6 security headers on all HTTP responses.
+	 * Whether PHP itself must emit the security headers.
+	 *
+	 * The web server is the single source by default (wordpress/.htaccess, deploy/apache-litespeed.htaccess,
+	 * deploy/nginx-security-headers.conf): Apache's `Header always setifempty` cannot see headers PHP already
+	 * sent, so sending them from PHP as well would duplicate every header. Set JN_SECURITY_HEADERS_FROM_PHP=1
+	 * only on hosts where the server config cannot add headers (nginx already `fastcgi_hide_header`s them).
+	 *
+	 * @return bool
+	 */
+	public static function php_sends_security_headers(): bool {
+		return 'cli' === PHP_SAPI || '1' === (string) getenv( 'JN_SECURITY_HEADERS_FROM_PHP' );
+	}
+
+	/**
+	 * Remove fingerprinting headers and send the security headers on responses that bypass
+	 * `wp_headers` (login screen, early exits), unless a header is already set.
 	 *
 	 * @return void
 	 */
@@ -284,6 +321,76 @@ class JN_Hardening_HTML_Headers {
 			header_remove( 'X-Pingback' );
 			header_remove( 'X-Redirect-By' );
 		}
+
+		if ( ! self::php_sends_security_headers() ) {
+			return;
+		}
+
+		$sent = strtolower( implode( "\n", headers_list() ) );
+		foreach ( self::get_security_headers() as $name => $value ) {
+			if ( false === strpos( $sent, strtolower( $name ) . ':' ) ) {
+				header( $name . ': ' . $value );
+			}
+		}
+	}
+
+	/**
+	 * Register the anonymous CSP violation report endpoint (`POST /api/jn/v1/csp-report`).
+	 *
+	 * @return void
+	 */
+	public static function register_csp_report_route(): void {
+		register_rest_route(
+			'jn/v1',
+			'/csp-report',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( __CLASS__, 'handle_csp_report' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+	}
+
+	/**
+	 * Log a CSP violation report (size-capped, rate-limited, query strings stripped — no PII).
+	 *
+	 * @param WP_REST_Request $request Request.
+	 * @return WP_REST_Response
+	 */
+	public static function handle_csp_report( WP_REST_Request $request ): WP_REST_Response {
+		$body = (string) $request->get_body();
+		if ( strlen( $body ) > self::CSP_REPORT_MAX_BYTES ) {
+			return new WP_REST_Response( null, 413 );
+		}
+
+		$ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		$rate_key = 'jn_csp_rl_' . substr( hash_hmac( 'sha256', $ip, wp_salt( 'auth' ) ), 0, 20 );
+		$count    = (int) get_transient( $rate_key );
+		if ( $count >= self::CSP_REPORT_MAX_PER_WINDOW ) {
+			return new WP_REST_Response( null, 429 );
+		}
+		set_transient( $rate_key, $count + 1, 10 * MINUTE_IN_SECONDS );
+
+		$decoded = json_decode( $body, true );
+		$report  = is_array( $decoded ) && isset( $decoded['csp-report'] ) && is_array( $decoded['csp-report'] ) ? $decoded['csp-report'] : array();
+		if ( empty( $report ) ) {
+			return new WP_REST_Response( null, 400 );
+		}
+
+		$strip_query = static fn( $url ): string => sanitize_text_field( strtok( (string) $url, '?#' ) ?: '' );
+		$line        = sprintf(
+			'CSP violation: directive=%s blocked=%s document=%s',
+			sanitize_text_field( (string) ( $report['effective-directive'] ?? $report['violated-directive'] ?? '' ) ),
+			$strip_query( $report['blocked-uri'] ?? '' ),
+			$strip_query( $report['document-uri'] ?? '' )
+		);
+		if ( function_exists( 'wc_get_logger' ) ) {
+			wc_get_logger()->warning( $line, array( 'source' => 'jn-csp' ) );
+		} else {
+			error_log( $line ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
+
+		return new WP_REST_Response( null, 204 );
 	}
 
 	/**
@@ -298,7 +405,7 @@ class JN_Hardening_HTML_Headers {
 			'X-Frame-Options'                     => 'SAMEORIGIN',
 			'Referrer-Policy'                     => 'strict-origin-when-cross-origin',
 			'Permissions-Policy'                  => 'camera=(), microphone=(), geolocation=(), payment=(self), usb=(), interest-cohort=()',
-			'Content-Security-Policy-Report-Only' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'",
+			'Content-Security-Policy-Report-Only' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; report-uri " . self::CSP_REPORT_PATH,
 		);
 	}
 
@@ -492,11 +599,64 @@ class JN_Hardening_HTML_Headers {
 	 * @return void
 	 */
 	public static function start_fallback_output_buffer(): void {
-		if ( self::is_authenticated_admin() || defined( 'WP_CLI' ) || wp_doing_ajax() || wp_is_json_request() ) {
+		if ( self::is_authenticated_admin() || defined( 'WP_CLI' ) || self::is_non_html_request() ) {
 			return;
 		}
 
-		ob_start( array( __CLASS__, 'scrub_html_output' ) );
+		ob_start( array( __CLASS__, 'scrub_buffer' ) );
+	}
+
+	/**
+	 * Whether the current request produces a non-HTML response (AJAX, REST, WooCommerce `wc-ajax` JSON).
+	 *
+	 * `wc-ajax` is dispatched on `template_redirect` priority 0, after the fallback buffer starts at -9999,
+	 * and `wp_is_json_request()` only inspects the Accept header, so it is checked explicitly.
+	 *
+	 * @return bool
+	 */
+	public static function is_non_html_request(): bool {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only routing check.
+		return wp_doing_ajax() || wp_is_json_request() || isset( $_GET['wc-ajax'] ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
+	}
+
+	/**
+	 * `preg_replace()` that keeps the input when PCRE fails (backtrack/JIT limits) instead of returning null.
+	 *
+	 * @param string $pattern     Regex.
+	 * @param string $replacement Replacement.
+	 * @param string $subject     Subject.
+	 * @return string
+	 */
+	private static function safe_replace( string $pattern, string $replacement, string $subject ): string {
+		$result = preg_replace( $pattern, $replacement, $subject );
+		return null === $result ? $subject : $result;
+	}
+
+	/**
+	 * `preg_replace_callback()` that keeps the input when PCRE fails.
+	 *
+	 * @param string   $pattern  Regex.
+	 * @param callable $callback Callback.
+	 * @param string   $subject  Subject.
+	 * @return string
+	 */
+	private static function safe_replace_callback( string $pattern, callable $callback, string $subject ): string {
+		$result = preg_replace_callback( $pattern, $callback, $subject );
+		return null === $result ? $subject : $result;
+	}
+
+	/**
+	 * Whether the response being buffered declared a non-HTML Content-Type.
+	 *
+	 * @return bool
+	 */
+	private static function response_is_not_html(): bool {
+		foreach ( headers_list() as $header ) {
+			if ( 0 === stripos( $header, 'content-type:' ) ) {
+				return false === stripos( $header, 'text/html' );
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -515,16 +675,21 @@ class JN_Hardening_HTML_Headers {
 			return $html;
 		}
 
-		// Only scrub HTML documents or fragments containing HTML tags.
-		if ( false === strpos( $html, '<' ) ) {
+		// Only scrub HTML documents or fragments containing HTML tags (never JSON/XML/text responses).
+		if ( false === strpos( $html, '<' ) || self::response_is_not_html() ) {
 			return $html;
 		}
 
-		// 1. Strip HTML comments (excluding IE conditional comments if any).
-		$html = (string) preg_replace( '/<!--(?!\s*\[if\b).*?-->/s', '', $html );
+		// 1. Strip HTML comments (excluding IE conditional comments), but never inside raw-text elements:
+		// `<!--` / `-->` inside <script>, <style>, <pre> or <textarea> are content, not comments.
+		$html = self::safe_replace_callback(
+			'#(<(script|style|pre|textarea)\b[^>]*>.*?</\2\s*>)|<!--(?!\s*\[if\b).*?-->#is',
+			static fn( array $m ): string => isset( $m[1] ) && '' !== $m[1] ? $m[1] : '',
+			$html
+		);
 
 		// 2. Strip CSS sourceURL comments that leak /wp-includes/ paths.
-		$html = (string) preg_replace( '#/\*\#\s*sourceURL=.*?\*/\s*#s', '', $html );
+		$html = self::safe_replace( '#/\*\#\s*sourceURL=.*?\*/\s*#s', '', $html );
 
 		// 3. Alias asset paths in both plain URLs and JSON-escaped URLs (importmap, wc_settings, ct_localizations, zxcvbn).
 		$path_replacements = array(
@@ -552,7 +717,7 @@ class JN_Hardening_HTML_Headers {
 		$html = str_replace( array_keys( $path_replacements ), array_values( $path_replacements ), $html );
 
 		// 4. Replace any remaining ?ver=<version> or &ver=<version> in inline scripts/importmaps with content-hashed ?v=<hash>.
-		$html = (string) preg_replace_callback(
+		$html = self::safe_replace_callback(
 			'/(\?|&|&#038;|\\\\u0026)ver=([0-9A-Za-z._-]+)/',
 			static function ( array $matches ): string {
 				$hash = substr( hash( 'sha256', $matches[2] . wp_salt() ), 0, 10 );
@@ -561,13 +726,15 @@ class JN_Hardening_HTML_Headers {
 			$html
 		);
 
-		// 5. Strip residual "generator":"..." key-value pairs inside inline JSON blobs.
-		$html = (string) preg_replace( '/"generator"\s*:\s*"[^"]*"\s*,?\s*/', '', $html );
+		// 5. Strip residual "generator":"..." key-value pairs inside inline JSON blobs, keeping the JSON valid:
+		// remove the pair together with its preceding comma, or (first member) with its following comma.
+		$html = self::safe_replace( '/\s*,\s*"generator"\s*:\s*"[^"]*"/', '', $html );
+		$html = self::safe_replace( '/"generator"\s*:\s*"[^"]*"\s*,?\s*/', '', $html );
 
 		// 6. Sanitize URL-encoded wcSettings payload on WooCommerce Cart/Checkout blocks so it never leaks
 		// wpVersion, wcVersion, wpLoginUrl (hidden login slug), /wp-admin/, or /app/modules/woocommerce/.
 		if ( false !== strpos( $html, 'var wcSettings = JSON.parse( decodeURIComponent(' ) ) {
-			$html = (string) preg_replace_callback(
+			$html = self::safe_replace_callback(
 				"/var wcSettings = JSON\.parse\( decodeURIComponent\( '([^']+)' \) \);/",
 				array( __CLASS__, 'sanitize_wc_settings_inline_script' ),
 				$html
@@ -601,6 +768,24 @@ class JN_Hardening_HTML_Headers {
 	}
 
 	/**
+	 * Output-buffer callback: nested buffers (template enhancement, fallback, public 404) all end here,
+	 * so the complete document is scrubbed once and outer buffers pass it through untouched.
+	 *
+	 * @param string $html Buffered output.
+	 * @return string
+	 */
+	public static function scrub_buffer( string $html ): string {
+		if ( self::$did_scrub ) {
+			return $html;
+		}
+		$scrubbed = self::scrub_html_output( $html );
+		if ( false !== stripos( $scrubbed, '</html>' ) ) {
+			self::$did_scrub = true;
+		}
+		return $scrubbed;
+	}
+
+	/**
 	 * Sanitize the URL-encoded JSON payload inside `var wcSettings = JSON.parse( decodeURIComponent( '...' ) );`.
 	 *
 	 * @param array<int, string> $matches Regex match groups.
@@ -608,20 +793,21 @@ class JN_Hardening_HTML_Headers {
 	 */
 	private static function sanitize_wc_settings_inline_script( array $matches ): string {
 		$raw_json = rawurldecode( $matches[1] );
-		$settings = json_decode( $raw_json, true );
-		if ( ! is_array( $settings ) ) {
+		// Decode to objects (not associative arrays) so empty `{}` maps survive re-encoding instead of becoming `[]`.
+		$settings = json_decode( $raw_json );
+		if ( ! $settings instanceof stdClass ) {
 			return $matches[0];
 		}
 
-		$settings['wpVersion']     = '';
-		$settings['wcVersion']     = '';
-		$settings['adminUrl']      = home_url( '/api/' );
-		$settings['wpLoginUrl']    = home_url( '/tai-khoan/' );
-		$settings['wcAssetUrl']    = home_url( '/static/shop/assets/' );
-		$settings['defaultAvatar'] = home_url( '/static/core/images/blank.gif' );
+		$settings->wpVersion     = '';
+		$settings->wcVersion     = '';
+		$settings->adminUrl      = home_url( '/api/' );
+		$settings->wpLoginUrl    = home_url( '/tai-khoan/' );
+		$settings->wcAssetUrl    = home_url( '/static/shop/assets/' );
+		$settings->defaultAvatar = home_url( '/static/core/images/blank.gif' );
 
-		if ( isset( $settings['wcBlocksConfig'] ) && is_array( $settings['wcBlocksConfig'] ) ) {
-			$settings['wcBlocksConfig']['pluginUrl'] = home_url( '/static/shop/' );
+		if ( isset( $settings->wcBlocksConfig ) && $settings->wcBlocksConfig instanceof stdClass ) {
+			$settings->wcBlocksConfig->pluginUrl = home_url( '/static/shop/' );
 		}
 
 		$encoded_json = wp_json_encode( $settings );

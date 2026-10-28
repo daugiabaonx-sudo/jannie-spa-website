@@ -189,6 +189,12 @@ check "every published port in docker-compose.yml is bound to 127.0.0.1" bash -c
 
 # -----------------------------------------------------------------------------
 section "M6 — nginx static assets keep the security headers"
+for conf in deploy/apache-litespeed.htaccess deploy/nginx-security-headers.conf docker/nginx/jn-hardening.conf wordpress/.htaccess; do
+  check "${conf} CSP reports to /api/jn/v1/csp-report (M5)" grep -q "report-uri /api/jn/v1/csp-report" "${conf}"
+done
+LIVE_HEADERS="$(curl -s -D - -o /dev/null http://localhost:8080/coaching/ 2>/dev/null)"
+check "local site sends each security header exactly once (no PHP + Apache duplicates)" bash -c "test \"\$(grep -ci '^x-frame-options:' <<<\"\$1\")\" = 1 && test \"\$(grep -ci '^content-security-policy-report-only:' <<<\"\$1\")\" = 1" _ "${LIVE_HEADERS}"
+check "nginx hides PHP's fallback security headers so each header is sent once (M5)" bash -c "grep -q 'fastcgi_hide_header X-Frame-Options' deploy/nginx-production.conf && grep -q 'fastcgi_hide_header Content-Security-Policy-Report-Only' deploy/nginx-production.conf"
 check "production nginx includes the shared security-header snippet in the static location" bash -c "awk '/location ~\\* \\\\.\\(\\?:css/,/}/' deploy/nginx-production.conf | grep -q 'include .*jn-security-headers.conf'"
 if docker image inspect nginx:1.27-alpine >/dev/null 2>&1 || docker pull -q nginx:1.27-alpine >/dev/null 2>&1; then
   NG="${WORK}/nginx"

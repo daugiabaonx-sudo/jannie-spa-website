@@ -76,8 +76,8 @@ class JN_Hardening_Branding_Auth {
 		add_filter( 'authenticate', array( __CLASS__, 'enforce_rate_limit_pre_auth' ), 1, 3 );
 		add_filter( 'authenticate', array( __CLASS__, 'enforce_rate_limit_post_auth' ), 999, 3 );
 		add_filter( 'woocommerce_process_login_errors', array( __CLASS__, 'filter_woocommerce_login_errors' ), 1, 3 );
-		add_action( 'wp_login', array( __CLASS__, 'clear_rate_limit_on_success' ), 10, 1 );
-		add_filter( 'login_errors', array( __CLASS__, 'sanitize_login_error_display' ), 999, 1 );
+		add_action( 'wp_login', array( __CLASS__, 'clear_rate_limit_on_success' ), 10, 2 );
+		add_filter( 'wp_login_errors', array( __CLASS__, 'genericize_login_errors' ), 999, 1 );
 
 		// 5. Application Passwords only for administrators & disable core users_can_register.
 		add_filter( 'wp_is_application_passwords_available_for_user', array( __CLASS__, 'restrict_app_passwords_to_admins' ), 999, 2 );
@@ -409,18 +409,29 @@ class JN_Hardening_Branding_Auth {
 			? $user->display_name
 			: ( $user instanceof WP_User ? $user->user_login : 'bạn' );
 
+		// Core's message carries the one-time set-password link (users created in wp-admin have no other
+		// way to get a password): keep that link when rebranding the body.
+		$set_password_url = preg_match( '#https?://\S*[?&]action=rp\S*#', (string) ( $email['message'] ?? '' ), $match ) ? $match[0] : '';
+
 		$email['subject'] = '[Jannie Nguyen Academy] Chào mừng bạn đến với Jannie Nguyen Academy';
 		$email['message'] = implode(
 			"\r\n",
-			array(
-				sprintf( 'Xin chào %s,', $display_name ),
-				'',
-				'Tài khoản của bạn tại Jannie Nguyen Academy đã được khởi tạo thành công.',
-				sprintf( 'Bạn có thể truy cập trang quản lý tài khoản tại: %s', home_url( '/tai-khoan/' ) ),
-				'',
-				'Trân trọng,',
-				'Jannie Nguyen Academy',
-				home_url( '/' ),
+			array_merge(
+				array(
+					sprintf( 'Xin chào %s,', $display_name ),
+					'',
+					'Tài khoản của bạn tại Jannie Nguyen Academy đã được khởi tạo thành công.',
+				),
+				'' !== $set_password_url
+					? array( '', 'Vui lòng đặt mật khẩu cho tài khoản tại liên kết sau (liên kết chỉ dùng được một lần):', $set_password_url, '' )
+					: array(),
+				array(
+					sprintf( 'Bạn có thể truy cập trang quản lý tài khoản tại: %s', home_url( '/tai-khoan/' ) ),
+					'',
+					'Trân trọng,',
+					'Jannie Nguyen Academy',
+					home_url( '/' ),
+				)
 			)
 		);
 
@@ -602,29 +613,60 @@ class JN_Hardening_Branding_Auth {
 	}
 
 	/**
-	 * Clear rate-limit counters upon successful login.
+	 * Clear the per-account failure counters upon successful login.
 	 *
-	 * @param string $user_login Authenticated username.
+	 * The per-IP counter is left to expire on its own: clearing it would let anyone with one valid
+	 * account reset the IP lockout between guesses against other accounts (password spraying).
+	 *
+	 * @param string       $user_login Authenticated username.
+	 * @param WP_User|null $user       Authenticated user.
 	 * @return void
 	 */
-	public static function clear_rate_limit_on_success( string $user_login ): void {
-		self::reset_rate_limit( $user_login );
+	public static function clear_rate_limit_on_success( string $user_login, $user = null ): void {
+		$identifiers = array( $user_login );
+		if ( $user instanceof WP_User ) {
+			$identifiers[] = (string) $user->user_email;
+		}
+		foreach ( $identifiers as $identifier ) {
+			$user_key = self::get_user_transient_key( $identifier );
+			if ( '' !== $user_key ) {
+				delete_transient( $user_key );
+			}
+		}
 	}
 
 	/**
-	 * Ensure login error strings never reveal whether a username/email exists in the database.
+	 * Replace only the login/lost-password errors that would reveal whether an account exists;
+	 * every other message (expired reset link, password mismatch, "check your email"…) is kept.
 	 *
-	 * @param string $errors Rendered HTML error string on the login screen.
-	 * @return string
+	 * @param WP_Error|mixed $errors Login screen errors.
+	 * @return WP_Error|mixed
 	 */
-	public static function sanitize_login_error_display( string $errors ): string {
-		if ( false !== strpos( $errors, self::get_lockout_message() ) ) {
-			return self::get_lockout_message();
+	public static function genericize_login_errors( $errors ) {
+		if ( ! $errors instanceof WP_Error || ! $errors->has_errors() ) {
+			return $errors;
 		}
-		if ( '' !== trim( $errors ) ) {
-			return self::get_generic_invalid_credentials_message();
+
+		$enumeration_codes = array( 'invalid_username', 'incorrect_password', 'invalid_email', 'invalidcombo', 'jn_invalid_credentials' );
+		$result            = new WP_Error();
+
+		foreach ( $errors->get_error_codes() as $code ) {
+			if ( 'jn_login_rate_limited' === $code ) {
+				$result->add( $code, self::get_lockout_message() );
+				continue;
+			}
+			if ( in_array( $code, $enumeration_codes, true ) ) {
+				if ( ! $result->get_error_message( 'jn_invalid_credentials' ) ) {
+					$result->add( 'jn_invalid_credentials', self::get_generic_invalid_credentials_message() );
+				}
+				continue;
+			}
+			foreach ( $errors->get_error_messages( $code ) as $message ) {
+				$result->add( $code, $message, $errors->get_error_data( $code ) );
+			}
 		}
-		return $errors;
+
+		return $result;
 	}
 
 	/**
