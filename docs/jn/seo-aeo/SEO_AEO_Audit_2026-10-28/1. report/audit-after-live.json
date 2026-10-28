@@ -1,0 +1,781 @@
+{
+  "base": "http://localhost:8080",
+  "generated_at": "2026-10-28T11:25:30+0700",
+  "skill_dir": "/Users/daugiabao/Documents/SUNEXT/Spa/Website/.agent/skills/sunext-semrush-ahrefs-os",
+  "robots_source": "live",
+  "robots_body": "# Non-production environment: crawling disabled (production body: docs/jn/robots.production.txt)\nUser-agent: *\nDisallow: /\n\nSitemap: http://localhost:8080/sitemap.xml\n",
+  "robots_disallow": [
+    "/"
+  ],
+  "ai_crawler_permissions": {
+    "GPTBot": "BLOCKED (Disallow: / for *)",
+    "OAI-SearchBot": "BLOCKED (Disallow: / for *)",
+    "ChatGPT-User": "BLOCKED (Disallow: / for *)",
+    "ClaudeBot": "BLOCKED (Disallow: / for *)",
+    "Claude-Web": "BLOCKED (Disallow: / for *)",
+    "anthropic-ai": "BLOCKED (Disallow: / for *)",
+    "PerplexityBot": "BLOCKED (Disallow: / for *)",
+    "Google-Extended": "BLOCKED (Disallow: / for *)",
+    "GoogleOther": "BLOCKED (Disallow: / for *)",
+    "Applebot-Extended": "BLOCKED (Disallow: / for *)",
+    "Bytespider": "BLOCKED (Disallow: / for *)",
+    "CCBot": "BLOCKED (Disallow: / for *)",
+    "Meta-ExternalAgent": "BLOCKED (Disallow: / for *)",
+    "Amazonbot": "BLOCKED (Disallow: / for *)"
+  },
+  "sitemap_status": 200,
+  "sitemap_urls": [
+    "http://localhost:8080/",
+    "http://localhost:8080/coaching/",
+    "http://localhost:8080/my-story/",
+    "http://localhost:8080/course/",
+    "http://localhost:8080/client-success-story/",
+    "http://localhost:8080/booking/",
+    "http://localhost:8080/my-favorite-product/",
+    "http://localhost:8080/chinh-sach-bao-mat/",
+    "http://localhost:8080/dieu-khoan-dich-vu/"
+  ],
+  "llms_status": 200,
+  "pages": [
+    {
+      "path": "/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 117.8,
+      "title": "Jannie Nguyễn — Cố Vấn 1:1 & Đào Tạo Thẩm Mỹ Chuyên Sâu",
+      "title_len": 55,
+      "description_len": 155,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/",
+      "lang": "vi",
+      "h1": [
+        "Khám Phá Sự Cân Bằng & Vẻ Đẹp Đích Thực"
+      ],
+      "h2": [
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Lợi Ích Của Chương Trình Coaching",
+        "Chi Tiết Gói Đào Tạo & Cố Vấn",
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 1575,
+      "images_total": 5,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 47,
+        "word_count": 1493,
+        "avg_words_per_sentence": 31.77,
+        "complex_token_ratio_pct": 9.78,
+        "readability_ease_100": 47.2,
+        "estimated_grade_level": 15.9,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 4,
+        "question_headings_count": 0,
+        "word_count_evaluated": 1575,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/coaching/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 97.9,
+      "title": "Coaching & Đồng Hành Chuyên Sâu 1:1 | Jannie Nguyễn",
+      "title_len": 51,
+      "description_len": 154,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/coaching/",
+      "lang": "vi",
+      "h1": [
+        "Coaching & Đồng Hành Chuyên Sâu"
+      ],
+      "h2": [
+        "Lợi Ích Của Chương Trình Coaching",
+        "Chi Tiết Gói Đào Tạo & Cố Vấn",
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 1555,
+      "images_total": 5,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 46,
+        "word_count": 1473,
+        "avg_words_per_sentence": 32.02,
+        "complex_token_ratio_pct": 10.12,
+        "readability_ease_100": 46.6,
+        "estimated_grade_level": 16.1,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 4,
+        "question_headings_count": 0,
+        "word_count_evaluated": 1555,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/my-story/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 69.2,
+      "title": "Hành Trình Hơn 20 Năm Của Chuyên Gia Jannie Nguyễn",
+      "title_len": 50,
+      "description_len": 140,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/my-story/",
+      "lang": "vi",
+      "h1": [
+        "Câu Chuyện Thương Hiệu & Vẻ Đẹp Đích Thực"
+      ],
+      "h2": [
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Các Cột Mốc Sự Nghiệp & Giải Thưởng Quốc Tế",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 806,
+      "images_total": 1,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "ProfilePage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 28,
+        "word_count": 769,
+        "avg_words_per_sentence": 27.46,
+        "complex_token_ratio_pct": 12.35,
+        "readability_ease_100": 49.9,
+        "estimated_grade_level": 14.7,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 4,
+        "question_headings_count": 0,
+        "word_count_evaluated": 806,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/course/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 74.9,
+      "title": "Chương Trình Đào Tạo & Khóa Học Chuyên Sâu | Jannie Nguyễn",
+      "title_len": 58,
+      "description_len": 160,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/course/",
+      "lang": "vi",
+      "h1": [
+        "Chương Trình Đào Tạo Thẩm Mỹ & Phun Xăm"
+      ],
+      "h2": [
+        "Danh Mục Khóa Học Chuyên Sâu",
+        "Lợi Ích Của Chương Trình Coaching",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 825,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 27,
+        "word_count": 776,
+        "avg_words_per_sentence": 28.74,
+        "complex_token_ratio_pct": 11.98,
+        "readability_ease_100": 48.8,
+        "estimated_grade_level": 15.1,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 2,
+        "question_headings_count": 0,
+        "word_count_evaluated": 825,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/client-success-story/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 76.2,
+      "title": "Cảm Nhận Học Viên & Kết Quả Thực Tế | Jannie Nguyễn",
+      "title_len": 51,
+      "description_len": 151,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/client-success-story/",
+      "lang": "vi",
+      "h1": [
+        "Câu Chuyện Thành Công Học Viên & Khách Hàng"
+      ],
+      "h2": [
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Hồ Sơ Chuyển Đổi Chi Tiết (Case Studies)",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 753,
+      "images_total": 3,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 28,
+        "word_count": 714,
+        "avg_words_per_sentence": 25.5,
+        "complex_token_ratio_pct": 11.48,
+        "readability_ease_100": 52.9,
+        "estimated_grade_level": 13.8,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 2,
+        "question_headings_count": 0,
+        "word_count_evaluated": 753,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/booking/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 69.4,
+      "title": "Đặt Lịch Tư Vấn 1:1 Cùng Chuyên Gia | Jannie Nguyễn",
+      "title_len": 51,
+      "description_len": 133,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/booking/",
+      "lang": "vi",
+      "h1": [
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching 1:1"
+      ],
+      "h2": [
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "word_count": 540,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 20,
+        "word_count": 504,
+        "avg_words_per_sentence": 25.2,
+        "complex_token_ratio_pct": 15.28,
+        "readability_ease_100": 50.0,
+        "estimated_grade_level": 14.2,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 2,
+        "question_headings_count": 0,
+        "word_count_evaluated": 540,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/my-favorite-product/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 103.7,
+      "title": "Sản Phẩm Yêu Thích & Khuyên Dùng | Jannie Nguyễn",
+      "title_len": 48,
+      "description_len": 143,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/my-favorite-product/",
+      "lang": "vi",
+      "h1": [
+        "Sản Phẩm Yêu Thích Của Jannie"
+      ],
+      "h2": [
+        "Danh Mục Đang Được Tuyển Chọn"
+      ],
+      "word_count": 256,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "CollectionPage",
+        "Organization",
+        "Person",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 9,
+        "word_count": 247,
+        "avg_words_per_sentence": 27.44,
+        "complex_token_ratio_pct": 20.65,
+        "readability_ease_100": 42.9,
+        "estimated_grade_level": 15.8,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 0,
+        "question_headings_count": 0,
+        "word_count_evaluated": 256,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/chinh-sach-bao-mat/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 63.3,
+      "title": "Chính Sách Bảo Mật Thông Tin | Jannie Nguyễn",
+      "title_len": 44,
+      "description_len": 125,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/chinh-sach-bao-mat/",
+      "lang": "vi",
+      "h1": [
+        "Chính Sách Bảo Mật Dữ Liệu Cá Nhân"
+      ],
+      "h2": [
+        "1. Mục Đích & Phạm Vi Thu Thập Dữ Liệu",
+        "2. Thời Gian Lưu Trữ & Quyền Của Chủ Thể Dữ Liệu"
+      ],
+      "word_count": 293,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 12,
+        "word_count": 283,
+        "avg_words_per_sentence": 23.58,
+        "complex_token_ratio_pct": 16.25,
+        "readability_ease_100": 51.1,
+        "estimated_grade_level": 13.7,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 0,
+        "question_headings_count": 0,
+        "word_count_evaluated": 293,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/dieu-khoan-dich-vu/",
+      "policy": "index",
+      "status": 200,
+      "ttfb_ms": 70.1,
+      "title": "Điều Khoản Dịch Vụ & Chính Sách Cố Vấn | Jannie Nguyễn",
+      "title_len": 54,
+      "description_len": 118,
+      "meta_robots": "index, follow, max-snippet:-1, max-image-preview:large",
+      "canonical": "http://localhost:8080/dieu-khoan-dich-vu/",
+      "lang": "vi",
+      "h1": [
+        "Điều Khoản Dịch Vụ & Quy Định Học Viện"
+      ],
+      "h2": [
+        "1. Quy Định Đặt Lịch, Đổi Lịch & Thanh Toán",
+        "2. Cam Kết Bảo Mật Thông Tin Phiên Cố Vấn 1:1"
+      ],
+      "word_count": 288,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 11,
+        "word_count": 272,
+        "avg_words_per_sentence": 24.73,
+        "complex_token_ratio_pct": 16.54,
+        "readability_ease_100": 49.5,
+        "estimated_grade_level": 14.2,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 1,
+        "question_headings_count": 0,
+        "word_count_evaluated": 288,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    },
+    {
+      "path": "/cart/",
+      "policy": "noindex",
+      "status": 200,
+      "ttfb_ms": 126.9,
+      "title": "Giỏ Hàng Của Bạn | Jannie Nguyễn",
+      "title_len": 32,
+      "description_len": 110,
+      "meta_robots": "noindex, follow",
+      "canonical": "http://localhost:8080/cart/",
+      "lang": "vi",
+      "h1": [
+        "Giỏ Hàng Của Bạn"
+      ],
+      "h2": [
+        "Giỏ hàng của bạn hiện đang trống"
+      ],
+      "word_count": 172,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 7,
+        "word_count": 164,
+        "avg_words_per_sentence": 23.43,
+        "complex_token_ratio_pct": 26.83,
+        "readability_ease_100": 42.3,
+        "estimated_grade_level": 15.2,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 0,
+        "question_headings_count": 0,
+        "word_count_evaluated": 172,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 2
+    },
+    {
+      "path": "/tai-khoan/",
+      "policy": "noindex",
+      "status": 200,
+      "ttfb_ms": 70.1,
+      "title": "Tài Khoản Học Viên & Khách Hàng | Jannie Nguyễn",
+      "title_len": 47,
+      "description_len": 119,
+      "meta_robots": "noindex, follow",
+      "canonical": "http://localhost:8080/tai-khoan/",
+      "lang": "vi",
+      "h1": [
+        "Đăng Nhập & Đăng Ký Thành Viên"
+      ],
+      "h2": [
+        "Đăng nhập",
+        "Đăng ký"
+      ],
+      "word_count": 274,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "BreadcrumbList",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 9,
+        "word_count": 261,
+        "avg_words_per_sentence": 29.0,
+        "complex_token_ratio_pct": 18.01,
+        "readability_ease_100": 43.3,
+        "estimated_grade_level": 16.0,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 0,
+        "question_headings_count": 0,
+        "word_count_evaluated": 274,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 0
+    },
+    {
+      "path": "/?s=coaching",
+      "policy": "noindex",
+      "status": 200,
+      "ttfb_ms": 85.1,
+      "title": "Kết quả tìm kiếm “coaching” | Jannie Nguyễn",
+      "title_len": 43,
+      "description_len": 74,
+      "meta_robots": "noindex, follow",
+      "canonical": "http://localhost:8080/search/coaching/",
+      "lang": "vi",
+      "h1": [
+        "Kết quả tìm kiếm cho coaching"
+      ],
+      "h2": [
+        "Coaching",
+        "Giỏ hàng",
+        "Điều khoản dịch vụ",
+        "Chính sách bảo mật",
+        "Booking",
+        "My Favorite Product",
+        "Course",
+        "Home"
+      ],
+      "word_count": 468,
+      "images_total": 0,
+      "images_missing_alt": 0,
+      "json_ld_types": [
+        "Organization",
+        "Person",
+        "SearchResultsPage",
+        "WebSite"
+      ],
+      "readability": {
+        "calibration_mode": "VIETNAMESE_COMPOUND_CALIBRATED (Red-Team Fix #3)",
+        "sentence_count": 10,
+        "word_count": 437,
+        "avg_words_per_sentence": 43.7,
+        "complex_token_ratio_pct": 18.99,
+        "readability_ease_100": 25.6,
+        "estimated_grade_level": 18.0,
+        "interpretation": "Dense Technical Prose (<55)",
+        "epistemic_label": "[INFERENCE]"
+      },
+      "geo": {
+        "geu_citation_score_100": 12.0,
+        "geo_readiness_score_100": 32.2,
+        "quantitative_claims_count": 0,
+        "question_headings_count": 0,
+        "word_count_evaluated": 468,
+        "epistemic_label": "[INFERENCE]"
+      },
+      "issue_count": 1
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "AUD-CNT-01",
+      "category": "6_Internal_and_External_Links",
+      "severity": "MEDIUM",
+      "title": "Thin Content Page (172 words < 250 words threshold)",
+      "url": "http://localhost:8080/cart/",
+      "evidence": "Extracted 172 words (including SPA hydration)",
+      "fix_snippet": "Expand page with self-contained definition blocks, comparison tables, and FAQ sections (>=800 words for Hub pages).",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/coaching/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/my-story/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/course/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/client-success-story/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/booking/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/my-favorite-product/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/chinh-sach-bao-mat/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/dieu-khoan-dich-vu/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/cart/",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "AUD-SEC-01",
+      "category": "11_HTTP_Security_Headers_and_SSL",
+      "severity": "LOW",
+      "title": "Missing HTTP Security Headers (1 headers)",
+      "url": "http://localhost:8080/?s=coaching",
+      "evidence": "Missing: content-security-policy",
+      "fix_snippet": "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload\nX-Content-Type-Options: nosniff\nX-Frame-Options: SAMEORIGIN",
+      "epistemic_label": "[FACT]"
+    },
+    {
+      "rule_id": "JN-AEO-02",
+      "category": "12_AI_Search_GEO_and_LLMs_Readiness",
+      "severity": "LOW",
+      "title": "No FAQPage / question-answer blocks on any page",
+      "url": "http://localhost:8080",
+      "evidence": "0 FAQPage nodes",
+      "fix_snippet": "Add owner-approved FAQ block to /coaching/.",
+      "epistemic_label": "[FACT]"
+    }
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 1,
+    "LOW": 12,
+    "INFO": 0
+  }
+}

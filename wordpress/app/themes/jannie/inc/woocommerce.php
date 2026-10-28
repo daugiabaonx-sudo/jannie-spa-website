@@ -39,6 +39,19 @@ function jannie_enqueue_woocommerce_assets() {
 add_action( 'wp_enqueue_scripts', 'jannie_enqueue_woocommerce_assets', 30 );
 
 /**
+ * Do not render Blocksy's archive hero on the shop page (`/my-favorite-product/`): the page content
+ * already has the designed H1, and the hidden hero H1 made the page carry two H1s (Step 10 audit).
+ * Product category archives keep their hero H1.
+ *
+ * @param mixed $value Theme mod value for `woo_categories_hero_enabled`.
+ * @return mixed
+ */
+function jannie_disable_shop_page_hero( $value ) {
+	return ( did_action( 'wp' ) && function_exists( 'is_shop' ) && is_shop() ) ? 'no' : $value;
+}
+add_filter( 'theme_mod_woo_categories_hero_enabled', 'jannie_disable_shop_page_hero' );
+
+/**
  * Enqueue WooCommerce token stylesheet inside the Block Editor so Cart/Checkout/Product Collection match.
  *
  * @return void

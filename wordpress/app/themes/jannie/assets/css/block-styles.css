@@ -1660,3 +1660,27 @@ ol.jn-booking-steps > li strong {
 	border-radius: var(--jn-radius-lg);
 	padding: var(--jn-space-xl);
 }
+
+/* FAQ pattern (jannie/faq) — core/details, zero JS; feeds FAQPage JSON-LD (Step 10). */
+.jn-faq-item {
+	border-bottom: 1px solid var(--jn-border);
+	padding: var(--jn-space-sm) 0;
+}
+
+.jn-faq-item > summary {
+	cursor: pointer;
+	font-family: var(--jn-font-heading);
+	font-size: 1.25rem;
+	line-height: 1.4;
+	color: var(--jn-ink);
+}
+
+.jn-faq-item > summary:focus-visible {
+	outline: 2px solid var(--jn-champagne-text-sm);
+	outline-offset: 2px;
+}
+
+.jn-faq-item > :not(summary) {
+	margin-top: var(--jn-space-sm);
+	color: var(--jn-on-surface-variant);
+}

@@ -81,6 +81,8 @@ wordpress/app/mu-plugins/*
 !wordpress/app/mu-plugins/jn-hardening/
 !wordpress/app/mu-plugins/jn-hardening/**
 !wordpress/app/mu-plugins/jn-performance.php
+!wordpress/app/mu-plugins/jn-performance/
+!wordpress/app/mu-plugins/jn-performance/**
 
 # 8. Always ignore OS, editor, dependency, secret, cache, and backup artifacts
 **/.DS_Store

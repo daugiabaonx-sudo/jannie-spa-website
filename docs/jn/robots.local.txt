@@ -1,4 +1,4 @@
-# Jannie Nguyen Academy — Local / Staging robots.txt (Noindex / Disallow All)
+# Non-production environment: crawling disabled (production body: docs/jn/robots.production.txt)
 User-agent: *
 Disallow: /
 

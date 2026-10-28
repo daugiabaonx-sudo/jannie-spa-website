@@ -216,7 +216,7 @@
               }
             ],
             "categories:seo": [
-              "error",
+              "warn",
               {
                 "minScore": 1,
                 "aggregationMethod": "median"
@@ -263,7 +263,17 @@
                 "maxNumericValue": 0,
                 "aggregationMethod": "median"
               }
-            ]
+            ],
+            "is-crawlable": "off",
+            "document-title": "error",
+            "meta-description": "error",
+            "http-status-code": "error",
+            "link-text": "error",
+            "crawlable-anchors": "error",
+            "robots-txt": "error",
+            "image-alt": "error",
+            "hreflang": "error",
+            "canonical": "error"
           }
         }
       ]

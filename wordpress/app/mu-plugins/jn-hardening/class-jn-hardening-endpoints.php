@@ -10,7 +10,7 @@
  * - Disables WordPress core sitemaps (`/wp-sitemap.xml` -> 404).
  * - Disables RSS/Atom/RDF feeds (`ADR-010`) with HTTP 404.
  * - Renders the designed 404 template directly (no 302 redirect) when a logged-out visitor requests `/wp-admin/`.
- * - Outputs a clean `robots.txt` without exposing `/wp-admin/`, `admin-ajax.php`, or `wp-sitemap.xml`.
+ * - robots.txt moved to JN_SEO_Robots in jn-performance (Step 10); it still exposes no WordPress paths.
  *
  * @package JannieNguyen\MU
  */
@@ -73,8 +73,7 @@ class JN_Hardening_Endpoints {
 			add_action( $feed_action, array( __CLASS__, 'render_404_and_exit' ), 1 );
 		}
 
-		// 9. Clean virtual robots.txt output.
-		add_filter( 'robots_txt', array( __CLASS__, 'filter_robots_txt' ), 999, 2 );
+		// 9. robots.txt is owned by JN_SEO_Robots (jn-performance/class-jn-seo-robots.php, Step 10).
 
 		// 10. Direct HTTP 404 for logged-out /wp-admin/ requests (no 302 redirect).
 		add_action( 'wps_hide_login_before_redirect', array( __CLASS__, 'intercept_logged_out_admin_404' ), 10, 1 );
@@ -237,33 +236,6 @@ class JN_Hardening_Endpoints {
 			status_header( 404 );
 			nocache_headers();
 		}
-	}
-
-	/**
-	 * Output a clean virtual `robots.txt` without exposing `/wp-admin/`, `admin-ajax.php`, or `wp-sitemap.xml`.
-	 *
-	 * @param string $outputThe robots.txt output.
-	 * @param bool   $public Whether the site is considered "public".
-	 * @return string
-	 */
-	public static function filter_robots_txt( string $output, $public ): string {
-		unset( $output );
-
-		if ( '0' === (string) $public ) {
-			return "User-agent: *\nDisallow: /\n";
-		}
-
-		$lines = array(
-			'User-agent: *',
-			'Allow: /',
-			'Disallow: /cart/',
-			'Disallow: /checkout/',
-			'Disallow: /tai-khoan/',
-			'',
-			'Sitemap: ' . home_url( '/sitemap.xml' ),
-		);
-
-		return implode( "\n", $lines ) . "\n";
 	}
 
 	/**

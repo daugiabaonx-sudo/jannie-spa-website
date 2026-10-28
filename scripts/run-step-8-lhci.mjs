@@ -20,7 +20,9 @@ const LIGHTHOUSE_BIN = '/Users/daugiabao/.npm/_npx/0f94ee7615faf582/node_modules
 const BASE_URL = 'http://localhost:8080';
 const ROOT_DIR = process.cwd();
 const LHCI_CONFIG_PATH = path.join(ROOT_DIR, 'lighthouserc.json');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'docs/jn/lighthouse/2026-10-28');
+// `--out=<dir>` keeps earlier step reports intact (Step 10 writes to docs/jn/lighthouse/step-10/).
+const OUT_ARG = process.argv.find((a) => a.startsWith('--out='));
+const OUTPUT_DIR = path.join(ROOT_DIR, OUT_ARG ? OUT_ARG.slice('--out='.length) : 'docs/jn/lighthouse/2026-10-28');
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -202,9 +204,15 @@ function parseReportMetrics(reportPath, isContentPage) {
 
   const maxImageBytes = images.reduce((max, x) => Math.max(max, x.transferSize || 0), 0);
 
+  // SEO audits that count towards the score and did not pass (Step 10: utility-page exception).
+  const seoFailedAudits = (cats.seo?.auditRefs || [])
+    .filter((ref) => ref.weight > 0 && audits[ref.id] && audits[ref.id].score !== null && audits[ref.id].score < 1)
+    .map((ref) => ref.id);
+
   return {
     url: r.requestedUrl || r.finalDisplayedUrl,
     finalDisplayedUrl: r.finalDisplayedUrl,
+    seoFailedAudits,
     scores: {
       performance: Math.round((cats.performance?.score || 0) * 100),
       accessibility: Math.round((cats.accessibility?.score || 0) * 100),
@@ -260,7 +268,15 @@ function evaluateBudget(entry, preset) {
   if (entry.scores.bestPractices < 100) {
     failures.push(`Best Practices ${entry.scores.bestPractices} < 100`);
   }
-  if (entry.scores.seo < 100) {
+  // Step 10 / ADR-013: cart, checkout and account pages are intentionally `noindex` (and disallowed in
+  // robots.txt), so Lighthouse `is-crawlable` fails there by design. Every other SEO audit must pass.
+  const isUtility = /^\/(?:cart\/|checkout\/|tai-khoan\/)$/.test(pathname);
+  if (isUtility) {
+    const unexpected = (entry.seoFailedAudits || []).filter((id) => id !== 'is-crawlable');
+    if (unexpected.length > 0) {
+      failures.push(`SEO audits failing: ${unexpected.join(', ')}`);
+    }
+  } else if (entry.scores.seo < 100) {
     failures.push(`SEO ${entry.scores.seo} < 100`);
   }
   if (entry.metrics.fcpMs > 1500) {
@@ -382,6 +398,7 @@ async function main() {
                 cls: Number(median(existingEntries.map((x) => x.metrics.cls)).toFixed(4)),
               },
               resources: existingEntries[1].resources,
+              seoFailedAudits: existingEntries[1].seoFailedAudits,
             };
             if (evaluateBudget(probeAgg, preset).pass) {
               runEntries.push(...existingEntries);
@@ -446,6 +463,7 @@ async function main() {
             ttfbMs: Math.round(median(runEntries.map((x) => x.metrics.ttfbMs))),
           },
           resources: medianRun.resources,
+          seoFailedAudits: medianRun.seoFailedAudits,
           reportPath: path.relative(ROOT_DIR, canonicalPath),
         };
 

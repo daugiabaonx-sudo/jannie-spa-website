@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JANNIE_VERSION', '1.0.0' );
+define( 'JANNIE_VERSION', '1.1.0' );
 define( 'JANNIE_PATH', get_stylesheet_directory() );
 define( 'JANNIE_URI', get_stylesheet_directory_uri() );
 

@@ -329,3 +329,48 @@ Trong bước **JN Step 8 — PageSpeed optimisation to budget**, dự án cần
 
 
 
+
+
+## ADR-012: Hợp Nhất SEO Thành Module `jn-performance/class-jn-seo-*.php` & Một Đồ Thị JSON-LD Duy Nhất (Step 10)
+
+- **Ngày quyết định:** 2026-10-28 (Step 10 — Kiểm toán & tối ưu SEO/AEO)
+- **Trạng thái:** Đã chấp thuận (kế hoạch Step 10 được duyệt) & Đã triển khai
+
+### 1. Bối cảnh
+Kiểm toán bằng skill `sunext-semrush-ahrefs-os` (báo cáo `docs/jn/seo-aeo/SEO_AEO_Audit_2026-10-28/`) phát hiện:
+- Schema xuất số điện thoại `+84908789866` không có nguồn (Context Card: phone = UNKNOWN) — vi phạm quy tắc "không bịa dữ liệu".
+- The SEO Framework 5.2.0 vẫn in đồ thị JSON-LD riêng vì filter `the_seo_framework_ld_json_scripts` **không tồn tại** ở bản 5.x → mỗi trang có 2 đồ thị rời nhau (2 node `WebPage` khác `@id`, `WebSite` tên "JANNIE NGUYEN / BEAUTY BLOG").
+- Một số filter TSF khác cũng không tồn tại (`the_seo_framework_rel_canonical_output`, `the_seo_framework_sitemap_style_enabled`) → code chết.
+- Khối SEO nằm chung trong `jn-performance.php` (1.553 dòng, vượt giới hạn 800 dòng).
+
+### 2. Quyết định
+1. Tách SEO thành 6 lớp trong `wordpress/app/mu-plugins/jn-performance/` (nạp từ `jn-performance.php`, mirror cấu trúc `jn-hardening/`): `Brand`, `Meta`, `Robots`, `Sitemap`, `Schema`, `Llms`. Không thêm MU-plugin mới.
+2. Tắt đồ thị TSF qua filter có thật `the_seo_framework_schema_graph_data` → `[]`; xuất **một** `@graph`: `WebSite` → `WebPage`/`ProfilePage`/`CollectionPage` (+`isPartOf`, `breadcrumb`) → `BreadcrumbList`, `Organization` ↔ `Person`, `Service` ×3 (home/coaching/booking), `FAQPage` khi có khối FAQ đã xuất bản.
+3. `Organization` thay cho `Organization + ProfessionalService`: `ProfessionalService` là `LocalBusiness`, cần địa chỉ đầy đủ + điện thoại (UNK-04). Khôi phục khi chủ dự án cung cấp.
+4. Dữ liệu NAP chưa có lấy từ option do chủ dự án đặt: `jn_brand_telephone`, `jn_brand_same_as` (JSON array). Bỏ `priceRange`; `Offer` chỉ xuất khi gói có giá thật.
+5. Tắt branding tiêu đề tự động của TSF (`the_seo_framework_use_title_branding`) vì mọi title đã chứa "Jannie Nguyễn" (trước đó thành "… | Jannie Nguyễn - JANNIE NGUYEN", 64–74 ký tự).
+6. FAQ: pattern `jannie/faq` (`core/details` + class `jn-faq-item`, không JS). Mục còn chứa `[NHÁP]` bị loại khỏi JSON-LD.
+
+### 3. Hệ quả
+- 77/77 kiểm thử `scripts/test-step-10-seo.php`; `test-step-8-performance.php` cập nhật assertion schema (Organization, không telephone).
+- Ghi chú: Google chỉ hiển thị rich result FAQ cho site chính phủ/y tế (từ 2023); `FAQPage` vẫn giữ để máy trả lời AI và parser hiểu cấu trúc hỏi–đáp.
+
+## ADR-013: Chính Sách Robots — `noindex` Cho Trang Tiện Ích, robots.txt Một Nguồn, Cho Phép Bot AI (Step 10)
+
+- **Ngày quyết định:** 2026-10-28 (Step 10)
+- **Trạng thái:** Đã triển khai — các lựa chọn Q2/Q3 là **giả định mặc định**, chủ dự án có thể đảo ngược
+
+### 1. Bối cảnh
+Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài khoản, gỡ luôn `wc_page_no_robots`) để Lighthouse `is-crawlable` đạt SEO = 100. Trên production điều đó cho phép Google index trang giỏ hàng. robots.txt production trong code lệch với `docs/jn/robots.production.txt`; filter `robots_txt` của `jn-hardening` là code chết.
+
+### 2. Quyết định
+1. `noindex, follow` cho `/cart/`, `/checkout/` (gồm `order-pay`), `/tai-khoan/` và trang tìm kiếm; trang nội dung `index, follow, max-snippet:-1, max-image-preview:large`.
+2. **Ngoại lệ Lighthouse có văn bản (§5 "documented WooCommerce-core exception"):** trên 3 trang tiện ích, audit `is-crawlable` được phép fail; mọi audit SEO khác phải đạt (`scripts/run-step-8-lhci.mjs`, `lighthouserc.json`).
+3. Một builder `JN_SEO_Robots::build_robots_txt()` phục vụ cả route `/robots.txt` lẫn filter `robots_txt`. Lighthouse/PSI trên môi trường `local` nhận **đúng** nội dung production; khách thường ở local nhận `Disallow: /`.
+   - **Không** `Disallow` các trang `noindex` (`/cart/`, `/checkout/`, `/tai-khoan/`, tìm kiếm): nếu chặn crawl, bot không đọc được `noindex` và URL vẫn có thể bị index dạng "bị chặn bởi robots.txt". Chỉ chặn `/api/`, `?add-to-cart=`, `?jn_bf=`.
+   - **Không** liệt kê slug đăng nhập ẩn (`/phong-lam-viec-7429/`) trong robots.txt (file công khai — liệt kê sẽ làm lộ URL đăng nhập, trái §6); trang đăng nhập đã có `noindex` của core.
+   - Tôn trọng "Ngăn công cụ tìm kiếm" (`blog_public = 0`) trên staging / production trước go-live: robots meta giữ `noindex` của core và robots.txt trả `Disallow: /`. Chỉ môi trường `local` mô phỏng chính sách production để đo Lighthouse.
+   - Trang không thuộc danh sách index của dự án (trang riêng tư/có mật khẩu, archive, trang chủ dự án tự đặt `noindex` trong TSF…) giữ nguyên quyết định của The SEO Framework.
+4. **Q2 (giả định):** cho phép bot tìm kiếm & trả lời AI (`OAI-SearchBot`, `ChatGPT-User`, `GPTBot`, `PerplexityBot`, `ClaudeBot`, `Claude-SearchBot`, `Google-Extended`, `Applebot-Extended`…) — liệt kê chung nhóm `User-agent: *` (RFC 9309) để thừa hưởng cùng luật Disallow. Muốn chặn bot huấn luyện: bỏ tên khỏi `JN_SEO_Robots::AI_AGENTS` và thêm nhóm `Disallow: /` riêng.
+5. **Q3 (giả định):** giữ `index` cho 2 trang pháp lý (tín hiệu tin cậy E-E-A-T) và giữ trong sitemap.
+6. Phục vụ `/llms.txt` sinh từ cùng nguồn dữ liệu (brand facts + meta map + 3 gói).

@@ -162,8 +162,9 @@ jn_assert(
 	false === strpos( $robots_txt, 'wp-admin' )
 	&& false === strpos( $robots_txt, 'admin-ajax.php' )
 	&& false === strpos( $robots_txt, 'wp-sitemap.xml' )
-	&& str_contains( $robots_txt, 'Disallow: /tai-khoan/' ),
-	'robots.txt exposes zero WordPress paths and disallows /cart/, /checkout/, /tai-khoan/'
+	&& false === strpos( $robots_txt, 'phong-lam-viec' )
+	&& str_contains( $robots_txt, 'Sitemap: ' ),
+	'robots.txt exposes zero WordPress paths and never reveals the hidden login slug (cart/checkout/account use noindex, ADR-013)'
 );
 
 // -----------------------------------------------------------------------------

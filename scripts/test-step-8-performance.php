@@ -286,12 +286,13 @@ jn_step8_assert(
 	'/coaching/ has Vietnamese wireframe meta description, canonical URL, and Open Graph image'
 );
 jn_step8_assert(
-	str_contains( $coaching_html, '"ProfessionalService"' )
+	str_contains( $coaching_html, '"@type":"Organization"' )
+	&& false === strpos( $coaching_html, '"telephone"' )
 	&& str_contains( $coaching_html, '"Jannie Nguyễn"' )
 	&& str_contains( $coaching_html, '"Master Mentorship (Đồng Hành 3 Tháng)"' )
 	&& false === stripos( $coaching_html, 'AggregateRating' )
 	&& false === stripos( $coaching_html, '"@type":"Review"' ),
-	'JSON-LD Schema includes Organization/ProfessionalService + Person (Jannie Nguyễn) + Service/Offer without fabricated prices or Review/AggregateRating'
+	'JSON-LD Schema includes Organization (ProfessionalService deferred until UNK-04, ADR-012) + Person (Jannie Nguyễn) + Service without fabricated phone/prices or Review/AggregateRating'
 );
 
 $sitemap_res  = jn_step8_http_get( '/sitemap.xml' );
