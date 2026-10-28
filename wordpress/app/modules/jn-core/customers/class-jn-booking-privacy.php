@@ -389,7 +389,7 @@ class JN_Booking_Privacy {
 		$booking_ids = get_posts(
 			array(
 				'post_type'      => JN_Booking_CPT::POST_TYPE,
-				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
+				'post_status'    => self::get_personal_data_statuses(),
 				'posts_per_page' => -1,
 				'fields'         => 'ids',
 				'meta_key'       => '_jn_customer_email', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
@@ -402,6 +402,16 @@ class JN_Booking_Privacy {
 
 		$phones = array_map( array( 'JN_Customer_Service', 'normalize_vn_phone' ), $raw );
 		return array_values( array_unique( array_filter( $phones ) ) );
+	}
+
+	/**
+	 * Booking statuses that may hold personal data: every booking status plus the trash
+	 * (a trashed booking keeps its meta until it is permanently deleted).
+	 *
+	 * @return string[]
+	 */
+	private static function get_personal_data_statuses(): array {
+		return array_merge( array_keys( JN_Booking_CPT::get_statuses() ), array( 'trash' ) );
 	}
 
 	/**
@@ -437,7 +447,7 @@ class JN_Booking_Privacy {
 		$posts = get_posts(
 			array(
 				'post_type'      => JN_Booking_CPT::POST_TYPE,
-				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
+				'post_status'    => self::get_personal_data_statuses(),
 				'posts_per_page' => 50,
 				'paged'          => max( 1, $page ),
 				'orderby'        => 'ID',
@@ -560,16 +570,26 @@ class JN_Booking_Privacy {
 	 * @return array<string, mixed>
 	 */
 	public static function erase_personal_data( string $email_address, int $page = 1 ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		$anon_email = function_exists( 'wp_privacy_anonymize_data' )
+			? wp_privacy_anonymize_data( 'email', $email_address )
+			: 'deleted@site.invalid';
+
+		// Erasing the anonymization placeholder itself would re-match the same rows forever.
+		if ( strtolower( sanitize_email( $email_address ) ) === strtolower( $anon_email ) ) {
+			return array(
+				'items_removed'  => false,
+				'items_retained' => false,
+				'messages'       => array(),
+				'done'           => true,
+			);
+		}
+
 		// Always query page 1: each pass anonymizes `_jn_customer_email`, so the matching set shrinks and an
 		// offset based on `$page` would skip records. Core keeps calling until `done` is true.
 		$booking_ids    = self::get_booking_ids_for_email( $email_address, 1 );
 		$items_removed  = false;
 		$items_retained = false;
 		$messages       = array();
-
-		$anon_email = function_exists( 'wp_privacy_anonymize_data' )
-			? wp_privacy_anonymize_data( 'email', $email_address )
-			: 'deleted@site.invalid';
 
 		foreach ( $booking_ids as $booking_id ) {
 			self::anonymize_booking_post( $booking_id, $anon_email, 'Đã ẩn danh hóa dữ liệu cá nhân theo yêu cầu xóa dữ liệu.' );

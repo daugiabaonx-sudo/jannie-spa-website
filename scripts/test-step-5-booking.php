@@ -339,7 +339,9 @@ jn_assert(
 );
 // Completing the emailed set-password link proves email ownership (Step 11 / review H4).
 if ( ! is_wp_error( $new_cust_id ) ) {
+	$_POST['rp_key'] = 'jn-test-emailed-key'; // The reset is redeemed with the emailed key.
 	do_action( 'after_password_reset', get_userdata( (int) $new_cust_id ), wp_generate_password( 16, true ) );
+	unset( $_POST['rp_key'] );
 }
 jn_assert(
 	! is_wp_error( $new_cust_id ) && (int) $new_cust_id === (int) get_post_meta( $booking_1_id, '_jn_customer_user_id', true ),

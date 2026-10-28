@@ -424,7 +424,9 @@ jn_s6_assert(
 );
 
 // Completing the emailed set-password link verifies the email and triggers linking.
+$_POST['rp_key'] = 'jn-test-emailed-key'; // The reset is redeemed with the emailed key.
 do_action( 'after_password_reset', get_userdata( (int) $registered_uid ), wp_generate_password( 16, true ) );
+unset( $_POST['rp_key'] );
 
 $reloaded_order  = wc_get_order( $guest_order_id );
 $merged_profile  = JN_Customer_Profile::get_user_profile( (int) $registered_uid );

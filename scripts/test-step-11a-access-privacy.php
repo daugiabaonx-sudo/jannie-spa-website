@@ -60,6 +60,15 @@ if ( is_array( $jn_staff_booking ) ) {
 }
 jn_t_assert( is_wp_error( $jn_staff_booking ) && 'invalid_customer' === $jn_staff_booking->get_error_code(), 'create_staff_booking() rejects a staff/admin user_id' );
 
+update_user_meta( $jn_admin_id, 'first_name', 'Quản Trị' );
+JN_Customer_Service::sync_user_contact_meta( $jn_admin_id, 'Tên Bị Ghi Đè', jn_t_email( 'admin' ), '+84909999999' );
+update_user_meta( $jn_admin_id, '_jn_full_name', 'Tên Bị Ghi Đè' );
+JN_Customer_Profile::sync_user_to_wc_customer( $jn_admin_id );
+clean_user_cache( $jn_admin_id );
+jn_t_assert( '' === get_user_meta( $jn_admin_id, '_jn_phone_e164', true ), 'sync_user_contact_meta() never writes to a staff/admin account (e.g. order assigned to an admin)' );
+jn_t_assert( 'Quản Trị' === get_user_meta( $jn_admin_id, 'first_name', true ), 'sync_user_to_wc_customer() never rewrites a staff/admin name' );
+delete_user_meta( $jn_admin_id, '_jn_full_name' );
+
 // -----------------------------------------------------------------------------
 // M12 — changing a customer's email to one owned by another account is an error
 // -----------------------------------------------------------------------------
@@ -102,6 +111,27 @@ $jn_uid = JN_Customer_Service::upsert_customer_for_booking(
 );
 jn_t_assert( 0 === $jn_uid, 'A phone-only match never links an anonymous submission to an account' );
 
+$jn_verified_email = jn_t_email( 'verified' );
+$jn_verified_id    = jn_t_create_user( 'customer', $jn_verified_email, array( JN_Customer_Service::META_EMAIL_VERIFIED => $jn_verified_email ) );
+$jn_uid            = JN_Customer_Service::upsert_customer_for_booking(
+	array(
+		'name'  => 'Kẻ Giả Mạo',
+		'email' => $jn_verified_email,
+		'phone' => '0906666666',
+	)
+);
+jn_t_assert( $jn_verified_id === $jn_uid, 'An anonymous submission with a verified account email is attached to that account' );
+$jn_anon_booking = jn_t_create_booking(
+	array(
+		'_jn_customer_user_id' => $jn_verified_id,
+		'_jn_customer_email'   => $jn_verified_email,
+		'_jn_customer_phone'   => '+84906666666',
+		'_jn_customer_name'    => 'Kẻ Giả Mạo',
+	)
+);
+do_action( 'jn_booking_created', $jn_anon_booking );
+jn_t_assert( '' === get_user_meta( $jn_verified_id, '_jn_phone_e164', true ) && '' === get_user_meta( $jn_verified_id, '_jn_full_name', true ), 'An anonymous booking never fills the account\'s empty name/phone fields' );
+
 // -----------------------------------------------------------------------------
 // H4 — guest data links only after the account email is verified
 // -----------------------------------------------------------------------------
@@ -135,7 +165,13 @@ do_action( 'wp_login', $jn_claimant->user_login, $jn_claimant );
 jn_t_assert( 0 === (int) get_post_meta( $jn_victim_booking, '_jn_customer_user_id', true ), 'Registration + login with an unverified email does not attach guest bookings' );
 jn_t_assert( ! JN_Customer_Service::is_email_verified( $jn_claimant_id ), 'A freshly registered account is not email-verified' );
 
+// A reset without an emailed key (e.g. Two-Factor's compromised-password reset) proves nothing.
 do_action( 'after_password_reset', $jn_claimant, 'irrelevant' );
+jn_t_assert( ! JN_Customer_Service::is_email_verified( $jn_claimant_id ), 'A password reset without an emailed reset key does not verify the email' );
+
+$_POST['rp_key'] = 'jn11-emailed-key';
+do_action( 'after_password_reset', $jn_claimant, 'irrelevant' );
+unset( $_POST['rp_key'] );
 jn_t_assert( JN_Customer_Service::is_email_verified( $jn_claimant_id ), 'Completing a password (re)set from the emailed link verifies the email' );
 jn_t_assert( $jn_claimant_id === (int) get_post_meta( $jn_victim_booking, '_jn_customer_user_id', true ), 'Guest bookings with the verified email are attached after verification' );
 jn_t_assert( 0 === (int) get_post_meta( $jn_victim_phone_only, '_jn_customer_user_id', true ), 'Bookings that only share an (unverified) phone are never attached' );
@@ -261,6 +297,20 @@ foreach ( $jn_erase_ids as $jn_bid ) {
 	}
 }
 jn_t_assert( 0 === $jn_leaks, 'Staff notes, location, referrer/landing URL and timeline notes are redacted', $jn_leaks . ' bookings leak' );
+
+$jn_trashed = jn_t_create_booking(
+	array(
+		'_jn_customer_email' => $jn_erase_email,
+		'_jn_customer_phone' => '+84907777777',
+		'_jn_customer_name'  => 'Người Cần Xóa',
+	),
+	'trash'
+);
+JN_Booking_Privacy::erase_personal_data( $jn_erase_email, 1 );
+jn_t_assert( $jn_erase_email !== get_post_meta( $jn_trashed, '_jn_customer_email', true ), 'Trashed bookings are anonymized too' );
+
+$jn_sentinel = JN_Booking_Privacy::erase_personal_data( 'deleted@site.invalid', 1 );
+jn_t_assert( ! empty( $jn_sentinel['done'] ) && empty( $jn_sentinel['items_removed'] ), 'Erasing the anonymization sentinel address terminates immediately (no endless eraser loop)' );
 
 jn_t_section( 'H5 — CRM eraser clears WP/Woo name fields and phone-keyed duplicate log' );
 $jn_crm_email = jn_t_email( 'crm-erase' );

@@ -352,11 +352,6 @@ class JN_Customer_Profile {
 			}
 		}
 
-		if ( '' !== $raw_phone ) {
-			update_user_meta( $user_id, '_jn_phone_e164', $norm_phone );
-			update_user_meta( $user_id, '_jn_phone_raw', $raw_phone );
-		}
-
 		if ( $clean_email !== strtolower( $user->user_email ) ) {
 			$updated = wp_update_user(
 				array(
@@ -367,6 +362,11 @@ class JN_Customer_Profile {
 			if ( is_wp_error( $updated ) ) {
 				return $updated;
 			}
+		}
+
+		if ( '' !== $raw_phone ) {
+			update_user_meta( $user_id, '_jn_phone_e164', $norm_phone );
+			update_user_meta( $user_id, '_jn_phone_raw', $raw_phone );
 		}
 
 		$full_name = isset( $data['full_name'] )
@@ -445,7 +445,8 @@ class JN_Customer_Profile {
 	 * @return void
 	 */
 	public static function sync_user_to_wc_customer( int $user_id ): void {
-		if ( $user_id <= 0 || self::$is_syncing ) {
+		// CRM fields mirror into WooCommerce for customers only; staff/admin names are never rewritten.
+		if ( $user_id <= 0 || self::$is_syncing || JN_Booking_Roles::is_staff_user( $user_id ) ) {
 			return;
 		}
 
@@ -1106,7 +1107,12 @@ class JN_Customer_Profile {
 			? 'user:' . $user_id
 			: 'guest:' . ( '' !== $email ? $email : $phone );
 
-		if ( $user_id > 0 ) {
+		// Only the account owner (or staff entering a phone/walk-in booking) may fill account fields;
+		// an anonymous submission attached to a verified email must not plant data in that account.
+		$may_fill_account = $user_id > 0
+			&& ( get_current_user_id() === $user_id || JN_Booking_Roles::user_can_manage_customers() );
+
+		if ( $may_fill_account ) {
 			if ( '' === (string) get_user_meta( $user_id, '_jn_full_name', true ) && '' !== $name ) {
 				update_user_meta( $user_id, '_jn_full_name', $name );
 			}
@@ -1124,7 +1130,7 @@ class JN_Customer_Profile {
 				update_user_meta( $user_id, '_jn_source_detail', $source_detail );
 			}
 			self::sync_user_to_wc_customer( $user_id );
-		} else {
+		} elseif ( 0 === $user_id ) {
 			$gprofile = self::get_guest_profile_data( $customer_key );
 			$updates  = array(
 				'full_name' => '' !== $gprofile['full_name'] ? $gprofile['full_name'] : $name,

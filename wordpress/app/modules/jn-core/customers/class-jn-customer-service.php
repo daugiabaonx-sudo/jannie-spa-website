@@ -89,6 +89,12 @@ class JN_Customer_Service {
 		if ( ! $user instanceof \WP_User || '' === (string) $user->user_email ) {
 			return;
 		}
+		// Only resets redeemed with the emailed key prove ownership (`rp_key` = core form, `reset_key` = WooCommerce).
+		// Other reset_password() callers, e.g. Two-Factor's compromised-password reset, carry no key.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- the reset key itself was validated by core/WC before this action.
+		if ( empty( $_POST['rp_key'] ) && empty( $_POST['reset_key'] ) ) {
+			return;
+		}
 		update_user_meta( (int) $user->ID, self::META_EMAIL_VERIFIED, strtolower( (string) $user->user_email ) );
 		self::link_guest_bookings_to_user( (int) $user->ID );
 	}
@@ -414,7 +420,8 @@ class JN_Customer_Service {
 	 * @return void
 	 */
 	public static function sync_user_contact_meta( int $user_id, string $name, string $email, string $normalized_phone ): void {
-		if ( $user_id <= 0 ) {
+		// Customer contact data never flows into staff/admin accounts (e.g. an order assigned to an admin).
+		if ( $user_id <= 0 || JN_Booking_Roles::is_staff_user( $user_id ) ) {
 			return;
 		}
 
