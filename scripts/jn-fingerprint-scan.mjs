@@ -29,7 +29,7 @@ $existing = get_posts( array(
 	'posts_per_page' => 1,
 	'meta_query'     => array(
 		array(
-			'key'     => '_jn_coaching_package',
+			'key'     => '_jn_package_key',
 			'compare' => 'NOT EXISTS',
 		),
 	),

@@ -26,6 +26,11 @@ class JN_CSV_Exporter {
 	const UTF8_BOM = "\xEF\xBB\xBF";
 
 	/**
+	 * Bookings fetched per query while streaming an export (keeps memory flat, never truncates).
+	 */
+	const EXPORT_BATCH_SIZE = 200;
+
+	/**
 	 * Register hooks.
 	 *
 	 * @return void
@@ -344,7 +349,6 @@ class JN_CSV_Exporter {
 		$query_args = array(
 			'post_type'      => JN_Booking_CPT::POST_TYPE,
 			'post_status'    => $post_statuses,
-			'posts_per_page' => 500,
 			'orderby'        => 'ID',
 			'order'          => 'DESC',
 		);
@@ -355,10 +359,9 @@ class JN_CSV_Exporter {
 			$query_args['date_query'] = $date_query;
 		}
 
-		$posts  = get_posts( $query_args );
 		$search = isset( $filters['search'] ) ? trim( sanitize_text_field( (string) $filters['search'] ) ) : '';
 
-		foreach ( $posts as $post ) {
+		foreach ( self::iterate_posts( $query_args ) as $post ) {
 			if ( ! $post instanceof \WP_Post ) {
 				continue;
 			}
@@ -403,6 +406,32 @@ class JN_CSV_Exporter {
 
 			fputcsv( $stream, $row );
 		}
+	}
+
+	/**
+	 * Yield every post matching a query, fetched in EXPORT_BATCH_SIZE pages (no silent row cap).
+	 *
+	 * @param array<string, mixed> $query_args get_posts() arguments (without paging).
+	 * @return \Generator<int, \WP_Post>
+	 */
+	private static function iterate_posts( array $query_args ): \Generator {
+		$page = 1;
+		do {
+			$batch = get_posts(
+				array_merge(
+					$query_args,
+					array(
+						'posts_per_page' => self::EXPORT_BATCH_SIZE,
+						'paged'          => $page,
+						'no_found_rows'  => true,
+					)
+				)
+			);
+			foreach ( $batch as $post ) {
+				yield $post;
+			}
+			++$page;
+		} while ( count( $batch ) === self::EXPORT_BATCH_SIZE );
 	}
 
 	/**

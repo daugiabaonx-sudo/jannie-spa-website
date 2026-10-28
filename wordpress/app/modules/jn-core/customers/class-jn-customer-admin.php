@@ -107,18 +107,21 @@ class JN_Customer_Admin {
 		$has_pending = isset( $_GET['has_pending_booking'] ) && '1' === (string) wp_unslash( $_GET['has_pending_booking'] );
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
-		$all_customers = JN_Customer_Service::query_customers( array() );
+		// Build the unified customer map once per page load and reuse it for the counts, list and tags.
+		$customer_map  = JN_Customer_Service::get_customer_map();
+		$all_customers = JN_Customer_Service::query_customers( array(), $customer_map );
 		$customers     = JN_Customer_Service::query_customers(
 			array(
 				'search'              => $search,
 				'type'                => $filter_type,
 				'tag'                 => $filter_tag,
 				'has_pending_booking' => $has_pending ? '1' : '',
-			)
+			),
+			$customer_map
 		);
 
 		$types         = JN_Customer_Profile::get_customer_types();
-		$distinct_tags = JN_Customer_Service::get_all_distinct_tags();
+		$distinct_tags = JN_Customer_Service::get_all_distinct_tags( $customer_map );
 
 		$total_count   = count( $all_customers );
 		$account_count = 0;
@@ -923,6 +926,12 @@ class JN_Customer_Admin {
 
 		if ( is_wp_error( $res ) ) {
 			set_transient( 'jn_crm_admin_err_' . $uid, $res->get_error_message(), 60 );
+		} elseif ( ! empty( $res['warning'] ) ) {
+			set_transient(
+				'jn_crm_admin_err_' . $uid,
+				sprintf( 'Đã tạo lịch hẹn %s nhưng CHƯA xác nhận được: %s Vui lòng mở lịch hẹn để xác nhận (không tạo lại).', $res['booking_code'], $res['warning'] ),
+				60
+			);
 		} else {
 			set_transient(
 				'jn_crm_admin_ok_' . $uid,

@@ -32,9 +32,10 @@ function jn_has_published_catalog_products() {
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
+			// Coaching packages (order-pay only) carry `_jn_package_key`; they are not catalog products.
 			'meta_query'             => array(
 				array(
-					'key'     => '_jn_coaching_package',
+					'key'     => '_jn_package_key',
 					'compare' => 'NOT EXISTS',
 				),
 			),
@@ -661,8 +662,11 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 	$hero_id   = isset( $media_map['hero_portrait']['id'] ) ? (int) $media_map['hero_portrait']['id'] : 86;
 	$expert_id = isset( $media_map['expert_consultation']['id'] ) ? (int) $media_map['expert_consultation']['id'] : 87;
 
+	// Exact class match: `wp-image-86` must not match `wp-image-860`.
+	$has_image_class = static fn( int $id ): bool => 1 === preg_match( '/\bwp-image-' . $id . '\b/', $filtered_image );
+
 	// 1. Hero 4:5 portrait (above the fold LCP image): eager + fetchpriority="high" + exact responsive sizes & srcset.
-	if ( $attachment_id === $hero_id || false !== strpos( $filtered_image, 'wp-image-' . $hero_id ) ) {
+	if ( $attachment_id === $hero_id || $has_image_class( $hero_id ) ) {
 		$hero_sizes     = '(max-width: 767px) 228px, (max-width: 1023px) 340px, 384px';
 		$hero_srcset    = wp_get_attachment_image_srcset( $hero_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
@@ -687,7 +691,7 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 	}
 
 	// 2. Expert 3:4 portrait (below the fold in Section 4): always lazy-loaded, never fetchpriority="high".
-	if ( $attachment_id === $expert_id || false !== strpos( $filtered_image, 'wp-image-' . $expert_id ) ) {
+	if ( $attachment_id === $expert_id || $has_image_class( $expert_id ) ) {
 		$expert_sizes   = '(max-width: 767px) 240px, (max-width: 1023px) 360px, 420px';
 		$expert_srcset  = wp_get_attachment_image_srcset( $expert_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
@@ -976,8 +980,24 @@ function jn_maintain_database_hygiene() {
 			OR option_name LIKE 'woocommerce\\_admin\\_%'
 			OR option_name LIKE 'woocommerce\\_marketplace\\_%'
 			OR option_name LIKE 'wc\\_remote\\_%'
-			OR option_name IN ('cron', 'rewrite_rules', 'wp_user_roles', 'autodescription-site-settings')
+			OR option_name IN ('rewrite_rules', 'autodescription-site-settings')
 		)"
 	);
+	// `cron` is deliberately absent: core re-saves it with autoload on every cron run, so flipping it here
+	// only caused an endless on/off cycle. `{prefix}user_roles` is read on every request and stays autoloaded.
 }
-add_action( 'init', 'jn_maintain_database_hygiene', 20 );
+add_action( 'jn_daily_db_hygiene', 'jn_maintain_database_hygiene' );
+
+/**
+ * Schedule the database hygiene once a day (system cron runs due events; DISABLE_WP_CRON is set).
+ *
+ * It used to run on every `init`, adding an unindexed SELECT and a wide UPDATE to every request.
+ *
+ * @return void
+ */
+function jn_schedule_database_hygiene() {
+	if ( ! wp_next_scheduled( 'jn_daily_db_hygiene' ) ) {
+		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'jn_daily_db_hygiene' );
+	}
+}
+add_action( 'init', 'jn_schedule_database_hygiene', 30 );

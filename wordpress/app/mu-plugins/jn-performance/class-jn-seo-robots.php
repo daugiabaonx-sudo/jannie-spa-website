@@ -82,6 +82,10 @@ class JN_SEO_Robots {
 		if ( is_search() ) {
 			return true;
 		}
+		// Products left out of the sitemap (coaching packages, catalog-hidden, TSF noindex) are noindex too.
+		if ( is_singular( 'product' ) && ! JN_SEO_Sitemap::is_product_indexable( get_queried_object_id() ) ) {
+			return true;
+		}
 		$is_wc_utility = ( function_exists( 'is_cart' ) && is_cart() )
 			|| ( function_exists( 'is_checkout' ) && is_checkout() )
 			|| ( function_exists( 'is_account_page' ) && is_account_page() );
@@ -101,7 +105,7 @@ class JN_SEO_Robots {
 			return false;
 		}
 		if ( is_singular( 'product' ) ) {
-			return 'publish' === get_post_status( get_queried_object_id() );
+			return JN_SEO_Sitemap::is_product_indexable( get_queried_object_id() );
 		}
 		$queried = get_queried_object();
 		return is_page()

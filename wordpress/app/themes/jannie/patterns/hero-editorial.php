@@ -95,7 +95,7 @@ $jn_hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-placeholder-
 				<!-- wp:group {"className":"jn-hero-media-card"} -->
 				<div class="wp-block-group jn-hero-media-card">
 					<!-- wp:image {"id":<?php echo (int) $jn_hero_media['id']; ?>,"sizeSlug":"full","linkDestination":"none","className":"is-style-portrait-4-5 jn-hero-lcp-image"} -->
-					<figure class="wp-block-image size-full is-style-portrait-4-5 jn-hero-lcp-image"><img src="<?php echo esc_url( $jn_hero_media['url'] ); ?>" alt="<?php echo esc_attr( $jn_hero_media['alt'] ); ?>" class="wp-image-<?php echo (int) $jn_hero_media['id']; ?>" width="800" height="1000" loading="eager" fetchpriority="high" decoding="async"/></figure>
+					<figure class="wp-block-image size-full is-style-portrait-4-5 jn-hero-lcp-image"><img src="<?php echo esc_url( $jn_hero_media['url'] ); ?>" alt="<?php echo esc_attr( $jn_hero_media['alt'] ); ?>" class="wp-image-<?php echo (int) $jn_hero_media['id']; ?>"/></figure>
 					<!-- /wp:image -->
 
 					<!-- wp:group {"className":"jn-hero-overlay"} -->

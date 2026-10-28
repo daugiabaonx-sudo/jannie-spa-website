@@ -54,19 +54,20 @@ function jannie_ensure_front_css_bundle() {
 		$css_dir . '/block-styles.css',
 	);
 
-	$latest_mtime = 0;
+	// Staleness is decided by source CONTENT (mtimes are unreliable after git checkout / rsync).
+	$source_hashes = array();
 	foreach ( $sources as $src_file ) {
-		if ( is_file( $src_file ) ) {
-			$mtime = (int) filemtime( $src_file );
-			if ( $mtime > $latest_mtime ) {
-				$latest_mtime = $mtime;
-			}
-		}
+		$source_hashes[] = is_file( $src_file ) ? (string) md5_file( $src_file ) : '';
+	}
+	$signature = '/*jn-bundle:' . md5( implode( '|', $source_hashes ) ) . '*/';
+
+	$current_head = '';
+	if ( is_file( $bundle_file ) && is_readable( $bundle_file ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$current_head = (string) file_get_contents( $bundle_file, false, null, 0, strlen( $signature ) );
 	}
 
-	$bundle_mtime = is_file( $bundle_file ) ? (int) filemtime( $bundle_file ) : 0;
-
-	if ( $bundle_mtime < $latest_mtime || 0 === $bundle_mtime ) {
+	if ( $current_head !== $signature ) {
 		$combined = '';
 		foreach ( $sources as $src_file ) {
 			if ( is_file( $src_file ) && is_readable( $src_file ) ) {
@@ -77,8 +78,13 @@ function jannie_ensure_front_css_bundle() {
 
 		$minified = jannie_minify_css_string( $combined );
 		if ( '' !== $minified && is_writable( $css_dir ) ) {
+			// Write to a private temp file, then rename (atomic on the same filesystem): a concurrent request
+			// never reads, inlines and page-caches a half-written bundle.
+			$tmp_file = $bundle_file . '.tmp' . wp_generate_password( 8, false );
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			file_put_contents( $bundle_file, $minified );
+			if ( false !== file_put_contents( $tmp_file, $signature . $minified ) && ! rename( $tmp_file, $bundle_file ) ) {
+				wp_delete_file( $tmp_file );
+			}
 		}
 	}
 

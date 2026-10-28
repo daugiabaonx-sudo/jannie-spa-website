@@ -8,7 +8,7 @@
    1. Commerce Page Container & Editorial Shell
    ========================================================================== */
 
-.jn-commerce-page:not(.page-id-12) .entry-content {
+.jn-commerce-page:not(.woocommerce-shop) .entry-content {
 	max-width: var(--jn-container-max);
 	margin-inline: auto;
 	padding-inline: var(--jn-container-pad);
@@ -22,7 +22,7 @@
 }
 
 /* Suppress default Blocksy page title hero on commerce pages */
-.page-id-12 .hero-section,
+.woocommerce-shop .hero-section,
 .woocommerce-cart .hero-section,
 .woocommerce-checkout .hero-section,
 .woocommerce-account .hero-section {

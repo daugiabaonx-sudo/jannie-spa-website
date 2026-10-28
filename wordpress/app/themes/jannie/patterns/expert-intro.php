@@ -26,7 +26,7 @@ $jn_expert_media = jannie_get_placeholder_media( 'expert_consultation', 'jn-plac
 				<!-- wp:group {"className":"jn-expert-media-wrap"} -->
 				<div class="wp-block-group jn-expert-media-wrap">
 					<!-- wp:image {"id":<?php echo (int) $jn_expert_media['id']; ?>,"sizeSlug":"full","linkDestination":"none","className":"is-style-portrait-3-4 jn-expert-image"} -->
-					<figure class="wp-block-image size-full is-style-portrait-3-4 jn-expert-image"><img src="<?php echo esc_url( $jn_expert_media['url'] ); ?>" alt="<?php echo esc_attr( $jn_expert_media['alt'] ); ?>" class="wp-image-<?php echo (int) $jn_expert_media['id']; ?>" width="750" height="1000" loading="lazy" decoding="async"/></figure>
+					<figure class="wp-block-image size-full is-style-portrait-3-4 jn-expert-image"><img src="<?php echo esc_url( $jn_expert_media['url'] ); ?>" alt="<?php echo esc_attr( $jn_expert_media['alt'] ); ?>" class="wp-image-<?php echo (int) $jn_expert_media['id']; ?>"/></figure>
 					<!-- /wp:image -->
 
 					<!-- wp:group {"templateLock":"contentOnly","className":"jn-expert-quote-card"} -->

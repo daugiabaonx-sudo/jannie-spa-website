@@ -67,6 +67,42 @@ class JN_SEO_Sitemap {
 	 * @return array<int, array{loc: string, lastmod: string}>
 	 */
 	public static function get_urls(): array {
+		return self::build_urls();
+	}
+
+	/**
+	 * Single indexability rule for shop products, shared by the sitemap and the robots meta
+	 * (a product is either listed AND `index`, or excluded AND `noindex`).
+	 *
+	 * @param int|WP_Post|WC_Product $product Product.
+	 * @return bool
+	 */
+	public static function is_product_indexable( $product ): bool {
+		$wc_product = function_exists( 'wc_get_product' ) ? wc_get_product( $product ) : null;
+		if ( ! $wc_product instanceof WC_Product || 'publish' !== $wc_product->get_status() ) {
+			return false;
+		}
+		$id = $wc_product->get_id();
+		if ( '' !== (string) get_post_field( 'post_password', $id ) ) {
+			return false;
+		}
+		// Coaching packages are sold only through the booking flow's order-pay link.
+		if ( '' !== (string) $wc_product->get_meta( '_jn_package_key', true )
+			|| ( class_exists( 'JN_Coaching_Packages' ) && JN_Coaching_Packages::is_coaching_package( $wc_product ) ) ) {
+			return false;
+		}
+		if ( 'hidden' === $wc_product->get_catalog_visibility() ) {
+			return false;
+		}
+		return 1 !== (int) get_post_meta( $id, '_genesis_noindex', true ); // TSF per-post noindex.
+	}
+
+	/**
+	 * Build (or read cached) sitemap URL entries.
+	 *
+	 * @return array<int, array{loc: string, lastmod: string}>
+	 */
+	private static function build_urls(): array {
 		$cached = get_transient( self::CACHE_KEY );
 		if ( is_array( $cached ) ) {
 			return $cached;
@@ -92,17 +128,14 @@ class JN_SEO_Sitemap {
 				'has_password'   => false,
 				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					array(
-						'key'     => '_jn_coaching_package',
+						'key'     => '_jn_package_key',
 						'compare' => 'NOT EXISTS',
 					),
 				),
 			)
 		);
 		foreach ( $products as $product ) {
-			$wc_product = function_exists( 'wc_get_product' ) ? wc_get_product( $product ) : null;
-			$hidden     = $wc_product && 'hidden' === $wc_product->get_catalog_visibility();
-			$noindex    = (int) get_post_meta( $product->ID, '_genesis_noindex', true ) === 1; // TSF per-post noindex.
-			if ( $hidden || $noindex ) {
+			if ( ! self::is_product_indexable( $product ) ) {
 				continue;
 			}
 			$urls[] = array(

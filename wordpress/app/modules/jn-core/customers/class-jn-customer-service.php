@@ -900,8 +900,8 @@ class JN_Customer_Service {
 	 * @param array<string, mixed> $args Query/filter arguments.
 	 * @return array<int, array<string, mixed>> List of unified customer records.
 	 */
-	public static function query_customers( array $args = array() ): array {
-		$records = self::build_unified_customer_map();
+	public static function query_customers( array $args = array(), ?array $records = null ): array {
+		$records = $records ?? self::build_unified_customer_map();
 
 		$search      = isset( $args['search'] ) ? trim( sanitize_text_field( (string) $args['search'] ) ) : '';
 		$filter_type = isset( $args['type'] ) ? sanitize_key( (string) $args['type'] ) : '';
@@ -1014,8 +1014,8 @@ class JN_Customer_Service {
 	 *
 	 * @return string[]
 	 */
-	public static function get_all_distinct_tags(): array {
-		$map  = self::build_unified_customer_map();
+	public static function get_all_distinct_tags( ?array $records = null ): array {
+		$map  = $records ?? self::build_unified_customer_map();
 		$tags = array();
 		$seen = array();
 
@@ -1229,7 +1229,15 @@ class JN_Customer_Service {
 			);
 
 			if ( is_wp_error( $transition ) ) {
-				return $transition;
+				// The booking already exists: report it with a warning instead of an error, otherwise staff
+				// retry and create a duplicate. It stays pending until it can be confirmed.
+				return array(
+					'booking_id'   => $booking_id,
+					'booking_code' => $booking_code,
+					'status'       => (string) get_post_status( $booking_id ),
+					'order_id'     => 0,
+					'warning'      => $transition->get_error_message(),
+				);
 			}
 		}
 
@@ -1242,7 +1250,20 @@ class JN_Customer_Service {
 	}
 
 	/**
+	 * Build the unified customer map once, so a screen can reuse it for several queries
+	 * (pass it to query_customers() / get_all_distinct_tags()).
+	 *
+	 * @return array<string, array<string, mixed>>
+	 */
+	public static function get_customer_map(): array {
+		return self::build_unified_customer_map();
+	}
+
+	/**
 	 * Build the complete map of unified customer records indexed by `customer_key`.
+	 *
+	 * Loads every customer, booking and order (no silent cap): a customer missing from this map would
+	 * also be missing from the list screen, the CSV export and the privacy exporter fallback.
 	 *
 	 * @param int $force_include_user_id Optional user ID to include regardless of role.
 	 * @return array<string, array<string, mixed>>
@@ -1256,7 +1277,7 @@ class JN_Customer_Service {
 		$customer_users = get_users(
 			array(
 				'role__in' => array( 'customer', 'subscriber' ),
-				'number'   => 500,
+				'number'   => -1,
 			)
 		);
 
@@ -1368,7 +1389,8 @@ class JN_Customer_Service {
 			array(
 				'post_type'      => JN_Booking_CPT::POST_TYPE,
 				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
-				'posts_per_page' => 500,
+				'posts_per_page' => -1,
+				'no_found_rows'  => true,
 				'orderby'        => 'ID',
 				'order'          => 'DESC',
 			)
@@ -1535,7 +1557,7 @@ class JN_Customer_Service {
 		if ( function_exists( 'wc_get_orders' ) ) {
 			$orders = wc_get_orders(
 				array(
-					'limit'   => 500,
+					'limit'   => -1,
 					'orderby' => 'ID',
 					'order'   => 'DESC',
 					'type'    => 'shop_order',
@@ -1645,13 +1667,52 @@ class JN_Customer_Service {
 			}
 		}
 
-		// Populate duplicate flags on each customer record for list badge display.
+		return self::flag_map_duplicates( $map );
+	}
+
+	/**
+	 * Flag records that share an email or phone with another record, in memory.
+	 *
+	 * The list badge only needs to know that a conflict exists; the detail screen still runs the full
+	 * detect_duplicates() for its single record. Calling it per record here cost several queries each.
+	 *
+	 * @param array<string, array<string, mixed>> $map Customer map.
+	 * @return array<string, array<string, mixed>>
+	 */
+	private static function flag_map_duplicates( array $map ): array {
+		$index = array();
 		foreach ( $map as $ckey => $rec ) {
-			$map[ $ckey ]['duplicates'] = self::detect_duplicates(
-				$ckey,
-				(string) $rec['email'],
-				(string) $rec['phone']
+			$email = strtolower( sanitize_email( (string) ( $rec['email'] ?? '' ) ) );
+			$phone = self::normalize_vn_phone( (string) ( $rec['phone'] ?? '' ) );
+			if ( '' !== $email ) {
+				$index[ 'email:' . $email ][] = $ckey;
+			}
+			if ( '' !== $phone ) {
+				$index[ 'phone:' . $phone ][] = $ckey;
+			}
+		}
+
+		foreach ( $map as $ckey => $rec ) {
+			$duplicates = array();
+			$email      = strtolower( sanitize_email( (string) ( $rec['email'] ?? '' ) ) );
+			$phone      = self::normalize_vn_phone( (string) ( $rec['phone'] ?? '' ) );
+			$lookups    = array_filter(
+				array(
+					'email' => '' !== $email ? 'email:' . $email : '',
+					'phone' => '' !== $phone ? 'phone:' . $phone : '',
+				)
 			);
+			foreach ( $lookups as $reason => $lookup ) {
+				foreach ( $index[ $lookup ] ?? array() as $other_key ) {
+					if ( $other_key !== $ckey && ! isset( $duplicates[ $other_key ] ) ) {
+						$duplicates[ $other_key ] = array(
+							'customer_key' => $other_key,
+							'reason'       => $reason,
+						);
+					}
+				}
+			}
+			$map[ $ckey ]['duplicates'] = array_values( $duplicates );
 		}
 
 		return $map;
