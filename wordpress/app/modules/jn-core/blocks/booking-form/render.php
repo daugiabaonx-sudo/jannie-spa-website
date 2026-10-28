@@ -125,7 +125,7 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 		<div class="jn-booking-form__row jn-booking-form__row--2col">
 			<div class="jn-booking-form__field">
 				<label class="jn-booking-form__label" for="full-name">Họ và Tên <span class="jn-booking-form__required" aria-hidden="true">*</span></label>
-				<input class="jn-booking-form__input" id="full-name" name="full_name" type="text" required aria-required="true" autocomplete="name" placeholder="Nguyễn Văn A" />
+				<input class="jn-booking-form__input" id="full-name" name="full_name" type="text" required aria-required="true" autocomplete="name" maxlength="<?php echo esc_attr( (string) JN_Booking_Service::MAX_NAME_LENGTH ); ?>" placeholder="Nguyễn Văn A" />
 			</div>
 			<div class="jn-booking-form__field">
 				<label class="jn-booking-form__label" for="phone-number">Số Điện Thoại / Zalo <span class="jn-booking-form__required" aria-hidden="true">*</span></label>
@@ -192,7 +192,7 @@ $jn_wrapper_attributes = get_block_wrapper_attributes(
 		<!-- Row 5: Current Challenge / Goals Message -->
 		<div class="jn-booking-form__field">
 			<label class="jn-booking-form__label" for="notes">Mục Tiêu Hoặc Thách Thức Lớn Nhất Của Bạn</label>
-			<textarea class="jn-booking-form__textarea" id="notes" name="notes" rows="3" placeholder="Chia sẻ ngắn gọn tình trạng kỹ thuật, lượng khách hiện tại hoặc câu hỏi bạn mong muốn giải quyết nhất cùng Jannie..."></textarea>
+			<textarea class="jn-booking-form__textarea" id="notes" name="notes" rows="3" maxlength="<?php echo esc_attr( (string) JN_Booking_Service::MAX_NOTES_LENGTH ); ?>" placeholder="Chia sẻ ngắn gọn tình trạng kỹ thuật, lượng khách hiện tại hoặc câu hỏi bạn mong muốn giải quyết nhất cùng Jannie..."></textarea>
 		</div>
 
 		<!-- Row 6: Privacy Policy Consent Checkbox (Unchecked by default) -->

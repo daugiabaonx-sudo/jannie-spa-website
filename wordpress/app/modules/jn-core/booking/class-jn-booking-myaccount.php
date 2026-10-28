@@ -213,7 +213,8 @@ class JN_Booking_MyAccount {
 								$total_sess  = (int) get_post_meta( $bid, '_jn_total_sessions', true );
 								$status      = $post->post_status;
 								$status_lbl  = JN_Booking_CPT::get_status_label( $status );
-								$conf_start  = (string) get_post_meta( $bid, '_jn_confirmed_start', true );
+								// A tentative time saved on a pending booking stays internal until staff confirm it.
+								$conf_start  = JN_Booking_Service::is_schedule_visible_to_customer( $bid ) ? (string) get_post_meta( $bid, '_jn_confirmed_start', true ) : '';
 								$duration    = (int) get_post_meta( $bid, '_jn_duration_minutes', true );
 								$pref_win    = (string) get_post_meta( $bid, '_jn_preferred_window_label', true );
 								$format      = (string) get_post_meta( $bid, '_jn_format', true );
@@ -281,7 +282,7 @@ class JN_Booking_MyAccount {
 											<?php if ( ! empty( $pstate['is_payable'] ) && '' !== $pstate['pay_url'] ) : ?>
 												<a href="<?php echo esc_url( (string) $pstate['pay_url'] ); ?>" class="woocommerce-button button pay jn-booking-pay-btn">Thanh Toán Ngay</a>
 											<?php endif; ?>
-											<?php if ( '' !== $conf_start && JN_Booking_CPT::STATUS_CANCELLED !== $status ) : ?>
+											<?php if ( '' !== $conf_start && JN_Booking_CPT::STATUS_CONFIRMED === $status ) : ?>
 												<a href="<?php echo esc_url( $ics_url ); ?>" class="woocommerce-button button jn-booking-ics-btn">Tải lịch .ics</a>
 											<?php endif; ?>
 										</div>

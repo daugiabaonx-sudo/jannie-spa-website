@@ -56,6 +56,28 @@ class JN_Booking_Service {
 	const MENTORSHIP_MAX_SESSIONS = 12;
 
 	/**
+	 * Maximum characters accepted for the customer name on the public form.
+	 */
+	const MAX_NAME_LENGTH = 100;
+
+	/**
+	 * Maximum characters accepted for the goals/notes field on the public form.
+	 */
+	const MAX_NOTES_LENGTH = 2000;
+
+	/**
+	 * Seconds after which a leftover Mentorship session lock is considered stale.
+	 */
+	const SESSION_LOCK_TTL = 30;
+
+	/**
+	 * Booking IDs whose cancellation is in progress in this request (booking → order → booking loop guard).
+	 *
+	 * @var array<int, bool>
+	 */
+	private static $cancelling = array();
+
+	/**
 	 * Register WooCommerce order status synchronization hooks.
 	 *
 	 * @return void
@@ -64,6 +86,11 @@ class JN_Booking_Service {
 		add_action( 'woocommerce_payment_complete', array( __CLASS__, 'handle_order_paid' ), 20, 1 );
 		add_action( 'woocommerce_order_status_processing', array( __CLASS__, 'handle_order_paid' ), 20, 1 );
 		add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'handle_order_paid' ), 20, 1 );
+		add_action( 'woocommerce_order_status_cancelled', array( __CLASS__, 'handle_order_voided' ), 20, 1 );
+		add_action( 'woocommerce_order_status_refunded', array( __CLASS__, 'handle_order_voided' ), 20, 1 );
+		add_action( 'woocommerce_order_status_failed', array( __CLASS__, 'handle_order_failed' ), 20, 1 );
+		add_action( 'woocommerce_order_partially_refunded', array( __CLASS__, 'handle_order_partially_refunded' ), 20, 2 );
+		add_action( 'wp_trash_post', array( __CLASS__, 'handle_booking_trashed' ), 20, 1 );
 	}
 
 	/**
@@ -150,6 +177,9 @@ class JN_Booking_Service {
 	 * @return string
 	 */
 	public static function get_rate_limit_key( string $type, string $value ): string {
+		if ( 'ip' === $type ) {
+			$value = self::get_ip_bucket( $value );
+		}
 		$hash = substr( hash_hmac( 'sha256', strtolower( trim( $value ) ), wp_salt( 'auth' ) ), 0, 24 );
 		return 'jn_rl_' . sanitize_key( $type ) . '_' . $hash;
 	}
@@ -317,6 +347,22 @@ class JN_Booking_Service {
 			return new \WP_Error(
 				'missing_name',
 				'Vui lòng nhập đầy đủ Họ và Tên của bạn.',
+				array( 'status' => 400 )
+			);
+		}
+		if ( mb_strlen( $full_name ) > self::MAX_NAME_LENGTH ) {
+			return new \WP_Error(
+				'name_too_long',
+				sprintf( 'Họ và Tên tối đa %d ký tự.', self::MAX_NAME_LENGTH ),
+				array( 'status' => 400 )
+			);
+		}
+
+		// Free text is relayed into staff and customer emails: cap it before any further processing.
+		if ( mb_strlen( sanitize_textarea_field( (string) ( $payload['notes'] ?? '' ) ) ) > self::MAX_NOTES_LENGTH ) {
+			return new \WP_Error(
+				'notes_too_long',
+				sprintf( 'Mục tiêu / ghi chú tối đa %d ký tự.', self::MAX_NOTES_LENGTH ),
 				array( 'status' => 400 )
 			);
 		}
@@ -663,8 +709,10 @@ class JN_Booking_Service {
 			$order_id = (int) $order_result;
 		}
 
-		// Handle cancellation rules (`-> Đã hủy`).
+		// Handle cancellation rules (`-> Đã hủy`). The order policy may cancel the linked order, whose
+		// status hook (handle_order_voided) must not cancel this same booking a second time.
 		if ( JN_Booking_CPT::STATUS_CANCELLED === $to_status ) {
+			self::$cancelling[ $booking_id ] = true;
 			self::handle_booking_cancellation_order_policy( $booking_id );
 		}
 
@@ -674,6 +722,7 @@ class JN_Booking_Service {
 				'post_status' => $to_status,
 			)
 		);
+		unset( self::$cancelling[ $booking_id ] );
 
 		$tz         = new \DateTimeZone( 'Asia/Ho_Chi_Minh' );
 		$now_vn     = new \DateTimeImmutable( 'now', $tz );
@@ -855,6 +904,14 @@ class JN_Booking_Service {
 		}
 		if ( 0 === $existing_order_id && $post->post_parent > 0 ) {
 			$existing_order_id = (int) get_post_meta( (int) $post->post_parent, '_jn_order_id', true );
+			// A session never gets its own order: the enrolment order covers all sessions.
+			if ( 0 === $existing_order_id ) {
+				return new \WP_Error(
+					'enrolment_not_confirmed',
+					'Buổi Mentorship chỉ được xác nhận sau khi buổi 1 (ghi danh) đã có đơn hàng.',
+					array( 'status' => 400 )
+				);
+			}
 		}
 
 		$booking_code = (string) get_post_meta( $booking_id, '_jn_booking_code', true );
@@ -885,14 +942,17 @@ class JN_Booking_Service {
 			$agreed_price = (int) $product->get_regular_price();
 		}
 
-		// Default agreed fee fallback when package product price is UNKNOWN (Draft) so order-pay is payable.
+		// Package products have no public price yet: fall back to the fee configured in Lịch hẹn → Cài đặt.
 		if ( $agreed_price <= 0 ) {
-			$default_fees = array(
-				'30-phut'            => 1500000,
-				'60-phut'            => 2500000,
-				'mentorship-3-thang' => 25000000,
+			$agreed_price = JN_Booking_Settings::get_default_fee( $pkg_key );
+		}
+		// Never send a payable link for an amount nobody entered.
+		if ( $agreed_price <= 0 ) {
+			return new \WP_Error(
+				'missing_price',
+				'Chưa có mức phí cho gói này. Vui lòng nhập "Phí đã thống nhất" hoặc cấu hình phí mặc định trong Lịch hẹn → Cài đặt.',
+				array( 'status' => 400 )
 			);
-			$agreed_price = $default_fees[ $pkg_key ] ?? 2500000;
 		}
 		update_post_meta( $booking_id, '_jn_agreed_price', $agreed_price );
 
@@ -1100,12 +1160,15 @@ class JN_Booking_Service {
 			return;
 		}
 
-		// If this is a child Mentorship session (`post_parent > 0`), cancelling one session does not cancel the whole 12-session enrolment order.
-		if ( $post->post_parent > 0 ) {
+		// A Mentorship order pays for the whole enrolment (root = session #1 + child sessions). Cancelling one
+		// session — including #1 — leaves the order alone while any other session is still open; the policy
+		// applies to the enrolment order only when the last open session is cancelled.
+		$root_id = $post->post_parent > 0 ? (int) $post->post_parent : $booking_id;
+		if ( self::count_open_sessions( $root_id, $booking_id ) > 0 ) {
 			return;
 		}
 
-		$order_id = (int) get_post_meta( $booking_id, '_jn_order_id', true );
+		$order_id = (int) get_post_meta( $root_id, '_jn_order_id', true );
 		if ( $order_id <= 0 || ! function_exists( 'wc_get_order' ) ) {
 			return;
 		}
@@ -1142,6 +1205,19 @@ class JN_Booking_Service {
 	}
 
 	/**
+	 * Count the open (pending/confirmed) sessions of an enrolment, excluding one booking.
+	 *
+	 * @param int $root_id    Enrolment (root) booking ID.
+	 * @param int $exclude_id Booking ID to exclude (the one being cancelled).
+	 * @return int
+	 */
+	private static function count_open_sessions( int $root_id, int $exclude_id ): int {
+		$open = array( JN_Booking_CPT::STATUS_PENDING, JN_Booking_CPT::STATUS_CONFIRMED );
+		$ids  = array_diff( self::get_mentorship_sessions( $root_id ), array( $exclude_id ) );
+		return count( array_filter( $ids, static fn( $id ) => in_array( get_post_status( (int) $id ), $open, true ) ) );
+	}
+
+	/**
 	 * Synchronize booking timeline and notify staff when a linked WooCommerce order is paid.
 	 *
 	 * @param int $order_id WooCommerce Order ID.
@@ -1157,27 +1233,7 @@ class JN_Booking_Service {
 			return;
 		}
 
-		$booking_ids = get_posts(
-			array(
-				'post_type'      => JN_Booking_CPT::POST_TYPE,
-				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
-				'posts_per_page' => 50,
-				'fields'         => 'ids',
-				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-					array(
-						'key'   => '_jn_order_id',
-						'value' => $order_id,
-						'type'  => 'NUMERIC',
-					),
-				),
-			)
-		);
-
-		$primary_id = (int) $order->get_meta( '_jn_booking_id', true );
-		if ( $primary_id > 0 && ! in_array( $primary_id, $booking_ids, true ) ) {
-			$booking_ids[] = $primary_id;
-		}
-
+		$booking_ids = self::get_booking_ids_for_order( $order );
 		if ( empty( $booking_ids ) ) {
 			return;
 		}
@@ -1287,6 +1343,43 @@ class JN_Booking_Service {
 			);
 		}
 
+		// Sessions share the enrolment order: it must exist first, or each session would create its own order.
+		if ( (int) get_post_meta( $enrolment_booking_id, '_jn_order_id', true ) <= 0 ) {
+			return new \WP_Error(
+				'enrolment_not_confirmed',
+				'Vui lòng xác nhận buổi 1 (tạo đơn ghi danh) trước khi thêm buổi Mentorship tiếp theo.',
+				array( 'status' => 400 )
+			);
+		}
+
+		// Serialize concurrent clicks: add_option() is atomic on the unique option_name.
+		$lock = 'jn_lock_mentorship_' . $enrolment_booking_id;
+		if ( ! add_option( $lock, time(), '', 'no' ) ) {
+			if ( time() - (int) get_option( $lock ) < self::SESSION_LOCK_TTL ) {
+				return new \WP_Error(
+					'mentorship_busy',
+					'Đang tạo một buổi khác cho lộ trình này. Vui lòng thử lại sau vài giây.',
+					array( 'status' => 409 )
+				);
+			}
+			update_option( $lock, time(), false );
+		}
+
+		try {
+			return self::insert_mentorship_session( $enrolment_booking_id, $actor_id );
+		} finally {
+			delete_option( $lock );
+		}
+	}
+
+	/**
+	 * Insert the next Mentorship session booking (caller holds the enrolment lock).
+	 *
+	 * @param int $enrolment_booking_id Root Mentorship booking ID.
+	 * @param int $actor_id             Staff user ID.
+	 * @return int|\WP_Error Created child session booking ID or WP_Error.
+	 */
+	private static function insert_mentorship_session( int $enrolment_booking_id, int $actor_id ) {
 		$all_sessions    = self::get_mentorship_sessions( $enrolment_booking_id );
 		$active_sessions = array();
 		foreach ( $all_sessions as $sid ) {
@@ -1303,7 +1396,13 @@ class JN_Booking_Service {
 			);
 		}
 
-		$next_number  = count( $active_sessions ) + 1;
+		// Number after the highest existing session (cancelled ones included) so codes never repeat.
+		$numbers = array_map(
+			static fn( $sid ) => max( (int) $sid === $enrolment_booking_id ? 1 : 0, (int) get_post_meta( (int) $sid, '_jn_session_number', true ) ),
+			$all_sessions
+		);
+		$next_number  = max( $numbers ) + 1;
+		$active_count = count( $active_sessions ) + 1;
 		$customer_uid = (int) get_post_meta( $enrolment_booking_id, '_jn_customer_user_id', true );
 		$order_id     = (int) get_post_meta( $enrolment_booking_id, '_jn_order_id', true );
 
@@ -1384,7 +1483,7 @@ class JN_Booking_Service {
 				'timestamp'  => $now_vn->format( 'c' ),
 				'from'       => 'new',
 				'to'         => JN_Booking_CPT::STATUS_PENDING,
-				'note'       => sprintf( 'Khởi tạo Buổi %d/%d thuộc lộ trình Mentorship (%s).', $next_number, self::MENTORSHIP_MAX_SESSIONS, $parent_code ),
+				'note'       => sprintf( 'Khởi tạo buổi %s (%d/%d buổi đang hoạt động) thuộc lộ trình Mentorship (%s).', $child_code, $active_count, self::MENTORSHIP_MAX_SESSIONS, $parent_code ),
 			),
 		);
 		update_post_meta( $child_id, '_jn_status_timeline', $timeline );
@@ -1462,5 +1561,185 @@ class JN_Booking_Service {
 			? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
 			: '127.0.0.1';
 		return filter_var( $remote, FILTER_VALIDATE_IP ) ? $remote : '127.0.0.1';
+	}
+
+	/**
+	 * Rate-limit bucket for an IP: IPv4 addresses individually, IPv6 by /64 network
+	 * (a single client typically controls a whole /64 and can rotate within it freely).
+	 *
+	 * @param string $ip IP address.
+	 * @return string
+	 */
+	public static function get_ip_bucket( string $ip ): string {
+		$ip = trim( $ip );
+		if ( ! filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
+			return $ip;
+		}
+		$packed = inet_pton( $ip );
+		if ( false === $packed ) {
+			return $ip;
+		}
+		$network = inet_ntop( substr( $packed, 0, 8 ) . str_repeat( "\0", 8 ) );
+		return false !== $network ? $network . '/64' : $ip;
+	}
+
+	/**
+	 * Whether the confirmed time (and its .ics) may be shown to the customer.
+	 *
+	 * Staff can save a tentative time on a pending booking; it stays internal until confirmation.
+	 *
+	 * @param int $booking_id Booking post ID.
+	 * @return bool
+	 */
+	public static function is_schedule_visible_to_customer( int $booking_id ): bool {
+		$status = (string) get_post_status( $booking_id );
+		return in_array( $status, array( JN_Booking_CPT::STATUS_CONFIRMED, JN_Booking_CPT::STATUS_COMPLETED ), true )
+			&& '' !== (string) get_post_meta( $booking_id, '_jn_confirmed_start', true );
+	}
+
+	/**
+	 * Booking IDs linked to a WooCommerce order (via `_jn_order_id` or the order's `_jn_booking_id`).
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return int[]
+	 */
+	private static function get_booking_ids_for_order( \WC_Order $order ): array {
+		$booking_ids = get_posts(
+			array(
+				'post_type'      => JN_Booking_CPT::POST_TYPE,
+				'post_status'    => array_keys( JN_Booking_CPT::get_statuses() ),
+				'posts_per_page' => 50,
+				'fields'         => 'ids',
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'   => '_jn_order_id',
+						'value' => (int) $order->get_id(),
+						'type'  => 'NUMERIC',
+					),
+				),
+			)
+		);
+		$booking_ids = array_map( 'intval', $booking_ids );
+
+		$primary_id = (int) $order->get_meta( '_jn_booking_id', true );
+		if ( $primary_id > 0 && ! in_array( $primary_id, $booking_ids, true ) ) {
+			$booking_ids[] = $primary_id;
+		}
+		return $booking_ids;
+	}
+
+	/**
+	 * A linked order was cancelled or fully refunded in WooCommerce: cancel the open bookings so their
+	 * slots are released and the agenda stays truthful.
+	 *
+	 * @param int $order_id WooCommerce order ID.
+	 * @return void
+	 */
+	public static function handle_order_voided( int $order_id ): void {
+		$order = function_exists( 'wc_get_order' ) ? wc_get_order( $order_id ) : null;
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
+
+		$open_statuses = array( JN_Booking_CPT::STATUS_PENDING, JN_Booking_CPT::STATUS_CONFIRMED );
+		$label         = 'refunded' === $order->get_status() ? 'đã được hoàn tiền toàn bộ' : 'đã bị hủy';
+
+		foreach ( self::get_booking_ids_for_order( $order ) as $booking_id ) {
+			// Skip bookings whose own cancellation triggered this order change (loop guard).
+			if ( isset( self::$cancelling[ $booking_id ] ) || ! in_array( get_post_status( $booking_id ), $open_statuses, true ) ) {
+				continue;
+			}
+			self::transition_status(
+				$booking_id,
+				JN_Booking_CPT::STATUS_CANCELLED,
+				array(
+					'system_action' => true,
+					'actor_id'      => 0,
+					'note'          => sprintf( 'Tự động hủy vì đơn hàng #%d %s trong WooCommerce.', $order_id, $label ),
+				)
+			);
+		}
+	}
+
+	/**
+	 * A linked order's payment failed: keep the booking (the customer can retry from the pay link)
+	 * but flag it and record it on the timeline.
+	 *
+	 * @param int $order_id WooCommerce order ID.
+	 * @return void
+	 */
+	public static function handle_order_failed( int $order_id ): void {
+		$order = function_exists( 'wc_get_order' ) ? wc_get_order( $order_id ) : null;
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
+		foreach ( self::get_booking_ids_for_order( $order ) as $booking_id ) {
+			update_post_meta( $booking_id, '_jn_payment_failed', 'yes' );
+			self::append_system_note( $booking_id, sprintf( 'Thanh toán đơn hàng #%d thất bại — khách có thể thanh toán lại qua liên kết cũ.', $order_id ) );
+		}
+	}
+
+	/**
+	 * Record a partial refund on the linked bookings' timelines (status unchanged).
+	 *
+	 * @param int $order_id  WooCommerce order ID.
+	 * @param int $refund_id Refund ID.
+	 * @return void
+	 */
+	public static function handle_order_partially_refunded( int $order_id, int $refund_id ): void {
+		$order  = function_exists( 'wc_get_order' ) ? wc_get_order( $order_id ) : null;
+		$refund = function_exists( 'wc_get_order' ) ? wc_get_order( $refund_id ) : null;
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
+		$amount = $refund instanceof \WC_Order_Refund ? wc_price( $refund->get_amount() ) : '';
+		foreach ( self::get_booking_ids_for_order( $order ) as $booking_id ) {
+			self::append_system_note( $booking_id, trim( sprintf( 'Đơn hàng #%d được hoàn tiền một phần %s.', $order_id, $amount ) ) );
+		}
+	}
+
+	/**
+	 * Note on the linked order when a booking is moved to the trash (the order is left untouched).
+	 *
+	 * @param int $post_id Post ID being trashed.
+	 * @return void
+	 */
+	public static function handle_booking_trashed( int $post_id ): void {
+		if ( JN_Booking_CPT::POST_TYPE !== get_post_type( $post_id ) || ! function_exists( 'wc_get_order' ) ) {
+			return;
+		}
+		$order = wc_get_order( (int) get_post_meta( $post_id, '_jn_order_id', true ) );
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
+		$order->add_order_note(
+			sprintf(
+				'Lịch hẹn %s đã được chuyển vào thùng rác bởi người dùng #%d. Kiểm tra lại đơn hàng này (hủy/hoàn tiền nếu cần).',
+				(string) get_post_meta( $post_id, '_jn_booking_code', true ),
+				get_current_user_id()
+			)
+		);
+	}
+
+	/**
+	 * Append a status-preserving system note to a booking timeline.
+	 *
+	 * @param int    $booking_id Booking post ID.
+	 * @param string $note       Note text.
+	 * @return void
+	 */
+	private static function append_system_note( int $booking_id, string $note ): void {
+		$status = (string) get_post_status( $booking_id );
+		self::append_timeline_entry(
+			$booking_id,
+			array(
+				'actor_id'   => 0,
+				'actor_name' => 'WooCommerce HPOS',
+				'timestamp'  => ( new \DateTimeImmutable( 'now', new \DateTimeZone( 'Asia/Ho_Chi_Minh' ) ) )->format( 'c' ),
+				'from'       => $status,
+				'to'         => $status,
+				'note'       => $note,
+			)
+		);
 	}
 }

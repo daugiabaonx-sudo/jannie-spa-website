@@ -72,6 +72,12 @@ class JN_Booking_Settings {
 				'60-phut'            => 0,
 				'mentorship-3-thang' => 0,
 			),
+			// Fee (VND) used for the order-pay link when staff confirm without entering an agreed price.
+			'default_fees'                      => array(
+				'30-phut'            => 1500000,
+				'60-phut'            => 2500000,
+				'mentorship-3-thang' => 25000000,
+			),
 			'waitlist_note'                     => self::DEFAULT_WAITLIST_NOTE,
 			'auto_create_account'               => 'no',
 			'consent_text'                      => self::DEFAULT_CONSENT_TEXT,
@@ -107,8 +113,22 @@ class JN_Booking_Settings {
 		} else {
 			$merged['capacity_limits'] = wp_parse_args( $merged['capacity_limits'], $defaults['capacity_limits'] );
 		}
+		$merged['default_fees'] = is_array( $merged['default_fees'] )
+			? wp_parse_args( $merged['default_fees'], $defaults['default_fees'] )
+			: $defaults['default_fees'];
 
 		return $merged;
+	}
+
+	/**
+	 * Default fee (VND) for a package key, or 0 when none is configured.
+	 *
+	 * @param string $package_key Package key (`30-phut`, `60-phut`, `mentorship-3-thang`).
+	 * @return int
+	 */
+	public static function get_default_fee( string $package_key ): int {
+		$fees = (array) self::get( 'default_fees', array() );
+		return max( 0, (int) ( $fees[ $package_key ] ?? 0 ) );
 	}
 
 	/**
@@ -194,6 +214,16 @@ class JN_Booking_Settings {
 					: 0;
 			}
 			$current['capacity_limits'] = $limits;
+		}
+
+		if ( isset( $raw['default_fees'] ) && is_array( $raw['default_fees'] ) ) {
+			$fees = array();
+			foreach ( array_keys( $defaults['default_fees'] ) as $pkg_key ) {
+				$fees[ $pkg_key ] = isset( $raw['default_fees'][ $pkg_key ] )
+					? max( 0, absint( $raw['default_fees'][ $pkg_key ] ) )
+					: 0;
+			}
+			$current['default_fees'] = $fees;
 		}
 
 		if ( isset( $raw['waitlist_note'] ) ) {

@@ -203,6 +203,8 @@ if docker image inspect nginx:1.27-alpine >/dev/null 2>&1 || docker pull -q ngin
   cp deploy/nginx-security-headers.conf "${NG}/snippets/jn-security-headers.conf"
   printf 'fastcgi_split_path_info ^(.+\\.php)(/.+)$;\ninclude fastcgi_params;\n' > "${NG}/snippets/fastcgi-php.conf"
   echo "body{}" > "${NG}/root/style.css"
+  mkdir -p "${NG}/root/media/jn-ics-tmp"
+  echo "BEGIN:VCALENDAR" > "${NG}/root/media/jn-ics-tmp/lich-hen-jn-202610-0001.ics"
   NG_ID="$(docker run -d --rm -v "${NG}/conf.d:/etc/nginx/conf.d:ro" -v "${NG}/snippets:/etc/nginx/snippets:ro" \
     -v "${NG}/certs:/etc/nginx/certs:ro" -v "${NG}/root:/srv/root:ro" nginx:1.27-alpine 2>/dev/null)"
   sleep 2
@@ -211,6 +213,8 @@ if docker image inspect nginx:1.27-alpine >/dev/null 2>&1 || docker pull -q ngin
   check "static .css response carries X-Frame-Options" grep -qi "X-Frame-Options" <<<"${HEADERS}"
   check "static .css response carries Referrer-Policy" grep -qi "Referrer-Policy" <<<"${HEADERS}"
   check "static .css response keeps the immutable Cache-Control" grep -qi "immutable" <<<"${HEADERS}"
+  ICS_STATUS="$(docker exec "${NG_ID}" wget -S -q -O /dev/null --no-check-certificate --header 'Host: example.test' https://127.0.0.1/media/jn-ics-tmp/lich-hen-jn-202610-0001.ics 2>&1 | grep -m1 'HTTP/' )"
+  check "legacy /media/jn-ics-tmp/*.ics files are never served (H3)" grep -q " 404" <<<"${ICS_STATUS}"
   docker stop "${NG_ID}" >/dev/null 2>&1
 else
   skip "nginx image unavailable — runtime header checks skipped"

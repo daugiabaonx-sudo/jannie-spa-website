@@ -628,13 +628,7 @@ class JN_Booking_Admin {
 
 		$agreed_price = (int) get_post_meta( $booking_id, '_jn_agreed_price', true );
 		if ( $agreed_price <= 0 ) {
-			$pkg_key      = (string) get_post_meta( $booking_id, '_jn_package_key', true );
-			$default_fees = array(
-				'30-phut'            => 1500000,
-				'60-phut'            => 2500000,
-				'mentorship-3-thang' => 25000000,
-			);
-			$agreed_price = $default_fees[ $pkg_key ] ?? 2500000;
+			$agreed_price = JN_Booking_Settings::get_default_fee( (string) get_post_meta( $booking_id, '_jn_package_key', true ) );
 		}
 
 		$start_ts = (int) get_post_meta( $booking_id, '_jn_confirmed_start_ts', true );
@@ -1076,7 +1070,11 @@ class JN_Booking_Admin {
 
 		// Save scheduling metadata if provided even without status change.
 		if ( '' !== $conf_start && $target_status === $current_status ) {
-			JN_Booking_Service::apply_confirmation_schedule( $post_id, $sched_args );
+			$sched = JN_Booking_Service::apply_confirmation_schedule( $post_id, $sched_args );
+			if ( is_wp_error( $sched ) ) {
+				// Overlap / missing meeting link etc.: tell staff the reschedule was NOT saved.
+				set_transient( 'jn_booking_admin_err_' . get_current_user_id(), $sched->get_error_message(), 60 );
+			}
 		} else {
 			update_post_meta( $post_id, '_jn_duration_minutes', $sched_args['duration_minutes'] );
 			update_post_meta( $post_id, '_jn_format', $sched_args['format'] );
@@ -1281,6 +1279,7 @@ class JN_Booking_Admin {
 		$windows  = (array) $settings['time_windows'];
 		$formats  = (array) $settings['formats'];
 		$limits   = (array) $settings['capacity_limits'];
+		$fees     = (array) $settings['default_fees'];
 		?>
 		<div class="wrap">
 			<h1>Cài Đặt Hệ Thống Đặt Lịch Coaching &amp; Mentorship</h1>
@@ -1320,6 +1319,15 @@ class JN_Booking_Admin {
 						</td>
 					</tr>
 
+					<tr>
+						<th scope="row">Phí mặc định khi xác nhận lịch (VND)</th>
+						<td>
+							<label>Gói 30 Phút: <input type="number" name="default_fees[30-phut]" value="<?php echo esc_attr( (string) ( $fees['30-phut'] ?? 0 ) ); ?>" min="0" step="1000" class="regular-text" style="width:10em" /></label> &nbsp;|&nbsp;
+							<label>Gói 60 Phút: <input type="number" name="default_fees[60-phut]" value="<?php echo esc_attr( (string) ( $fees['60-phut'] ?? 0 ) ); ?>" min="0" step="1000" class="regular-text" style="width:10em" /></label> &nbsp;|&nbsp;
+							<label>Master Mentorship: <input type="number" name="default_fees[mentorship-3-thang]" value="<?php echo esc_attr( (string) ( $fees['mentorship-3-thang'] ?? 0 ) ); ?>" min="0" step="1000" class="regular-text" style="width:10em" /></label>
+							<p class="description">Điền sẵn vào ô "Phí đã thống nhất" khi xác nhận lịch. Đặt <code>0</code> để bắt buộc trợ lý nhập phí cho từng lịch hẹn.</p>
+						</td>
+					</tr>
 					<tr>
 						<th scope="row">Giới hạn số lượng nhận mỗi tháng (Capacity)</th>
 						<td>

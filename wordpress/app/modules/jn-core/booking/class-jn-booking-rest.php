@@ -179,9 +179,26 @@ class JN_Booking_REST {
 	public static function transition_booking( \WP_REST_Request $request ): \WP_REST_Response {
 		$booking_id = (int) $request->get_param( 'id' );
 		$to_status  = sanitize_key( (string) $request->get_param( 'to_status' ) );
-		$params     = $request->get_params();
 
-		$result = JN_Booking_Service::transition_status( $booking_id, $to_status, is_array( $params ) ? $params : array() );
+		// Only scheduling inputs are accepted from the client; the actor is always the authenticated user
+		// (never `actor_id`, `system_action` or `existing_order_id` from the request body).
+		$allowed = array( 'confirmed_start', 'duration_minutes', 'format', 'meeting_link', 'location', 'agreed_price', 'allow_overlap', 'note' );
+		$params  = array_intersect_key( (array) $request->get_params(), array_flip( $allowed ) );
+		$params['actor_id'] = get_current_user_id();
+
+		// Confirming creates a payable order: the agreed fee must be stated explicitly.
+		if ( JN_Booking_CPT::STATUS_CONFIRMED === $to_status && (int) ( $params['agreed_price'] ?? 0 ) <= 0 ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'code'    => 'missing_price',
+					'message' => 'Vui lòng nhập "agreed_price" (phí đã thống nhất, VND) khi xác nhận lịch hẹn.',
+				),
+				400
+			);
+		}
+
+		$result = JN_Booking_Service::transition_status( $booking_id, $to_status, $params );
 		if ( is_wp_error( $result ) ) {
 			$error_data = $result->get_error_data();
 			$status     = is_array( $error_data ) && isset( $error_data['status'] ) ? (int) $error_data['status'] : 400;

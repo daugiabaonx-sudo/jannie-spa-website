@@ -66,6 +66,7 @@ JN_Booking_Roles::init();
 JN_Customer_Profile::init();
 JN_Customer_Service::init();
 JN_Booking_Privacy::init();
+JN_Booking_ICS::init();
 JN_CSV_Exporter::init();
 JN_Customer_Admin::init();
 JN_Booking_Service::init();

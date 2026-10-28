@@ -18,6 +18,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 class JN_Booking_ICS {
 
 	/**
+	 * Option flag set once the legacy public `media/jn-ics-tmp/` directory has been removed.
+	 */
+	const LEGACY_PURGED_OPTION = 'jn_ics_legacy_purged';
+
+	/**
+	 * Attachment files written during this request, deleted at shutdown.
+	 *
+	 * @var string[]
+	 */
+	private static $attachment_files = array();
+
+	/**
+	 * Register hooks.
+	 *
+	 * @return void
+	 */
+	public static function init(): void {
+		add_action( 'admin_init', array( __CLASS__, 'maybe_purge_legacy_upload_dir' ) );
+	}
+
+	/**
+	 * Remove the legacy public attachment directory once (earlier versions left every booking's
+	 * `.ics` — name, package, meeting link — under `media/jn-ics-tmp/`, which nginx serves publicly).
+	 *
+	 * @return void
+	 */
+	public static function maybe_purge_legacy_upload_dir(): void {
+		if ( 'yes' === get_option( self::LEGACY_PURGED_OPTION ) ) {
+			return;
+		}
+		self::purge_legacy_upload_dir();
+		update_option( self::LEGACY_PURGED_OPTION, 'yes', false );
+	}
+
+	/**
+	 * Delete `media/jn-ics-tmp/` and everything in it.
+	 *
+	 * @return void
+	 */
+	public static function purge_legacy_upload_dir(): void {
+		$upload_dir = wp_upload_dir();
+		if ( empty( $upload_dir['basedir'] ) ) {
+			return;
+		}
+		$legacy = trailingslashit( (string) $upload_dir['basedir'] ) . 'jn-ics-tmp';
+		if ( ! is_dir( $legacy ) ) {
+			return;
+		}
+		$entries = scandir( $legacy );
+		foreach ( false === $entries ? array() : array_diff( $entries, array( '.', '..' ) ) as $entry ) {
+			wp_delete_file( $legacy . '/' . $entry );
+		}
+		@rmdir( $legacy ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+	}
+
+	/**
+	 * Delete the attachment files (and their private directories) written during this request.
+	 *
+	 * @return void
+	 */
+	public static function cleanup_attachment_files(): void {
+		foreach ( self::$attachment_files as $path ) {
+			wp_delete_file( $path );
+			@rmdir( dirname( $path ) ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+		}
+		self::$attachment_files = array();
+	}
+
+	/**
 	 * Build the RFC 5545 `.ics` file contents for a confirmed booking.
 	 *
 	 * @param int $booking_id Booking post ID.
@@ -26,6 +95,11 @@ class JN_Booking_ICS {
 	public static function generate_content( int $booking_id ): string {
 		$post = get_post( $booking_id );
 		if ( ! $post instanceof \WP_Post || JN_Booking_CPT::POST_TYPE !== $post->post_type ) {
+			return '';
+		}
+
+		// The invitation says STATUS:CONFIRMED: never export a tentative (pending) or past/cancelled time.
+		if ( JN_Booking_CPT::STATUS_CONFIRMED !== $post->post_status ) {
 			return '';
 		}
 
@@ -125,27 +199,27 @@ class JN_Booking_ICS {
 		$code = (string) get_post_meta( $booking_id, '_jn_booking_code', true );
 		$slug = '' !== $code ? sanitize_file_name( strtolower( $code ) ) : (string) $booking_id;
 
-		$upload_dir = wp_upload_dir();
-		$base_dir   = isset( $upload_dir['basedir'] ) ? trailingslashit( $upload_dir['basedir'] ) . 'jn-ics-tmp' : trailingslashit( get_temp_dir() ) . 'jn-ics-tmp';
-
-		if ( ! is_dir( $base_dir ) ) {
-			wp_mkdir_p( $base_dir );
-			// Prevent directory listing or direct public browsing of temp ics folder.
-			$ht_file = trailingslashit( $base_dir ) . '.htaccess';
-			if ( ! file_exists( $ht_file ) ) {
-				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-				@file_put_contents( $ht_file, "Deny from all\n" );
-			}
+		// Private, per-attachment directory in the system temp dir (never under the public web root);
+		// the readable filename is kept because mail clients show it to the customer.
+		$base_dir = trailingslashit( get_temp_dir() ) . 'jn-ics-' . wp_generate_uuid4();
+		if ( ! wp_mkdir_p( $base_dir ) ) {
+			return '';
 		}
 
-		$filename = sprintf( 'lich-hen-%s.ics', $slug );
-		$filepath = trailingslashit( $base_dir ) . $filename;
+		$filepath = trailingslashit( $base_dir ) . sprintf( 'lich-hen-%s.ics', $slug );
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$written = @file_put_contents( $filepath, $content );
 		if ( false === $written ) {
 			return '';
 		}
+
+		// Delete after the mail is sent. WooCommerce may send deferred emails on the `shutdown` action, which
+		// runs before shutdown functions registered here, so the file still exists while it is attached.
+		if ( empty( self::$attachment_files ) ) {
+			register_shutdown_function( array( __CLASS__, 'cleanup_attachment_files' ) );
+		}
+		self::$attachment_files[] = $filepath;
 
 		return $filepath;
 	}
