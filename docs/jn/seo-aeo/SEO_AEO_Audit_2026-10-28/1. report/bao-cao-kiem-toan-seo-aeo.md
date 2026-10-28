@@ -77,6 +77,8 @@
 
 > [!WARNING]
 > **FAIL còn lại trong `test-step-8-performance.php`:** assertion tìm chuỗi `"woocommerce"` trong toàn bộ HTML `/coaching/`. Chuỗi xuất hiện trong CSS inline động của Blocksy (`ct-main-styles-inline-css`, selector `.woocommerce-info`), được Blocksy sinh mỗi khi WooCommerce bật (`inc/dynamic-styles/global.php`). **A/B:** khôi phục `jn-performance.php` + `jn-hardening` bản gốc (HEAD) và xóa transient `blocksy_dynamic_styles_descriptor` → vẫn ra đúng 1 lần xuất hiện. Đây không phải asset WooCommerce (Lighthouse đo `wooAssetCount = 0` trên mọi trang nội dung). Đề xuất: sửa assertion sang kiểm tra URL asset, hoặc lọc CSS động của Blocksy trên trang nội dung — cần bạn chọn.
+>
+> **Cập nhật sau báo cáo:** đã xử lý theo hướng sửa assertion (chỉ kiểm tra thẻ asset được tải, kể cả alias `/static/shop/`, kèm đối chứng trên `/cart/`); `test-step-8-performance.php` đạt 37/37. Chi tiết tại `docs/jn/PROGRESS.md` mục 2k.
 
 ## 5b. Rà soát mã (code review độc lập)
 

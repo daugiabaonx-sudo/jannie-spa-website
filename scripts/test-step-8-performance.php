@@ -57,6 +57,30 @@ function jn_step8_http_get( string $path, array $headers = array() ) {
 	);
 }
 
+/**
+ * Collect `<link>`, `<script>` and `<style>` opening tags that load or inline WooCommerce assets.
+ *
+ * Only tag attributes are inspected, so selectors inside Blocksy's dynamic CSS (e.g. `.woocommerce-info`)
+ * do not count as loaded assets. Covers the Step 7 `/app/modules/woocommerce/` → `/static/shop/` alias.
+ *
+ * @param string $html Page HTML.
+ * @return string[] Matching opening tags.
+ */
+function jn_step8_find_woocommerce_asset_tags( string $html ): array {
+	preg_match_all( '/<(?:link|script|style)\b[^>]*>/i', $html, $matches );
+	return array_values(
+		array_filter(
+			$matches[0],
+			static function ( string $tag ): bool {
+				return (bool) preg_match(
+					'/(?<![\w-])id=["\'](?:woocommerce|wc-|ct-woocommerce)|(?<![\w-])(?:src|href|data-jn-href|data-jn-script-src)=["\'][^"\']*(?:\/static\/shop\/|woocommerce)/i',
+					$tag
+				);
+			}
+		)
+	);
+}
+
 echo "=== JN STEP 8 VERIFICATION SUITE ===\n\n";
 
 // -----------------------------------------------------------------------------
@@ -166,14 +190,24 @@ jn_step8_assert(
 	'Core block styles on-demand filters (should_load_separate_core_block_assets & should_load_block_assets_on_demand) are active'
 );
 
-$coaching_html = wp_remote_retrieve_body( $coaching_res );
+$coaching_html    = wp_remote_retrieve_body( $coaching_res );
+$coaching_wc_tags = jn_step8_find_woocommerce_asset_tags( $coaching_html );
+$cart_wc_tags     = jn_step8_find_woocommerce_asset_tags( wp_remote_retrieve_body( jn_step8_http_get( '/cart/' ) ) );
+jn_step8_assert(
+	array() === $coaching_wc_tags,
+	'Content page (/coaching/) loads zero WooCommerce stylesheets/scripts (ids woocommerce-*/wc-*/ct-woocommerce-*, URLs /static/shop/)'
+	. ( array() === $coaching_wc_tags ? '' : ' — found: ' . implode( ' ', $coaching_wc_tags ) )
+);
+jn_step8_assert(
+	count( $cart_wc_tags ) > 0,
+	'Control: the WooCommerce asset detector finds WooCommerce tags on /cart/ (' . count( $cart_wc_tags ) . ' found)'
+);
 jn_step8_assert(
 	false === stripos( $coaching_html, 'jquery' )
-	&& false === stripos( $coaching_html, 'woocommerce' )
 	&& false === stripos( $coaching_html, 'dashicons' )
 	&& false === stripos( $coaching_html, 'comment-reply' )
 	&& false === stripos( $coaching_html, 'page-title.min.css' ),
-	'Content page (/coaching/) loads zero jQuery, zero WooCommerce assets, zero dashicons, zero comment-reply, and zero unused Blocksy CSS modules'
+	'Content page (/coaching/) loads zero jQuery, zero dashicons, zero comment-reply, and zero unused Blocksy CSS modules'
 );
 jn_step8_assert(
 	(bool) preg_match( '/<script[^>]+defer[^>]+src=[^>]+main\.js/i', $coaching_html ),
