@@ -82,7 +82,8 @@ function jannie_ensure_front_css_bundle() {
 			// never reads, inlines and page-caches a half-written bundle.
 			$tmp_file = $bundle_file . '.tmp' . wp_generate_password( 8, false );
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			if ( false !== file_put_contents( $tmp_file, $signature . $minified ) && ! rename( $tmp_file, $bundle_file ) ) {
+			$written = file_put_contents( $tmp_file, $signature . $minified );
+			if ( false === $written || ! rename( $tmp_file, $bundle_file ) ) {
 				wp_delete_file( $tmp_file );
 			}
 		}

@@ -1352,24 +1352,52 @@ class JN_Booking_Service {
 			);
 		}
 
-		// Serialize concurrent clicks: add_option() is atomic on the unique option_name.
+		// Serialize concurrent clicks with a real database lock (add_option() checks then inserts, so two
+		// requests can both "win"; INSERT IGNORE on the unique option_name cannot).
 		$lock = 'jn_lock_mentorship_' . $enrolment_booking_id;
-		if ( ! add_option( $lock, time(), '', 'no' ) ) {
-			if ( time() - (int) get_option( $lock ) < self::SESSION_LOCK_TTL ) {
-				return new \WP_Error(
-					'mentorship_busy',
-					'Đang tạo một buổi khác cho lộ trình này. Vui lòng thử lại sau vài giây.',
-					array( 'status' => 409 )
-				);
-			}
-			update_option( $lock, time(), false );
+		if ( ! self::acquire_db_lock( $lock ) ) {
+			return new \WP_Error(
+				'mentorship_busy',
+				'Đang tạo một buổi khác cho lộ trình này. Vui lòng thử lại sau vài giây.',
+				array( 'status' => 409 )
+			);
 		}
 
 		try {
 			return self::insert_mentorship_session( $enrolment_booking_id, $actor_id );
 		} finally {
-			delete_option( $lock );
+			global $wpdb;
+			$wpdb->delete( $wpdb->options, array( 'option_name' => $lock ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			wp_cache_delete( $lock, 'options' );
 		}
+	}
+
+	/**
+	 * Atomically acquire a short-lived lock row in the options table (stale locks older than
+	 * SESSION_LOCK_TTL are taken over with a compare-and-swap UPDATE).
+	 *
+	 * @param string $lock Lock option name.
+	 * @return bool
+	 */
+	private static function acquire_db_lock( string $lock ): bool {
+		global $wpdb;
+		$now = (string) time();
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$inserted = (int) $wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'off')", $lock, $now ) );
+		if ( 1 === $inserted ) {
+			return true;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$held_since = (string) $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $lock ) );
+		if ( '' !== $held_since && (int) $now - (int) $held_since < self::SESSION_LOCK_TTL ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$taken = (int) $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value = %s", $now, $lock, $held_since ) );
+		return 1 === $taken;
 	}
 
 	/**

@@ -69,7 +69,7 @@ function jn_env( string $key, string $default = '' ): string {
 }
 
 // ** 0. Fail closed: never boot production with empty credentials, salts or a placeholder URL ** //
-$jn_required_env = array( 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT' );
+$jn_required_env = array( 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL', 'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT' );
 $jn_missing_env  = array_values(
 	array_filter(
 		$jn_required_env,

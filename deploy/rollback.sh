@@ -88,6 +88,7 @@ gzip -dc "${DB_SNAPSHOT}" | wp db import - --path="${WEB_ROOT}"
 if [[ -n "${PREV_FILES_DIR}" ]]; then
   echo "[3/4] Restoring previous files from ${PREV_FILES_DIR} to ${WEB_ROOT}..."
   rsync -a --delete --exclude='/media/' --exclude='/wp-config.php' --exclude='/.htaccess' \
+    --exclude='/app/cache/' --exclude='/app/upgrade/' \
     "${PREV_FILES_DIR%/}/" "${WEB_ROOT}/"
 else
   echo "[3/4] No previous files directory specified; keeping current files."
