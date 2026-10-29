@@ -426,6 +426,17 @@
 
 ---
 
+## 2l. Lớp Chuyển Động Toàn Site (motion-ui, 2026-10-29)
+
+- **Mã nguồn:** `assets/css/motion.css` (mới, nằm cuối bundle inline), `inc/motion.php` (mới, script `#jn-motion` ở footer), bộ token `--jn-motion-*` / `--jn-ease-smooth` trong `tokens.css`, cùng chỉnh sửa tại chỗ trong `base.css` và `block-styles.css`.
+- **Hành vi:** (1) tiêu đề section, các cột lưới (chuyên gia, 3 trụ cột, 3 gói, cảm nhận), khối FAQ và form đặt lịch hiện dần khi cuộn tới, lệch nhịp 80 ms; chỉ áp dụng cho nội dung nằm dưới màn hình đầu tiên, nên hero/page-intro (LCP) không bao giờ bị ẩn; (2) header nổi lên (đường kẻ + bóng) khi trang đã cuộn, dùng IntersectionObserver thay cho scroll handler; (3) gạch chân menu chạy bằng `transform: scaleX` thay cho `width` của Blocksy; (4) icon trong nút nhích theo hướng đi khi hover/focus; (5) FAQ bỏ tam giác mặc định, thay bằng dấu + xoay thành ×, câu trả lời trượt xuống khi mở; (6) phản hồi khi nhấn cho nút Đăng ký, nút tài khoản, nút menu và nút gửi form; card chỉ nâng lên khi hover trên thiết bị có chuột.
+- **Nguyên tắc:** chỉ animate `transform`/`opacity`; `prefers-reduced-motion` đưa mọi thời lượng/khoảng cách về 0 và bỏ hẳn hiệu ứng cuộn; máy yếu (≤ 2 GB RAM, hoặc ≤ 4 nhân khi không đọc được RAM) dùng cấu hình ngắn `.jn-motion-lite`; không có JS thì không ẩn gì.
+- **Công cụ chụp ảnh:** `verify-step-9-regression.mjs` và `run-step-4-lighthouse.mjs` giả lập `prefers-reduced-motion: reduce` để ảnh full-page không bị trống ở các section chưa reveal.
+- **Kiểm chứng:** `scripts/test-step-12-motion.php` **33/33** (đã cập nhật sau code review: gạch chân menu tự đủ thuộc tính vì `main.min.css` của Blocksy tải sau first paint, có forced-colors, stagger theo hàng); Step 8 37/37; Step 10 81/81; 11e 20/20. Lighthouse mobile `/` (cache ấm, 3 lần): Performance 100/100/100, LCP 1888 ms (baseline 1884 ms), TBT 0, CLS 0; `/coaching/`: 100, LCP 1.8 s, CLS 0. CLS đo trên trình duyệt khi cuộn hết trang (1440 px và 390 px) = 0, không tràn ngang.
+- **Phát hiện có sẵn (chưa sửa, ngoài phạm vi):** `GET //` (hai dấu gạch chéo) trả về `500` "Đã có một lỗi nghiêm trọng" khi trang chưa có cache, kể cả khi đã gỡ thay đổi motion. Sau khi đã cache thì trả `200`.
+
+---
+
 ## 3. Sổ Đăng Ký Các Hạng Mục Chưa Xác Định (`UNKNOWN Register`)
 
 Mọi thông tin thuộc quyền sở hữu của chủ dự án đang ở trạng thái `UNKNOWN` trong `PROJECT CONTEXT CARD` được theo dõi tại bảng dưới đây. Theo quy tắc dự án (§1), hệ thống **tuyệt đối không tự bịa số liệu hay nội dung**, mà sử dụng nhãn giữ chỗ (placeholder) rõ ràng kèm ghi chú tại đây cho đến khi chủ dự án cung cấp:
