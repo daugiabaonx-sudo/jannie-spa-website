@@ -24,7 +24,7 @@ Hệ thống phân quyền của Học viện Jannie Nguyễn được thiết k
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **1. Bảo mật & Đăng nhập** | | | | | |
 | Truy cập `/wp-admin/` & hiển thị Admin Bar | ✅ Có | ✅ Có | ✅ Có | ✅ Có | ❌ Chặn (Chuyển hướng `/tai-khoan/`) |
-| Bắt buộc Xác thực 2 lớp (`Two Factor` — 2FA) | ✅ Bắt buộc | ✅ Bắt buộc | ✅ Bắt buộc | ✅ Bắt buộc | ⚪ Không bắt buộc |
+| Xác thực 2 lớp (`Two Factor` — 2FA) | ⚪ Đã tắt (Đăng nhập trực tiếp) | ⚪ Đã tắt (Đăng nhập trực tiếp) | ⚪ Đã tắt (Đăng nhập trực tiếp) | ⚪ Đã tắt (Đăng nhập trực tiếp) | ⚪ Không áp dụng |
 | Đường dẫn đăng nhập nhân sự (`/<WP_LOGIN_SLUG>`) | ✅ Có | ✅ Có | ✅ Có | ✅ Có | ✅ Có (hoặc `/tai-khoan/`) |
 | **2. Quản lý Khách hàng CRM (`Khách hàng`)** | | | | | |
 | Xem danh sách & tìm kiếm khách hàng (`manage_jn_customers`) | ✅ Có | ✅ Có | ✅ Có | ❌ Không | ❌ Không |

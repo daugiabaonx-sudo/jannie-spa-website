@@ -57,7 +57,7 @@ class JN_Booking_Roles {
 	/**
 	 * Option flag version to sync capabilities and staff accounts once per version bump.
 	 */
-	const CAPS_VERSION = '1.3.2';
+	const CAPS_VERSION = '1.3.3';
 
 	/**
 	 * Register hooks.
@@ -69,7 +69,7 @@ class JN_Booking_Roles {
 		add_filter( 'editable_roles', array( __CLASS__, 'restrict_editable_roles' ), 20, 1 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'restrict_user_and_domain_capabilities' ), 20, 4 );
 
-		// Enforce Two Factor (2FA) for all 4 staff roles.
+		// Disable Two Factor (2FA) prompts so staff and admin log in directly without a 2FA gate.
 		add_filter( 'two_factor_providers', array( __CLASS__, 'filter_two_factor_providers' ), 20, 1 );
 		add_filter( 'two_factor_enabled_providers_for_user', array( __CLASS__, 'enforce_staff_two_factor_providers' ), 20, 2 );
 		add_filter( 'two_factor_is_required_for_user', array( __CLASS__, 'enforce_staff_two_factor_required' ), 20, 2 );
@@ -409,7 +409,7 @@ class JN_Booking_Roles {
 	}
 
 	/**
-	 * Ensure a staff user has `Two_Factor_Email` enabled in user meta as the baseline 2FA provider.
+	 * Clear any Two Factor (2FA) user meta for a staff/admin user so login proceeds directly without a 2FA challenge.
 	 *
 	 * @param int $user_id Staff user ID.
 	 * @return void
@@ -419,23 +419,21 @@ class JN_Booking_Roles {
 			return;
 		}
 
-		$enabled = get_user_meta( $user_id, '_two_factor_enabled_providers', true );
-		if ( ! is_array( $enabled ) ) {
-			$enabled = array();
-		}
-		if ( ! in_array( 'Two_Factor_Email', $enabled, true ) ) {
-			$enabled[] = 'Two_Factor_Email';
-			update_user_meta( $user_id, '_two_factor_enabled_providers', array_values( array_unique( $enabled ) ) );
-		}
-
-		$primary = (string) get_user_meta( $user_id, '_two_factor_provider', true );
-		if ( '' === $primary ) {
-			update_user_meta( $user_id, '_two_factor_provider', 'Two_Factor_Email' );
+		$meta_keys = array(
+			'_two_factor_enabled_providers',
+			'_two_factor_provider',
+			'_two_factor_totp_key',
+			'_two_factor_backup_codes',
+			'_two_factor_email_token',
+			'_two_factor_email_token_timestamp',
+		);
+		foreach ( $meta_keys as $mkey ) {
+			delete_user_meta( $user_id, $mkey );
 		}
 	}
 
 	/**
-	 * Remove `Two_Factor_Dummy` so only real 2FA providers (`Two_Factor_Email`, `Two_Factor_Totp`, `Two_Factor_Backup_Codes`) exist.
+	 * Remove `Two_Factor_Dummy` from registered providers.
 	 *
 	 * @param array<string, string> $providers Registered provider class map.
 	 * @return array<string, string>
@@ -446,41 +444,27 @@ class JN_Booking_Roles {
 	}
 
 	/**
-	 * Enforce that every staff role (`administrator`, `shop_manager`, `jn_booking_assistant`, `editor`)
-	 * always has at least `Two_Factor_Email` enabled and cannot bypass 2FA by clearing their providers.
-	 *
-	 * Confirmed filter in `two-factor/class-two-factor-core.php`: `two_factor_enabled_providers_for_user`.
+	 * Return an empty provider list so Two Factor is disabled for all users on login.
 	 *
 	 * @param array<int|string, string> $enabled_providers Enabled provider keys.
 	 * @param int                       $user_id           User ID.
 	 * @return string[]
 	 */
 	public static function enforce_staff_two_factor_providers( $enabled_providers, int $user_id ): array {
-		$list = is_array( $enabled_providers ) ? array_values( array_filter( $enabled_providers, 'is_string' ) ) : array();
-
-		if ( self::is_staff_user( $user_id ) ) {
-			if ( ! in_array( 'Two_Factor_Email', $list, true ) ) {
-				$list[] = 'Two_Factor_Email';
-			}
-		}
-
-		return array_values( array_unique( $list ) );
+		unset( $enabled_providers, $user_id );
+		return array();
 	}
 
 	/**
-	 * Enforce that Two Factor authentication is strictly required for every staff user on login.
-	 *
-	 * Confirmed filter in `two-factor/class-two-factor-core.php`: `two_factor_is_required_for_user`.
+	 * Ensure Two Factor authentication is not required for any user on login.
 	 *
 	 * @param bool         $is_required Whether 2FA is required.
 	 * @param int|\WP_User $user        User object or user ID.
 	 * @return bool
 	 */
 	public static function enforce_staff_two_factor_required( bool $is_required, $user ): bool {
-		if ( self::is_staff_user( $user ) ) {
-			return true;
-		}
-		return $is_required;
+		unset( $is_required, $user );
+		return false;
 	}
 
 	/**

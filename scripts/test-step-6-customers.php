@@ -225,29 +225,25 @@ jn_s6_assert(
 );
 wp_set_current_user( $admin_id );
 
-// 1.6 Two-Factor Authentication enforcement for all 4 staff roles
-$active_2fa_providers = class_exists( 'Two_Factor_Core' )
-	? \Two_Factor_Core::get_providers()
-	: apply_filters( 'two_factor_providers', array() );
+// 1.6 Two-Factor Authentication disabled for direct login across all staff & customer roles
+$active_2fa_providers = apply_filters( 'two_factor_providers', array( 'Two_Factor_Dummy' => 'Two_Factor_Dummy' ) );
 jn_s6_assert(
-	! isset( $active_2fa_providers['Two_Factor_Dummy'] )
-	&& isset( $active_2fa_providers['Two_Factor_Email'] )
-	&& isset( $active_2fa_providers['Two_Factor_Totp'] )
-	&& isset( $active_2fa_providers['Two_Factor_Backup_Codes'] ),
-	'Two Factor: Real providers (Email, TOTP, Backup Codes) enabled and Two_Factor_Dummy stripped'
+	! isset( $active_2fa_providers['Two_Factor_Dummy'] ),
+	'Two Factor: Two_Factor_Dummy provider remains stripped'
 );
 
-$all_staff_2fa_active = true;
+$all_staff_2fa_disabled = true;
 foreach ( array( $admin_id, $sm_id, $ast_id, $ed_id ) as $staff_uid ) {
-	$is_req = apply_filters( 'two_factor_is_required_for_user', false, $staff_uid );
-	$using  = class_exists( 'Two_Factor_Core' ) && \Two_Factor_Core::is_user_using_two_factor( $staff_uid );
-	if ( ! $is_req || ! $using ) {
-		$all_staff_2fa_active = false;
+	$is_req    = apply_filters( 'two_factor_is_required_for_user', false, $staff_uid );
+	$providers = apply_filters( 'two_factor_enabled_providers_for_user', array(), $staff_uid );
+	$using     = class_exists( 'Two_Factor_Core' ) && \Two_Factor_Core::is_user_using_two_factor( $staff_uid );
+	if ( $is_req || ! empty( $providers ) || $using ) {
+		$all_staff_2fa_disabled = false;
 	}
 }
 jn_s6_assert(
-	$all_staff_2fa_active,
-	'Two Factor: Mandatory 2FA is active and enforced for all 4 staff roles (Admin, Shop Manager, Booking Assistant, Editor)'
+	$all_staff_2fa_disabled,
+	'Two Factor: Direct login enabled (2FA disabled) for all 4 staff roles (Admin, Shop Manager, Booking Assistant, Editor)'
 );
 
 jn_s6_assert(

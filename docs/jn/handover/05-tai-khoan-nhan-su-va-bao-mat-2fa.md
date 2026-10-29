@@ -33,19 +33,7 @@ Mỗi thành viên trong đội ngũ được cấp một tài khoản riêng �
 
 ---
 
-## 3. Hướng Dẫn Sử Dụng & Thiết Lập Xác Thực 2 Lớp (`2FA`)
+## 3. Hướng Dẫn Đăng Nhập Trực Tiếp (Đã Tắt 2FA)
 
-### 3.1. Đăng nhập hàng ngày với 2FA
-1. Nhập **Tên người dùng / Email** và **Mật khẩu** tại `/<WP_LOGIN_SLUG>`.
-2. Hệ thống chuyển sang bước **Xác thực 2 lớp**:
-   - **Cách 1 (Mặc định — Mã OTP qua Email):** Hệ thống gửi ngay 1 mã gồm 6 chữ số tới email công vụ của bạn. Nhập 6 số này vào ô **`Mã xác thực`** rồi bấm **Đăng nhập**.
-   - **Cách 2 (Khuyến nghị — Ứng dụng Google Authenticator / Apple Passwords):** Mở ứng dụng trên điện thoại và nhập 6 số hiển thị trên màn hình.
-
-![Màn hình nhập mã xác thực 2 lớp (2FA) bắt buộc đối với nhân sự](./images/14-xac-thuc-2-lop-2fa.png)
-
-### 3.2. Cách đổi sang email thật & cài đặt Google Authenticator cho nhân sự mới
-1. **Quản trị viên** vào **Thành viên (`Users`) → Tất cả thành viên (`All Users`)**, bấm **Chỉnh sửa (`Edit`)** vào tài khoản nhân sự.
-2. Cập nhật **Họ và tên**, **Email công vụ thật** và bấm **Đặt lại mật khẩu (`Send Reset Link`)**.
-3. Sau khi nhân sự đăng nhập lần đầu, vào **Thành viên → Hồ sơ (`Profile`)**, kéo xuống mục **Tùy chọn Xác thực 2 lớp (`Two-Factor Options`)**:
-   - Tích bật **Time Based One-Time Password (TOTP)** và dùng điện thoại quét mã QR.
-   - Bấm **Tạo mã dự phòng (`Generate Backup Codes`)** và lưu 10 mã dự phòng vào nơi an toàn để dùng khi đi công tác không có sóng điện thoại.
+- Tính năng bắt buộc Xác thực 2 lớp (`2FA`) đã được tắt theo yêu cầu vận hành để hỗ trợ đăng nhập nhanh.
+- Nhân sự và Quản trị viên chỉ cần truy cập `/<WP_LOGIN_SLUG>`, nhập **Tên người dùng / Email** và **Mật khẩu** là vào thẳng trang quản trị `/wp-admin/` mà không cần nhập mã OTP.
