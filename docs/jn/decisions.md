@@ -476,3 +476,22 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - Logo Bình Phước và Người Tiêu Dùng: mọi model (x4plus, x4plus-anime, animevideov3) đều làm méo dòng chữ nhỏ ("ĐÀI PHÁT THANH…", "Tạp chí tiêu dùng…"); bản hiện tại đọc được nhưng chưa nét hơn. Chủ dự án chọn xin file logo chính thức của hai báo; đến lúc đó `sharpness_pending` trong JSON khiến test báo `[KNOWN]` thay vì fail. Khi có file: đặt vào `scripts/.media-masters/<slug>.x4.png` (hoặc đổi `source_url`), xoá `sharpness_pending`, chạy lại import và test.
 - Ảnh là ảnh thật của thương hiệu → có thể dùng để gỡ một phần launch blocker "ảnh thật thay thế ảnh AI" (việc riêng, chưa làm).
 - File chạy `~/.local/opt/realesrgan-ncnn-vulkan/realesrgan-ncnn-vulkan` trên máy chủ dự án **thiếu quyền thực thi** (`chmod +x` trước khi chạy); đây cũng là lý do master Step 3 của ADR-015 chưa từng được tạo.
+
+## ADR-019: Ảnh Hero & Chuyên Gia Dùng Ảnh Thật jannieedu.com Thay Ảnh AI Stitch
+
+- **Ngày quyết định:** 2026-10-29
+- **Trạng thái:** Đã triển khai (chủ dự án chọn "cách 1: thay file ngay trong ảnh cũ")
+
+### 1. Bối cảnh
+- Trang Home / My Story / Coaching dùng attachment 86 (hero, 800×1000) và 87 (chuyên gia, 750×1000) — ảnh AI từ Stitch, tiêu đề `PLACEHOLDER` (launch blocker BL-01).
+- ADR-018 đã có master 4x của 14 ảnh thật từ jannieedu.com.
+
+### 2. Quyết định
+1. Giữ nguyên ID 86/87 và tên file (không sửa nội dung trang); `jn-step3-media.json` trỏ sang master ảnh thật qua trường mới `master_slug`: hero ← `jn-legacy-home-portrait`, chuyên gia ← `jn-legacy-footer-8` (ảnh salon bị loại: nguồn 267px, phải phóng 1,004× khi cắt 3:4). Cả hai `require_master`, `sharpen` 0,15, chỉ thu nhỏ (0,29× / 0,47×).
+2. Bỏ `source_region` của hero (vùng ảnh trong wireframe Stitch); phép tính đó giữ lại trong `test-placeholder-media.php` như một ca kiểm tra `jn_placeholder_crop_box()`.
+3. Tiêu đề mới không còn tiền tố `PLACEHOLDER`, xoá meta `_jn_is_placeholder` (giá trị `null` trong meta = xoá), lưu URL Wayback ở `_jn_media_origin`.
+
+### 3. Hệ quả
+- `check-launch-blockers.php`: số ảnh placeholder giảm 5 → 3 (còn 3 avatar học viên — không có ảnh thật thay thế). BL-01 vẫn chờ avatar thật và ảnh Open Graph 1200×630.
+- URL ảnh không đổi nên trình duyệt có thể còn giữ bản cũ trong cache — tải lại cứng (Cmd+Shift+R) khi xem local; production nhận file mới khi deploy.
+- Alt text mô tả trung tính, chưa ghi tên người trong ảnh — chủ dự án bổ sung nếu muốn. Chữ "Canon" trên máy ảnh (ảnh chuyên gia) bị AI làm méo nhẹ.

@@ -29,6 +29,14 @@ echo "=================================================================\n";
 const JN_TPM_NATIVE_W = 1408;
 const JN_TPM_NATIVE_H = 768;
 const JN_TPM_AI_SCALE = 4;
+// The photo inside the old Stitch hero wireframe (x318 y105 756x500 of 1408x768), kept as a crop_box() case.
+const JN_TPM_STITCH_REGION  = array(
+	'x' => 0.2259,
+	'y' => 0.1367,
+	'w' => 0.5369,
+	'h' => 0.651,
+);
+const JN_TPM_STITCH_FOCUS_X = 0.4936;
 
 // ---------------------------------------------------------------------------------------------
 jn_t_section( 'Library + item definitions' );
@@ -48,8 +56,12 @@ jn_t_assert( 5 === count( $jn_items ), 'All 5 Step 3 placeholder items are defin
 
 $jn_hero   = $jn_items['hero_portrait'] ?? array();
 $jn_expert = $jn_items['expert_consultation'] ?? array();
-jn_t_assert( ! empty( $jn_hero['source_region'] ), 'Hero item declares a source_region (the photo inside the wireframe)' );
-jn_t_assert( empty( $jn_expert['source_region'] ), 'Expert item uses the whole source image' );
+// ADR-019: hero and expert are real jannieedu.com photos built from the ADR-018 masters, not Stitch AI images.
+jn_t_assert( 'jn-legacy-home-portrait' === ( $jn_hero['master_slug'] ?? '' ), 'Hero uses the real jannieedu.com home portrait master' );
+jn_t_assert( 'jn-legacy-footer-8' === ( $jn_expert['master_slug'] ?? '' ), 'Expert uses the real jannieedu.com footer 8 master' );
+jn_t_assert( ! empty( $jn_hero['require_master'] ) && ! empty( $jn_expert['require_master'] ), 'Real photos never fall back to the Stitch AI image' );
+jn_t_assert( ! str_starts_with( (string) $jn_hero['title'], 'PLACEHOLDER' ) && ! str_starts_with( (string) $jn_expert['title'], 'PLACEHOLDER' ), 'Hero and expert titles are no longer PLACEHOLDER (launch blocker check)' );
+jn_t_assert( empty( $jn_hero['source_region'] ) && empty( $jn_expert['source_region'] ), 'Real photos use the whole master (no wireframe region)' );
 
 // ---------------------------------------------------------------------------------------------
 jn_t_section( 'Source URL requests the original rendition' );
@@ -83,9 +95,9 @@ foreach ( array( 1, JN_TPM_AI_SCALE ) as $jn_scale ) {
 	$jn_src_h = JN_TPM_NATIVE_H * $jn_scale;
 	$jn_label = 1 === $jn_scale ? 'native 1408x768' : '4x AI master';
 
-	$jn_box = jn_placeholder_crop_box( $jn_src_w, $jn_src_h, (int) $jn_hero['width'], (int) $jn_hero['height'], $jn_hero['source_region'], (float) ( $jn_hero['focus_x'] ?? 0.5 ) );
+	$jn_box = jn_placeholder_crop_box( $jn_src_w, $jn_src_h, (int) $jn_hero['width'], (int) $jn_hero['height'], JN_TPM_STITCH_REGION, JN_TPM_STITCH_FOCUS_X );
 	jn_t_assert( abs( $jn_box['w'] / $jn_box['h'] - 0.8 ) < 0.005, "Hero crop is 4:5 ({$jn_label})", wp_json_encode( $jn_box ) );
-	jn_t_assert( jn_tpm_box_inside_region( $jn_box, $jn_hero['source_region'], $jn_src_w, $jn_src_h ), "Hero crop stays inside the photo, never the wireframe UI ({$jn_label})", wp_json_encode( $jn_box ) );
+	jn_t_assert( jn_tpm_box_inside_region( $jn_box, JN_TPM_STITCH_REGION, $jn_src_w, $jn_src_h ), "Hero crop stays inside the photo, never the wireframe UI ({$jn_label})", wp_json_encode( $jn_box ) );
 	jn_t_assert( $jn_box['w'] >= 395 * $jn_scale, "Hero crop keeps >= 395px of native width ({$jn_label})", (string) $jn_box['w'] );
 
 	$jn_box = jn_placeholder_crop_box( $jn_src_w, $jn_src_h, (int) $jn_expert['width'], (int) $jn_expert['height'] );
@@ -136,9 +148,12 @@ foreach ( $jn_budgets as $jn_key => $jn_budget ) {
 
 	$jn_origin = (string) get_post_meta( $jn_id, '_jn_media_source', true );
 	$jn_scale  = (float) get_post_meta( $jn_id, '_jn_media_scale', true );
-	$jn_master = jn_placeholder_master_path( (string) $jn_item['slug'] );
+	$jn_master = jn_placeholder_master_path( (string) ( $jn_item['master_slug'] ?? $jn_item['slug'] ) );
 	jn_t_assert( in_array( $jn_origin, array( 'ai-x4', 's0' ), true ), "{$jn_key}: source is the AI master or the =s0 original, never the 512px default", $jn_origin );
 	jn_t_assert( ! is_file( $jn_master ) || 'ai-x4' === $jn_origin, "{$jn_key}: uses the AI master when one exists", $jn_origin );
+	jn_t_assert( 'ai-x4' === $jn_origin, "{$jn_key}: built from the real photo's 4x master", $jn_origin );
+	jn_t_assert( '' === get_post_meta( $jn_id, '_jn_is_placeholder', true ), "{$jn_key}: no longer flagged as an AI placeholder" );
+	jn_t_assert( ! str_starts_with( get_the_title( $jn_id ), 'PLACEHOLDER' ), "{$jn_key}: attachment title is no longer PLACEHOLDER", get_the_title( $jn_id ) );
 	jn_t_assert( $jn_scale > 0 && $jn_scale <= $jn_budget['max_scale'], "{$jn_key}: upscale factor <= {$jn_budget['max_scale']}x", (string) $jn_scale );
 	jn_t_assert( 'ai-x4' !== $jn_origin || $jn_scale <= 1.0, "{$jn_key}: AI master is only ever downscaled", (string) $jn_scale );
 

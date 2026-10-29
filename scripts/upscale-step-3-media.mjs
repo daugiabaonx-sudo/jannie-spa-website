@@ -127,9 +127,11 @@ function upscale(input, output, model) {
 }
 
 async function buildMaster(item) {
-	const src = path.join(MASTER_DIR, `${item.slug}.src${sourceExt(item.source_url)}`);
-	const out = path.join(MASTER_DIR, `${item.slug}.x4.png`);
-	const flat = path.join(MASTER_DIR, `${item.slug}.flat.png`);
+	// `master_slug` points an item at another item's master (Step 3 hero/expert reuse the legacy photos).
+	const slug = item.master_slug || item.slug;
+	const src = path.join(MASTER_DIR, `${slug}.src${sourceExt(item.source_url)}`);
+	const out = path.join(MASTER_DIR, `${slug}.x4.png`);
+	const flat = path.join(MASTER_DIR, `${slug}.flat.png`);
 	// A stale master would be imported silently if this rebuild fails (e.g. an RGBA master after adding `ink`).
 	fs.rmSync(out, { force: true });
 	fs.rmSync(flat, { force: true });

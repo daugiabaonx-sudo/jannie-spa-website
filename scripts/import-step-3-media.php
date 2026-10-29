@@ -32,7 +32,13 @@ $jn_exit = jn_run_media_import(
 	jn_placeholder_media_items(),
 	isset( $args ) && is_array( $args ) ? $args : array(),
 	'jn_step3_media_map',
-	static fn(): array => array( '_jn_is_placeholder' => '1' )
+	// Real photos (`master_slug`) drop the placeholder flag; the other items are still Stitch AI placeholders.
+	static fn( array $item ): array => empty( $item['master_slug'] )
+		? array( '_jn_is_placeholder' => '1' )
+		: array(
+			'_jn_is_placeholder' => null,
+			'_jn_media_origin'   => (string) $item['source_url'],
+		)
 );
 if ( $jn_exit > 0 ) {
 	exit( $jn_exit );

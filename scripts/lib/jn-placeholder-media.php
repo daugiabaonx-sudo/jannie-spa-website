@@ -113,7 +113,8 @@ function jn_placeholder_crop_box( int $src_w, int $src_h, int $dst_w, int $dst_h
  * @return array{image: GdImage, origin: string}|WP_Error
  */
 function jn_placeholder_load_source( array $item ) {
-	$master = jn_placeholder_master_path( (string) $item['slug'] );
+	// `master_slug` lets an item reuse another item's master (Step 3 hero/expert use the ADR-018 photos).
+	$master = jn_placeholder_master_path( (string) ( $item['master_slug'] ?? $item['slug'] ) );
 	if ( ! empty( $item['ai_upscale'] ) && is_file( $master ) ) {
 		$image = @imagecreatefrompng( $master ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		if ( ! $image ) {
@@ -273,8 +274,9 @@ function jn_media_is_rgb( $ink ): bool {
 function jn_media_validate_item( array $item ): ?WP_Error {
 	$slug     = (string) ( $item['slug'] ?? '' );
 	$filename = (string) ( $item['filename'] ?? '' );
-	if ( 1 !== preg_match( JN_MEDIA_SLUG_PATTERN, $slug ) ) {
-		return new WP_Error( 'jn_invalid_item', "Slug must be lowercase kebab-case: {$slug}" );
+	$master   = (string) ( $item['master_slug'] ?? $slug );
+	if ( 1 !== preg_match( JN_MEDIA_SLUG_PATTERN, $slug ) || 1 !== preg_match( JN_MEDIA_SLUG_PATTERN, $master ) ) {
+		return new WP_Error( 'jn_invalid_item', "Slug and master_slug must be lowercase kebab-case: {$slug} / {$master}" );
 	}
 	if ( '' === $filename || basename( $filename ) !== $filename || sanitize_file_name( $filename ) !== $filename ) {
 		return new WP_Error( 'jn_invalid_item', "Unsafe filename: {$filename}" );
@@ -379,11 +381,15 @@ function jn_media_upsert_attachment( array $item, string $dest_file, int $existi
  * @param int                   $attach_id Attachment ID.
  * @param array<string, mixed>  $item      Item definition.
  * @param string                $dest_file WebP path.
- * @param array<string, string> $meta      Post meta to store.
+ * @param array<string, string|null> $meta  Post meta to store; null deletes the key.
  * @return array<string, mixed> Media-map entry.
  */
 function jn_media_finish_attachment( int $attach_id, array $item, string $dest_file, array $meta ): array {
 	foreach ( $meta as $meta_key => $meta_value ) {
+		if ( null === $meta_value ) {
+			delete_post_meta( $attach_id, $meta_key );
+			continue;
+		}
 		update_post_meta( $attach_id, $meta_key, $meta_value );
 	}
 	return array(
@@ -408,7 +414,7 @@ function jn_media_finish_attachment( int $attach_id, array $item, string $dest_f
  * Requires `wp-admin/includes/{image,file,media}.php` to be loaded by the caller.
  *
  * @param array<string, mixed>  $item       Item definition.
- * @param array<string, string> $extra_meta Extra post meta to store on the attachment.
+ * @param array<string, string|null> $extra_meta Extra post meta to store on the attachment; null deletes the key.
  * @return array{entry: array<string, mixed>, origin: string, scale: float}|WP_Error
  */
 function jn_import_media_item( array $item, array $extra_meta = array() ) {
