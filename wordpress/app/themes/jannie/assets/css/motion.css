@@ -1,0 +1,112 @@
+/**
+ * Jannie Design System — Motion Layer (motion-ui).
+ *
+ * Every rule here guides attention, communicates state or keeps spatial continuity. Only transform and
+ * opacity move (no layout properties, so no CLS), and tokens.css zeroes every duration and distance
+ * under prefers-reduced-motion. Component hover/press transitions stay next to their components in
+ * base.css and block-styles.css; this file holds the page-level systems driven by inc/motion.php.
+ */
+
+/* 1. Scroll Reveal
+   inc/motion.php adds `.jn-reveal` only to content that starts below the first viewport, so the hero
+   (LCP) and anything already on screen never blink. Without JS, or with reduced motion, nothing is
+   hidden. `--jn-reveal-order` staggers items that share a row of one grid. */
+.jn-reveal {
+	opacity: 0;
+	transform: translate3d(0, var(--jn-motion-distance-lg), 0);
+	transition:
+		opacity var(--jn-motion-slow) var(--jn-ease-smooth),
+		transform var(--jn-motion-slow) var(--jn-ease-smooth);
+	transition-delay: calc(var(--jn-reveal-order, 0) * var(--jn-motion-stagger));
+}
+
+/* Low-end devices: shorter travel and duration, no stagger (responsiveness over smoothness). */
+.jn-motion-lite .jn-reveal {
+	transform: translate3d(0, var(--jn-motion-distance-sm), 0);
+	transition-duration: var(--jn-motion-fast);
+	transition-delay: 0s;
+}
+
+.jn-reveal.is-revealed {
+	opacity: 1;
+	transform: none;
+}
+
+@media print {
+	.jn-reveal {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* 2. Header Scroll State
+   The header sits flat on the hero, then lifts (hairline + soft shadow) once content scrolls beneath
+   it. Only the pseudo-element's opacity animates; `.is-scrolled` follows the sentinel below. */
+#header.ct-header::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	box-shadow: var(--jn-shadow-header-raised);
+	opacity: 0;
+	transition: opacity var(--jn-motion-normal) var(--jn-ease-smooth);
+}
+
+#header.ct-header.is-scrolled::after {
+	opacity: 1;
+}
+
+.jn-scroll-sentinel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: var(--jn-space-sm);
+	pointer-events: none;
+	visibility: hidden;
+}
+
+/* 3. Button Icon Nudge
+   On hover or keyboard focus the icon steps toward where the button leads (forward, out, down). */
+.wp-block-button {
+	--jn-icon-step: calc(var(--jn-motion-distance-sm) / 2);
+}
+
+.wp-block-button.has-icon-arrow-forward {
+	--jn-icon-nudge: translate3d(var(--jn-icon-step), 0, 0);
+}
+
+.wp-block-button.has-icon-north-east {
+	--jn-icon-nudge: translate3d(var(--jn-icon-step), calc(-1 * var(--jn-icon-step)), 0);
+}
+
+.wp-block-button.has-icon-south {
+	--jn-icon-nudge: translate3d(0, var(--jn-icon-step), 0);
+}
+
+.wp-block-button .wp-block-button__link .jn-btn-icon {
+	transition: transform var(--jn-motion-fast) var(--jn-ease-smooth);
+}
+
+.wp-block-button .wp-block-button__link:focus-visible .jn-btn-icon {
+	transform: var(--jn-icon-nudge, none);
+}
+
+@media (hover: hover) {
+	.wp-block-button .wp-block-button__link:hover .jn-btn-icon {
+		transform: var(--jn-icon-nudge, none);
+	}
+}
+
+/* 4. Disclosure Content (FAQ)
+   An opened answer drops in from under its question; closing stays instant, as native <details> is. */
+.jn-faq-item[open] > :not(summary) {
+	animation: jn-fade-down var(--jn-motion-normal) var(--jn-ease-smooth);
+}
+
+@keyframes jn-fade-down {
+	from {
+		opacity: 0;
+		transform: translate3d(0, calc(-1 * var(--jn-motion-distance-sm)), 0);
+	}
+}

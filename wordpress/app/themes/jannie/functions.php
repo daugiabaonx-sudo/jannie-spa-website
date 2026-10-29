@@ -21,6 +21,7 @@ require_once JANNIE_PATH . '/inc/block-styles.php';
 require_once JANNIE_PATH . '/inc/patterns.php';
 require_once JANNIE_PATH . '/inc/layout-shell.php';
 require_once JANNIE_PATH . '/inc/woocommerce.php';
+require_once JANNIE_PATH . '/inc/motion.php';
 
 /**
  * Minify a CSS string while preserving strings, URLs, and calc() whitespace.
@@ -41,7 +42,7 @@ function jannie_minify_css_string( $css ) {
 
 /**
  * Ensure the combined & minified front-end stylesheet `assets/css/jannie-bundle.min.css`
- * is up to date with `tokens.css`, `base.css`, and `block-styles.css`.
+ * is up to date with `tokens.css`, `base.css`, `block-styles.css`, and `motion.css`.
  *
  * @return string Relative path to the bundle or fallback stylesheet.
  */
@@ -52,6 +53,7 @@ function jannie_ensure_front_css_bundle() {
 		$css_dir . '/tokens.css',
 		$css_dir . '/base.css',
 		$css_dir . '/block-styles.css',
+		$css_dir . '/motion.css',
 	);
 
 	// Staleness is decided by source CONTENT (mtimes are unreliable after git checkout / rsync).
@@ -94,7 +96,7 @@ function jannie_ensure_front_css_bundle() {
 
 /**
  * Enqueue front-end design system stylesheets:
- * Inlines the minified Jannie child-theme CSS (`tokens.css` + `base.css` + `block-styles.css`)
+ * Inlines the minified Jannie child-theme CSS (`tokens.css` + `base.css` + `block-styles.css` + `motion.css`)
  * onto `ct-main-styles` so `<head>` has only a single external stylesheet (`ct-main-styles`)
  * and zero chained stylesheet round-trips (Step 8 Task 3).
  *
@@ -125,6 +127,9 @@ function jannie_enqueue_front_assets() {
 
 		wp_register_style( 'jn-block-styles', false, array( 'jn-base' ), JANNIE_VERSION );
 		wp_enqueue_style( 'jn-block-styles' );
+
+		wp_register_style( 'jn-motion', false, array( 'jn-block-styles' ), JANNIE_VERSION );
+		wp_enqueue_style( 'jn-motion' );
 		return;
 	}
 
@@ -146,6 +151,13 @@ function jannie_enqueue_front_assets() {
 		'jn-block-styles',
 		JANNIE_URI . '/assets/css/block-styles.css',
 		array( 'jn-base' ),
+		JANNIE_VERSION
+	);
+
+	wp_enqueue_style(
+		'jn-motion',
+		JANNIE_URI . '/assets/css/motion.css',
+		array( 'jn-block-styles' ),
 		JANNIE_VERSION
 	);
 }

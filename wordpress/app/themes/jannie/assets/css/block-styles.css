@@ -135,11 +135,14 @@
 	border-radius: var(--jn-radius-lg);
 	padding: var(--jn-space-xl);
 	box-shadow: var(--jn-shadow-card);
-	transition: transform var(--jn-transition), box-shadow var(--jn-transition);
+	transition: transform var(--jn-motion-normal) var(--jn-ease-smooth), box-shadow var(--jn-transition);
 }
 
-.wp-block-group.is-style-card:hover {
-	transform: translateY(-2px);
+/* Hover lift only where hover exists, so a tapped card does not stay raised on touch screens. */
+@media (hover: hover) {
+	.wp-block-group.is-style-card:hover {
+		transform: translateY(-2px);
+	}
 }
 
 /* 3b. Card Dark (Featured Tier — Ink Charcoal, raised on >= 1024px) */
@@ -150,7 +153,7 @@
 	padding: var(--jn-space-xl);
 	box-shadow: var(--jn-shadow-featured);
 	position: relative;
-	transition: transform var(--jn-transition), box-shadow var(--jn-transition);
+	transition: transform var(--jn-motion-normal) var(--jn-ease-smooth), box-shadow var(--jn-transition);
 }
 
 .wp-block-group.is-style-card-dark h1,
@@ -166,7 +169,9 @@
 	.wp-block-group.is-style-card-dark {
 		transform: translateY(-8px);
 	}
+}
 
+@media (min-width: 1024px) and (hover: hover) {
 	.wp-block-group.is-style-card-dark:hover {
 		transform: translateY(-10px);
 	}
@@ -1584,13 +1589,17 @@ ol.jn-booking-steps > li strong {
 	gap: var(--jn-space-sm);
 	cursor: pointer;
 	box-shadow: var(--jn-shadow-btn-primary);
-	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition);
+	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition), transform var(--jn-transition);
 }
 
 .jn-booking-form__submit:hover {
 	background-color: var(--jn-champagne);
 	border-color: var(--jn-champagne);
 	color: var(--jn-ink);
+}
+
+.jn-booking-form__submit:active {
+	transform: scale(0.98);
 }
 
 .jn-booking-form__submit.is-hidden {
@@ -1669,10 +1678,44 @@ ol.jn-booking-steps > li strong {
 
 .jn-faq-item > summary {
 	cursor: pointer;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--jn-space-md);
+	list-style: none;
 	font-family: var(--jn-font-heading);
 	font-size: 1.25rem;
 	line-height: 1.4;
 	color: var(--jn-ink);
+	transition: color var(--jn-transition);
+}
+
+.jn-faq-item > summary::-webkit-details-marker {
+	display: none;
+}
+
+/* Champagne plus that turns into a close mark when the answer is open (centred on the first line). */
+.jn-faq-item > summary::after {
+	content: "";
+	flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+	margin-top: calc((1.4em - 14px) / 2);
+	background:
+		linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+		linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+	color: var(--jn-champagne-text-sm);
+	transition: transform var(--jn-motion-normal) var(--jn-ease-smooth);
+}
+
+.jn-faq-item[open] > summary::after {
+	transform: rotate(45deg);
+}
+
+@media (hover: hover) {
+	.jn-faq-item > summary:hover {
+		color: var(--jn-champagne-text-sm);
+	}
 }
 
 .jn-faq-item > summary:focus-visible {

@@ -355,23 +355,57 @@ textarea:focus-visible,
 	letter-spacing: 0.02em !important;
 	text-transform: uppercase !important;
 	color: var(--jn-on-surface-variant) !important;
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	min-height: 28px;
 	padding: 4px 0 !important;
 	border-bottom: 2px solid transparent;
 	text-decoration: none !important;
-	transition: color var(--jn-transition), border-color var(--jn-transition);
+	transition: color var(--jn-transition);
 	white-space: nowrap;
 }
 
-#header .header-menu-1 .menu > li > a.ct-menu-link::before,
-#header .header-menu-1 .menu > li > a.ct-menu-link::after {
+#header .header-menu-1 .menu > li > a.ct-menu-link::before {
 	display: none !important;
+}
+
+/* Hover/current indicator: a champagne line that grows from the left over the reserved 2px border.
+   Replaces Blocksy's type-2 indicator, which transitions width (a layout property). Self-contained:
+   Blocksy's main.min.css (which also positions this pseudo) loads after first paint. */
+#header .header-menu-1 .menu > li > a.ct-menu-link::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -2px;
+	width: auto;
+	height: 2px;
+	margin: 0;
+	opacity: 1;
+	background-color: var(--jn-champagne);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform var(--jn-motion-normal) var(--jn-ease-smooth);
 }
 
 #header .header-menu-1 .menu > li > a.ct-menu-link:hover {
 	color: var(--jn-ink) !important;
+}
+
+#header .header-menu-1 .menu > li > a.ct-menu-link:hover::after,
+#header .header-menu-1 .menu > li.current-menu-item > a.ct-menu-link::after,
+#header .header-menu-1 .menu > li.current_page_item > a.ct-menu-link::after,
+#header .header-menu-1 .menu > li > a.ct-menu-link[aria-current="page"]::after {
+	transform: scaleX(1);
+}
+
+/* Forced colors repaint backgrounds as Canvas; keep the indicator visible in the system highlight. */
+@media (forced-colors: active) {
+	#header .header-menu-1 .menu > li > a.ct-menu-link::after {
+		background-color: Highlight;
+		forced-color-adjust: none;
+	}
 }
 
 #header .header-menu-1 .menu > li.current-menu-item > a.ct-menu-link,
@@ -379,8 +413,6 @@ textarea:focus-visible,
 #header .header-menu-1 .menu > li > a.ct-menu-link[aria-current="page"] {
 	color: var(--jn-ink) !important;
 	font-weight: 600 !important;
-	border-bottom: 2px solid var(--jn-champagne) !important;
-	padding-bottom: 4px !important;
 }
 
 /* Right Actions: Đăng nhập | Đăng ký + Account Icon Button */
@@ -441,7 +473,7 @@ textarea:focus-visible,
 	text-transform: uppercase;
 	box-shadow: var(--jn-shadow-pill);
 	text-decoration: none !important;
-	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition);
+	transition: background-color var(--jn-transition), color var(--jn-transition), border-color var(--jn-transition), transform var(--jn-transition);
 	white-space: nowrap;
 }
 
@@ -449,6 +481,10 @@ textarea:focus-visible,
 	background-color: var(--jn-champagne);
 	border-color: var(--jn-champagne);
 	color: var(--jn-surface-cream) !important;
+}
+
+.jn-header-register:active {
+	transform: scale(0.98);
 }
 
 .jn-header-account-btn {
@@ -470,6 +506,11 @@ textarea:focus-visible,
 	background-color: var(--jn-secondary);
 }
 
+.jn-header-account-btn:active,
+#header .ct-header-trigger:active {
+	transform: scale(0.94);
+}
+
 /* Header Trigger & Off-Canvas Breakpoint (< 1280px) */
 #header .ct-header-trigger {
 	width: 40px;
@@ -483,7 +524,7 @@ textarea:focus-visible,
 	margin-left: var(--jn-space-sm);
 	padding: 0;
 	cursor: pointer;
-	transition: background-color var(--jn-transition), border-color var(--jn-transition);
+	transition: background-color var(--jn-transition), border-color var(--jn-transition), transform var(--jn-transition);
 }
 
 #header .ct-header-trigger:hover {

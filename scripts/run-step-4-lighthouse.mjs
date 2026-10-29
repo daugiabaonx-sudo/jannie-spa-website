@@ -108,6 +108,8 @@ async function launchChrome(port = 0) {
   await cdp.send('Page.enable');
   await cdp.send('Runtime.enable');
   await cdp.send('DOM.enable');
+  // Reduced motion keeps the theme's scroll reveal (inc/motion.php) off, so full-page captures show every section.
+  await cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   return { chrome, userDataDir, cdp, port: actualPort };
 }
 

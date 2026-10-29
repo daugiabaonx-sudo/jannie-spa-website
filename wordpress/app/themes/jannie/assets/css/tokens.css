@@ -151,6 +151,7 @@
 
 	/* 6. Shadows & Elevations (from code.html) */
 	--jn-shadow-header: 0 1px 8px rgba(0, 0, 0, 0.03);
+	--jn-shadow-header-raised: 0 1px 0 var(--jn-border), 0 8px 24px -12px rgba(31, 30, 29, 0.12);
 	--jn-shadow-pill: 0 2px 8px -2px rgba(31, 30, 29, 0.04);
 	--jn-shadow-monogram: 0 2px 8px -2px rgba(31, 30, 29, 0.05);
 	--jn-shadow-card-sm: 0 2px 12px -2px rgba(31, 30, 29, 0.03);
@@ -159,10 +160,20 @@
 	--jn-shadow-featured: 0 20px 25px -5px rgba(31, 30, 29, 0.14), 0 8px 10px -6px rgba(31, 30, 29, 0.10);
 	--jn-shadow-ambient: 0 20px 40px -15px rgba(27, 28, 26, 0.05);
 
-	/* 7. Transitions & Motion */
+	/* 7. Transitions & Motion
+	   --jn-transition drives colour/state feedback. The motion scale below (motion-ui tokens) drives
+	   movement: smooth = fast start, long settle, used for anything that travels or grows. */
 	--jn-duration: 200ms;
 	--jn-ease: cubic-bezier(0.4, 0, 0.2, 1);
 	--jn-transition: var(--jn-duration) var(--jn-ease);
+
+	--jn-motion-fast: 180ms;
+	--jn-motion-normal: 350ms;
+	--jn-motion-slow: 600ms;
+	--jn-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+	--jn-motion-distance-sm: 8px;
+	--jn-motion-distance-lg: 24px;
+	--jn-motion-stagger: 80ms; /* <= 100ms or a list feels slow */
 }
 
 @media (max-width: 1199.98px) {
@@ -185,6 +196,12 @@
 	.editor-styles-wrapper {
 		--jn-duration: 0ms;
 		--jn-transition: 0ms linear;
+		--jn-motion-fast: 0ms;
+		--jn-motion-normal: 0ms;
+		--jn-motion-slow: 0ms;
+		--jn-motion-distance-sm: 0px;
+		--jn-motion-distance-lg: 0px;
+		--jn-motion-stagger: 0ms;
 	}
 
 	*,

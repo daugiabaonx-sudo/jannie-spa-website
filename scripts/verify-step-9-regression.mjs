@@ -119,7 +119,8 @@ async function main() {
 			executablePath: CHROME_EXECUTABLE,
 			headless: true,
 		});
-		const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+		// Reduced motion keeps the theme's scroll reveal (inc/motion.php) off, so fullPage captures show every section.
+		const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
 		const page = await context.newPage();
 
 		const discoveredUrls = new Set();
