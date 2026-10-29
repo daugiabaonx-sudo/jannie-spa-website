@@ -9,13 +9,13 @@
 
 | Chỉ số | Trước (baseline) | Sau | Bằng chứng |
 |---|---|---|---|
-| Lỗi CRITICAL / HIGH / MEDIUM / LOW (13 URL) | **12 / 5 / 23 / 20** | **0 / 0 / 1 / 12** | [audit-baseline-live.md](audit-baseline-live.md) → [audit-after-live.md](audit-after-live.md) `[FACT]` |
-| Số đồ thị JSON-LD mỗi trang | 2 (rời nhau, trùng `WebPage`) | 1 (`@id` liên kết đầy đủ) | `test-step-10-seo.php` `[FACT]` |
+| Lỗi CRITICAL / HIGH / MEDIUM / LOW (13 URL) | **12 / 5 / 23 / 20** | **0 / 0 / 1 / 11** | [audit-baseline-live.md](audit-baseline-live.md) → [audit-after-live.md](audit-after-live.md) `[FACT]` |
+| Số đồ thị JSON-LD mỗi trang | 2 (rời nhau, trùng `WebPage`) | 1 (`@id` liên kết đầy đủ + `FAQPage`) | `test-step-10-seo.php` `[FACT]` |
 | Dữ liệu bịa trong schema | `telephone: +84908789866` | 0 | `JN-SCH-06` `[FACT]` |
 | Trang giỏ hàng/tài khoản có thể bị index | Có | Không (`noindex, follow`) | `JN-IDX-02` `[FACT]` |
 | Tiêu đề trùng thương hiệu (`… \| Jannie Nguyễn - JANNIE NGUYEN`) | 11 trang (64–74 ký tự) | 0 (≤ 58 ký tự) | `JN-META-06` `[FACT]` |
-| `/llms.txt` | 404 | 200 (sinh từ dữ liệu thật) | `JN-AEO-01` `[FACT]` |
-| Điểm GEU (khả năng được AI trích dẫn) trang chủ / coaching | 12.0 | 65.3 | Suite 8 `compute_autogeo_geu_score` `[INFERENCE]` |
+| `/llms.txt` | 404 | 200 (sinh từ dữ liệu thật + 5 câu FAQ Nhóm A) | `JN-AEO-01` `[FACT]` |
+| Điểm GEU (khả năng được AI trích dẫn) `/coaching/` & `/booking/` | 12.0 | **75.0** (`/coaching/`) · **57.3** (`/booking/`) · **65.3** (`/`) | Suite 8 `compute_autogeo_geu_score` `[INFERENCE]` |
 | Lighthouse CI (22 URL × preset) | 22/22 PASS | **22/22 PASS** | [`docs/jn/lighthouse/step-10/summary.json`](../../../lighthouse/step-10/summary.json) `[FACT]` |
 
 > [!NOTE]
@@ -38,7 +38,7 @@
 | F4 | HIGH | Sitemap/robots meta/tài liệu PROGRESS không nhất quán về trang pháp lý | Sitemap = đúng tập trang `index` (9 URL); trang pháp lý giữ `index` `[ASSUMPTION Q3]` | ✅ |
 | F5 | MEDIUM | Route ngoài bản đồ (tìm kiếm, danh mục, archive) dùng title/description của trang chủ | Title theo ngữ cảnh (`Kết quả tìm kiếm “…”`, tên danh mục) hoặc để TSF tự sinh | ✅ |
 | F6 | MEDIUM | Thiếu `BreadcrumbList`, `WebPage.isPartOf` trong đồ thị của dự án; `priceRange: $$$` khi giá UNKNOWN; `ProfessionalService` (LocalBusiness) thiếu địa chỉ/điện thoại | Đồ thị mới: `WebSite`, `Organization` (+`logo`), `Person` (+`knowsAbout`), `WebPage`/`ProfilePage`/`CollectionPage`, `BreadcrumbList`, `Service` ×3; bỏ `priceRange`; `ProfessionalService` hoãn đến khi có UNK-04 (ADR-012) | ✅ |
-| F7 | MEDIUM | Không có `/llms.txt`, không có chính sách bot AI, không có FAQ | `/llms.txt`; bot AI được nêu tên trong nhóm `User-agent: *` `[ASSUMPTION Q2]`; pattern `jannie/faq` + `FAQPage` tự động (bỏ qua mục `[NHÁP]`) | ✅ (nội dung FAQ chờ duyệt) |
+| F7 | MEDIUM | Không có `/llms.txt`, không có chính sách bot AI, không có FAQ | `/llms.txt` (kèm mục FAQ); bot AI được nêu tên trong nhóm `User-agent: *` `[ASSUMPTION Q2]`; pattern `jannie/faq` với 5 câu Nhóm A đã duyệt trên `/coaching/` & `/booking/` + `FAQPage` JSON-LD tự động (hỗ trợ cả `core/block` synced pattern) | ✅ |
 | F9 | MEDIUM | TSF tự gắn thêm "- JANNIE NGUYEN" vào mọi title | Tắt branding qua `the_seo_framework_use_title_branding` | ✅ |
 | F10 | HIGH | `/cart/`, `/tai-khoan/` có 2 `canonical` + 2 `description` (TSF + fallback của dự án) | Fallback chỉ in khi TSF không hoạt động | ✅ |
 | F11 | MEDIUM | Trang tìm kiếm không có meta description | Bổ sung description (trang vẫn `noindex`) | ✅ |
@@ -46,7 +46,7 @@
 | F13 | MEDIUM | `/my-favorite-product/` có 2 thẻ H1 (hero Blocksy bị ẩn bằng CSS nhưng vẫn có trong DOM) | Không render hero archive trên trang shop (`theme_mod_woo_categories_hero_enabled`) | ✅ |
 | — | MEDIUM | `/cart/` nội dung mỏng (172 từ) | Chấp nhận — trang `noindex` | Chấp nhận |
 | — | LOW | Thiếu header `Content-Security-Policy` (11 URL) | Ngoài phạm vi SEO; CSP cần thiết kế riêng để không vỡ WooCommerce Blocks | Ghi nhận |
-| — | LOW | Chưa có FAQ trên trang nào | Chờ chủ dự án duyệt [bản nháp FAQ](../3.%20draft/faq-va-khoi-tra-loi-truc-tiep.md) | Chờ duyệt |
+| — | LOW | `JN-AEO-02`: Chưa có FAQ trên trang nào | Đã xuất bản 5 câu FAQ Nhóm A lên `/coaching/` và `/booking/` (sinh `FAQPage` JSON-LD) | ✅ |
 
 ## 4. Thay đổi mã nguồn
 
@@ -66,7 +66,7 @@
 
 | Bộ kiểm thử | Kết quả |
 |---|---|
-| `test-step-10-seo.php` (mới) | **77 / 77 PASS** |
+| `test-step-10-seo.php` (mới) | **81 / 81 PASS** |
 | `test-step-7-hardening.php` | 54 / 54 PASS |
 | `test-step-5-booking.php` | 45 / 45 PASS |
 | `test-step-6-customers.php` | 37 / 37 PASS |
