@@ -249,11 +249,13 @@ textarea:focus-visible,
 	align-items: center;
 }
 
+/* Spacing in this header is sized so brand + 7 menu items + guest auth links fit the 1248px content
+   width (1360px container cap) down to the 1280px off-canvas breakpoint. */
 #header [data-row*="middle"] > .ct-container {
 	display: flex !important;
 	align-items: center;
 	justify-content: space-between;
-	gap: var(--jn-gutter);
+	gap: var(--jn-space-md);
 	height: var(--jn-header-height);
 }
 
@@ -334,7 +336,7 @@ textarea:focus-visible,
 #header .header-menu-1 .menu {
 	display: flex;
 	align-items: center;
-	gap: var(--jn-space-lg);
+	gap: calc(var(--jn-space-sm) * 1.5);
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -350,7 +352,7 @@ textarea:focus-visible,
 	font-size: var(--jn-text-label-md) !important;
 	line-height: var(--jn-lh-label-md) !important;
 	font-weight: 500 !important;
-	letter-spacing: 0.05em !important;
+	letter-spacing: 0.02em !important;
 	text-transform: uppercase !important;
 	color: var(--jn-on-surface-variant) !important;
 	display: inline-flex;
@@ -400,7 +402,7 @@ textarea:focus-visible,
 }
 
 .jn-header-login {
-	padding: var(--jn-space-sm) var(--jn-space-md);
+	padding: var(--jn-space-sm);
 	font-family: var(--jn-font-body);
 	font-size: var(--jn-text-label-md);
 	line-height: var(--jn-lh-label-md);

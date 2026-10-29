@@ -96,8 +96,11 @@ function jannie_get_account_url() {
  * Shortcode `[jn_header_account]` used inside Blocksy Header Builder's HTML item.
  *
  * Renders:
- * - "Đăng nhập" text link + vertical divider + "Đăng ký" pill -> WooCommerce My Account
+ * - "Đăng nhập" text link + vertical divider + "Đăng ký" pill -> WooCommerce My Account (guests only)
  * - Account icon button (`person` SVG) with explicit `aria-label`
+ *
+ * Varying by login state is page-cache safe: WP Super Cache serves no cached pages to logged-in users
+ * (`wp_cache_not_logged_in = 2`).
  *
  * @return string
  */
@@ -105,6 +108,19 @@ function jannie_render_header_account_shortcode() {
 	$account_url  = jannie_get_account_url();
 	$register_url = trailingslashit( $account_url ) . '#register';
 	$person_icon  = '';
+	$auth_links   = '';
+
+	if ( ! is_user_logged_in() ) {
+		$auth_links = sprintf(
+			'<div class="jn-header-auth">' .
+				'<a class="jn-header-login" href="%1$s">Đăng nhập</a>' .
+				'<span class="jn-header-divider" aria-hidden="true"></span>' .
+				'<a class="jn-header-register" href="%2$s">Đăng ký</a>' .
+			'</div>',
+			esc_url( $account_url ),
+			esc_url( $register_url )
+		);
+	}
 
 	if ( class_exists( 'JN_Icon_Sprite' ) ) {
 		$person_icon = JN_Icon_Sprite::render(
@@ -118,15 +134,11 @@ function jannie_render_header_account_shortcode() {
 
 	return sprintf(
 		'<div class="jn-header-actions">' .
-			'<div class="jn-header-auth">' .
-				'<a class="jn-header-login" href="%1$s">Đăng nhập</a>' .
-				'<span class="jn-header-divider" aria-hidden="true"></span>' .
-				'<a class="jn-header-register" href="%2$s">Đăng ký</a>' .
-			'</div>' .
-			'<a class="jn-header-account-btn" href="%1$s" aria-label="%3$s">%4$s</a>' .
+			'%1$s' .
+			'<a class="jn-header-account-btn" href="%2$s" aria-label="%3$s">%4$s</a>' .
 		'</div>',
+		$auth_links,
 		esc_url( $account_url ),
-		esc_url( $register_url ),
 		esc_attr( 'Tài khoản của tôi' ),
 		$person_icon
 	);

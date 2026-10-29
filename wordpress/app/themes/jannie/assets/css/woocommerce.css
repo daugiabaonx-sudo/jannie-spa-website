@@ -8,16 +8,17 @@
    1. Commerce Page Container & Editorial Shell
    ========================================================================== */
 
-.jn-commerce-page:not(.woocommerce-shop) .entry-content {
+/* Scoped to `.site-main`: Blocksy's header/footer HTML items also render a `.entry-content` wrapper. */
+.jn-commerce-page:not(.woocommerce-shop) .site-main .entry-content {
 	max-width: var(--jn-container-max);
 	margin-inline: auto;
 	padding-inline: var(--jn-container-pad);
 	padding-bottom: var(--jn-section-rhythm);
 }
 
-.woocommerce-cart .entry-content,
-.woocommerce-checkout .entry-content,
-.woocommerce-account .entry-content {
+.woocommerce-cart .site-main .entry-content,
+.woocommerce-checkout .site-main .entry-content,
+.woocommerce-account .site-main .entry-content {
 	padding-top: var(--jn-space-2xl);
 }
 
