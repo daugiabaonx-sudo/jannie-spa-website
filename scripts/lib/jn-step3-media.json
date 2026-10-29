@@ -1,0 +1,57 @@
+{
+	"hero_portrait": {
+		"slug": "jn-placeholder-hero-portrait",
+		"filename": "jn-placeholder-hero-portrait.webp",
+		"title": "PLACEHOLDER – Chân dung nghệ thuật chuyên gia Jannie Nguyễn tại studio",
+		"alt": "Chân dung nghệ thuật đen trắng của chuyên gia thẩm mỹ Jannie Nguyễn trong không gian studio kiến trúc tối giản, trang phục linen màu kem nhạt dưới ánh sáng tự nhiên dịu nhẹ.",
+		"source_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCouLm-77JEuBzI4EPtLdhj9HP_yllYUS1hOSuNPArJBH7SK8o2d5O557wW_oB-z7q5d0Dxe5zhUXp5jmfAQt71VYznJpRkUKbTnuA0y4z6kBgiUpd-ofw9wgRk-HNhTJHji_zQCRUGrau9Bt7jfvuTeFNpHxwB2aYGbda3xn3FiL18DzDbqCY2xSnmzvEDXRU2VFxGhHyDEz05bT4jY96RrQuWiFRjF_8_W1EMndWFFIv1ZLwFFKQ3nA",
+		"source_region_note": "The Stitch source is a picture of a wireframe; only x318 y105 756x500 of its 1408x768 frame is photo.",
+		"source_region": { "x": 0.2259, "y": 0.1367, "w": 0.5369, "h": 0.651 },
+		"focus_x": 0.4936,
+		"ai_upscale": true,
+		"width": 800,
+		"height": 1000,
+		"quality": 82
+	},
+	"expert_consultation": {
+		"slug": "jn-placeholder-expert-consultation",
+		"filename": "jn-placeholder-expert-consultation.webp",
+		"title": "PLACEHOLDER – Chuyên gia Jannie Nguyễn tư vấn khách hàng tại viện thẩm mỹ",
+		"alt": "Chuyên gia Jannie Nguyễn trực tiếp tư vấn cho khách hàng trong viện thẩm mỹ ngập tràn ánh sáng tự nhiên ấm áp, dụng cụ tinh xảo sắp xếp gọn gàng trên mặt bàn đá cẩm thạch.",
+		"source_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDmkj8tbSeFbInGDM8SNvocmQ8C7g33rgJZp9e29kxZ5xeHnHdKfAw2uYcoiH0WVq53fnedSqadfTHbY0weMel2Y6dS3kHkn93LA19BG4q9MiWh5-c-nl4A3XtDlKcvJvIrxRQ_QI0EqIGK9dhn8_Uxfk3VcoCcF-Pykf-hHBgtP6Lun1r252WkWsqc6ZVK-CerboMJvIeQnmLMP2AP4gm05gczTMxGYbKdO6ytJgH-aR8goGWI-TKD3Q",
+		"ai_upscale": true,
+		"width": 750,
+		"height": 1000,
+		"quality": 82
+	},
+	"avatar_minh_thao": {
+		"slug": "jn-placeholder-avatar-minh-thao",
+		"filename": "jn-placeholder-avatar-minh-thao.webp",
+		"title": "PLACEHOLDER – Chân dung học viên Minh Thảo",
+		"alt": "Chân dung Minh Thảo, nữ chuyên viên thẩm mỹ trẻ thành công với nụ cười tự tin rạng rỡ trong áo blouse trắng tối giản tại không gian salon.",
+		"source_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBHahVwszajQfRB4hzVkbYqo05w1UMmuQGW-cwANgrzGTeH6J5YVKo6Oo1_NimUsrsl35PhtyVuOA4hiCOe6ATwzOweoTsoF6656dL8v6mOkYMTTUpYDgKw-f41NgQZwKLF4A_5LcU6VKUFQYplW_harPELikoFxfaQ_F5VssIiKsYJVF6agBQusjL2SxYgNtjPdsICNK91XqfLD2EYB1nLCi3XQibeSv8z8zZuJKZRr3ZgNMYxE7GAyw",
+		"width": 160,
+		"height": 160,
+		"quality": 84
+	},
+	"avatar_ngoc_bich": {
+		"slug": "jn-placeholder-avatar-ngoc-bich",
+		"filename": "jn-placeholder-avatar-ngoc-bich.webp",
+		"title": "PLACEHOLDER – Chân dung học viên Ngọc Bích",
+		"alt": "Chân dung Ngọc Bích, nữ doanh nhân thanh lịch trong trang phục chỉn chu đứng tại sảnh viện thẩm mỹ hiện đại cao cấp.",
+		"source_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDqXxpT8_3zQ6cbF1HuaUzzAMiMeiWQxsNs7GGsiPpbYIgOoiRfellHYwygJXkOyaaKkfyuaXcv3GhVlvHE3LWQovIXkNsokgdx2eSKfX9cT06XvPhSpOBI4RTqm2RE7Gr1xPq4FZBlKtbZzF4AuMqj6kX89xOXlpXQCvwnxCsuRWKcjP-aW8hWfpSqbFekxtZ1P7LlGgWj4VM808W1JCq_SWH4rdzeq6P-Nh0mKnCu0FGlV3B-UgaCYQ",
+		"width": 160,
+		"height": 160,
+		"quality": 84
+	},
+	"avatar_phuong_uyen": {
+		"slug": "jn-placeholder-avatar-phuong-uyen",
+		"filename": "jn-placeholder-avatar-phuong-uyen.webp",
+		"title": "PLACEHOLDER – Chân dung học viên Phương Uyên",
+		"alt": "Chân dung cận cảnh Phương Uyên rạng rỡ với làn da tự nhiên căng bóng khỏe khoắn và nụ cười dịu dàng trong không gian tối giản.",
+		"source_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAu3AamKMzr8NFmmqlnEmyjGjp-hPQIRyF-ch7bgz_YRjNCHSV1b6PJkjsVWUW82Lu7LPjwoHmn2urqsSEYrcYzMvkenPKlVpeBAFq9uoDmFYw49XqZXipaz5rsgWbttTTf94mTjYGap7P5_X_BjQ8BL6AQxjnSddkv4dyauAhWjodNQsuyV2KcmLCGpMu2wXAWnZKWCvziFaXoXon9MxIzdDJ1oWbUSv8d7_hq8HeWkvAPgnYiqZ7g-Q",
+		"width": 160,
+		"height": 160,
+		"quality": 84
+	}
+}

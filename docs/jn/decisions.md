@@ -375,6 +375,26 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 5. **Q3 (giả định):** giữ `index` cho 2 trang pháp lý (tín hiệu tin cậy E-E-A-T) và giữ trong sitemap.
 6. Phục vụ `/llms.txt` sinh từ cùng nguồn dữ liệu (brand facts + meta map + 3 gói).
 
+## ADR-015: Ảnh Placeholder Hero & Chuyên Gia — Bỏ Khung Wireframe, Lấy Ảnh Gốc `=s0`, Phóng To Bằng AI
+
+- **Ngày quyết định:** 2026-10-29
+- **Trạng thái:** Đã triển khai bước `=s0`; bước master AI 4x chờ chủ dự án chạy `upscale-step-3-media.mjs` (chủ dự án chọn phương án B — Real-ESRGAN)
+
+### 1. Bối cảnh
+- `import-step-3-media.php` tải ảnh Stitch trên `lh3.googleusercontent.com` không kèm tham số kích thước nên Google trả bản **512×279**; cắt sang khung dọc rồi kéo lên 800×1000 / 750×1000 (~3,6×) → ảnh mờ, vỡ hạt.
+- Ảnh nguồn của hero là **ảnh chụp một wireframe** (thanh "Coaching Session: Personal Branding", ô "Jannie Nguyen, Founder of [Studio Name]", nút "View Bio" / "Schedule Consultation"); ảnh thật chỉ chiếm vùng x318 y105 756×500 của khung 1408×768.
+
+### 2. Quyết định
+1. Luôn tải bản gốc `=s0` (1408×768). Hero cắt trong `source_region` (tỷ lệ theo phân số nên dùng được cho cả bản gốc lẫn master 4x); chuyên gia giữ khung cắt giữa như cũ.
+2. Ảnh có `ai_upscale` ưu tiên master Real-ESRGAN 4x (`realesrgan-x4plus`) tạo trên máy host (cần GPU, không chạy trong container) tại `scripts/.media-masters/` (gitignored) → WebP cuối chỉ thu nhỏ, không kéo giãn.
+3. Danh sách 5 ảnh chuyển sang `scripts/lib/jn-step3-media.json` (nguồn chung cho PHP & Node); hàm tạo AVIF dùng chung ở `scripts/lib/jn-placeholder-media.php` (Task 5 của `build-step-8.php` gọi lại).
+4. Tải nguồn lỗi → báo lỗi, thoát mã 1 và **giữ nguyên** file cũ (trước đây lặng lẽ ghi đè bằng nền kem trơn). Chạy một phần (`… hero_portrait expert_consultation`) gộp vào `jn_step3_media_map` thay vì ghi đè.
+
+### 3. Hệ quả
+- Giữ nguyên tên file và ID (86, 87) → không phải sửa nội dung trang Home / My Story / Coaching.
+- Chưa có master AI: hero phóng 2,0×, chuyên gia 1,3× (`_jn_media_scale`); có master: cả hai ≤ 1,0×. `scripts/test-placeholder-media.php` kiểm tra vùng cắt, kích thước, ngân sách 150 KB của LCP và AVIF.
+- Vẫn là ảnh PLACEHOLDER — launch blocker "ảnh thật thay thế toàn bộ ảnh AI" không đổi.
+
 ## ADR-017: Phục Vụ Site Local Qua Cloudflare Quick Tunnel Bằng Host Động, Không Sửa DB
 
 - **Ngày quyết định:** 2026-10-29

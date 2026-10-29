@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/lib/jn-env-guard.php';
 jn_require_non_production( basename( __FILE__ ) );
 
+require_once __DIR__ . '/lib/jn-placeholder-media.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -51,59 +52,12 @@ foreach ( $media_map as $key => $info ) {
 		continue;
 	}
 
-	$file = get_attached_file( $att_id );
-	if ( ! $file || ! is_file( $file ) ) {
+	$result = jn_regenerate_attachment_with_avif( $att_id );
+	if ( is_wp_error( $result ) ) {
+		echo sprintf( "[Task 5] Skipped %s: %s\n", $key, $result->get_error_message() );
 		continue;
 	}
-
-	// Ensure get_attached_file points to the original .webp file before regenerating sub-sizes.
-	if ( str_ends_with( $file, '.avif' ) ) {
-		$webp_candidate = (string) preg_replace( '/\.avif$/i', '.webp', $file );
-		if ( is_file( $webp_candidate ) ) {
-			$file = $webp_candidate;
-			update_attached_file( $att_id, $file );
-		}
-	}
-
-	// Regenerate metadata & sub-sizes (creates AVIF sub-sizes via `jn_filter_image_editor_output_format`).
-	$new_meta = wp_generate_attachment_metadata( $att_id, $file );
-	if ( is_array( $new_meta ) && ! empty( $new_meta['sizes'] ) ) {
-		// Keep primary `file` pointing to the original `.webp` fallback so `<img src="...webp">` always matches `$image_meta['file']`.
-		$rel_webp = _wp_relative_upload_path( $file );
-		if ( $rel_webp ) {
-			$new_meta['file']      = $rel_webp;
-			$new_meta['mime-type'] = 'image/webp';
-			update_attached_file( $att_id, $file );
-		}
-
-		// Also create a full-dimension .avif companion next to the original .webp file for full-width srcset.
-		if ( function_exists( 'imagecreatefromwebp' ) && function_exists( 'imageavif' ) && str_ends_with( $file, '.webp' ) ) {
-			$src_im = @imagecreatefromwebp( $file );
-			if ( $src_im ) {
-				$full_avif = (string) preg_replace( '/\.webp$/i', '.avif', $file );
-				imageavif( $src_im, $full_avif, 50 );
-				imagedestroy( $src_im );
-			}
-		}
-
-		wp_update_attachment_metadata( $att_id, $new_meta );
-		$regenerated[ $key ] = array(
-			'id'    => $att_id,
-			'file'  => basename( $file ),
-			'sizes' => array(),
-		);
-		$dir = dirname( $file );
-		foreach ( $new_meta['sizes'] as $size_name => $size_data ) {
-			$sub_path = $dir . '/' . $size_data['file'];
-			$regenerated[ $key ]['sizes'][ $size_name ] = array(
-				'file'      => $size_data['file'],
-				'width'     => $size_data['width'],
-				'height'    => $size_data['height'],
-				'mime-type' => $size_data['mime-type'] ?? '',
-				'bytes'     => is_file( $sub_path ) ? filesize( $sub_path ) : 0,
-			);
-		}
-	}
+	$regenerated[ $key ] = $result;
 }
 echo sprintf( "[Task 5] Regenerated AVIF sub-sizes for %d media attachments.\n", count( $regenerated ) );
 

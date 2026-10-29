@@ -30,6 +30,8 @@
 # 4. Track project scripts and automated test suites
 !scripts/
 !scripts/**
+# Host-generated AI upscale masters (scripts/upscale-step-3-media.mjs) — large, reproducible binaries.
+scripts/.media-masters/
 !tests/
 !tests/**
 
