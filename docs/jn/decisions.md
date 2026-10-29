@@ -452,3 +452,27 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - WP Super Cache mở buffer ngoài cùng (`$wp_super_cache_late_init = 0`) nên cache trang đã đổi URL; nếu bật late init, buffer cache sẽ nằm trong buffer tunnel và lưu bản `localhost` — khi đó phải xem lại thứ tự.
 - Lịch hẹn gửi qua tunnel lưu `landing_url` / `_jn_consent_policy_url` theo host tunnel — đúng với nơi khách thực sự gửi, chấp nhận.
 - `scripts/test-dev-tunnel.php` kiểm tra danh sách Host cho phép (Host giả mạo, hậu tố giả, Host có cổng hoặc xuống dòng, thiếu/sai IP CF, staging, production), hàm đổi URL và điều kiện bỏ qua wp-admin/REST edit.
+
+## ADR-018: Nhập 14 Ảnh Cũ Của jannieedu.com — Bắt Buộc Dùng Master AI 4x, Logo Một Màu Dựng Lại Độ Trong Suốt
+
+- **Ngày quyết định:** 2026-10-29
+- **Trạng thái:** Đã triển khai cả 14 ảnh; 12 ảnh đạt chuẩn nét. 2 logo báo (Bình Phước, Người Tiêu Dùng) giữ bản đúng chữ nhưng chưa nét hơn — chủ dự án chọn **xin file logo chính thức** của hai báo rồi thay (mục 3)
+
+### 1. Bối cảnh
+- Site cũ jannieedu.com chỉ còn trên Wayback Machine (bản lưu 2026-07-11); 14 ảnh nội dung đều nhỏ (logo báo 200×100, ảnh footer 400×600, một ảnh 267×249). 4 ảnh nền của theme Edumall không được lưu (404).
+- Chủ dự án yêu cầu ảnh **bắt buộc phải nét**: không được dùng lại bản lưu mờ rồi phóng to.
+- Real-ESRGAN phóng màu (RGB) và kênh trong suốt (alpha) riêng rẽ; vùng trong suốt của PNG mang màu đen nên logo bị **viền tối** quanh nét chữ, và độ nét còn thua bản phóng bicubic (đo 0,74–0,79×).
+
+### 2. Quyết định
+1. Danh sách ở `scripts/lib/jn-legacy-media.json`; master 4x ở `scripts/.media-masters/` (gitignored), dựng bằng `node scripts/upscale-step-3-media.mjs --items scripts/lib/jn-legacy-media.json` (script nay nhận `--items`, `model` riêng từng ảnh, tải Wayback chậm và chờ khi bị HTTP 429, dùng lại bản gốc đã tải).
+2. Cờ `require_master`: thiếu master → `WP_Error jn_master_missing`, **không** quay về bản lưu mờ. Ảnh chỉ thu nhỏ (`_jn_media_scale` ≤ 1) rồi làm nét nhẹ (`sharpen` 0,15, nhân 3×3).
+3. Logo một màu (`ink`): đặt logo lên nền trắng (`lib/jn-flatten-on-white.php`, chạy trong container wpcli qua STDIN/STDOUT vì host không có PHP), Real-ESRGAN phóng bản đó, rồi `jn_media_ink_to_alpha()` lấy độ phủ mực làm alpha và tô toàn bộ bằng màu mực → hết viền tối, giữ khử răng cưa. Độ sáng ≥ 252 coi là giấy (`JN_MEDIA_PAPER_LUMA`) vì "trắng" của Real-ESRGAN là 254–255; nếu không, nền phủ một lớp mực mờ và file tăng 4 lần.
+4. Ảnh có `transparent` mà không có `ink` vẫn giữ alpha khi thu nhỏ (trước đây `jn_placeholder_render()` dán lên nền đen).
+5. Vòng import tách thành `jn_import_media_item()` dùng chung cho Step 3 và ảnh cũ; Step 3 cho ra file giống hệt (md5 không đổi).
+
+### 3. Hệ quả
+- Media Library có 14 attachment `jn-legacy-*` (WebP + `.avif` cùng cỡ + sub-size AVIF), alt tiếng Việt, URL Wayback lưu ở `_jn_media_origin`, option `jn_legacy_media_map`. Chưa gắn vào trang nào.
+- `scripts/test-legacy-media.php` đo độ nét bằng phương sai Laplacian so với bản lưu phóng bicubic (≥ 1,25×), kiểm tra nền trong suốt ở WebP, AVIF và sub-size. **Phép đo không phát hiện được chữ bị AI vẽ sai** — logo phải được xem bằng mắt.
+- Logo Bình Phước và Người Tiêu Dùng: mọi model (x4plus, x4plus-anime, animevideov3) đều làm méo dòng chữ nhỏ ("ĐÀI PHÁT THANH…", "Tạp chí tiêu dùng…"); bản hiện tại đọc được nhưng chưa nét hơn. Chủ dự án chọn xin file logo chính thức của hai báo; đến lúc đó `sharpness_pending` trong JSON khiến test báo `[KNOWN]` thay vì fail. Khi có file: đặt vào `scripts/.media-masters/<slug>.x4.png` (hoặc đổi `source_url`), xoá `sharpness_pending`, chạy lại import và test.
+- Ảnh là ảnh thật của thương hiệu → có thể dùng để gỡ một phần launch blocker "ảnh thật thay thế ảnh AI" (việc riêng, chưa làm).
+- File chạy `~/.local/opt/realesrgan-ncnn-vulkan/realesrgan-ncnn-vulkan` trên máy chủ dự án **thiếu quyền thực thi** (`chmod +x` trước khi chạy); đây cũng là lý do master Step 3 của ADR-015 chưa từng được tạo.
