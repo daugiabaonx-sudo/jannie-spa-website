@@ -241,13 +241,15 @@ class JN_Hardening_Endpoints {
 	/**
 	 * Return a direct HTTP 404 (instead of a 302 redirect) when a logged-out visitor requests `/wp-admin/`.
 	 *
-	 * @param array<string, mixed> $request Parsed request URI components.
+	 * @param array<string, mixed>|false $request Parsed request URI components; WPS Hide Login passes parse_url()'s
+	 *                                          `false` straight through for URIs like `//`, `///x/` or `//?q`.
 	 * @return void
 	 */
-	public static function intercept_logged_out_admin_404( array $request ): void {
+	public static function intercept_logged_out_admin_404( $request ): void {
 		global $pagenow;
 
-		$path = isset( $request['path'] ) ? (string) $request['path'] : '';
+		$request = is_array( $request ) ? $request : array();
+		$path    = isset( $request['path'] ) ? (string) $request['path'] : '';
 		if (
 			is_admin()
 			&& ! is_user_logged_in()

@@ -153,6 +153,27 @@ jn_assert(
 	'Request with sitemap=index query_var is forced to error=404'
 );
 
+// URIs parse_url() cannot parse (`//`, `///x/`, `//?q`) reach wps_hide_login_before_redirect as `false` (2026-10-29).
+$jn_parse_false_ok = true;
+try {
+	JN_Hardening_Endpoints::intercept_logged_out_admin_404( false );
+} catch ( TypeError $e ) {
+	$jn_parse_false_ok = false;
+}
+jn_assert( $jn_parse_false_ok, 'intercept_logged_out_admin_404() accepts the false that parse_url() returns for "//" URIs' );
+
+// The query string bypasses the page cache, so this exercises a real (uncached) render.
+$jn_dslash_res  = wp_remote_get(
+	'http://wordpress//?jn_t=' . wp_rand( 100000, 999999 ),
+	array(
+		'headers'     => array( 'Host' => 'localhost:8080' ),
+		'redirection' => 0,
+		'timeout'     => 20,
+	)
+);
+$jn_dslash_code = is_wp_error( $jn_dslash_res ) ? 0 : (int) wp_remote_retrieve_response_code( $jn_dslash_res );
+jn_assert( $jn_dslash_code > 0 && $jn_dslash_code < 500, "Uncached GET //?q is not a fatal error (HTTP {$jn_dslash_code})" );
+
 // Front-end admin-ajax.php aliasing
 $ajax_url = apply_filters( 'admin_url', 'http://localhost:8080/wp-admin/admin-ajax.php', 'admin-ajax.php', null );
 jn_assert(
