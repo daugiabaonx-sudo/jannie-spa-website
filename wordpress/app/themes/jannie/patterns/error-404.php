@@ -25,7 +25,7 @@ $booking_url = esc_url( home_url( '/coaching/#booking-form' ) );
 		<!-- /wp:paragraph -->
 
 		<!-- wp:heading {"level":1,"className":"jn-page-intro-title"} -->
-		<h1 class="wp-block-heading jn-page-intro-title">Trang Bạn Tìm Kiếm <em class="jn-accent-italic">Không Tồn Tại</em> Hoặc Đã Chuyển Đi</h1>
+		<h1 class="wp-block-heading jn-page-intro-title">Trang Bạn Tìm Kiếm Đã Chuyển Đi Hoặc <em class="jn-accent-italic">Không Tồn Tại</em></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"className":"jn-page-intro-lead","textColor":"muted-stone","fontSize":"body-lg"} -->

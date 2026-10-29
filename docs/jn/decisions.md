@@ -375,6 +375,25 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 5. **Q3 (giả định):** giữ `index` cho 2 trang pháp lý (tín hiệu tin cậy E-E-A-T) và giữ trong sitemap.
 6. Phục vụ `/llms.txt` sinh từ cùng nguồn dữ liệu (brand facts + meta map + 3 gói).
 
+## ADR-014: Một Hệ Tiêu Đề Đầu Trang Cho Hero & Mọi Page-Intro (Step 13)
+
+- **Ngày quyết định:** 2026-10-29 (Step 13)
+- **Trạng thái:** Đã triển khai — chủ dự án duyệt kế hoạch, chọn phương án A cho trang Sản phẩm
+
+### 1. Bối cảnh
+`code.html` chỉ có wireframe cho hero `/coaching/` (tiêu đề ngắn, phần nghiêng 2 chữ). Các trang khác dùng page-intro với tiêu đề dài hơn, phần nghiêng 4–5 chữ, nên rớt 1 chữ xuống dòng, cắt ngang phần nghiêng và vỡ 4–5 dòng trên mobile. Trang Sản phẩm dùng header căn giữa kiểu section (H2) cho một H1.
+
+### 2. Quyết định (khác `code.html` có chủ đích theo §4)
+1. Phần nghiêng `jn-accent-italic` trong H1 hero/page-intro **luôn xuống dòng riêng**: tiêu đề đọc thành hai dòng có chủ đích — mệnh đề màu `ink`, từ khóa màu `champagne-text-lg`.
+2. Lời dẫn dùng weight **400** thay cho `font-light` (300) của `code.html`: nét 300 cỡ 18 px trên nền kem trông nhạt dù màu đạt 5.02:1.
+3. Eyebrow cấp trang (H1) dùng `label-md` (13 px) thay cho `label-sm` (11 px) để cân tỷ lệ với tiêu đề 64 px; eyebrow cấp section (H2) giữ `label-sm` màu champagne như `code.html`.
+4. Mọi H1 đầu trang căn trái và thẳng hàng logo, kể cả trang Sản phẩm (phương án A); kiểu căn giữa dành cho H2 trong trang.
+5. Giới hạn độ dài dòng đặt trên chính tiêu đề/lời dẫn (`--jn-measure-title`, `--jn-measure-lead`), không đặt trên wrapper `.jn-container` (bị `max-width … !important` của container đè).
+
+### 3. Hệ quả
+- Thêm H1 mới: phần nghiêng **phải** là cụm từ khóa cuối tiêu đề (không có chữ thường sau `</em>`), phần trước nó nên vừa một dòng ở 1440 px. `scripts/test-step-13-header-typography.php` kiểm tra quy tắc này trên mọi trang và pattern; `scripts/verify-step-13-headers.mjs` bắt lỗi rớt dòng ở 5 viewport.
+- Trình duyệt chưa hỗ trợ `text-wrap: balance/pretty` (Safari < 17.4) ngắt dòng như cũ; quy tắc phần nghiêng xuống dòng riêng vẫn hoạt động.
+
 ## ADR-015: Ảnh Placeholder Hero & Chuyên Gia — Bỏ Khung Wireframe, Lấy Ảnh Gốc `=s0`, Phóng To Bằng AI
 
 - **Ngày quyết định:** 2026-10-29
@@ -394,6 +413,23 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - Giữ nguyên tên file và ID (86, 87) → không phải sửa nội dung trang Home / My Story / Coaching.
 - Chưa có master AI: hero phóng 2,0×, chuyên gia 1,3× (`_jn_media_scale`); có master: cả hai ≤ 1,0×. `scripts/test-placeholder-media.php` kiểm tra vùng cắt, kích thước, ngân sách 150 KB của LCP và AVIF.
 - Vẫn là ảnh PLACEHOLDER — launch blocker "ảnh thật thay thế toàn bộ ảnh AI" không đổi.
+
+## ADR-016: Bỏ Chữ Chìm "1:1" & Nhãn "PRO-COACHING // SPEC.24" Khỏi Khung Ảnh Hero
+
+- **Ngày quyết định:** 2026-10-29
+- **Trạng thái:** Đã triển khai — chủ dự án yêu cầu xoá cả hai
+
+### 1. Bối cảnh
+`code.html` / `wireframe-spec.md` (§Section 1) có chữ chìm `1:1` cỡ 220 px (đặt tuyệt đối, đè lên góc phải trên ảnh hero) và nhãn `PRO-COACHING // SPEC.24` ở góc trái trên ảnh. Cả hai là chi tiết trang trí của wireframe, không mang nội dung, và làm rối khung ảnh chân dung.
+
+### 2. Quyết định (khác `code.html` có chủ đích)
+1. Xoá hẳn hai block paragraph `jn-hero-watermark` và `jn-hero-spec-badge` khỏi pattern `jannie/hero-editorial`, CSS tương ứng trong `block-styles.css`, và filter `aria-hidden` không còn dùng trong `JN_Blocks`.
+2. Hàng `jn-hero-overlay-top` chỉ còn icon ∞ nên chuyển `justify-content` sang `flex-end` để icon giữ góc phải trên.
+3. Nội dung đã lưu của Home (ID 7) và Coaching (ID 9) được dọn bằng `scripts/build-hero-overlay-cleanup.php` (khớp đúng markup từng block, idempotent, có revision để hoàn tác) — không dùng `parse_blocks()`/`serialize_blocks()` vì không round-trip nguyên vẹn hai trang này.
+
+### 3. Hệ quả
+- Chữ "1:1" trong nội dung thật (thanh chỉ số "Cố Vấn Độc Bản", lời dẫn, nút) giữ nguyên. `scripts/test-hero-overlay-cleanup.php` kiểm tra pattern, nội dung đã lưu & đã render, CSS (cả bundle) và filter.
+- Kiểm tra `Hero watermark` trong `verify-step-3.php` đổi thành "đã bị xoá".
 
 ## ADR-017: Phục Vụ Site Local Qua Cloudflare Quick Tunnel Bằng Host Động, Không Sửa DB
 

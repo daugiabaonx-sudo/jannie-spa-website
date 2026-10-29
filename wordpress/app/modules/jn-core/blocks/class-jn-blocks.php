@@ -3,7 +3,6 @@
  * Block Registration Manager & Core Block Accessibility/Performance Filters for JN Core.
  *
  * Registers `jn/icon`, `jn/rating`, and `jn/booking-form`, and enforces:
- * - `aria-hidden="true"` on the decorative `.jn-hero-watermark` paragraph
  * - `loading="eager"` + `fetchpriority="high"` (never lazy-loaded) on `.jn-hero-lcp-image`
  *
  * @package JN_Core
@@ -25,7 +24,6 @@ class JN_Blocks {
 	 */
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
-		add_filter( 'render_block_core/paragraph', array( __CLASS__, 'filter_decorative_watermark_paragraph' ), 20, 2 );
 		add_filter( 'render_block_core/image', array( __CLASS__, 'filter_hero_lcp_image_block' ), 99, 2 );
 		add_filter( 'render_block_core/button', array( __CLASS__, 'filter_button_inline_icon' ), 20, 2 );
 	}
@@ -82,29 +80,6 @@ class JN_Blocks {
 		register_block_type( JN_CORE_PATH . 'blocks/icon' );
 		register_block_type( JN_CORE_PATH . 'blocks/rating' );
 		register_block_type( JN_CORE_PATH . 'blocks/booking-form' );
-	}
-
-	/**
-	 * Ensure the decorative "1:1" watermark paragraph always has `aria-hidden="true"`
-	 * so assistive technology ignores it completely.
-	 *
-	 * @param string              $block_content Rendered block HTML.
-	 * @param array<string,mixed> $block         Parsed block array.
-	 * @return string
-	 */
-	public static function filter_decorative_watermark_paragraph( $block_content, $block ) {
-		$class_name = $block['attrs']['className'] ?? '';
-		if ( false === strpos( $class_name, 'jn-hero-watermark' ) && false === strpos( $block_content, 'jn-hero-watermark' ) ) {
-			return $block_content;
-		}
-
-		$processor = new WP_HTML_Tag_Processor( $block_content );
-		if ( $processor->next_tag( 'p' ) ) {
-			$processor->set_attribute( 'aria-hidden', 'true' );
-			return $processor->get_updated_html();
-		}
-
-		return $block_content;
 	}
 
 	/**

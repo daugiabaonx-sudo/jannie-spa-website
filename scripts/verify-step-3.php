@@ -151,7 +151,7 @@ if ( ! $coaching_page ) {
 $rendered_coaching = apply_filters( 'the_content', $coaching_page->post_content );
 
 $checks = array(
-	'Hero watermark aria-hidden="true"'      => strpos( $rendered_coaching, 'aria-hidden="true"' ) !== false,
+	'Hero watermark removed (ADR-016)'       => strpos( $rendered_coaching, 'jn-hero-watermark' ) === false,
 	'Hero image loading="eager"'             => strpos( $rendered_coaching, 'loading="eager"' ) !== false,
 	'Hero image fetchpriority="high"'        => strpos( $rendered_coaching, 'fetchpriority="high"' ) !== false,
 	'Anchor #coaching-tiers present'         => strpos( $rendered_coaching, 'id="coaching-tiers"' ) !== false,

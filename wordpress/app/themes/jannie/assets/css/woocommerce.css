@@ -22,6 +22,18 @@
 	padding-top: var(--jn-space-2xl);
 }
 
+/* The shop page renders under Blocksy's `woo_categories` archive prefix, which has no content-style or
+   page-spacing option: give it the wide, unspaced content area that the `single_page_*` mods give every
+   other page (same variables Blocksy emits for single_page), so its page intro lines up with the header. */
+.woocommerce-shop [class*="ct-container"] > article[class*="post"] {
+	--has-boxed: var(--false);
+	--has-wide: var(--true);
+}
+
+.woocommerce-shop .ct-container-full[data-vertical-spacing] {
+	padding-block: 0;
+}
+
 /* Suppress default Blocksy page title hero on commerce pages */
 .woocommerce-shop .hero-section,
 .woocommerce-cart .hero-section,
@@ -34,7 +46,10 @@
    2. Product Collection Block (`/my-favorite-product/`)
    ========================================================================== */
 
+/* `width: 100%` overrides Blocksy's constrained-layout `--theme-block-width`, so the grid spans the same
+   1360px container as the page intro above it and its cards line up with the title. */
 .wp-block-woocommerce-product-collection {
+	width: 100%;
 	max-width: var(--jn-container-max);
 	margin-inline: auto;
 	padding-inline: var(--jn-container-pad);

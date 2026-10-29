@@ -1,0 +1,2315 @@
+{
+  "generatedAt": "2026-10-29T08:15:33.665Z",
+  "baseUrl": "http://localhost:8080",
+  "results": [
+    {
+      "page": "/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Khám",
+              "Phá",
+              "Sự"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Cân",
+              "Bằng",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 285,
+            "words": [
+              "Vẻ",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-story/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Câu",
+              "Chuyện"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Thương",
+              "Hiệu",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Vẻ",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/coaching/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Coaching",
+              "&"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Đồng",
+              "Hành"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 285,
+            "words": [
+              "Chuyên",
+              "Sâu"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/course/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Chương",
+              "Trình"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Đào",
+              "Tạo"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Thẩm",
+              "Mỹ",
+              "&"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Phun",
+              "Xăm"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/client-success-story/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Câu",
+              "Chuyện"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Thành",
+              "Công"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Học",
+              "Viên",
+              "&"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Khách",
+              "Hàng"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-favorite-product/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Sản",
+              "Phẩm"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Yêu",
+              "Thích"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Của",
+              "Jannie"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/booking/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Đăng",
+              "Ký"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Tư",
+              "Vấn",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 285,
+            "words": [
+              "Xếp",
+              "Lịch"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
+              "Coaching",
+              "1:1"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/chinh-sach-bao-mat/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Chính",
+              "Sách"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Bảo",
+              "Mật"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Dữ",
+              "Liệu"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Cá",
+              "Nhân"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/dieu-khoan-dich-vu/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Điều",
+              "Khoản"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Dịch",
+              "Vụ",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Quy",
+              "Định"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Học",
+              "Viện"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/jn-step-13-missing-page/",
+      "viewport": 320,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Trang",
+              "Bạn"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Tìm",
+              "Kiếm",
+              "Đã"
+            ]
+          },
+          {
+            "top": 285,
+            "words": [
+              "Chuyển",
+              "Đi",
+              "Hoặc"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 333,
+            "words": [
+              "Không",
+              "Tồn",
+              "Tại"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 280,
+        "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Khám",
+              "Phá",
+              "Sự"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Cân",
+              "Bằng",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 285,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-story/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Câu",
+              "Chuyện"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Thương",
+              "Hiệu",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/coaching/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 189,
+            "words": [
+              "Coaching",
+              "&"
+            ]
+          },
+          {
+            "top": 237,
+            "words": [
+              "Đồng",
+              "Hành"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 285,
+            "words": [
+              "Chuyên",
+              "Sâu"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/course/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Chương",
+              "Trình"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Đào",
+              "Tạo"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Thẩm",
+              "Mỹ",
+              "&"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Phun",
+              "Xăm"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/client-success-story/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Câu",
+              "Chuyện"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Thành",
+              "Công"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Học",
+              "Viên",
+              "&"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
+              "Khách",
+              "Hàng"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-favorite-product/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Sản",
+              "Phẩm"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Yêu",
+              "Thích"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Của",
+              "Jannie"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/booking/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Đăng",
+              "Ký",
+              "Tư",
+              "Vấn",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 224,
+            "words": [
+              "Xếp",
+              "Lịch"
+            ]
+          },
+          {
+            "top": 272,
+            "words": [
+              "Coaching",
+              "1:1"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/chinh-sach-bao-mat/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Chính",
+              "Sách"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Bảo",
+              "Mật"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Dữ",
+              "Liệu",
+              "Cá",
+              "Nhân"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/dieu-khoan-dich-vu/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Điều",
+              "Khoản"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Dịch",
+              "Vụ",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 272,
+            "words": [
+              "Quy",
+              "Định",
+              "Học",
+              "Viện"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/jn-step-13-missing-page/",
+      "viewport": 375,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 176,
+            "words": [
+              "Trang",
+              "Bạn"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
+              "Tìm",
+              "Kiếm",
+              "Đã"
+            ]
+          },
+          {
+            "top": 272,
+            "words": [
+              "Chuyển",
+              "Đi",
+              "Hoặc"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 320,
+            "words": [
+              "Không",
+              "Tồn",
+              "Tại"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 20,
+        "headerContentLeft": 20,
+        "leadWidth": 335,
+        "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 171,
+            "words": [
+              "Khám",
+              "Phá",
+              "Sự",
+              "Cân",
+              "Bằng",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 219,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-story/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thương",
+              "Hiệu",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/coaching/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 171,
+            "words": [
+              "Coaching",
+              "&",
+              "Đồng",
+              "Hành"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 219,
+            "words": [
+              "Chuyên",
+              "Sâu"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/course/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Chương",
+              "Trình",
+              "Đào",
+              "Tạo"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Thẩm",
+              "Mỹ",
+              "&",
+              "Phun",
+              "Xăm"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/client-success-story/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thành",
+              "Công"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Học",
+              "Viên",
+              "&",
+              "Khách",
+              "Hàng"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-favorite-product/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Sản",
+              "Phẩm",
+              "Yêu",
+              "Thích"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Của",
+              "Jannie"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/booking/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Đăng",
+              "Ký",
+              "Tư",
+              "Vấn",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Xếp",
+              "Lịch",
+              "Coaching",
+              "1:1"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/chinh-sach-bao-mat/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Chính",
+              "Sách",
+              "Bảo",
+              "Mật"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Dữ",
+              "Liệu",
+              "Cá",
+              "Nhân"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/dieu-khoan-dich-vu/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Điều",
+              "Khoản",
+              "Dịch",
+              "Vụ",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 248,
+            "words": [
+              "Quy",
+              "Định",
+              "Học",
+              "Viện"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/jn-step-13-missing-page/",
+      "viewport": 768,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 200,
+            "words": [
+              "Trang",
+              "Bạn",
+              "Tìm",
+              "Kiếm"
+            ]
+          },
+          {
+            "top": 248,
+            "words": [
+              "Đã",
+              "Chuyển",
+              "Đi",
+              "Hoặc"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 296,
+            "words": [
+              "Không",
+              "Tồn",
+              "Tại"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 168,
+            "words": [
+              "Khám",
+              "Phá",
+              "Sự"
+            ]
+          },
+          {
+            "top": 235,
+            "words": [
+              "Cân",
+              "Bằng",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 302,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 632,
+        "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-story/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thương",
+              "Hiệu",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/coaching/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 168,
+            "words": [
+              "Coaching",
+              "&",
+              "Đồng",
+              "Hành"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 235,
+            "words": [
+              "Chuyên",
+              "Sâu"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 632,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/course/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Chương",
+              "Trình",
+              "Đào",
+              "Tạo"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Thẩm",
+              "Mỹ",
+              "&",
+              "Phun",
+              "Xăm"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/client-success-story/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thành",
+              "Công"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Học",
+              "Viên",
+              "&",
+              "Khách",
+              "Hàng"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-favorite-product/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Sản",
+              "Phẩm",
+              "Yêu",
+              "Thích"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Của",
+              "Jannie"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/booking/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Đăng",
+              "Ký",
+              "Tư",
+              "Vấn",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Xếp",
+              "Lịch",
+              "Coaching",
+              "1:1"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/chinh-sach-bao-mat/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Chính",
+              "Sách",
+              "Bảo",
+              "Mật"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Dữ",
+              "Liệu",
+              "Cá",
+              "Nhân"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/dieu-khoan-dich-vu/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Điều",
+              "Khoản",
+              "Dịch",
+              "Vụ",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 264,
+            "words": [
+              "Quy",
+              "Định",
+              "Học",
+              "Viện"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/jn-step-13-missing-page/",
+      "viewport": 1024,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 197,
+            "words": [
+              "Trang",
+              "Bạn",
+              "Tìm",
+              "Kiếm"
+            ]
+          },
+          {
+            "top": 264,
+            "words": [
+              "Đã",
+              "Chuyển",
+              "Đi",
+              "Hoặc"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 331,
+            "words": [
+              "Không",
+              "Tồn",
+              "Tại"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 32,
+        "headerContentLeft": 32,
+        "leadWidth": 640,
+        "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 167,
+            "words": [
+              "Khám",
+              "Phá",
+              "Sự",
+              "Cân",
+              "Bằng",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 239,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-story/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thương",
+              "Hiệu",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Vẻ",
+              "Đẹp",
+              "Đích",
+              "Thực"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/coaching/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 167,
+            "words": [
+              "Coaching",
+              "&",
+              "Đồng",
+              "Hành"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 239,
+            "words": [
+              "Chuyên",
+              "Sâu"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/course/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Chương",
+              "Trình",
+              "Đào",
+              "Tạo"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Thẩm",
+              "Mỹ",
+              "&",
+              "Phun",
+              "Xăm"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/client-success-story/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Câu",
+              "Chuyện",
+              "Thành",
+              "Công"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Học",
+              "Viên",
+              "&",
+              "Khách",
+              "Hàng"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/my-favorite-product/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Sản",
+              "Phẩm",
+              "Yêu",
+              "Thích"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Của",
+              "Jannie"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/booking/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Đăng",
+              "Ký",
+              "Tư",
+              "Vấn",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Xếp",
+              "Lịch",
+              "Coaching",
+              "1:1"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/chinh-sach-bao-mat/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Chính",
+              "Sách",
+              "Bảo",
+              "Mật"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Dữ",
+              "Liệu",
+              "Cá",
+              "Nhân"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/dieu-khoan-dich-vu/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Điều",
+              "Khoản",
+              "Dịch",
+              "Vụ",
+              "&"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 268,
+            "words": [
+              "Quy",
+              "Định",
+              "Học",
+              "Viện"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "page": "/jn-step-13-missing-page/",
+      "viewport": 1440,
+      "failures": [],
+      "metrics": {
+        "statementLines": [
+          {
+            "top": 196,
+            "words": [
+              "Trang",
+              "Bạn",
+              "Tìm",
+              "Kiếm"
+            ]
+          },
+          {
+            "top": 268,
+            "words": [
+              "Đã",
+              "Chuyển",
+              "Đi",
+              "Hoặc"
+            ]
+          }
+        ],
+        "accentLines": [
+          {
+            "top": 340,
+            "words": [
+              "Không",
+              "Tồn",
+              "Tại"
+            ]
+          }
+        ],
+        "eyebrowGap": 16,
+        "leadGap": 24,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 640,
+        "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
+        "colors": {
+          "eyebrow": "rgb(113, 106, 97)",
+          "title": "rgb(31, 30, 29)",
+          "accent": "rgb(160, 132, 110)",
+          "lead": "rgb(113, 106, 97)"
+        },
+        "overflow": false
+      }
+    }
+  ],
+  "summary": {
+    "checks": 50,
+    "failed": 0
+  }
+}

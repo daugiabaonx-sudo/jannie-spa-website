@@ -155,17 +155,17 @@ $fav_cat_id = isset( $category_ids['san-pham-yeu-thich'] ) ? (int) $category_ids
 
 // 5.1 My Favorite Product (ID=12, slug=my-favorite-product) = section-header pattern + WooCommerce Product Collection block.
 $fav_page_content = '<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"palette-color-7","className":"jn-section jn-page-intro-section"} -->
-<section class="wp-block-group alignfull jn-section jn-page-intro-section has-palette-color-7-background-color has-background"><!-- wp:group {"className":"jn-container jn-section-header-centered"} -->
-<div class="wp-block-group jn-container jn-section-header-centered"><!-- wp:paragraph {"align":"center","className":"is-style-eyebrow jn-eyebrow-wide"} -->
-<p class="has-text-align-center is-style-eyebrow jn-eyebrow-wide">Danh Mục Tuyển Chọn</p>
+<section class="wp-block-group alignfull jn-section jn-page-intro-section has-palette-color-7-background-color has-background"><!-- wp:group {"className":"jn-container jn-page-intro-inner"} -->
+<div class="wp-block-group jn-container jn-page-intro-inner"><!-- wp:paragraph {"className":"is-style-eyebrow-dot"} -->
+<p class="is-style-eyebrow-dot">Danh Mục Tuyển Chọn</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"textAlign":"center","level":1,"className":"jn-page-intro-title"} -->
-<h1 class="wp-block-heading has-text-align-center jn-page-intro-title">Sản Phẩm Yêu Thích <em class="jn-accent-italic">Của Jannie</em></h1>
+<!-- wp:heading {"level":1,"className":"jn-page-intro-title"} -->
+<h1 class="wp-block-heading jn-page-intro-title">Sản Phẩm Yêu Thích <em class="jn-accent-italic">Của Jannie</em></h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","className":"jn-section-header-centered__desc","textColor":"muted-stone"} -->
-<p class="has-text-align-center jn-section-header-centered__desc has-muted-stone-color has-text-color">Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.</p>
+<!-- wp:paragraph {"className":"jn-page-intro-lead","textColor":"muted-stone","fontSize":"body-lg"} -->
+<p class="jn-page-intro-lead has-muted-stone-color has-text-color has-body-lg-font-size">Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

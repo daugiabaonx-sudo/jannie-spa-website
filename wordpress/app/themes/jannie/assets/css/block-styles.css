@@ -409,30 +409,7 @@ ul.is-style-verified > li::before,
 	position: relative;
 }
 
-/* 9. Section 1: Architectural Hero */
-.jn-hero-watermark {
-	position: absolute;
-	right: -3rem;
-	top: calc(-1 * var(--jn-space-xl));
-	pointer-events: none;
-	user-select: none;
-	font-size: 0 !important;
-	color: transparent !important;
-	margin: 0 !important;
-	z-index: 1;
-}
-
-.jn-hero-watermark::before {
-	content: '1:1';
-	font-family: var(--jn-font-heading);
-	font-size: 220px;
-	line-height: 1;
-	letter-spacing: -0.05em;
-	color: var(--jn-ink);
-	opacity: 0.1;
-	display: block;
-}
-
+/* 9. Section 1: Architectural Hero (the "1:1" watermark was dropped — ADR-016) */
 .jn-hero-grid {
 	display: grid !important;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -475,7 +452,13 @@ ul.is-style-verified > li::before,
 	}
 }
 
-.jn-hero-eyebrow {
+/* Page-level header (hero + every page intro): one eyebrow, title and lead system so all pages open
+   with the same rhythm — eyebrow, md gap, two-line title, lg gap, lead. Both selectors are (0,2,1), so they
+   beat the label-sm `p.is-style-eyebrow-dot` (0,1,1) regardless of source order. */
+p.is-style-eyebrow-dot.jn-hero-eyebrow,
+.jn-page-intro-inner > p.is-style-eyebrow-dot {
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
 	margin: 0 0 var(--jn-space-md) 0 !important;
 }
 
@@ -485,18 +468,29 @@ ul.is-style-verified > li::before,
 	}
 }
 
-.jn-hero-title {
+/* The accent italic always takes a line of its own, so every title reads as an ink statement over a
+   champagne keyword; `balance` keeps a title that wraps inside a line from leaving one word behind. */
+.jn-hero-title,
+.jn-page-intro-title {
 	font-family: var(--jn-font-heading);
 	font-size: var(--jn-text-display-lg);
 	line-height: var(--jn-lh-display-lg);
 	letter-spacing: -0.025em;
 	font-weight: 400;
 	color: var(--jn-ink);
+	max-width: var(--jn-measure-title);
+	text-wrap: balance;
 	margin: 0 0 var(--jn-space-lg) 0 !important;
 }
 
+.jn-hero-title .jn-accent-italic,
+.jn-page-intro-title .jn-accent-italic {
+	display: block;
+}
+
 @media (max-width: 1023.98px) {
-	.jn-hero-title {
+	.jn-hero-title,
+	.jn-page-intro-title {
 		font-size: var(--jn-text-headline-lg);
 		line-height: var(--jn-lh-headline-lg);
 	}
@@ -509,10 +503,16 @@ ul.is-style-verified > li::before,
 	color: var(--jn-champagne-text-lg);
 }
 
-.jn-hero-lead {
-	max-width: 42rem;
-	font-weight: 300;
+/* Regular weight, not code.html's font-light: the 300 cut read washed out at 18px on cream. */
+.jn-hero-lead,
+.jn-page-intro-lead {
+	max-width: var(--jn-measure-lead);
+	font-weight: 400;
 	line-height: 1.625 !important;
+	text-wrap: pretty;
+}
+
+.jn-hero-lead {
 	margin: 0 0 var(--jn-space-xl) 0 !important;
 }
 
@@ -586,27 +586,12 @@ ul.is-style-verified > li::before,
 	margin: 0 !important;
 }
 
+/* Only the ∞ icon remains (the spec badge was dropped — ADR-016). */
 .jn-hero-overlay-top {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	color: var(--jn-surface-cream);
-	margin: 0 !important;
-}
-
-.jn-hero-spec-badge {
-	font-family: var(--jn-font-body);
-	font-size: var(--jn-text-label-sm);
-	line-height: var(--jn-lh-label-sm);
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	background-color: var(--jn-glass-badge-bg);
-	color: var(--jn-surface-cream);
-	padding: 4px 8px;
-	border-radius: var(--jn-radius-sm);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
 	margin: 0 !important;
 }
 
@@ -692,6 +677,17 @@ ul.is-style-verified > li::before,
 	font-size: var(--jn-text-body-md);
 	line-height: var(--jn-lh-body-md);
 	margin: var(--jn-space-sm) 0 0 0 !important;
+}
+
+.jn-section-title-md,
+.jn-section-title-lg {
+	text-wrap: balance;
+}
+
+.jn-section-header-split__desc,
+.jn-section-header-centered__desc,
+.jn-scaffold-placeholder > p:not(.is-style-eyebrow) {
+	text-wrap: pretty;
 }
 
 /* 11. Section 2: Core Pillars (3 Columns) */
@@ -1643,23 +1639,20 @@ ol.jn-booking-steps > li strong {
 	color: var(--jn-champagne-text-sm);
 }
 
-/* 16. Page Intro Banner & Scaffold Notice Box */
-.jn-page-intro-inner {
-	max-width: 54rem;
+/* 16. Page Intro Banner & Scaffold Notice Box
+   Eyebrow, title and lead share the hero rules (section 9). Measures sit on those children: the
+   wrapper is also `.jn-container`, whose `max-width: … !important` would override one set here. */
+.jn-section.jn-page-intro-section {
+	padding-block: var(--jn-space-2xl) !important;
 }
 
-.jn-page-intro-title {
-	font-family: var(--jn-font-heading);
-	font-size: var(--jn-text-display-lg);
-	line-height: var(--jn-lh-display-lg);
-	font-weight: 400;
-	color: var(--jn-ink);
-	margin: var(--jn-space-sm) 0 var(--jn-space-md) 0 !important;
+@media (max-width: 767.98px) {
+	.jn-section.jn-page-intro-section {
+		padding-block: var(--jn-space-xl) !important;
+	}
 }
 
 .jn-page-intro-lead {
-	max-width: 44rem;
-	line-height: 1.625 !important;
 	margin: 0 !important;
 }
 
@@ -1668,6 +1661,10 @@ ol.jn-booking-steps > li strong {
 	background-color: var(--jn-surface-cream);
 	border-radius: var(--jn-radius-lg);
 	padding: var(--jn-space-xl);
+}
+
+.jn-scaffold-placeholder > p:not(.is-style-eyebrow) {
+	max-width: var(--jn-measure-lead);
 }
 
 /* FAQ pattern (jannie/faq) — core/details, zero JS; feeds FAQPage JSON-LD (Step 10). */

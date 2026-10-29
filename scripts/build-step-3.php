@@ -18,8 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
 require_once __DIR__ . '/lib/jn-env-guard.php';
 jn_require_non_production( basename( __FILE__ ) );
+require_once __DIR__ . '/lib/jn-page-copy.php';
 
 $theme_dir = get_stylesheet_directory();
+$jn_leads  = jn_page_intro_leads();
 $media_map = get_option( 'jn_step3_media_map', array() );
 
 /**
@@ -282,7 +284,7 @@ $home_hero_markup = str_replace(
 	array(
 		'Jannie Nguyen Academy &amp; Mentorship',
 		'Khám Phá Sự Cân Bằng &amp; <em class="jn-accent-italic">Vẻ Đẹp Đích Thực</em>',
-		'Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. [CẦN NỘI DUNG: Đoạn giới thiệu tổng quan hệ sinh thái Học viện, Cố vấn 1:1 và Đào tạo của Jannie Nguyễn do chủ dự án cung cấp.]',
+		$jn_leads['home'],
 		'<a class="wp-block-button__link wp-element-button" href="' . esc_url( home_url( '/coaching/' ) ) . '">Khám Phá Chương Trình Coaching</a>',
 		'<a class="wp-block-button__link wp-element-button" href="#booking-form">Đặt Lịch Tư Vấn 1:1</a>',
 	),
@@ -328,7 +330,7 @@ $pages_spec = array(
 					'Hành Trình & Triết Lý',
 					'Câu Chuyện Thương Hiệu &',
 					'Vẻ Đẹp Đích Thực',
-					'[CẦN NỘI DUNG: Lời mở đầu tự sự của chuyên gia Jannie Nguyễn về cơ duyên đến với ngành thẩm mỹ và triết lý The Balance.]'
+					$jn_leads['my-story']
 				),
 				$pattern_expert,
 				jn_build_scaffold_section_markup(
@@ -348,7 +350,7 @@ $pages_spec = array(
 					'Jannie Nguyen Academy',
 					'Chương Trình Đào Tạo',
 					'Thẩm Mỹ & Phun Xăm',
-					'[CẦN NỘI DUNG: Danh mục các khóa học chính thức, lịch khai giảng, giáo trình chi tiết và học phí từ Jannie Nguyen Academy — UNK-08.]'
+					$jn_leads['course']
 				),
 				jn_build_scaffold_section_markup(
 					'Danh Mục Khóa Học Chuyên Sâu',
@@ -368,7 +370,7 @@ $pages_spec = array(
 					'Minh Chứng Thực Tế',
 					'Câu Chuyện Thành Công',
 					'Học Viên & Khách Hàng',
-					'[CẦN NỘI DUNG: Tổng hợp các hồ sơ case-study thực tế sau khi đã xác minh và có sự đồng thuận bằng văn bản của khách hàng — UNK-03.]'
+					$jn_leads['client-success-story']
 				),
 				$ref_testimonials_block,
 				jn_build_scaffold_section_markup(

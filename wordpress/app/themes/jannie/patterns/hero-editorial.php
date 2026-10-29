@@ -3,7 +3,7 @@
  * Title: Hero Editorial (8:4 Asymmetric)
  * Slug: jannie/hero-editorial
  * Categories: jannie-nguyen
- * Description: Phân đoạn Hero bất đối xứng 8:4 với chữ chìm 1:1, tiêu đề H1, thanh 3 chỉ số (contentOnly) và khung ảnh chân dung 4:5 kèm hộp kính mờ.
+ * Description: Phân đoạn Hero bất đối xứng 8:4 với tiêu đề H1, thanh 3 chỉ số (contentOnly) và khung ảnh chân dung 4:5 kèm hộp kính mờ.
  * Viewport Width: 1440
  *
  * @package Jannie
@@ -19,10 +19,6 @@ $jn_hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-placeholder-
 <section class="wp-block-group alignfull jn-section jn-hero-section">
 	<!-- wp:group {"className":"jn-container jn-hero-inner"} -->
 	<div class="wp-block-group jn-container jn-hero-inner">
-		<!-- wp:paragraph {"className":"jn-hero-watermark"} -->
-		<p class="jn-hero-watermark">1:1</p>
-		<!-- /wp:paragraph -->
-
 		<!-- wp:columns {"className":"jn-hero-grid"} -->
 		<div class="wp-block-columns jn-hero-grid">
 			<!-- wp:column {"width":"66.66%","className":"jn-hero-col-left"} -->
@@ -102,10 +98,6 @@ $jn_hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-placeholder-
 					<div class="wp-block-group jn-hero-overlay">
 						<!-- wp:group {"className":"jn-hero-overlay-top"} -->
 						<div class="wp-block-group jn-hero-overlay-top">
-							<!-- wp:paragraph {"className":"jn-hero-spec-badge"} -->
-							<p class="jn-hero-spec-badge">PRO-COACHING // SPEC.24</p>
-							<!-- /wp:paragraph -->
-
 							<!-- wp:jn/icon {"name":"all_inclusive","size":18} /-->
 						</div>
 						<!-- /wp:group -->

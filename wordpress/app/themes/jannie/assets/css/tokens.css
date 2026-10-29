@@ -140,6 +140,10 @@
 
 	--jn-container-max: 1360px;
 	--jn-container-pad: 56px;
+	/* Line lengths: a page title stops at ~15em so its accent italic always gets a line of its own;
+	   a lead stays near 70 characters per line at body-lg. */
+	--jn-measure-title: 15em;
+	--jn-measure-lead: 40rem;
 	--jn-section-rhythm: 96px;
 	--jn-header-height: 100px;
 
