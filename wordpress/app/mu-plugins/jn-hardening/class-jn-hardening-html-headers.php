@@ -542,6 +542,12 @@ class JN_Hardening_HTML_Headers {
 	public static function alias_frontend_admin_ajax_url( string $url, string $path, $blog_id = null ): string {
 		unset( $blog_id );
 
+		// Some plugins call admin_url() while loading, before pluggable functions such as
+		// is_user_logged_in() exist. Inside wp-admin keep the real URL instead of fataling.
+		if ( is_admin() && ! function_exists( 'is_user_logged_in' ) ) {
+			return $url;
+		}
+
 		if ( self::is_authenticated_admin() ) {
 			return $url;
 		}
