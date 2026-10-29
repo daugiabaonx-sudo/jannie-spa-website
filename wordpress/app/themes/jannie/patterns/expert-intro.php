@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$jn_expert_media = jannie_get_placeholder_media( 'expert_consultation', 'jn-placeholder-expert-consultation.webp' );
+$jn_expert_media = jannie_get_placeholder_media( 'expert_consultation', 'jn-expert-portrait.webp' );
 ?>
 <!-- wp:group {"tagName":"section","metadata":{"name":"Section 4 — Expert Intro & Philosophy"},"align":"full","backgroundColor":"palette-color-7","className":"jn-section jn-expert-section"} -->
 <section class="wp-block-group alignfull jn-section jn-expert-section has-palette-color-7-background-color has-background">

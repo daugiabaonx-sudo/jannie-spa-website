@@ -270,7 +270,7 @@ function jn_build_scaffold_section_markup( $heading, $placeholder_copy ) {
 // ============================================================================
 // 4. Upsert all pages with 100% Core + `jn/*` blocks (zero `core/html`)
 // ============================================================================
-$hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-placeholder-hero-portrait.webp' );
+$hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-hero-portrait.webp' );
 
 // Home Hero variation built from `jannie/hero-editorial` pattern structure.
 $home_hero_markup = str_replace(

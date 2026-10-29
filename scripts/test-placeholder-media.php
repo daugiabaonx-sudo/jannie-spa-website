@@ -166,4 +166,43 @@ foreach ( $jn_budgets as $jn_key => $jn_budget ) {
 	jn_t_assert( '' !== $jn_path && is_file( $jn_path ) && filemtime( $jn_path ) >= filemtime( $jn_file ), "{$jn_key}: {$jn_budget['size']} sub-size is regenerated", $jn_path );
 }
 
+// ---------------------------------------------------------------------------------------------
+jn_t_section( 'Page markup follows the real photos (ADR-019)' );
+
+// Media is served `Cache-Control: immutable` for a year: a replaced photo needs a new URL, and page content
+// stores the <img> src and alt literally, so both must be rewritten when the attachment changes.
+const JN_TPM_OLD_BASENAMES = array( 'jn-placeholder-hero-portrait', 'jn-placeholder-expert-consultation' );
+
+global $wpdb;
+jn_t_assert( function_exists( 'jn_media_sync_image_markup' ), 'jn_media_sync_image_markup() is defined' );
+
+foreach ( array( 'hero_portrait', 'expert_consultation' ) as $jn_key ) {
+	$jn_item = $jn_items[ $jn_key ];
+	$jn_id   = (int) ( $jn_map[ $jn_key ]['id'] ?? 0 );
+	jn_t_assert( ! str_contains( (string) $jn_item['filename'], 'placeholder' ), "{$jn_key}: real photo has a new filename (browsers holding the immutable old URL fetch it)", (string) $jn_item['filename'] );
+	if ( $jn_id <= 0 ) {
+		continue;
+	}
+
+	$jn_file  = (string) get_attached_file( $jn_id );
+	$jn_alt   = (string) get_post_meta( $jn_id, '_wp_attachment_image_alt', true );
+	$jn_pages = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type <> 'attachment' AND post_content LIKE %s", '%wp-image-' . $jn_id . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	jn_t_assert( ! empty( $jn_pages ), "{$jn_key}: used by published pages", (string) count( $jn_pages ) );
+	foreach ( $jn_pages as $jn_page_id ) {
+		$jn_tags = new WP_HTML_Tag_Processor( (string) get_post_field( 'post_content', (int) $jn_page_id ) );
+		while ( $jn_tags->next_tag( array( 'tag_name' => 'IMG', 'class_name' => 'wp-image-' . $jn_id ) ) ) {
+			$jn_src = (string) $jn_tags->get_attribute( 'src' );
+			jn_t_assert( wp_basename( $jn_src ) === wp_basename( $jn_file ), "{$jn_key}: page {$jn_page_id} <img> points at the current file", $jn_src );
+			jn_t_assert( $jn_alt === (string) $jn_tags->get_attribute( 'alt' ), "{$jn_key}: page {$jn_page_id} <img> alt matches the attachment alt" );
+		}
+	}
+}
+
+$jn_old_dir = wp_upload_dir()['basedir'] . '/2026/10/';
+foreach ( JN_TPM_OLD_BASENAMES as $jn_old ) {
+	$jn_stale = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type <> 'attachment' AND post_content LIKE %s", '%' . $wpdb->esc_like( $jn_old ) . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	jn_t_assert( empty( $jn_stale ), "No published page references {$jn_old}", implode( ',', $jn_stale ) );
+	jn_t_assert( ! is_file( $jn_old_dir . $jn_old . '.webp' ) && ! is_file( $jn_old_dir . $jn_old . '.avif' ), "The replaced {$jn_old} files are deleted" );
+}
+
 jn_t_finish();

@@ -245,7 +245,7 @@ class JN_SEO_Meta {
 			);
 		}
 		return array(
-			'url'    => home_url( '/media/2026/10/jn-placeholder-hero-portrait.webp' ),
+			'url'    => home_url( '/media/2026/10/jn-hero-portrait.webp' ),
 			'width'  => 800,
 			'height' => 1000,
 		);

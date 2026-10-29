@@ -376,6 +376,81 @@ function jn_media_upsert_attachment( array $item, string $dest_file, int $existi
 }
 
 /**
+ * The attachment's current file and metadata, captured before a re-import replaces them.
+ *
+ * @param int $attach_id Attachment ID, 0 when there is none.
+ * @return array{file: string, meta: array<string, mixed>}
+ */
+function jn_media_snapshot_files( int $attach_id ): array {
+	if ( $attach_id <= 0 ) {
+		return array(
+			'file' => '',
+			'meta' => array(),
+		);
+	}
+	$meta = wp_get_attachment_metadata( $attach_id );
+	return array(
+		'file' => (string) get_attached_file( $attach_id ),
+		'meta' => is_array( $meta ) ? $meta : array(),
+	);
+}
+
+/**
+ * Delete the previous file set (original, `.avif` companion, sub-sizes) when a re-import renamed it.
+ *
+ * @param int                                          $attach_id Attachment ID.
+ * @param array{file: string, meta: array<string,mixed>} $previous  Snapshot taken before the re-import.
+ * @param string                                       $new_file  The attachment's new WebP path.
+ * @return void
+ */
+function jn_media_delete_replaced_files( int $attach_id, array $previous, string $new_file ): void {
+	if ( '' === $previous['file'] || wp_basename( $previous['file'] ) === wp_basename( $new_file ) ) {
+		return;
+	}
+	wp_delete_attachment_files( $attach_id, $previous['meta'], array(), $previous['file'] );
+	wp_delete_file( (string) preg_replace( '/\.webp$/i', '.avif', $previous['file'] ) );
+}
+
+/**
+ * Rewrite the `src` and `alt` of every `<img class="wp-image-{id}">` in published content to the attachment's
+ * current file and alt text. Page content stores both literally, so a replaced photo would otherwise keep its
+ * old URL (media is served `immutable` for a year) and an alt text describing the old picture.
+ *
+ * Writes through `$wpdb` on purpose: `wp_update_post()` from WP-CLI (no user) runs kses and would strip the
+ * pages' inline styles and SVG. No revision is created.
+ *
+ * @param int $attach_id Attachment ID.
+ * @return int|WP_Error Number of posts rewritten.
+ */
+function jn_media_sync_image_markup( int $attach_id ) {
+	global $wpdb;
+	$url  = (string) wp_get_attachment_url( $attach_id );
+	$alt  = (string) get_post_meta( $attach_id, '_wp_attachment_image_alt', true );
+	$like = '%' . $wpdb->esc_like( 'wp-image-' . $attach_id ) . '%';
+	$ids  = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type <> 'attachment' AND post_content LIKE %s", $like ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+
+	$rewritten = 0;
+	foreach ( $ids as $post_id ) {
+		$content = (string) get_post_field( 'post_content', (int) $post_id );
+		$tags    = new WP_HTML_Tag_Processor( $content );
+		while ( $tags->next_tag( array( 'tag_name' => 'IMG', 'class_name' => 'wp-image-' . $attach_id ) ) ) {
+			$tags->set_attribute( 'src', $url );
+			$tags->set_attribute( 'alt', $alt );
+		}
+		$synced = $tags->get_updated_html();
+		if ( $synced === $content ) {
+			continue;
+		}
+		if ( false === $wpdb->update( $wpdb->posts, array( 'post_content' => $synced ), array( 'ID' => (int) $post_id ) ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			return new WP_Error( 'jn_markup_sync_failed', "Could not rewrite post {$post_id}: {$wpdb->last_error}" );
+		}
+		clean_post_cache( (int) $post_id );
+		++$rewritten;
+	}
+	return $rewritten;
+}
+
+/**
  * Store an imported attachment's post meta and describe it for the media map.
  *
  * @param int                   $attach_id Attachment ID.
@@ -418,17 +493,15 @@ function jn_media_finish_attachment( int $attach_id, array $item, string $dest_f
  * @return array{entry: array<string, mixed>, origin: string, scale: float}|WP_Error
  */
 function jn_import_media_item( array $item, array $extra_meta = array() ) {
-	$invalid = jn_media_validate_item( $item );
-	if ( null !== $invalid ) {
-		return $invalid;
-	}
-	$source = jn_placeholder_load_source( $item );
+	// Validate before loading: an invalid item never reads its (up to ~45 MB) master.
+	$source = jn_media_validate_item( $item ) ?? jn_placeholder_load_source( $item );
 	if ( is_wp_error( $source ) ) {
 		return $source;
 	}
 
 	$existing_id = jn_media_find_attachment_id( (string) $item['slug'] );
-	$target_dir  = jn_media_target_dir( $existing_id > 0 ? (string) get_attached_file( $existing_id ) : '', wp_upload_dir()['path'] );
+	$previous    = jn_media_snapshot_files( $existing_id );
+	$target_dir  = jn_media_target_dir( $previous['file'], wp_upload_dir()['path'] );
 	wp_mkdir_p( $target_dir );
 	$dest_file = $target_dir . $item['filename'];
 
@@ -453,6 +526,7 @@ function jn_import_media_item( array $item, array $extra_meta = array() ) {
 	if ( is_wp_error( $regenerated ) ) {
 		return $regenerated;
 	}
+	jn_media_delete_replaced_files( (int) $attach_id, $previous, $dest_file );
 
 	$meta = array(
 		'_wp_attachment_image_alt' => $item['alt'],
@@ -496,8 +570,14 @@ function jn_run_media_import( array $items, array $only_keys, string $map_option
 		}
 		$entry             = $imported['entry'];
 		$media_map[ $key ] = $entry;
+		$synced            = jn_media_sync_image_markup( (int) $entry['id'] );
+		if ( is_wp_error( $synced ) ) {
+			echo sprintf( "[ERROR] %s -> %s\n", $key, $synced->get_error_message() );
+			++$failures;
+			continue;
+		}
 		echo sprintf(
-			"[OK] %s -> ID=%d | %dx%d | %s KB | source=%s scale=%sx | %s\n",
+			"[OK] %s -> ID=%d | %dx%d | %s KB | source=%s scale=%sx | pages rewritten=%d | %s\n",
 			$key,
 			$entry['id'],
 			$entry['width'],
@@ -505,6 +585,7 @@ function jn_run_media_import( array $items, array $only_keys, string $map_option
 			$entry['filesize_kb'],
 			$imported['origin'],
 			$imported['scale'],
+			$synced,
 			$entry['url']
 		);
 	}

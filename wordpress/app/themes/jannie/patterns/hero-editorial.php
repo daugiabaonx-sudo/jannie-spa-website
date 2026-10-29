@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$jn_hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-placeholder-hero-portrait.webp' );
+$jn_hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-hero-portrait.webp' );
 ?>
 <!-- wp:group {"tagName":"section","metadata":{"name":"Section 1 — Hero Editorial"},"align":"full","className":"jn-section jn-hero-section"} -->
 <section class="wp-block-group alignfull jn-section jn-hero-section">

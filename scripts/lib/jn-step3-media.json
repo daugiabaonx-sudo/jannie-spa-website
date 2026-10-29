@@ -1,7 +1,7 @@
 {
 	"hero_portrait": {
 		"slug": "jn-placeholder-hero-portrait",
-		"filename": "jn-placeholder-hero-portrait.webp",
+		"filename": "jn-hero-portrait.webp",
 		"title": "Chân dung trang chủ (ảnh thật từ jannieedu.com)",
 		"alt": "Chân dung người phụ nữ mặc sơ mi trắng và chân váy đen, tay chống cằm, ngồi trên sofa màu kem trong căn phòng sáng.",
 		"source_url": "https://web.archive.org/web/20260711000257im_/https://jannieedu.com/wp-content/uploads/2023/06/HINH-TRANCHU1-682x1024.png",
@@ -15,7 +15,7 @@
 	},
 	"expert_consultation": {
 		"slug": "jn-placeholder-expert-consultation",
-		"filename": "jn-placeholder-expert-consultation.webp",
+		"filename": "jn-expert-portrait.webp",
 		"title": "Ảnh chuyên gia (ảnh thật từ jannieedu.com)",
 		"alt": "Người phụ nữ tóc xoăn mặc sơ mi trắng cầm máy ảnh chụp qua gương, phía trước là những chiếc lá xanh.",
 		"source_url": "https://web.archive.org/web/20260711000257im_/https://jannieedu.com/wp-content/uploads/2023/05/hinh-footer-8-1.png",
