@@ -374,3 +374,25 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 4. **Q2 (giả định):** cho phép bot tìm kiếm & trả lời AI (`OAI-SearchBot`, `ChatGPT-User`, `GPTBot`, `PerplexityBot`, `ClaudeBot`, `Claude-SearchBot`, `Google-Extended`, `Applebot-Extended`…) — liệt kê chung nhóm `User-agent: *` (RFC 9309) để thừa hưởng cùng luật Disallow. Muốn chặn bot huấn luyện: bỏ tên khỏi `JN_SEO_Robots::AI_AGENTS` và thêm nhóm `Disallow: /` riêng.
 5. **Q3 (giả định):** giữ `index` cho 2 trang pháp lý (tín hiệu tin cậy E-E-A-T) và giữ trong sitemap.
 6. Phục vụ `/llms.txt` sinh từ cùng nguồn dữ liệu (brand facts + meta map + 3 gói).
+
+## ADR-017: Phục Vụ Site Local Qua Cloudflare Quick Tunnel Bằng Host Động, Không Sửa DB
+
+- **Ngày quyết định:** 2026-10-29
+- **Trạng thái:** Đã triển khai — chủ dự án duyệt kế hoạch
+
+### 1. Bối cảnh
+`WP_HOME`/`WP_SITEURL` lấy từ `.env` (`http://localhost:8080`), nên khi chia sẻ site qua `cloudflared tunnel --url http://localhost:8080` mọi link, asset và redirect vẫn trỏ về `localhost` hoặc `<tunnel>:8080`. Ngoài URL sinh động, DB còn URL tuyệt đối lưu cứng (nội dung bài/trang, `_social_image_url`, `theme_mods_jannie`, `autodescription-site-settings`, `jn_step8_og_image`, `amelia_settings`…) và transient `jn_seo_sitemap_urls` dùng chung cho mọi host.
+
+### 2. Quyết định
+1. `wp-config.php` (bản dev) chọn `WP_HOME` theo request: chỉ khi Host khớp `^[a-z0-9-]+\.trycloudflare\.com\z`, `CF-Connecting-IP` là IP hợp lệ và môi trường là `local`/`development` (staging/production luôn bị từ chối). Cổng 8080 chỉ bind `127.0.0.1`, nên Host giả chỉ có thể đến từ chính máy dev. `deploy/wp-config.production.php` không đổi.
+2. Ở chế độ tunnel, `REMOTE_ADDR` lấy từ `CF-Connecting-IP`: mọi khách qua tunnel đều đến Apache từ địa chỉ của `cloudflared`, nên nếu không đổi thì giới hạn 5 lần đăng nhập sai / 5 lần đặt lịch mỗi 15 phút theo IP sẽ khoá cả nhóm người xem.
+3. URL lưu cứng được đổi **lúc trả trang** (output buffer từ `init` priority 0 + filter `wp_redirect`) trong `mu-plugins/jn-dev-tunnel.php`, không chạy `wp search-replace`: DB giữ nguyên dạng local, tắt tunnel là xong, không cần hoàn tác. Không đổi màn hình wp-admin và phản hồi REST `context=edit` (block editor), vì nội dung đó được gửi ngược lên và lưu vào DB.
+4. Transient sitemap được đổi ngược về URL local trước khi lưu (`pre_set_transient_jn_seo_sitemap_urls`). Cache WooCommerce Blocks đã tự khoá theo `site_url` nên không cần xử lý.
+
+### 3. Hệ quả
+- Không phải sửa `.env` khi domain tunnel đổi; `localhost:8080` hoạt động như cũ. WP Super Cache tách cache theo host — xoá thư mục cache của domain tunnel cũ khi cần.
+- Không sửa nội dung qua tunnel: trình soạn thảo có thể lưu URL tunnel tuyệt đối vào DB.
+- Buffer mở ở `init` nên bao cả phản hồi REST (trừ `context=edit`); `admin-ajax` (kể cả bí danh `/api/ajax`) chạy với `is_admin()` nên không bị đổi URL lưu cứng. File tĩnh do Apache phục vụ trực tiếp không đi qua PHP.
+- WP Super Cache mở buffer ngoài cùng (`$wp_super_cache_late_init = 0`) nên cache trang đã đổi URL; nếu bật late init, buffer cache sẽ nằm trong buffer tunnel và lưu bản `localhost` — khi đó phải xem lại thứ tự.
+- Lịch hẹn gửi qua tunnel lưu `landing_url` / `_jn_consent_policy_url` theo host tunnel — đúng với nơi khách thực sự gửi, chấp nhận.
+- `scripts/test-dev-tunnel.php` kiểm tra danh sách Host cho phép (Host giả mạo, hậu tố giả, Host có cổng hoặc xuống dòng, thiếu/sai IP CF, staging, production), hàm đổi URL và điều kiện bỏ qua wp-admin/REST edit.

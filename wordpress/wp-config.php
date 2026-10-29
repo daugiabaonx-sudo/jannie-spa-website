@@ -51,10 +51,47 @@ define( 'NONCE_SALT', jn_env( 'NONCE_SALT' ) );
 // ** Database table prefix (randomized, never wp_) ** //
 $table_prefix = jn_env( 'DB_TABLE_PREFIX', 'jn_8f4c_' );
 
+/**
+ * Return the public Host of a request that arrived through a Cloudflare quick tunnel, or '' otherwise.
+ *
+ * Only a single-label `*.trycloudflare.com` Host that carries a valid Cloudflare client IP is accepted,
+ * and only in the local/development environments, so a spoofed Host cannot repoint the site URLs.
+ *
+ * @param array<string, mixed> $server      Request server vars (normally `$_SERVER`).
+ * @param string               $environment WP_ENVIRONMENT_TYPE.
+ * @return string Lower-case tunnel host, or '' when the request is not a tunnel request.
+ */
+function jn_tunnel_host( array $server, string $environment ): string {
+	if ( ! in_array( $environment, array( 'local', 'development' ), true ) ) {
+		return '';
+	}
+	if ( false === filter_var( (string) ( $server['HTTP_CF_CONNECTING_IP'] ?? '' ), FILTER_VALIDATE_IP ) ) {
+		return '';
+	}
+	$host = strtolower( (string) ( $server['HTTP_HOST'] ?? '' ) );
+	return 1 === preg_match( '/^[a-z0-9-]+\.trycloudflare\.com\z/', $host ) ? $host : '';
+}
+
 // ** Environment type & canonical site URLs ** //
 define( 'WP_ENVIRONMENT_TYPE', jn_env( 'WP_ENVIRONMENT_TYPE', 'local' ) );
-define( 'WP_HOME', rtrim( jn_env( 'WP_HOME', 'http://localhost:8080' ), '/' ) );
-define( 'WP_SITEURL', rtrim( jn_env( 'WP_SITEURL', 'http://localhost:8080' ), '/' ) );
+define( 'JN_LOCAL_HOME', rtrim( jn_env( 'WP_HOME', 'http://localhost:8080' ), '/' ) );
+
+// A Cloudflare quick tunnel (`cloudflared tunnel --url http://localhost:8080`) forwards the public
+// https Host, so serve the page on that host instead of the loopback-only .env URL.
+$jn_tunnel_host = jn_tunnel_host( $_SERVER, WP_ENVIRONMENT_TYPE );
+if ( '' !== $jn_tunnel_host ) {
+	$_SERVER['HTTPS']       = 'on';
+	$_SERVER['SERVER_PORT'] = '443';
+	// Every tunnel visitor reaches Apache from cloudflared's address; use the real client IP so the
+	// per-IP login and booking rate limits do not lock out the whole audience at once.
+	$_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+	define( 'JN_TUNNEL_HOST', $jn_tunnel_host );
+	define( 'WP_HOME', 'https://' . $jn_tunnel_host );
+	define( 'WP_SITEURL', WP_HOME );
+} else {
+	define( 'WP_HOME', JN_LOCAL_HOME );
+	define( 'WP_SITEURL', rtrim( jn_env( 'WP_SITEURL', 'http://localhost:8080' ), '/' ) );
+}
 
 // ** Install-time Hide-WordPress directory constants (PROJECT CONTEXT CARD) ** //
 // content = app; plugins = modules; uploads = media
