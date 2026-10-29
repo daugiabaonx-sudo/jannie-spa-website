@@ -63,7 +63,6 @@ add_filter( 'wp_resource_hints', 'jannie_filter_resource_hints', 99, 2 );
  */
 function jannie_preload_above_fold_fonts() {
 	$fonts = array(
-		JANNIE_URI . '/assets/fonts/playfair-display-vi-normal.woff2',
 		JANNIE_URI . '/assets/fonts/geist-vi-normal.woff2',
 	);
 
@@ -77,12 +76,15 @@ function jannie_preload_above_fold_fonts() {
 		);
 	}
 
+	$normal_url = JANNIE_URI . '/assets/fonts/playfair-display-vi-normal.woff2';
 	$italic_url = JANNIE_URI . '/assets/fonts/playfair-display-vi-italic.woff2';
 	if ( class_exists( 'JN_Hardening_HTML_Headers' ) ) {
+		$normal_url = JN_Hardening_HTML_Headers::alias_asset_url( $normal_url );
 		$italic_url = JN_Hardening_HTML_Headers::alias_asset_url( $italic_url );
 	}
 	printf(
-		"<noscript><style>@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('%s') format('woff2');}</style></noscript>\n",
+		"<noscript><style>@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 900;font-display:swap;src:url('%s') format('woff2');}@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('%s') format('woff2');}</style></noscript>\n",
+		esc_url( $normal_url ),
 		esc_url( $italic_url )
 	);
 }

@@ -48,8 +48,8 @@ function jn_step8_assert( bool $condition, string $label ): void {
 function jn_step8_http_get( string $path, array $headers = array() ) {
 	$base = 'http://localhost:8080';
 	if ( gethostbyname( 'wordpress' ) !== 'wordpress' ) {
-		$base              = 'http://wordpress';
-		$headers['Host']   = 'localhost:8080';
+		$base            = 'http://wordpress';
+		$headers['Host'] = $headers['Host'] ?? 'localhost:8080';
 	}
 	return wp_remote_get(
 		$base . $path,
@@ -126,6 +126,24 @@ $coaching_hit = wp_remote_retrieve_header( $coaching_res, 'x-cache-status' );
 jn_step8_assert(
 	200 === wp_remote_retrieve_response_code( $coaching_res ) && 'HIT' === strtoupper( (string) $coaching_hit ),
 	'Anonymous GET /coaching/ is served from page cache (X-Cache-Status: HIT)'
+);
+
+// Verify HTTPS / Cloudflare Tunnel requests also hit the fast-path page cache with rewritten tunnel URLs.
+$tunnel_res  = jn_step8_http_get(
+	'/coaching/',
+	array(
+		'Host'             => 'psi-audit-check.trycloudflare.com',
+		'CF-Connecting-IP' => '203.0.113.10',
+	)
+);
+$tunnel_hit  = wp_remote_retrieve_header( $tunnel_res, 'x-cache-status' );
+$tunnel_body = wp_remote_retrieve_body( $tunnel_res );
+jn_step8_assert(
+	200 === wp_remote_retrieve_response_code( $tunnel_res )
+	&& 'HIT' === strtoupper( (string) $tunnel_hit )
+	&& str_contains( $tunnel_body, 'https://psi-audit-check.trycloudflare.com/' )
+	&& ! str_contains( $tunnel_body, 'http://localhost:8080/' ),
+	'Cloudflare Tunnel HTTPS GET /coaching/ is served from fast-path page cache (X-Cache-Status: HIT) with tunnel URLs'
 );
 
 // Verify excluded routes (/cart/, /checkout/, /tai-khoan/, /api/jn/v1/booking/token) bypass page cache.
@@ -216,6 +234,12 @@ jn_step8_assert(
 jn_step8_assert(
 	(bool) preg_match( '/<script[^>]+defer[^>]+src=[^>]+main\.js/i', $coaching_html ),
 	'Blocksy main.js script is deferred with the defer attribute'
+);
+jn_step8_assert(
+	false === stripos( $coaching_html, 'amelia' )
+	&& substr_count( $coaching_html, 'id="ct-main-styles-inline-css"' ) <= 1
+	&& ! (bool) preg_match( '/<img\b[^>]*\bdecoding="async"[^>]*\bdecoding="async"/i', $coaching_html ),
+	'Content page (/coaching/) has zero Amelia bloat, unique <style> IDs, and no duplicate decoding="async" attributes'
 );
 
 // -----------------------------------------------------------------------------

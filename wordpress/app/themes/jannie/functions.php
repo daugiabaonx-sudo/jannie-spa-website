@@ -114,13 +114,12 @@ function jannie_enqueue_front_assets() {
 			$fonts_base = JN_Hardening_HTML_Headers::alias_asset_url( $fonts_base );
 		}
 		$inline_css = str_replace( "url('../fonts/", "url('" . esc_url_raw( $fonts_base ), $inline_css );
-		// Defer the italic accent WOFF2 @font-face to post-paint (loaded in setup.php with metric-matched fallback at FCP).
-		$inline_css = (string) preg_replace( '/@font-face\{font-family:\'Playfair Display\';font-style:italic;[^}]+\}/', '', $inline_css );
-
-		wp_add_inline_style( 'ct-main-styles', $inline_css );
+		// Defer the Playfair Display WOFF2 @font-face rules to post-paint (rendered with metric-matched fallback at FCP/LCP).
+		$inline_css = (string) preg_replace( '/@font-face\{font-family:\'Playfair Display\';font-style:(?:normal|italic);[^}]+\}/', '', $inline_css );
 
 		wp_register_style( 'jn-tokens', false, array( 'ct-main-styles' ), JANNIE_VERSION );
 		wp_enqueue_style( 'jn-tokens' );
+		wp_add_inline_style( 'jn-tokens', $inline_css );
 
 		wp_register_style( 'jn-base', false, array( 'jn-tokens' ), JANNIE_VERSION );
 		wp_enqueue_style( 'jn-base' );

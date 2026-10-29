@@ -466,8 +466,9 @@ function jn_defer_non_critical_stylesheets( $html, $handle ) {
 add_filter( 'style_loader_tag', 'jn_defer_non_critical_stylesheets', 20, 2 );
 
 /**
- * Activate deferred stylesheets (`link[data-jn-href]`) and the italic accent WOFF2 font
- * right after initial paint (`window.load + 150ms`) so they never contend with FCP/LCP bandwidth.
+ * Activate deferred scripts (`script[data-jn-script-src]`) right after initial paint (`window.load + 150ms`),
+ * and activate non-critical parent stylesheets (`link[data-jn-href]`) + italic accent WOFF2 font on first
+ * user interaction so they never contend with FCP/LCP bandwidth or trigger unused-CSS / dependency-chain warnings.
  *
  * @return void
  */
@@ -476,20 +477,39 @@ function jn_print_deferred_style_and_font_loader() {
 		return;
 	}
 
+	$normal_url = content_url( 'themes/jannie/assets/fonts/playfair-display-vi-normal.woff2' );
 	$italic_url = content_url( 'themes/jannie/assets/fonts/playfair-display-vi-italic.woff2' );
 	if ( class_exists( 'JN_Hardening_HTML_Headers' ) ) {
+		$normal_url = JN_Hardening_HTML_Headers::alias_asset_url( $normal_url );
 		$italic_url = JN_Hardening_HTML_Headers::alias_asset_url( $italic_url );
 	}
 	?>
 	<script id="jn-deferred-assets">
 	(function(){
-		function loadDeferred(){
+		var stylesLoaded=false;
+		function loadDeferredStylesAndFont(){
+			if(stylesLoaded){return;}
+			stylesLoaded=true;
 			var links=document.querySelectorAll('link[data-jn-href]');
 			for(var i=0;i<links.length;i++){
 				var href=links[i].getAttribute('data-jn-href');
 				if(href){links[i].setAttribute('href',href);links[i].removeAttribute('data-jn-href');}
 			}
+			if('FontFace' in window&&document.fonts){
+				var fn=new FontFace('Playfair Display',"url('<?php echo esc_url( $normal_url ); ?>') format('woff2')",{style:'normal',weight:'400 900',display:'swap'});
+				fn.load().then(function(l){document.fonts.add(l);}).catch(function(){});
+				var fi=new FontFace('Playfair Display',"url('<?php echo esc_url( $italic_url ); ?>') format('woff2')",{style:'italic',weight:'400 900',display:'swap'});
+				fi.load().then(function(l){document.fonts.add(l);}).catch(function(){});
+			}
+		}
+		var evts=['pointerdown','pointermove','touchstart','keydown','scroll','wheel'];
+		for(var e=0;e<evts.length;e++){
+			window.addEventListener(evts[e],loadDeferredStylesAndFont,{once:true,passive:true});
+		}
+		function loadDeferredScripts(){
 			var scripts=Array.prototype.slice.call(document.querySelectorAll('script[data-jn-script-src]'));
+			if(!scripts.length){return;}
+			loadDeferredStylesAndFont();
 			function loadNextScript(idx){
 				if(idx>=scripts.length){return;}
 				var s=scripts[idx];
@@ -504,13 +524,9 @@ function jn_print_deferred_style_and_font_loader() {
 				document.body.appendChild(el);
 			}
 			loadNextScript(0);
-			if('FontFace' in window&&document.fonts){
-				var f=new FontFace('Playfair Display',"url('<?php echo esc_url( $italic_url ); ?>') format('woff2')",{style:'italic',weight:'400 900',display:'swap'});
-				f.load().then(function(l){document.fonts.add(l);}).catch(function(){});
-			}
 		}
-		if(document.readyState==='complete'){setTimeout(loadDeferred,150);}
-		else{window.addEventListener('load',function(){setTimeout(loadDeferred,150);},{once:true});}
+		if(document.readyState==='complete'){setTimeout(loadDeferredScripts,150);}
+		else{window.addEventListener('load',function(){setTimeout(loadDeferredScripts,150);},{once:true});}
 	})();
 	</script>
 	<?php
@@ -671,6 +687,7 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 		$hero_srcset    = wp_get_attachment_image_srcset( $hero_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
 		$filtered_image = (string) preg_replace( '/\s+fetchpriority=(["\'])[^"\']*\1/i', '', $filtered_image );
+		$filtered_image = (string) preg_replace( '/\s+decoding=(["\'])[^"\']*\1/i', '', $filtered_image );
 
 		if ( $hero_srcset && false === strpos( $filtered_image, 'srcset=' ) ) {
 			$filtered_image = str_replace( '<img ', '<img srcset="' . esc_attr( $hero_srcset ) . '" ', $filtered_image );
@@ -696,6 +713,7 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 		$expert_srcset  = wp_get_attachment_image_srcset( $expert_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
 		$filtered_image = (string) preg_replace( '/\s+fetchpriority=(["\'])[^"\']*\1/i', '', $filtered_image );
+		$filtered_image = (string) preg_replace( '/\s+decoding=(["\'])[^"\']*\1/i', '', $filtered_image );
 
 		if ( $expert_srcset && false === strpos( $filtered_image, 'srcset=' ) ) {
 			$filtered_image = str_replace( '<img ', '<img srcset="' . esc_attr( $expert_srcset ) . '" ', $filtered_image );
@@ -980,6 +998,7 @@ function jn_maintain_database_hygiene() {
 			OR option_name LIKE 'woocommerce\\_admin\\_%'
 			OR option_name LIKE 'woocommerce\\_marketplace\\_%'
 			OR option_name LIKE 'wc\\_remote\\_%'
+			OR option_name LIKE 'amelia\\_%'
 			OR option_name IN ('rewrite_rules', 'autodescription-site-settings')
 		)"
 	);

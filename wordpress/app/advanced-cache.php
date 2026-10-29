@@ -53,25 +53,58 @@ if ( $jn_bypass_cache ) {
 	return;
 }
 
-// Fast-path delivery from WP Super Cache static directory for both Desktop & Mobile viewports.
+// Fast-path delivery from WP Super Cache static directory for both Desktop & Mobile viewports (HTTP & HTTPS / Cloudflare Tunnel).
 $jn_parsed_path = (string) parse_url( $jn_req_uri, PHP_URL_PATH );
 $jn_clean_path  = trim( $jn_parsed_path, '/' );
 if ( '' === $jn_clean_path || preg_match( '#^[a-z0-9/_-]+$#i', $jn_clean_path ) ) {
-	$jn_raw_host   = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( (string) $_SERVER['HTTP_HOST'] ) : 'localhost';
-	$jn_host_only  = (string) preg_replace( '/:\d+$/', '', $jn_raw_host );
-	$jn_super_dir  = WP_CONTENT_DIR . '/cache/supercache/' . $jn_host_only;
-	$jn_cache_file = '' === $jn_clean_path
-		? $jn_super_dir . '/index.html'
-		: $jn_super_dir . '/' . $jn_clean_path . '/index.html';
+	$jn_raw_host  = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( (string) $_SERVER['HTTP_HOST'] ) : 'localhost';
+	$jn_host_only = (string) preg_replace( '/:\d+$/', '', $jn_raw_host );
+	$jn_is_https  = ( isset( $_SERVER['HTTPS'] ) && ( 'on' === strtolower( (string) $_SERVER['HTTPS'] ) || '1' === (string) $_SERVER['HTTPS'] ) )
+		|| ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === strtolower( (string) $_SERVER['HTTP_X_FORWARDED_PROTO'] ) );
+	$jn_subpath   = '' === $jn_clean_path ? '' : '/' . $jn_clean_path;
+	$jn_super_dir = WP_CONTENT_DIR . '/cache/supercache/' . $jn_host_only . $jn_subpath;
 
-	if ( is_file( $jn_cache_file ) && is_readable( $jn_cache_file ) && ( time() - (int) filemtime( $jn_cache_file ) ) < 3600 ) {
-		if ( ! headers_sent() ) {
-			header( 'Content-Type: text/html; charset=UTF-8' );
-			header( 'X-Cache-Status: HIT' );
+	$jn_candidates = $jn_is_https
+		? array( $jn_super_dir . '/index-https.html', $jn_super_dir . '/index.html' )
+		: array( $jn_super_dir . '/index.html', $jn_super_dir . '/index-https.html' );
+
+	foreach ( $jn_candidates as $jn_cache_file ) {
+		if ( is_file( $jn_cache_file ) && is_readable( $jn_cache_file ) && ( time() - (int) filemtime( $jn_cache_file ) ) < 3600 ) {
+			if ( ! headers_sent() ) {
+				header( 'Content-Type: text/html; charset=UTF-8' );
+				header( 'X-Cache-Status: HIT' );
+			}
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+			readfile( $jn_cache_file );
+			exit;
 		}
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
-		readfile( $jn_cache_file );
-		exit;
+	}
+
+	// Cloudflare Quick Tunnel fast-path fallback: if a warm localhost cache exists, rewrite origin in-memory and serve immediately.
+	if ( defined( 'JN_TUNNEL_HOST' ) && defined( 'JN_LOCAL_HOME' ) && defined( 'WP_HOME' ) ) {
+		$jn_local_file = WP_CONTENT_DIR . '/cache/supercache/localhost' . $jn_subpath . '/index.html';
+		if ( is_file( $jn_local_file ) && is_readable( $jn_local_file ) && ( time() - (int) filemtime( $jn_local_file ) ) < 3600 ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$jn_html = (string) file_get_contents( $jn_local_file );
+			if ( '' !== $jn_html ) {
+				$jn_from      = (string) JN_LOCAL_HOME;
+				$jn_to        = (string) WP_HOME;
+				$jn_json_from = str_replace( '/', '\/', $jn_from );
+				$jn_json_to   = str_replace( '/', '\/', $jn_to );
+				$jn_rewritten = str_replace(
+					array( $jn_from, $jn_json_from, rawurlencode( $jn_from ), rawurlencode( $jn_json_from ) ),
+					array( $jn_to, $jn_json_to, rawurlencode( $jn_to ), rawurlencode( $jn_json_to ) ),
+					$jn_html
+				);
+				if ( ! headers_sent() ) {
+					header( 'Content-Type: text/html; charset=UTF-8' );
+					header( 'X-Cache-Status: HIT' );
+				}
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Full cached HTML document.
+				echo $jn_rewritten;
+				exit;
+			}
+		}
 	}
 }
 

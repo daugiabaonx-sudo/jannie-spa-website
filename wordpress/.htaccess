@@ -54,6 +54,9 @@ ServerSignature Off
 
 # Brotli & Gzip compression (Step 8 Task 2)
 <IfModule mod_brotli.c>
+	<IfModule mod_setenvif.c>
+		SetEnvIfNoCase Accept-Encoding "\bbr\b" no-gzip
+	</IfModule>
 	<IfModule mod_filter.c>
 		AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/ld+json application/xml application/rss+xml image/svg+xml
 	</IfModule>

@@ -105,6 +105,16 @@ img {
 	z-index: -1;
 }
 
+#offcanvas.active {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: flex;
+	justify-content: flex-end;
+	opacity: 1;
+	visibility: visible;
+}
+
 @media (min-width: 1000px) {
 	#header [data-device="mobile"] {
 		display: none !important;
