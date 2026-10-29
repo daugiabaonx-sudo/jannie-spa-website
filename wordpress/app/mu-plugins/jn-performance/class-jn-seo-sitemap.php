@@ -161,6 +161,9 @@ class JN_SEO_Sitemap {
 			return;
 		}
 
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
 		status_header( 200 );
 		header( 'Content-Type: application/xml; charset=UTF-8' );
 		header( 'X-Robots-Tag: noindex, follow' );

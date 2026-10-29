@@ -60,6 +60,7 @@ class JN_SEO_Llms {
 			'- Liên hệ: ' . $brand['email'],
 			'- Ngôn ngữ nội dung: Tiếng Việt',
 			'- Đặt lịch: gửi yêu cầu trên website; trợ lý xác nhận khung giờ, thanh toán sau khi lịch được xác nhận.',
+			'- Sơ đồ trang (Sitemap): ' . home_url( '/sitemap.xml' ),
 			'',
 			'## Trang chính',
 			'',
@@ -137,6 +138,9 @@ class JN_SEO_Llms {
 		$req_path = trim( (string) wp_parse_url( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ), '/' );
 		if ( 'llms.txt' !== $req_path ) {
 			return;
+		}
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
 		}
 		status_header( 200 );
 		header( 'Content-Type: text/plain; charset=UTF-8' );

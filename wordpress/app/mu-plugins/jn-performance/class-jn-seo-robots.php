@@ -53,8 +53,13 @@ class JN_SEO_Robots {
 		'ClaudeBot',
 		'Claude-SearchBot',
 		'Claude-User',
+		'Claude-Web',
+		'anthropic-ai',
 		'Google-Extended',
+		'GoogleOther',
 		'Applebot-Extended',
+		'Meta-ExternalAgent',
+		'Amazonbot',
 		'Bingbot',
 	);
 
@@ -67,7 +72,49 @@ class JN_SEO_Robots {
 		add_filter( 'the_seo_framework_robots_meta_array', array( __CLASS__, 'filter_tsf_robots' ), 999, 2 );
 		add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ), 999 );
 		add_filter( 'robots_txt', array( __CLASS__, 'filter_robots_txt' ), 999, 2 );
+		add_action( 'pre_get_posts', array( __CLASS__, 'exclude_noindex_from_search' ) );
 		add_action( 'init', array( __CLASS__, 'serve_robots_txt' ), 1 );
+	}
+
+	/**
+	 * Return post IDs of utility pages and hidden coaching products that must not appear in internal search.
+	 *
+	 * @return array<int, int>
+	 */
+	public static function get_noindex_post_ids(): array {
+		$ids = array();
+		foreach ( JN_SEO_Sitemap::NOINDEX_SLUGS as $slug ) {
+			$page = get_page_by_path( $slug, OBJECT, 'page' );
+			if ( $page instanceof WP_Post && $page->ID > 0 ) {
+				$ids[] = (int) $page->ID;
+			}
+		}
+		if ( function_exists( 'wc_get_page_id' ) ) {
+			foreach ( array( 'cart', 'checkout', 'myaccount' ) as $wc_page ) {
+				$wc_id = (int) wc_get_page_id( $wc_page );
+				if ( $wc_id > 0 ) {
+					$ids[] = $wc_id;
+				}
+			}
+		}
+		return array_values( array_unique( $ids ) );
+	}
+
+	/**
+	 * Exclude `noindex` commerce utility pages from frontend search results (`/?s=...`).
+	 *
+	 * @param WP_Query $query Query instance.
+	 * @return void
+	 */
+	public static function exclude_noindex_from_search( $query ): void {
+		if ( is_admin() || ! ( $query instanceof WP_Query ) || ! $query->is_main_query() || ! $query->is_search() ) {
+			return;
+		}
+		$existing = (array) $query->get( 'post__not_in', array() );
+		$merged   = array_values( array_unique( array_merge( array_map( 'intval', $existing ), self::get_noindex_post_ids() ) ) );
+		if ( ! empty( $merged ) ) {
+			$query->set( 'post__not_in', $merged );
+		}
 	}
 
 	/**
@@ -245,6 +292,9 @@ class JN_SEO_Robots {
 			&& ( false !== stripos( $ua, 'Lighthouse' ) || false !== stripos( $ua, 'HeadlessChrome' ) || false !== stripos( $ua, 'PTST' ) );
 		$is_prod       = 'production' === wp_get_environment_type() && '1' === (string) get_option( 'blog_public' );
 
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
 		status_header( 200 );
 		header( 'Content-Type: text/plain; charset=UTF-8' );
 		if ( self::emulates_production() ) {

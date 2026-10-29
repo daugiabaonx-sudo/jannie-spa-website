@@ -47,7 +47,24 @@ class JN_SEO_Schema {
 	public static function init(): void {
 		add_filter( 'the_seo_framework_schema_graph_data', '__return_empty_array', 999 );
 		add_filter( 'woocommerce_structured_data_product', array( __CLASS__, 'strip_wc_review_schema' ), 99 );
+		add_action( 'template_redirect', array( __CLASS__, 'disable_wc_separate_schema' ), 20 );
 		add_action( 'wp_head', array( __CLASS__, 'print_graph' ), 2 );
+	}
+
+	/**
+	 * Unhook WooCommerce's separate footer JSON-LD on single product pages so only our unified `@graph` is printed.
+	 *
+	 * @return void
+	 */
+	public static function disable_wc_separate_schema(): void {
+		if ( ! is_singular( 'product' ) || ! function_exists( 'WC' ) ) {
+			return;
+		}
+		$wc = WC();
+		if ( isset( $wc->structured_data ) && is_object( $wc->structured_data ) ) {
+			remove_action( 'woocommerce_single_product_summary', array( $wc->structured_data, 'generate_product_data' ), 60 );
+			remove_action( 'wp_footer', array( $wc->structured_data, 'output_structured_data' ), 10 );
+		}
 	}
 
 	/**
@@ -55,7 +72,9 @@ class JN_SEO_Schema {
 	 *
 	 * @param array{canonical: string, title: string, description: string, page_type: string,
 	 *              breadcrumbs: array<int, array{name: string, url: string}>, service_page: bool,
-	 *              faq: array<int, array{question: string, answer: string}>} $ctx Page context.
+	 *              faq: array<int, array{question: string, answer: string}>,
+	 *              date_published?: string, date_modified?: string,
+	 *              product?: array<string, mixed>|null} $ctx Page context.
 	 * @return array{"@context": string, "@graph": array<int, array<string, mixed>>}
 	 */
 	public static function build_graph( array $ctx ): array {
@@ -66,6 +85,7 @@ class JN_SEO_Schema {
 			'person'  => $home . '#jannie-nguyen',
 			'page'    => $ctx['canonical'] . '#webpage',
 			'crumbs'  => $ctx['canonical'] . '#breadcrumb',
+			'product' => $ctx['canonical'] . '#product',
 		);
 		$brand   = JN_SEO_Brand::get();
 		$same_as = $brand['same_as'] ? array( 'sameAs' => $brand['same_as'] ) : array();
@@ -80,16 +100,7 @@ class JN_SEO_Schema {
 				'publisher'  => array( '@id' => $ids['org'] ),
 			),
 			self::organization_node( $brand, $ids ) + $same_as,
-			array(
-				'@type'       => 'Person',
-				'@id'         => $ids['person'],
-				'name'        => $brand['name'],
-				'jobTitle'    => $brand['job_title'],
-				'description' => $brand['person_description'],
-				'knowsAbout'  => array( 'Điêu khắc thẩm mỹ', 'Phun xăm tự nhiên', 'Vận hành cơ sở thẩm mỹ & spa' ),
-				'url'         => home_url( '/my-story/' ),
-				'worksFor'    => array( '@id' => $ids['org'] ),
-			) + $same_as,
+			self::person_node( $brand, $ids ) + $same_as,
 			self::webpage_node( $ctx, $ids ),
 		);
 
@@ -99,6 +110,9 @@ class JN_SEO_Schema {
 		if ( ! empty( $ctx['service_page'] ) ) {
 			$graph = array_merge( $graph, self::service_nodes( $ids ) );
 		}
+		if ( ! empty( $ctx['product'] ) && is_array( $ctx['product'] ) ) {
+			$graph[] = self::product_node( $ctx['product'], $ctx['canonical'], $ids );
+		}
 		if ( ! empty( $ctx['faq'] ) ) {
 			$graph[] = self::faq_node( $ctx['faq'], $ctx['canonical'], $ids['website'] );
 		}
@@ -106,6 +120,40 @@ class JN_SEO_Schema {
 		return array(
 			'@context' => 'https://schema.org',
 			'@graph'   => $graph,
+		);
+	}
+
+	/**
+	 * Person node for Jannie Nguyễn with verified portrait ImageObject and credentials.
+	 *
+	 * @param array<string, mixed>  $brand Brand facts.
+	 * @param array<string, string> $ids   Node ids.
+	 * @return array<string, mixed>
+	 */
+	private static function person_node( array $brand, array $ids ): array {
+		$media_map    = get_option( 'jn_step3_media_map', array() );
+		$portrait_url = isset( $media_map['hero_portrait']['url'] ) && '' !== (string) $media_map['hero_portrait']['url']
+			? (string) $media_map['hero_portrait']['url']
+			: home_url( '/media/2026/10/jn-hero-portrait.webp' );
+
+		return array(
+			'@type'         => 'Person',
+			'@id'           => $ids['person'],
+			'name'          => $brand['name'],
+			'jobTitle'      => $brand['job_title'],
+			'description'   => $brand['person_description'],
+			'image'         => array(
+				'@type'   => 'ImageObject',
+				'url'     => $portrait_url,
+				'width'   => 800,
+				'height'  => 1000,
+				'caption' => $brand['name'],
+			),
+			'award'         => 'Nghệ nhân Bàn Tay Vàng — Oscar for Beauty Vietnam',
+			'knowsAbout'    => array( 'Điêu khắc thẩm mỹ', 'Phun xăm tự nhiên', 'Vận hành cơ sở thẩm mỹ & spa' ),
+			'knowsLanguage' => array( 'vi-VN' ),
+			'url'           => home_url( '/my-story/' ),
+			'worksFor'      => array( '@id' => $ids['org'] ),
 		);
 	}
 
@@ -164,12 +212,64 @@ class JN_SEO_Schema {
 		);
 		if ( 'ProfilePage' === $ctx['page_type'] ) {
 			$node['mainEntity'] = array( '@id' => $ids['person'] );
+		} elseif ( ! empty( $ctx['product'] ) && is_array( $ctx['product'] ) ) {
+			$node['mainEntity'] = array( '@id' => $ids['product'] );
 		}
 		if ( ! empty( $ctx['breadcrumbs'] ) ) {
 			$node['breadcrumb'] = array( '@id' => $ids['crumbs'] );
 		}
+		if ( ! empty( $ctx['date_published'] ) ) {
+			$node['datePublished'] = (string) $ctx['date_published'];
+		}
+		if ( ! empty( $ctx['date_modified'] ) ) {
+			$node['dateModified'] = (string) $ctx['date_modified'];
+		}
+		if ( 'SearchResultsPage' !== $ctx['page_type'] ) {
+			$node['speakable'] = array(
+				'@type'       => 'SpeakableSpecification',
+				'cssSelector' => array( 'h1', '.jn-hero-lead', '.jn-page-intro-lead', '.jn-faq-item summary' ),
+			);
+		}
 		if ( '' === $node['description'] ) {
 			unset( $node['description'] );
+		}
+		return $node;
+	}
+
+	/**
+	 * Product node unified inside `@graph` (omits unverified review/rating schema).
+	 *
+	 * @param array<string, mixed>  $product   Product data.
+	 * @param string                $canonical Canonical product URL.
+	 * @param array<string, string> $ids       Node ids.
+	 * @return array<string, mixed>
+	 */
+	private static function product_node( array $product, string $canonical, array $ids ): array {
+		$node = array(
+			'@type' => 'Product',
+			'@id'   => $ids['product'],
+			'name'  => (string) ( $product['name'] ?? '' ),
+			'url'   => $canonical,
+			'brand' => array( '@id' => $ids['org'] ),
+		);
+		if ( ! empty( $product['description'] ) ) {
+			$node['description'] = (string) $product['description'];
+		}
+		if ( ! empty( $product['sku'] ) ) {
+			$node['sku'] = (string) $product['sku'];
+		}
+		if ( ! empty( $product['image'] ) ) {
+			$node['image'] = (string) $product['image'];
+		}
+		if ( isset( $product['price'] ) && '' !== (string) $product['price'] && is_numeric( $product['price'] ) && (float) $product['price'] > 0 ) {
+			$node['offers'] = array(
+				'@type'         => 'Offer',
+				'url'           => $canonical,
+				'price'         => (string) $product['price'],
+				'priceCurrency' => ! empty( $product['currency'] ) ? (string) $product['currency'] : 'VND',
+				'availability'  => ! empty( $product['in_stock'] ) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+				'seller'        => array( '@id' => $ids['org'] ),
+			);
 		}
 		return $node;
 	}
@@ -350,12 +450,17 @@ class JN_SEO_Schema {
 		$canonical = JN_SEO_Meta::get_canonical_url();
 		$queried   = get_queried_object();
 		$slug      = $queried instanceof WP_Post ? $queried->post_name : '';
-		$type      = self::PAGE_TYPES[ $slug ] ?? ( is_search() ? 'SearchResultsPage' : 'WebPage' );
+		$type      = self::PAGE_TYPES[ $slug ] ?? ( is_singular( 'product' ) ? 'ItemPage' : ( is_search() ? 'SearchResultsPage' : 'WebPage' ) );
 		$crumbs    = array();
 		$faq       = array();
+		$date_pub  = '';
+		$date_mod  = '';
+		$product   = null;
 
 		if ( $queried instanceof WP_Post ) {
-			$faq = self::extract_faq_from_blocks( (string) $queried->post_content );
+			$faq      = self::extract_faq_from_blocks( (string) $queried->post_content );
+			$date_pub = (string) get_post_time( 'c', true, $queried );
+			$date_mod = (string) get_post_modified_time( 'c', true, $queried );
 			if ( ! is_front_page() ) {
 				$crumbs = array(
 					array(
@@ -368,16 +473,35 @@ class JN_SEO_Schema {
 					),
 				);
 			}
+			if ( is_singular( 'product' ) && function_exists( 'wc_get_product' ) ) {
+				$wc_product = wc_get_product( $queried->ID );
+				if ( $wc_product instanceof WC_Product && JN_SEO_Sitemap::is_product_indexable( $wc_product ) ) {
+					$img_id  = (int) $wc_product->get_image_id();
+					$img_url = $img_id > 0 ? (string) wp_get_attachment_image_url( $img_id, 'full' ) : '';
+					$product = array(
+						'name'        => $wc_product->get_name(),
+						'description' => $meta['description'],
+						'sku'         => (string) $wc_product->get_sku(),
+						'image'       => $img_url,
+						'price'       => (string) $wc_product->get_price(),
+						'currency'    => function_exists( 'get_woocommerce_currency' ) ? (string) get_woocommerce_currency() : 'VND',
+						'in_stock'    => $wc_product->is_in_stock(),
+					);
+				}
+			}
 		}
 
 		return array(
-			'canonical'    => $canonical,
-			'title'        => '' !== $meta['title'] ? $meta['title'] : wp_get_document_title(),
-			'description'  => $meta['description'],
-			'page_type'    => $type,
-			'breadcrumbs'  => $crumbs,
-			'service_page' => is_front_page() || is_page( array( 'coaching', 'booking' ) ),
-			'faq'          => $faq,
+			'canonical'      => $canonical,
+			'title'          => '' !== $meta['title'] ? $meta['title'] : wp_get_document_title(),
+			'description'    => $meta['description'],
+			'page_type'      => $type,
+			'breadcrumbs'    => $crumbs,
+			'service_page'   => is_front_page() || is_page( array( 'coaching', 'booking' ) ),
+			'faq'            => $faq,
+			'date_published' => $date_pub,
+			'date_modified'  => $date_mod,
+			'product'        => $product,
 		);
 	}
 

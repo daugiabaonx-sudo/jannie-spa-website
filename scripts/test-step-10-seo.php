@@ -417,4 +417,120 @@ jn_step10_assert(
 	'/llms.txt is served as text/plain with the builder output'
 );
 
+// -----------------------------------------------------------------------------
+// 8. Post-Step-13 Deep SEO/AEO Hardening (sunext-semrush-ahrefs-os Audit)
+// -----------------------------------------------------------------------------
+echo "\n--- 8. Deep SEO/AEO Hardening (Cache, Social Meta, Search Hygiene, Entity Graph) ---\n";
+
+// 8a. advanced-cache.php must bypass cache for /llms.txt as well as /robots.txt and /sitemap.xml.
+$jn_adv_cache = (string) file_get_contents( WP_CONTENT_DIR . '/advanced-cache.php' );
+jn_step10_assert(
+	false !== strpos( $jn_adv_cache, 'llms\.txt' ),
+	'advanced-cache.php explicitly excludes /llms.txt from page caching'
+);
+
+// 8b. Expanded AI crawler coverage in production robots.txt & docs/jn/robots.production.txt parity.
+foreach ( array( 'Claude-Web', 'anthropic-ai', 'GoogleOther', 'Meta-ExternalAgent', 'Amazonbot' ) as $jn_extra_bot ) {
+	jn_step10_assert(
+		false !== strpos( $jn_prod_robots, "User-agent: {$jn_extra_bot}\n" ),
+		"Production robots.txt names AI crawler {$jn_extra_bot}"
+	);
+}
+$jn_doc_robots_path = dirname( ABSPATH ) . '/docs/jn/robots.production.txt';
+if ( is_readable( $jn_doc_robots_path ) ) {
+	$jn_doc_robots = str_replace( 'https://PROD_DOMAIN', untrailingslashit( home_url() ), (string) file_get_contents( $jn_doc_robots_path ) );
+	jn_step10_assert(
+		trim( $jn_doc_robots ) === trim( $jn_prod_robots ),
+		'docs/jn/robots.production.txt matches JN_SEO_Robots::build_robots_txt(true) byte-for-byte'
+	);
+}
+
+// 8c. Internal search (?s=coaching) must exclude noindex utility pages (/cart/, /checkout/, /tai-khoan/).
+$jn_search_coaching_html = wp_remote_retrieve_body( jn_step10_http_get( '/?s=coaching' ) );
+jn_step10_assert(
+	false === strpos( $jn_search_coaching_html, 'href="' . esc_url( home_url( '/cart/' ) ) . '"' )
+	&& false === strpos( $jn_search_coaching_html, '>Giỏ hàng<' ),
+	'Internal search (?s=coaching) excludes noindex utility page /cart/ (Giỏ hàng) from search results'
+);
+jn_step10_assert(
+	1 === preg_match_all( '#<meta[^>]+name=["\']twitter:card["\']#i', $jn_search_coaching_html ),
+	'Internal search (?s=coaching) includes twitter:card meta tag'
+);
+
+// 8d. Social meta completeness on content pages: og:site_name diacritics, og:image:width/height/alt, twitter:image:alt.
+$jn_home_html = wp_remote_retrieve_body( jn_step10_http_get( '/' ) );
+jn_step10_assert(
+	1 === preg_match( '#<meta[^>]+property=["\']og:site_name["\'][^>]+content=["\']Jannie Nguyễn["\']#u', $jn_home_html ),
+	'Home page og:site_name uses proper Vietnamese diacritics ("Jannie Nguyễn")'
+);
+jn_step10_assert(
+	1 === preg_match( '#<meta[^>]+property=["\']og:image:width["\'][^>]+content=["\']\d+["\']#i', $jn_home_html )
+	&& 1 === preg_match( '#<meta[^>]+property=["\']og:image:height["\'][^>]+content=["\']\d+["\']#i', $jn_home_html )
+	&& 1 === preg_match( '#<meta[^>]+property=["\']og:image:alt["\'][^>]+content=["\'][^"\']+["\']#i', $jn_home_html )
+	&& 1 === preg_match( '#<meta[^>]+name=["\']twitter:image:alt["\'][^>]+content=["\'][^"\']+["\']#i', $jn_home_html ),
+	'Home page emits og:image:width, og:image:height, og:image:alt, and twitter:image:alt'
+);
+
+// 8e. Person node includes verified portrait ImageObject, award, and knowsLanguage; WebPage includes dateModified & speakable.
+$jn_home_ld     = jn_step10_jsonld_nodes( $jn_home_html );
+$jn_person_node = current( array_filter( $jn_home_ld['nodes'], static fn( $n ) => in_array( 'Person', (array) ( $n['@type'] ?? array() ), true ) ) );
+$jn_page_node   = current( array_filter( $jn_home_ld['nodes'], static fn( $n ) => in_array( 'WebPage', (array) ( $n['@type'] ?? array() ), true ) ) );
+jn_step10_assert(
+	is_array( $jn_person_node )
+	&& isset( $jn_person_node['image']['url'], $jn_person_node['award'], $jn_person_node['knowsLanguage'] )
+	&& false !== strpos( (string) $jn_person_node['image']['url'], 'jn-hero-portrait.webp' ),
+	'Person JSON-LD node includes verified real portrait ImageObject (jn-hero-portrait.webp), award, and knowsLanguage'
+);
+jn_step10_assert(
+	is_array( $jn_page_node )
+	&& ! empty( $jn_page_node['datePublished'] )
+	&& ! empty( $jn_page_node['dateModified'] )
+	&& isset( $jn_page_node['speakable']['@type'] )
+	&& 'SpeakableSpecification' === $jn_page_node['speakable']['@type'],
+	'WebPage JSON-LD node includes ISO-8601 datePublished, dateModified, and SpeakableSpecification'
+);
+
+// 8f. Single WooCommerce Product JSON-LD unification inside @graph (no duplicate WC footer JSON-LD).
+$jn_prod_ctx_graph = JN_SEO_Schema::build_graph(
+	array(
+		'canonical'    => home_url( '/product/test-item/' ),
+		'title'        => 'Sản phẩm thử nghiệm | Jannie Nguyễn',
+		'description'  => 'Mô tả sản phẩm thử nghiệm.',
+		'page_type'    => 'ItemPage',
+		'breadcrumbs'  => array(
+			array( 'name' => 'Trang chủ', 'url' => home_url( '/' ) ),
+			array( 'name' => 'Sản phẩm thử nghiệm', 'url' => home_url( '/product/test-item/' ) ),
+		),
+		'service_page' => false,
+		'faq'          => array(),
+		'product'      => array(
+			'name'        => 'Sản phẩm thử nghiệm',
+			'description' => 'Mô tả sản phẩm thử nghiệm.',
+			'sku'         => 'JN-TEST-01',
+			'image'       => home_url( '/media/2026/10/jn-hero-portrait.webp' ),
+			'price'       => '450000',
+			'currency'    => 'VND',
+			'in_stock'    => true,
+		),
+	)
+);
+$jn_prod_nodes = $jn_prod_ctx_graph['@graph'];
+$jn_prod_node  = current( array_filter( $jn_prod_nodes, static fn( $n ) => in_array( 'Product', (array) ( $n['@type'] ?? array() ), true ) ) );
+$jn_item_page  = current( array_filter( $jn_prod_nodes, static fn( $n ) => in_array( 'ItemPage', (array) ( $n['@type'] ?? array() ), true ) ) );
+jn_step10_assert(
+	is_array( $jn_prod_node )
+	&& is_array( $jn_item_page )
+	&& ( $jn_item_page['mainEntity']['@id'] ?? '' ) === ( $jn_prod_node['@id'] ?? '' )
+	&& '450000' === ( $jn_prod_node['offers']['price'] ?? '' )
+	&& ! isset( $jn_prod_node['aggregateRating'] )
+	&& ! isset( $jn_prod_node['review'] ),
+	'Product node is unified inside @graph, linked via ItemPage.mainEntity, and omits unverified review/rating schema'
+);
+
+// 8g. llms.txt includes Sitemap endpoint reference.
+jn_step10_assert(
+	false !== strpos( $jn_llms, home_url( '/sitemap.xml' ) ),
+	'llms.txt references canonical /sitemap.xml for AI crawler discovery'
+);
+
 echo "\nRESULT: {$GLOBALS['jn_passed']} passed, {$GLOBALS['jn_failed']} failed\n";

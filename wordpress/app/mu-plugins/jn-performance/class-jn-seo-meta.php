@@ -35,6 +35,9 @@ class JN_SEO_Meta {
 		add_filter( 'the_seo_framework_generated_description', array( __CLASS__, 'filter_tsf_description' ), 99, 2 );
 		// Fallback image only when TSF found no featured/content image (real images are kept).
 		add_filter( 'the_seo_framework_generated_image_details', array( __CLASS__, 'filter_tsf_image_details' ), 99 );
+		add_filter( 'the_seo_framework_custom_image_details', array( __CLASS__, 'filter_tsf_custom_image_details' ), 99 );
+		add_filter( 'the_seo_framework_blog_name', array( __CLASS__, 'filter_tsf_blog_name' ), 99 );
+		add_filter( 'the_seo_framework_meta_render_data', array( __CLASS__, 'filter_tsf_meta_render_data' ), 99 );
 
 		add_action( 'wp_head', array( __CLASS__, 'print_fallback_head' ), 2 );
 	}
@@ -261,15 +264,81 @@ class JN_SEO_Meta {
 		if ( ! empty( $details ) ) {
 			return $details;
 		}
-		$og = self::get_default_og_image();
+		$og      = self::get_default_og_image();
+		$current = self::get_current();
 		return array(
 			array(
 				'url'    => $og['url'],
 				'width'  => $og['width'],
 				'height' => $og['height'],
-				'alt'    => self::get_page_map()['front']['title'],
+				'alt'    => '' !== $current['title'] ? $current['title'] : self::get_page_map()['front']['title'],
 			),
 		);
+	}
+
+	/**
+	 * Backfill missing dimensions and alt text on custom social images set via URL without attachment ID.
+	 *
+	 * @param array<int, array<string, mixed>> $details Custom image details.
+	 * @return array<int, array<string, mixed>>
+	 */
+	public static function filter_tsf_custom_image_details( $details ) {
+		if ( empty( $details ) || ! is_array( $details ) ) {
+			return $details;
+		}
+		$og          = self::get_default_og_image();
+		$current     = self::get_current();
+		$default_alt = '' !== $current['title'] ? $current['title'] : self::get_page_map()['front']['title'];
+		$normalized  = array();
+
+		foreach ( $details as $idx => $item ) {
+			if ( ! is_array( $item ) ) {
+				$normalized[ $idx ] = $item;
+				continue;
+			}
+			$entry = $item;
+			if ( empty( $entry['width'] ) || empty( $entry['height'] ) ) {
+				$url             = (string) ( $entry['url'] ?? '' );
+				$is_1200x630     = false !== strpos( $url, '1200x630' );
+				$entry['width']  = $is_1200x630 ? 1200 : (int) $og['width'];
+				$entry['height'] = $is_1200x630 ? 630 : (int) $og['height'];
+			}
+			if ( empty( $entry['alt'] ) ) {
+				$entry['alt'] = $default_alt;
+			}
+			$normalized[ $idx ] = $entry;
+		}
+
+		return $normalized;
+	}
+
+	/**
+	 * Ensure TSF uses the canonical Vietnamese brand name with diacritics ("Jannie Nguyễn").
+	 *
+	 * @return string
+	 */
+	public static function filter_tsf_blog_name(): string {
+		return JN_SEO_Brand::get()['name'];
+	}
+
+	/**
+	 * Normalize TSF rendered meta tags (`og:site_name` Vietnamese diacritics).
+	 *
+	 * @param array<string, array<string, mixed>> $tags_render_data TSF tag render data.
+	 * @return array<string, array<string, mixed>>
+	 */
+	public static function filter_tsf_meta_render_data( $tags_render_data ) {
+		if ( ! is_array( $tags_render_data ) ) {
+			return $tags_render_data;
+		}
+		$updated = $tags_render_data;
+		if ( isset( $updated['og:site_name']['attributes']['content'] ) ) {
+			$raw_site_name = trim( (string) $updated['og:site_name']['attributes']['content'] );
+			if ( '' === $raw_site_name || 0 === strcasecmp( $raw_site_name, 'Jannie Nguyen' ) ) {
+				$updated['og:site_name']['attributes']['content'] = JN_SEO_Brand::get()['name'];
+			}
+		}
+		return $updated;
 	}
 
 	/**
@@ -306,8 +375,9 @@ class JN_SEO_Meta {
 		}
 		$tsf_active = function_exists( 'the_seo_framework' ) && the_seo_framework();
 		if ( $tsf_active && is_search() ) {
-			// TSF emits no description on search results; add ours (page stays noindex).
+			// TSF emits no description or twitter:card on search results; add ours (page stays noindex).
 			printf( '<meta name="description" content="%s" />' . "\n", esc_attr( self::get_current()['description'] ) );
+			echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
 			return;
 		}
 		if ( $tsf_active ) {
@@ -332,6 +402,8 @@ class JN_SEO_Meta {
 		printf( '<meta property="og:image" content="%s" />' . "\n", esc_url( $og['url'] ) );
 		printf( '<meta property="og:image:width" content="%d" />' . "\n", (int) $og['width'] );
 		printf( '<meta property="og:image:height" content="%d" />' . "\n", (int) $og['height'] );
+		printf( '<meta property="og:image:alt" content="%s" />' . "\n", esc_attr( $title ) );
 		echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+		printf( '<meta name="twitter:image:alt" content="%s" />' . "\n", esc_attr( $title ) );
 	}
 }
