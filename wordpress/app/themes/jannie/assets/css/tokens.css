@@ -73,50 +73,59 @@
 	--jn-font-heading: 'Playfair Display', 'Playfair Display Fallback', 'Playfair Display Italic Fallback', Georgia, 'Times New Roman', serif;
 	--jn-font-body: 'Geist', 'Geist Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-	/* 3. Typography Scale (Exact match with code.html tailwind.config) */
-	--jn-text-display-lg: 3.5rem;
-	--jn-lh-display-lg: 4rem;
+	/* 3. Typography Scale
+	   Proportionally scaled up from the code.html tailwind.config values, which read too small on real
+	   screens (default body was 14px, labels 10-12px). Text up to title-md is +1-2px at every viewport,
+	   so body copy is 16px. Headlines keep the code.html size at <=768px and grow linearly to +~14% at
+	   >=1440px: clamp(code.html size, intercept + slope*vw, desktop size). */
+	--jn-text-display-lg: clamp(3.5rem, 2.929rem + 1.19vw, 4rem);     /* 56 -> 64px */
+	--jn-lh-display-lg: clamp(4rem, 3.429rem + 1.19vw, 4.5rem);       /* 64 -> 72px */
 	--jn-ls-display-lg: -0.02em;
 
-	--jn-text-headline-lg: 2.5rem;
-	--jn-lh-headline-lg: 3rem;
+	--jn-text-headline-lg: clamp(2.5rem, 2.071rem + 0.893vw, 2.875rem); /* 40 -> 46px */
+	--jn-lh-headline-lg: clamp(3rem, 2.571rem + 0.893vw, 3.375rem);     /* 48 -> 54px */
 	--jn-ls-headline-lg: -0.015em;
 
-	--jn-text-headline-md: 1.875rem;
-	--jn-lh-headline-md: 2.375rem;
+	--jn-text-headline-md: clamp(1.875rem, 1.589rem + 0.595vw, 2.125rem); /* 30 -> 34px */
+	--jn-lh-headline-md: clamp(2.375rem, 2.089rem + 0.595vw, 2.625rem);   /* 38 -> 42px */
 	--jn-ls-headline-md: -0.01em;
 
-	--jn-text-headline-sm: 1.375rem;
-	--jn-lh-headline-sm: 1.75rem;
+	--jn-text-headline-sm: clamp(1.375rem, 1.232rem + 0.298vw, 1.5rem); /* 22 -> 24px */
+	--jn-lh-headline-sm: clamp(1.75rem, 1.464rem + 0.595vw, 2rem);      /* 28 -> 32px */
 	--jn-ls-headline-sm: 0em;
 
-	--jn-text-title-md: 1.125rem;
-	--jn-lh-title-md: 1.625rem;
+	--jn-text-title-md: 1.25rem;     /* 20px (was 18) */
+	--jn-lh-title-md: 1.75rem;
 	--jn-ls-title-md: -0.01em;
 
-	--jn-text-title-sm: 0.9375rem;
-	--jn-lh-title-sm: 1.375rem;
+	--jn-text-title-sm: 1.0625rem;   /* 17px (was 15) */
+	--jn-lh-title-sm: 1.5rem;
 	--jn-ls-title-sm: 0.01em;
 
-	--jn-text-body-lg: 1rem;
-	--jn-lh-body-lg: 1.625rem;
+	--jn-text-body-lg: 1.125rem;     /* 18px (was 16) */
+	--jn-lh-body-lg: 1.875rem;
 	--jn-ls-body-lg: 0em;
 
-	--jn-text-body-md: 0.875rem;
-	--jn-lh-body-md: 1.375rem;
+	--jn-text-body-md: 1rem;         /* 16px (was 14) */
+	--jn-lh-body-md: 1.625rem;
 	--jn-ls-body-md: 0em;
 
-	--jn-text-body-sm: 0.8125rem;
-	--jn-lh-body-sm: 1.25rem;
+	--jn-text-body-sm: 0.9375rem;    /* 15px (was 13) */
+	--jn-lh-body-sm: 1.5rem;
 	--jn-ls-body-sm: 0.005em;
 
-	--jn-text-label-md: 0.75rem;
-	--jn-lh-label-md: 1rem;
+	--jn-text-label-md: 0.8125rem;   /* 13px (was 12) */
+	--jn-lh-label-md: 1.125rem;
 	--jn-ls-label-md: 0.06em;
 
-	--jn-text-label-sm: 0.625rem;
-	--jn-lh-label-sm: 0.875rem;
+	--jn-text-label-sm: 0.6875rem;   /* 11px (was 10) */
+	--jn-lh-label-sm: 1rem;
 	--jn-ls-label-sm: 0.1em;
+
+	/* Header brand + nav/auth labels keep the code.html size at the 1280px off-canvas breakpoint, where
+	   brand + 7 menu items + guest auth links only just fit, and reach title-md / label-md at >=1440px. */
+	--jn-text-header-brand: clamp(1.125rem, 0.125rem + 1.25vw, 1.25rem);  /* 18 -> 20px */
+	--jn-text-header-label: clamp(0.75rem, 0.25rem + 0.625vw, 0.8125rem); /* 12 -> 13px */
 
 	/* 4. Spacing, Container & Rhythm Scale */
 	--jn-space-xs: 0.25rem;   /* 4px */

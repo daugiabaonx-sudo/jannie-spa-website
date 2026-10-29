@@ -307,7 +307,7 @@ textarea:focus-visible,
 
 #header .site-title {
 	font-family: var(--jn-font-heading) !important;
-	font-size: var(--jn-text-title-md) !important;
+	font-size: var(--jn-text-header-brand) !important;
 	line-height: 1 !important;
 	letter-spacing: 0.05em !important;
 	font-weight: 400 !important;
@@ -349,7 +349,7 @@ textarea:focus-visible,
 
 #header .header-menu-1 .menu > li > a.ct-menu-link {
 	font-family: var(--jn-font-body) !important;
-	font-size: var(--jn-text-label-md) !important;
+	font-size: var(--jn-text-header-label) !important;
 	line-height: var(--jn-lh-label-md) !important;
 	font-weight: 500 !important;
 	letter-spacing: 0.02em !important;
@@ -404,7 +404,7 @@ textarea:focus-visible,
 .jn-header-login {
 	padding: var(--jn-space-sm);
 	font-family: var(--jn-font-body);
-	font-size: var(--jn-text-label-md);
+	font-size: var(--jn-text-header-label);
 	line-height: var(--jn-lh-label-md);
 	font-weight: 500;
 	letter-spacing: 0.05em;
@@ -434,7 +434,7 @@ textarea:focus-visible,
 	border: 1px solid var(--jn-border);
 	color: var(--jn-ink) !important;
 	font-family: var(--jn-font-body);
-	font-size: var(--jn-text-label-md);
+	font-size: var(--jn-text-header-label);
 	line-height: var(--jn-lh-label-md);
 	font-weight: 500;
 	letter-spacing: 0.05em;

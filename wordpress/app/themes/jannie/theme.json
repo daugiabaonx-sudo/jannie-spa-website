@@ -75,57 +75,57 @@
 			],
 			"fontSizes": [
 				{
-					"name": "Label SM (10px)",
+					"name": "Label SM (11px)",
 					"slug": "label-sm",
 					"size": "var(--jn-text-label-sm)"
 				},
 				{
-					"name": "Label MD (12px)",
+					"name": "Label MD (13px)",
 					"slug": "label-md",
 					"size": "var(--jn-text-label-md)"
 				},
 				{
-					"name": "Body SM (13px)",
+					"name": "Body SM (15px)",
 					"slug": "body-sm",
 					"size": "var(--jn-text-body-sm)"
 				},
 				{
-					"name": "Body MD (14px)",
+					"name": "Body MD (16px)",
 					"slug": "body-md",
 					"size": "var(--jn-text-body-md)"
 				},
 				{
-					"name": "Title SM (15px)",
+					"name": "Title SM (17px)",
 					"slug": "title-sm",
 					"size": "var(--jn-text-title-sm)"
 				},
 				{
-					"name": "Body LG (16px)",
+					"name": "Body LG (18px)",
 					"slug": "body-lg",
 					"size": "var(--jn-text-body-lg)"
 				},
 				{
-					"name": "Title MD (18px)",
+					"name": "Title MD (20px)",
 					"slug": "title-md",
 					"size": "var(--jn-text-title-md)"
 				},
 				{
-					"name": "Headline SM (20–22px)",
+					"name": "Headline SM (22–24px)",
 					"slug": "headline-sm",
 					"size": "var(--jn-text-headline-sm)"
 				},
 				{
-					"name": "Headline MD (24–30px)",
+					"name": "Headline MD (30–34px)",
 					"slug": "headline-md",
 					"size": "var(--jn-text-headline-md)"
 				},
 				{
-					"name": "Headline LG (28–40px)",
+					"name": "Headline LG (40–46px)",
 					"slug": "headline-lg",
 					"size": "var(--jn-text-headline-lg)"
 				},
 				{
-					"name": "Display LG (38–56px)",
+					"name": "Display LG (56–64px)",
 					"slug": "display-lg",
 					"size": "var(--jn-text-display-lg)"
 				}
