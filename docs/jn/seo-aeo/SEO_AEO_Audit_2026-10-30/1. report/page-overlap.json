@@ -1,0 +1,365 @@
+{
+  "base": "http://localhost:8080",
+  "threshold": 0.84,
+  "pages": {
+    "/": {
+      "title": "Jannie Nguyễn — Cố Vấn 1:1 & Đào Tạo Thẩm Mỹ Chuyên Sâu",
+      "h1": [
+        "Khám Phá Sự Cân Bằng & Vẻ Đẹp Đích Thực"
+      ],
+      "h2": [
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Lợi Ích Của Chương Trình Coaching",
+        "Chi Tiết Gói Đào Tạo & Cố Vấn",
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "words": 1427,
+      "placeholders": []
+    },
+    "/coaching/": {
+      "title": "Coaching & Đồng Hành Chuyên Sâu 1:1 | Jannie Nguyễn",
+      "h1": [
+        "Coaching & Đồng Hành Chuyên Sâu"
+      ],
+      "h2": [
+        "Lợi Ích Của Chương Trình Coaching",
+        "Chi Tiết Gói Đào Tạo & Cố Vấn",
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Câu Hỏi Thường Gặp: Quy Trình Cố Vấn 1:1 Diễn Ra Như Thế Nào?",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "words": 1700,
+      "placeholders": []
+    },
+    "/my-story/": {
+      "title": "Hành Trình Hơn 20 Năm Của Chuyên Gia Jannie Nguyễn",
+      "h1": [
+        "Câu Chuyện Thương Hiệu & Vẻ Đẹp Đích Thực"
+      ],
+      "h2": [
+        "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "words": 600,
+      "placeholders": []
+    },
+    "/course/": {
+      "title": "Chương Trình Đào Tạo & Khóa Học Chuyên Sâu | Jannie Nguyễn",
+      "h1": [
+        "Chương Trình Đào Tạo Thẩm Mỹ & Phun Xăm"
+      ],
+      "h2": [
+        "Lợi Ích Của Chương Trình Coaching",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "words": 646,
+      "placeholders": []
+    },
+    "/client-success-story/": {
+      "title": "Cảm Nhận Học Viên & Kết Quả Thực Tế | Jannie Nguyễn",
+      "h1": [
+        "Câu Chuyện Thành Công Học Viên & Khách Hàng"
+      ],
+      "h2": [
+        "Cảm Nhận Học Viên & Kết Quả Thực Tế",
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching"
+      ],
+      "words": 552,
+      "placeholders": []
+    },
+    "/booking/": {
+      "title": "Đặt Lịch Tư Vấn 1:1 Cùng Chuyên Gia | Jannie Nguyễn",
+      "h1": [
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching 1:1"
+      ],
+      "h2": [
+        "Đăng Ký Tư Vấn & Xếp Lịch Coaching",
+        "Câu Hỏi Thường Gặp: Quy Trình Cố Vấn 1:1 Diễn Ra Như Thế Nào?"
+      ],
+      "words": 688,
+      "placeholders": []
+    },
+    "/my-favorite-product/": {
+      "title": "Sản Phẩm Yêu Thích & Khuyên Dùng | Jannie Nguyễn",
+      "h1": [
+        "Sản Phẩm Yêu Thích Của Jannie"
+      ],
+      "h2": [
+        "Danh Mục Đang Được Tuyển Chọn"
+      ],
+      "words": 103,
+      "placeholders": []
+    },
+    "/chinh-sach-bao-mat/": {
+      "title": "Chính Sách Bảo Mật Thông Tin | Jannie Nguyễn",
+      "h1": [
+        "Chính Sách Bảo Mật Dữ Liệu Cá Nhân"
+      ],
+      "h2": [],
+      "words": 12,
+      "placeholders": []
+    },
+    "/dieu-khoan-dich-vu/": {
+      "title": "Điều Khoản Dịch Vụ & Chính Sách Cố Vấn | Jannie Nguyễn",
+      "h1": [
+        "Điều Khoản Dịch Vụ & Quy Định Học Viện"
+      ],
+      "h2": [],
+      "words": 13,
+      "placeholders": []
+    }
+  },
+  "pairs": [
+    {
+      "a": "/",
+      "b": "/coaching/",
+      "intent_cosine": 0.846,
+      "shared_copy": 0.927
+    },
+    {
+      "a": "/",
+      "b": "/my-story/",
+      "intent_cosine": 0.738,
+      "shared_copy": 0.923
+    },
+    {
+      "a": "/coaching/",
+      "b": "/booking/",
+      "intent_cosine": 0.71,
+      "shared_copy": 0.975
+    },
+    {
+      "a": "/coaching/",
+      "b": "/my-story/",
+      "intent_cosine": 0.707,
+      "shared_copy": 0.923
+    },
+    {
+      "a": "/coaching/",
+      "b": "/course/",
+      "intent_cosine": 0.687,
+      "shared_copy": 0.91
+    },
+    {
+      "a": "/",
+      "b": "/course/",
+      "intent_cosine": 0.681,
+      "shared_copy": 0.913
+    },
+    {
+      "a": "/",
+      "b": "/client-success-story/",
+      "intent_cosine": 0.633,
+      "shared_copy": 0.929
+    },
+    {
+      "a": "/coaching/",
+      "b": "/client-success-story/",
+      "intent_cosine": 0.619,
+      "shared_copy": 0.929
+    },
+    {
+      "a": "/",
+      "b": "/booking/",
+      "intent_cosine": 0.598,
+      "shared_copy": 0.504
+    },
+    {
+      "a": "/course/",
+      "b": "/booking/",
+      "intent_cosine": 0.538,
+      "shared_copy": 0.532
+    },
+    {
+      "a": "/my-story/",
+      "b": "/booking/",
+      "intent_cosine": 0.528,
+      "shared_copy": 0.575
+    },
+    {
+      "a": "/my-story/",
+      "b": "/course/",
+      "intent_cosine": 0.522,
+      "shared_copy": 0.575
+    },
+    {
+      "a": "/client-success-story/",
+      "b": "/booking/",
+      "intent_cosine": 0.464,
+      "shared_copy": 0.622
+    },
+    {
+      "a": "/my-story/",
+      "b": "/client-success-story/",
+      "intent_cosine": 0.46,
+      "shared_copy": 0.614
+    },
+    {
+      "a": "/course/",
+      "b": "/client-success-story/",
+      "intent_cosine": 0.412,
+      "shared_copy": 0.618
+    },
+    {
+      "a": "/chinh-sach-bao-mat/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.332,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/course/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.322,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.32,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/my-story/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.315,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/client-success-story/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.292,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/coaching/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.29,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.284,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/my-favorite-product/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.277,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/booking/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.265,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/client-success-story/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.26,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/coaching/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.254,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/my-favorite-product/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.252,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/course/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.238,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/booking/",
+      "b": "/my-favorite-product/",
+      "intent_cosine": 0.232,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/course/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.23,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/my-story/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.229,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/my-story/",
+      "b": "/dieu-khoan-dich-vu/",
+      "intent_cosine": 0.219,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/coaching/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.202,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.198,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/client-success-story/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.195,
+      "shared_copy": 0.0
+    },
+    {
+      "a": "/booking/",
+      "b": "/chinh-sach-bao-mat/",
+      "intent_cosine": 0.17,
+      "shared_copy": 0.0
+    }
+  ],
+  "shared_h2": {
+    "Chi Tiết Gói Đào Tạo & Cố Vấn": [
+      "/",
+      "/coaching/"
+    ],
+    "Đăng Ký Tư Vấn & Xếp Lịch Coaching": [
+      "/",
+      "/coaching/",
+      "/my-story/",
+      "/course/",
+      "/client-success-story/",
+      "/booking/"
+    ],
+    "Hơn 20 Năm Đồng Hành Cùng Vẻ Đẹp Đích Thực": [
+      "/",
+      "/coaching/",
+      "/my-story/"
+    ],
+    "Cảm Nhận Học Viên & Kết Quả Thực Tế": [
+      "/",
+      "/coaching/",
+      "/client-success-story/"
+    ],
+    "Lợi Ích Của Chương Trình Coaching": [
+      "/",
+      "/coaching/",
+      "/course/"
+    ],
+    "Câu Hỏi Thường Gặp: Quy Trình Cố Vấn 1:1 Diễn Ra Như Thế Nào?": [
+      "/coaching/",
+      "/booking/"
+    ]
+  }
+}

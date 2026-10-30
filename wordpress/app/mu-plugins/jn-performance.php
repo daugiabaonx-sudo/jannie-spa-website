@@ -217,9 +217,10 @@ function jn_scope_woocommerce_assets() {
 		wp_deregister_script( $handle );
 	}
 
-	// Dequeue dashicons for unauthenticated visitors.
+	// Dequeue dashicons and admin-bar-only plugin styles for unauthenticated visitors.
 	if ( ! is_user_logged_in() || ! is_admin_bar_showing() ) {
 		wp_dequeue_style( 'dashicons' );
+		remove_action( 'wp_head', array( 'AmeliaBooking\Infrastructure\WP\WPMenu\AdminBarMenu', 'addAdminBarStyles' ) );
 	}
 
 	// Dequeue unused Blocksy styles everywhere on the frontend.

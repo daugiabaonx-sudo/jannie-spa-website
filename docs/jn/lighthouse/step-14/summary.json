@@ -1,0 +1,724 @@
+{
+  "generatedAt": "2026-10-30T03:56:22.495Z",
+  "runsPerUrl": 3,
+  "mobile": [
+    {
+      "url": "http://localhost:8080/",
+      "path": "/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 797,
+        "lcpMs": 1586,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 797,
+        "ttfbMs": 17
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 14966,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/home-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/coaching/",
+      "path": "/coaching/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 796,
+        "lcpMs": 1584,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 796,
+        "ttfbMs": 15
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 5098,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/coaching-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-story/",
+      "path": "/my-story/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 786,
+        "lcpMs": 1508,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 786,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 14966,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/my-story-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/course/",
+      "path": "/course/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 792,
+        "lcpMs": 1508,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 792,
+        "ttfbMs": 16
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/course-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/client-success-story/",
+      "path": "/client-success-story/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 791,
+        "lcpMs": 1586,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 791,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 2615,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/client-success-story-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/booking/",
+      "path": "/booking/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 790,
+        "lcpMs": 1509,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 790,
+        "ttfbMs": 12
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/booking-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-favorite-product/",
+      "path": "/my-favorite-product/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 1363,
+        "lcpMs": 1676,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 1363,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 43073,
+        "cssBytes": 1864,
+        "maxImageBytes": 5267,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 7
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/my-favorite-product-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/product/so-tay-dinh-huong-su-nghiep/",
+      "path": "/product/so-tay-dinh-huong-su-nghiep/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 780,
+        "lcpMs": 1518,
+        "tbtMs": 0,
+        "cls": 0.0006,
+        "siMs": 780,
+        "ttfbMs": 12
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130582,
+        "jsBytes": 61399,
+        "cssBytes": 30426,
+        "maxImageBytes": 5268,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 8
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/product-so-tay-dinh-huong-su-nghiep-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/cart/",
+      "path": "/cart/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 1030,
+        "lcpMs": 1030,
+        "tbtMs": 86,
+        "cls": 0.0042,
+        "siMs": 1187,
+        "ttfbMs": 125
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 42
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/cart-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/checkout/",
+      "path": "/checkout/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 69
+      },
+      "metrics": {
+        "fcpMs": 1069,
+        "lcpMs": 1069,
+        "tbtMs": 81,
+        "cls": 0,
+        "siMs": 1108,
+        "ttfbMs": 179
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 43
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/checkout-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/tai-khoan/",
+      "path": "/tai-khoan/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 784,
+        "lcpMs": 1442,
+        "tbtMs": 0,
+        "cls": 0.0018,
+        "siMs": 784,
+        "ttfbMs": 101
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130581,
+        "jsBytes": 55845,
+        "cssBytes": 30426,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 6
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/tai-khoan-mobile.json",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "desktop": [
+    {
+      "url": "http://localhost:8080/",
+      "path": "/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 215,
+        "lcpMs": 390,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 215,
+        "ttfbMs": 11
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 14966,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/home-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/coaching/",
+      "path": "/coaching/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 218,
+        "lcpMs": 392,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 218,
+        "ttfbMs": 20
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 14966,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/coaching-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-story/",
+      "path": "/my-story/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 213,
+        "lcpMs": 370,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 213,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 14966,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/my-story-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/course/",
+      "path": "/course/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 215,
+        "lcpMs": 364,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 215,
+        "ttfbMs": 15
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15119,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/course-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/client-success-story/",
+      "path": "/client-success-story/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 216,
+        "lcpMs": 390,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 216,
+        "ttfbMs": 10
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15119,
+        "cssBytes": 0,
+        "maxImageBytes": 2615,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/client-success-story-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/booking/",
+      "path": "/booking/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 212,
+        "lcpMs": 369,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 212,
+        "ttfbMs": 10
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37200,
+        "jsBytes": 15120,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/booking-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-favorite-product/",
+      "path": "/my-favorite-product/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 371,
+        "lcpMs": 437,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 371,
+        "ttfbMs": 11
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 37201,
+        "jsBytes": 43073,
+        "cssBytes": 1864,
+        "maxImageBytes": 7059,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 7
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/my-favorite-product-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/product/so-tay-dinh-huong-su-nghiep/",
+      "path": "/product/so-tay-dinh-huong-su-nghiep/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 211,
+        "lcpMs": 369,
+        "tbtMs": 0,
+        "cls": 0.0002,
+        "siMs": 223,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130582,
+        "jsBytes": 61399,
+        "cssBytes": 30426,
+        "maxImageBytes": 5268,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 8
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-14/product-so-tay-dinh-huong-su-nghiep-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/cart/",
+      "path": "/cart/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 292,
+        "lcpMs": 292,
+        "tbtMs": 0,
+        "cls": 0.012,
+        "siMs": 348,
+        "ttfbMs": 174
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 42
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/cart-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/checkout/",
+      "path": "/checkout/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 69
+      },
+      "metrics": {
+        "fcpMs": 289,
+        "lcpMs": 289,
+        "tbtMs": 0,
+        "cls": 0.0076,
+        "siMs": 408,
+        "ttfbMs": 167
+      },
+      "resources": {
+        "fontCount": 1,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 43
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/checkout-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/tai-khoan/",
+      "path": "/tai-khoan/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 212,
+        "lcpMs": 333,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 229,
+        "ttfbMs": 132
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130582,
+        "jsBytes": 55846,
+        "cssBytes": 30426,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 6
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-14/tai-khoan-desktop.json",
+      "pass": true,
+      "failures": []
+    }
+  ]
+}

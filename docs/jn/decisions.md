@@ -495,3 +495,22 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - `check-launch-blockers.php`: số ảnh placeholder giảm 5 → 3 (còn 3 avatar học viên — không có ảnh thật thay thế). BL-01 vẫn chờ avatar thật và ảnh Open Graph 1200×630.
 - **Sửa sau khi chạy thử:** giữ nguyên tên file là sai — ảnh được phục vụ `Cache-Control: immutable, max-age=1 năm`, nên trình duyệt (kể cả khách cũ trên production) giữ ảnh AI tới một năm; và nội dung trang lưu cứng `<img src alt>`, nên alt vẫn mô tả ảnh cũ. Vì vậy file đổi tên thành `jn-hero-portrait.webp` / `jn-expert-portrait.webp` (ID 86/87 giữ nguyên); `jn_media_delete_replaced_files()` xoá bộ file cũ, và `jn_run_media_import()` gọi `jn_media_sync_image_markup()` ghi lại `src`/`alt` của mọi `<img class="wp-image-{id}">` trong trang đã đăng (ghi qua `$wpdb` vì `wp_update_post()` từ CLI chạy kses, sẽ xoá style/SVG; không tạo revision). Tên file dự phòng trong 2 pattern, `build-step-3.php` và URL OG dự phòng của `class-jn-seo-meta.php` cũng đổi theo. Khi deploy lên production phải chạy lại `import-step-3-media.php hero_portrait expert_consultation` để nội dung trang trên production được ghi lại.
 - Alt text mô tả trung tính, chưa ghi tên người trong ảnh — chủ dự án bổ sung nếu muốn. Chữ "Canon" trên máy ảnh (ảnh chuyên gia) bị AI làm méo nhẹ.
+
+## ADR-020: Page Cache Chỉ Trả URL Chuẩn & Ẩn Khung `[CẦN NỘI DUNG]` Với Khách (Step 14)
+
+- **Ngày quyết định:** 2026-10-30 (Step 14 — kiểm toán lại SEO/AEO)
+- **Trạng thái:** Đã triển khai. Mục 2 là lựa chọn của chủ dự án ("Ẩn với khách") trong 4 phương án.
+
+### 1. Bối cảnh
+- Fast path của `app/advanced-cache.php` ghép khóa cache bằng `trim( parse_url( URI ), '/' )`, nên `/coaching`, `/COACHING/` (ổ đĩa macOS không phân biệt hoa/thường) nhận bản cache 200 thay vì 301 của `redirect_canonical()`; `//coaching/` bị `parse_url()` đọc thành host `coaching`, path `/` → trả **HTML trang chủ**. Production (Nginx/Apache trong `deploy/`) không phục vụ file supercache trực tiếp — mọi request đi qua drop-in này, nên lỗi có cả ở production.
+- 5/9 trang được index hiển thị nguyên văn khung `[CẦN NỘI DUNG: …]` (UNK-03, UNK-08, UNK-09) cho khách và bot.
+
+### 2. Quyết định
+1. URI không phải `/` hoặc permalink chữ thường có `/` cuối (`#^(?:/[a-z0-9_-]+)+/$#`) đi vào nhánh bypass có sẵn (`DONOTCACHEPAGE`, không nạp phase 1 của WP Super Cache) → WordPress tự 301. Không bật `$wp_cache_slash_check` (sẽ làm phase 1 của WP Super Cache bắt đầu phục vụ URL chuẩn — đổi hành vi ngoài phạm vi).
+2. `JN_SEO_Placeholders` (filter `render_block`): với người không có quyền `edit_posts`, ẩn group `jn-scaffold-placeholder`, đoạn văn bắt đầu bằng `[CẦN NỘI DUNG`, và section/container chỉ còn rỗng sau khi bỏ khung. Group còn chữ (vd. H1) không bao giờ bị ẩn. Người sửa bài vẫn thấy khung để nhắc việc; điền nội dung thật thì khung tự biến mất, không cần sửa code.
+3. Các phương án không chọn: tự `noindex` trang còn khung (sẽ noindex cả `/my-story/` — trang hồ sơ thực thể chính — và hạ Lighthouse SEO 5 trang); ẩn + `noindex` 2 trang pháp lý; giữ nguyên.
+
+### 3. Hệ quả
+- 2 trang pháp lý chỉ còn tiêu đề (~12 từ trong `<main>`) → audit báo `AUD-CNT-01` Thin Content (MEDIUM) cho tới khi có văn bản UNK-09. Vẫn `index` theo giả định Q3 (ADR-013).
+- `scripts/seo-audit-local.py` có thêm kiểm tra `JN-URL-01` (biến thể `/slug`, `//slug/`, `/SLUG/`); `scripts/test-step-14-seo-aeo.php` khóa cả hai hành vi.
+- `/COACHING/` vẫn 200 (WordPress không redirect khác biệt chữ hoa/thường) nhưng canonical trỏ `/coaching/` và không còn đi qua cache.
