@@ -6,6 +6,9 @@
  * - Request URI targets Cart, Checkout, My Account (/tai-khoan/), order-pay, REST/AJAX (/api/),
  *   wp-admin (the hidden login screen is never cached: JN_Hardening_Branding_Auth::disable_login_page_cache), robots.txt, llms.txt, or sitemap.xml
  * - Query string exists (?goi=, ?jn_bf=, ?add-to-cart=, etc.)
+ * - Path is not a canonical permalink (`/` or lowercase `/slug/.../` with the trailing slash), so WordPress
+ *   can 301 variants such as `/coaching`, `//coaching/`, `/COACHING/`. Percent-encoded (non-ASCII) slugs are
+ *   never cached either; WordPress strips accents from slugs, so the site has none today.
  * - Request carries a logged-in cookie or an active WooCommerce cart cookie
  *
  * @package JN_Performance
@@ -28,6 +31,14 @@ if ( ! $jn_bypass_cache && '' !== $jn_req_uri ) {
 	if ( preg_match( '#^/(?:cart|checkout|order-pay|tai-khoan|my-account|api|wp-admin|wp-json)(?:/|$|\?)|(?:robots\.txt|llms\.txt|sitemap.*\.xml|order-pay)#i', $jn_req_uri ) ) {
 		$jn_bypass_cache = true;
 	}
+}
+
+// Only canonical permalinks (`/` or lowercase `/slug/.../` with the trailing slash) are read from or written to
+// the page cache. Cache keys collapse variants such as `/coaching`, `//coaching/` (parse_url() even reads it as
+// host "coaching", path "/") or `/COACHING/` onto the canonical file, so they got a cached 200 — or the homepage.
+// Bypassing lets WordPress 301 them (Step 14, F14-01).
+if ( ! $jn_bypass_cache && '/' !== $jn_req_uri && 1 !== preg_match( '#^(?:/[a-z0-9_-]+)+/\z#', $jn_req_uri ) ) {
+	$jn_bypass_cache = true;
 }
 
 if ( ! $jn_bypass_cache && ! empty( $_COOKIE ) && is_array( $_COOKIE ) ) {
@@ -54,9 +65,10 @@ if ( $jn_bypass_cache ) {
 }
 
 // Fast-path delivery from WP Super Cache static directory for both Desktop & Mobile viewports (HTTP & HTTPS / Cloudflare Tunnel).
-$jn_parsed_path = (string) parse_url( $jn_req_uri, PHP_URL_PATH );
-$jn_clean_path  = trim( $jn_parsed_path, '/' );
-if ( '' === $jn_clean_path || preg_match( '#^[a-z0-9/_-]+$#i', $jn_clean_path ) ) {
+// Only canonical, query-less paths reach this point (see the bypass rules above). The character check below is
+// kept as defence in depth next to the filesystem path it guards, should the bypass rule ever be loosened.
+$jn_clean_path = trim( $jn_req_uri, '/' );
+if ( '' === $jn_clean_path || preg_match( '#^[a-z0-9/_-]+$#', $jn_clean_path ) ) {
 	$jn_raw_host  = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( (string) $_SERVER['HTTP_HOST'] ) : 'localhost';
 	$jn_host_only = (string) preg_replace( '/:\d+$/', '', $jn_raw_host );
 	$jn_is_https  = ( isset( $_SERVER['HTTPS'] ) && ( 'on' === strtolower( (string) $_SERVER['HTTPS'] ) || '1' === (string) $_SERVER['HTTPS'] ) )

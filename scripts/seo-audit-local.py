@@ -217,6 +217,39 @@ def is_disallowed(path: str, rules: List[str]) -> bool:
     return False
 
 
+def url_variant_checks(base: str, netloc: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """JN-URL-01: non-canonical spellings of content URLs must 301 to the canonical URL (Step 14, F14-01).
+
+    `/slug` and `//slug/` must redirect; `/SLUG/` may also be a 200 as long as its canonical is the real page
+    (WordPress does not redirect letter case). A 200 whose canonical points elsewhere is HIGH (wrong page served).
+    """
+    rows: List[Dict[str, Any]] = []
+    issues: List[Dict[str, Any]] = []
+    for path in CONTENT_PAGES:
+        if path == "/":
+            continue
+        canonical = base + path
+        for variant, must_redirect in ((path.rstrip("/"), True), ("/" + path, True), (path.upper(), False)):
+            resp = fetch(base + variant, netloc)
+            location = resp["headers"].get("location", "")
+            redirect_ok = resp["status_code"] in (301, 308) and urllib.parse.urlparse(location).path == path
+            page_canonical = parse_html_document(resp["body"], base_url=base + variant).canonical if resp["status_code"] == 200 else ""
+            cache_hit = resp["headers"].get("x-cache-status", "").upper() == "HIT"
+            ok = not cache_hit and (redirect_ok or (not must_redirect and resp["status_code"] == 200 and page_canonical == canonical))
+            rows.append({"variant": variant, "status": resp["status_code"], "location": location,
+                         "canonical": page_canonical, "cache_hit": cache_hit, "ok": ok})
+            if ok:
+                continue
+            wrong_page = resp["status_code"] == 200 and page_canonical not in ("", canonical)
+            issues.append({"rule_id": "JN-URL-01", "category": "JN_Consistency", "severity": "HIGH" if wrong_page else "MEDIUM",
+                           "title": "Non-canonical URL variant is not redirected", "url": base + variant,
+                           "evidence": f"HTTP {resp['status_code']} location={location or '—'} canonical={page_canonical or '—'}"
+                                       f"{' (served from page cache)' if cache_hit else ''}",
+                           "fix_snippet": f"301 {variant} -> {path} (do not answer variants from the page cache).",
+                           "epistemic_label": "[FACT]"})
+    return rows, issues
+
+
 def audit(base: str, robots_override: Optional[str]) -> Dict[str, Any]:
     netloc = urllib.parse.urlparse(base).netloc
     domain = netloc.split(":")[0]
@@ -286,6 +319,8 @@ def audit(base: str, robots_override: Optional[str]) -> Dict[str, Any]:
                            "title": "/llms.txt not served", "url": base + "/llms.txt",
                            "evidence": f"HTTP {llms['status_code']}", "fix_snippet": "Serve /llms.txt (Markdown).",
                            "epistemic_label": "[FACT]"})
+    url_variants, variant_issues = url_variant_checks(base, netloc)
+    all_issues.extend(variant_issues)
     has_faq = any("FAQPage" in p["json_ld_types"] for p in pages)
     if not has_faq:
         all_issues.append({"rule_id": "JN-AEO-02", "category": "12_AI_Search_GEO_and_LLMs_Readiness", "severity": "LOW",
@@ -299,7 +334,7 @@ def audit(base: str, robots_override: Optional[str]) -> Dict[str, Any]:
         "robots_source": "file" if robots_override is not None else "live", "robots_body": robots_body,
         "robots_disallow": disallow, "ai_crawler_permissions": ai_bots,
         "sitemap_status": sitemap["status_code"], "sitemap_urls": sitemap_urls, "llms_status": llms["status_code"],
-        "pages": pages, "issues": all_issues,
+        "pages": pages, "url_variants": url_variants, "issues": all_issues,
         "summary": {s: sum(1 for i in all_issues if i["severity"] == s) for s in SEVERITY_ORDER},
     }
 
@@ -313,6 +348,8 @@ def to_markdown(report: Dict[str, Any]) -> str:
         f"`audit_robots_txt_for_ai_crawlers`, `compute_autogeo_geu_score`) + JN consistency checks",
         f"- Tổng hợp: CRITICAL **{s['CRITICAL']}** · HIGH **{s['HIGH']}** · MEDIUM **{s['MEDIUM']}** · LOW **{s['LOW']}**",
         f"- sitemap.xml: HTTP {report['sitemap_status']} ({len(report['sitemap_urls'])} URL) · llms.txt: HTTP {report['llms_status']}",
+        f"- Biến thể URL (`/slug`, `//slug/`, `/SLUG/`): "
+        f"{sum(1 for v in report['url_variants'] if v['ok'])}/{len(report['url_variants'])} xử lý đúng (`JN-URL-01`)",
         "", "## Trang", "",
         "| Path | Policy | HTTP | Title (len) | Desc len | robots | H1 | Words | JSON-LD types | GEU | Issues |",
         "|---|---|---|---|---|---|---|---|---|---|---|",
