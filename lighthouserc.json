@@ -10,7 +10,7 @@
         "http://localhost:8080/client-success-story/",
         "http://localhost:8080/booking/",
         "http://localhost:8080/my-favorite-product/",
-        "http://localhost:8080/product/so-tay-dinh-huong-su-nghiep/",
+        "http://localhost:8080/san-pham/egf-cleansing-gel/",
         "http://localhost:8080/cart/",
         "http://localhost:8080/checkout/",
         "http://localhost:8080/tai-khoan/"
@@ -117,7 +117,7 @@
           }
         },
         {
-          "matchingUrlPattern": "^http://localhost:8080/(?:my-favorite-product/|product/.*)$",
+          "matchingUrlPattern": "^http://localhost:8080/(?:my-favorite-product/|san-pham/.*)$",
           "assertions": {
             "categories:performance": [
               "error",

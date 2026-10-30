@@ -42,7 +42,7 @@ function jannie_minify_css_string( $css ) {
 
 /**
  * Ensure the combined & minified front-end stylesheet `assets/css/jannie-bundle.min.css`
- * is up to date with `tokens.css`, `base.css`, `block-styles.css`, `hero-home.css`, and `motion.css`.
+ * is up to date with `tokens.css`, `base.css`, `block-styles.css`, `hero-home.css`, `legacy-pages.css`, and `motion.css`.
  *
  * @return string Relative path to the bundle or fallback stylesheet.
  */
@@ -54,6 +54,7 @@ function jannie_ensure_front_css_bundle() {
 		$css_dir . '/base.css',
 		$css_dir . '/block-styles.css',
 		$css_dir . '/hero-home.css',
+		$css_dir . '/legacy-pages.css',
 		$css_dir . '/motion.css',
 	);
 
@@ -97,7 +98,7 @@ function jannie_ensure_front_css_bundle() {
 
 /**
  * Enqueue front-end design system stylesheets:
- * Inlines the minified Jannie child-theme CSS (`tokens.css` + `base.css` + `block-styles.css` + `hero-home.css` + `motion.css`)
+ * Inlines the minified Jannie child-theme CSS (`tokens.css` + `base.css` + `block-styles.css` + `hero-home.css` + `legacy-pages.css` + `motion.css`)
  * onto `ct-main-styles` so `<head>` has only a single external stylesheet (`ct-main-styles`)
  * and zero chained stylesheet round-trips (Step 8 Task 3).
  *
@@ -162,6 +163,13 @@ function jannie_enqueue_front_assets() {
 	);
 
 	wp_enqueue_style(
+		'jn-legacy-pages',
+		JANNIE_URI . '/assets/css/legacy-pages.css',
+		array( 'jn-block-styles' ),
+		JANNIE_VERSION
+	);
+
+	wp_enqueue_style(
 		'jn-motion',
 		JANNIE_URI . '/assets/css/motion.css',
 		array( 'jn-block-styles' ),
@@ -204,6 +212,13 @@ function jannie_enqueue_editor_assets() {
 	wp_enqueue_style(
 		'jannie-editor-hero-home',
 		JANNIE_URI . '/assets/css/hero-home.css',
+		array( 'jannie-editor-block-styles' ),
+		JANNIE_VERSION
+	);
+
+	wp_enqueue_style(
+		'jannie-editor-legacy-pages',
+		JANNIE_URI . '/assets/css/legacy-pages.css',
 		array( 'jannie-editor-block-styles' ),
 		JANNIE_VERSION
 	);

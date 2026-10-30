@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-10-30T08:44:43.187Z",
+  "baseUrl": "http://localhost:8080",
+  "results": [
+    {
+      "check": "verbatim: 176 source strings found in the Wayback evidence",
+      "viewport": "-",
+      "failures": [],
+      "data": {
+        "checked": 176,
+        "missing": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/my-favorite-product/ layout",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/course/ axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/course/ layout",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/client-success-story/ axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/client-success-story/ layout",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/ axe WCAG 2.2 AA (legacy testimonials)",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/ axe WCAG 2.2 AA (legacy testimonials)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "video facade: no YouTube request before click; click + Enter open youtube-nocookie",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "before": 0,
+        "links": 3,
+        "click": {
+          "src": "https://www.youtube-nocookie.com/embed/eDk34ql8Qb0?autoplay=1&rel=0",
+          "focused": true,
+          "title": "Xem video cảm nhận của Loan Nguyễn"
+        },
+        "frames": [
+          "https://www.youtube-nocookie.com/embed/eDk34ql8Qb0?autoplay=1&rel=0",
+          "https://www.youtube-nocookie.com/embed/nWqff-L-mQg?autoplay=1&rel=0"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "checks": 28,
+    "failed": 0
+  }
+}

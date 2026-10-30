@@ -103,6 +103,7 @@ function jannie_setup_editor_styles() {
 			'assets/css/base.css',
 			'assets/css/block-styles.css',
 			'assets/css/hero-home.css',
+			'assets/css/legacy-pages.css',
 		)
 	);
 

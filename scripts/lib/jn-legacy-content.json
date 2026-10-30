@@ -1,0 +1,330 @@
+{
+	"_about": "Step 15 (ADR-022): copy of the old jannieedu.com pages, verbatim. Only heading case (site title case) and the approved spelling fixes in `corrections` differ from the archive; `eyebrow_site` keeps the new site's approved eyebrow where the old page had none. Evidence: docs/jn/legacy-content/*.txt. Shared by scripts/build-step-15-legacy-content.php, scripts/test-step-15-legacy-content.php and scripts/verify-step-15-legacy-pages.mjs.",
+	"sources": {
+		"my-favorite-product": "https://web.archive.org/web/20250119041855/https://jannieedu.com/my-favorite-product/",
+		"client-success-story": "https://web.archive.org/web/20250207173526/https://jannieedu.com/client-success-story/",
+		"course": "https://web.archive.org/web/20250123231702/https://jannieedu.com/course/",
+		"prices": "https://web.archive.org/web/2024052*/https://jannieedu.com/san-pham/* (Product JSON-LD offers, May 2024)"
+	},
+	"corrections": [
+		{ "from": "TREATMEANT", "to": "Treatment", "where": "my-favorite-product: Herpes card title" },
+		{ "from": "là một loại \"tinh chất", "to": "là một loại tinh chất", "where": "my-favorite-product: Collagen Ampoule (stray quote)" },
+		{ "from": "siêu mãnh", "to": "siêu mảnh", "where": "course: Cheek Blush" },
+		{ "from": "trong trẽo", "to": "trong trẻo", "where": "course: Cheek Blush" },
+		{ "from": "thăm nám", "to": "thâm nám", "where": "course: Cheek Blush" },
+		{ "from": "Ganulation", "to": "Granulation", "where": "course: Phun Chân Tóc (Granulation)" },
+		{ "from": "sóng mũi", "to": "sống mũi", "where": "course: Kỹ Thuật Granulation Tổng Hợp, Phun Mày Granulation" },
+		{ "from": "Jannie nguyễn", "to": "Jannie Nguyễn", "where": "client-success-story: Thu Minh" },
+		{ "from": "Khoá", "to": "Khóa", "where": "course: page headings (one spelling site-wide)" }
+	],
+	"flags": [
+		"client-success-story: the Cheek Blush line repeats the Laser Chân Mày text on the old page — kept verbatim.",
+		"client-success-story: the 'Tạo Kiểu Tóc Chuyên Sâu' intro repeats the 'Cơ Bản' intro on the old page — kept verbatim.",
+		"my-favorite-product: the old Xà bông thảo dược card linked to the EGF Melting Mask page; it now has its own product page.",
+		"my-favorite-product: 'Sắc xuân mới' is seasonal wording (Tết 2025) — kept verbatim.",
+		"my-favorite-product: The Herpes Treatment copy makes treatment claims — owner/legal review before go-live (D6)."
+	],
+	"products": {
+		"page": {
+			"eyebrow_site": "Danh Mục Tuyển Chọn",
+			"title": "Sản Phẩm Yêu Thích",
+			"title_accent": "Của Jannie",
+			"lead": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy"
+		},
+		"intro": {
+			"image": "products_all",
+			"body": "Tại đây, chúng tôi tự hào giới thiệu bộ sưu tập sản phẩm yêu thích, đáng tin cậy để mang đến sự tươi mới và hoàn hảo cho làn da và tóc của bạn. Với sự tập trung vào chất lượng và chăm sóc, chúng tôi chỉ sử dụng các sản phẩm chất lượng cao từ các thương hiệu danh tiếng. Từ chăm sóc da tự nhiên đến chăm sóc tóc chuyên sâu, cam kết của chúng tôi là mang đến trải nghiệm làm đẹp tuyệt vời và kết quả đáng mong đợi. Hãy khám phá bộ sưu tập sản phẩm yêu thích của Jannie và trải nghiệm làn da và mái tóc khỏe mạnh và rạng rỡ."
+		},
+		"section_title": "Sắc Xuân Mới - Bộ Sản Phẩm Yêu Thích Của Jannie",
+		"button": "Mua Ngay",
+		"items": [
+			{
+				"slug": "egf-cleansing-gel",
+				"name": "The Balance EGF Cleansing Gel",
+				"price": 496000,
+				"image": "product_egf_cleansing_gel",
+				"description": "\"The Balance EGF Cleansing Gel\" của Jannie Nguyễn là sữa rửa mặt đặc biệt, làm sạch sâu, điều chỉnh dầu và cân bằng da. Kết hợp với EGF và chiết xuất tự nhiên, sản phẩm mang lại làn da tươi sáng, mềm mịn."
+			},
+			{
+				"slug": "egf-peeling-gel",
+				"name": "The Balance EGF Peeling Gel",
+				"price": 646000,
+				"image": "product_egf_peeling_gel",
+				"description": "\"The Balance EGF Peeling Gel\" là gel tẩy da chết độc đáo, giúp làm sạch sâu, tái tạo da một cách nhẹ nhàng. Với EGF và các thành phần tự nhiên, sản phẩm làm da sáng mịn, tăng cường độ đàn hồi."
+			},
+			{
+				"slug": "egf-melting-mask",
+				"name": "The Balance EGF Melting Mask",
+				"price": 646000,
+				"image": "product_egf_melting_mask",
+				"description": "\"The Balance EGF Melting Mask\" là mặt nạ tan chảy độc đáo, dưỡng ẩm, làm mềm da và cung cấp dưỡng chất. Với EGF và các dưỡng chất chăm sóc da, sản phẩm giúp làm dịu da, tái tạo và làm sáng da."
+			},
+			{
+				"slug": "xa-bong-thao-duoc",
+				"name": "Xà Bông Thảo Dược",
+				"price": null,
+				"image": "product_xa_bong_thao_duoc",
+				"description": "\"Xà bông thảo dược\" là sự kết hợp hoàn hảo giữa các thành phần tự nhiên và công nghệ hiện đại. Sản phẩm làm sạch da hiệu quả, loại bỏ bụi bẩn và dầu thừa, đồng thời mang lại cảm giác mềm mịn, tươi mới cho làn da. Sản phẩm phù hợp cho mọi loại da, kể cả da nhạy cảm."
+			},
+			{
+				"slug": "herpes-treatment",
+				"name": "The Herpes Treatment",
+				"price": 1296000,
+				"image": "product_herpes_treatment",
+				"description": "\"The Herpes Treatment\" của Jannie Nguyễn là sản phẩm chăm sóc đặc biệt dành cho vấn đề mụn viêm và tổn thương da. Với công thức chứa các thành phần chống viêm và kháng vi khuẩn, sản phẩm giúp giảm viêm, làm dịu da và làm lành tổn thương, để bạn có một làn da khỏe mạnh."
+			},
+			{
+				"slug": "collagen-ampoule",
+				"name": "The Balance Collagen Ampoule",
+				"price": 796000,
+				"image": "product_collagen_ampoule",
+				"description": "\"The Balance Collagen Ampoule\" là một loại tinh chất dưỡng da cao cấp, chứa collagen tự nhiên và các dưỡng chất quan trọng. Sản phẩm giúp cung cấp độ ẩm, tăng cường độ đàn hồi và độ săn chắc cho da, làm da mềm mịn, rạng rỡ và tươi sáng."
+			}
+		]
+	},
+	"courses": {
+		"page": {
+			"eyebrow": "Các Khóa Học Làm Đẹp",
+			"title": "Sang Trọng &",
+			"title_accent": "Đẳng Cấp",
+			"lead": "Jannie Academy - Sự Đẳng Cấp và Chuyên Nghiệp"
+		},
+		"intro": {
+			"eyebrow": "Các Khóa Học Tại Jannie Academy",
+			"title": "Kỹ Thuật Tinh Tế, Sắc Đẹp Tự Nhiên",
+			"image": "course_banner"
+		},
+		"button": "Đặt Lịch Tư Vấn",
+		"categories": [
+			{
+				"id": "phun-xam",
+				"title": "Phun Xăm",
+				"clusters": [
+					{
+						"image": "course_phun_may",
+						"courses": [
+							{ "title": "Phun Xăm Tổng Hợp", "description": "Khóa học giúp bạn có một nền tảng vững chắc trong phun xăm thẩm mỹ, từ đó có thể nghiên cứu và phát triển năng lực một cách chuyên sâu và dễ dàng." },
+							{ "title": "Kỹ Thuật Granulation Tổng Hợp", "description": "Chuyên gia sẽ sử dụng kim với nhiều kích thước khác nhau để tạo khối đậm nhạt cho lông mày, mí mắt, nhân trung hoặc tạo khối gương mặt. Ưu điểm của kỹ thuật này có thể tạo khối cho gương mặt, mí mắt, sống mũi, tạo khuôn môi cười, ứng dụng cho cả nam và nữ. Đặc biệt trong chỉnh sửa lông mày." },
+							{ "title": "Phun Mày Granulation", "description": "Chuyên gia sẽ sử dụng kim với nhiều kích thước khác nhau để tạo khối đậm nhạt cho lông mày hoặc tạo khối gương mặt. Ưu điểm của kỹ thuật này có thể tạo khối cho gương mặt, sống mũi, ứng dụng cho cả nam và nữ." }
+						]
+					},
+					{
+						"image": "course_plasma",
+						"courses": [
+							{ "title": "Cheek Blush", "description": "Dùng kim lăn vi điểm và kim chuyên dụng trong phun thêu siêu mảnh, tạo khối má hồng trong trẻo, giảm thâm nám và rối loạn sắc tố, trẻ hóa da sau đó." },
+							{ "title": "Phun Chân Tóc (Granulation)", "description": "Dùng kỹ thuật Granulation Ombre để tạo hiệu ứng chân tóc từ nhạt qua đậm theo từng khu vực với cách đi vi chậm từng điểm một. Thời gian thực hiện từ 4-8 tiếng" },
+							{ "title": "Plasma Trẻ Hóa Môi Và Gương Mặt", "description": "Khám phá công nghệ plasma trẻ hóa môi và gương mặt, giúp bạn có làn da săn chắc và môi tràn đầy sức sống. Khóa học này cung cấp kiến thức về cách sử dụng thiết bị plasma và kỹ thuật điều trị an toàn. Hãy học tập từ chuyên gia và mang lại vẻ đẹp trẻ trung và tươi mới cho môi và gương mặt của bạn." }
+						]
+					},
+					{
+						"image": "course_3d_shading",
+						"courses": [
+							{ "title": "Ombre Brows", "description": "Jannie sẽ chia sẻ những kỹ thuật tiên tiến và bí quyết trong việc tạo độ sắc nét, sự chuyển tiếp màu sắc hoàn hảo và tạo hình chân mày theo ý thích. Bạn sẽ được hướng dẫn từ cơ bản đến nâng cao, giúp bạn trở thành một chuyên gia phun xăm chân mày Ombre." },
+							{ "title": "3D Shading", "description": "Bạn sẽ được hướng dẫn từng bước chi tiết để tạo ra sự kết hợp hoàn hảo giữa sắc tố và độ sáng, tạo nên những đường nét mềm mại và tạo hình chân mày tự nhiên hơn bao giờ hết. Jannie sẽ chia sẻ những bí quyết và kỹ thuật độc đáo để bạn có thể thực hiện 3D Shading một cách chuyên nghiệp." },
+							{ "title": "Chỉnh Sửa Chân Mày Hỏng Trổ Xanh, Đỏ", "description": "Bạn sẽ tìm hiểu các phương pháp chỉnh sửa chân mày khi hỏng trổ, có màu xanh hoặc đỏ không đẹp. Từ việc tạo hình chân mày phù hợp đến kỹ năng sử dụng công cụ và màu sắc, khóa học này giúp bạn trở thành chuyên gia chỉnh sửa chân mày, mang đến vẻ đẹp tự nhiên và hài hòa cho gương mặt." }
+						]
+					},
+					{
+						"image": "course_phun_moi",
+						"courses": [
+							{ "title": "Phun Mí Make Up", "description": "Bạn sẽ được hướng dẫn kỹ thuật phun mí để tạo ra đôi mắt sắc nét và cuốn hút. Từ việc chọn màu sắc phù hợp đến kỹ năng phun tỉ mỉ, khóa học này giúp bạn trở thành chuyên gia phun mí make up, tạo nên ánh nhìn rạng rỡ và quyến rũ." },
+							{ "title": "Phun Môi Jelly Lip", "description": "Với kỹ thuật phun môi jelly lip, bạn sẽ có đôi môi căng mọng, tự nhiên và tươi tắn. Khóa học này cung cấp kiến thức về chọn màu, phối màu và kỹ năng phun để tạo ra hiệu ứng môi bóng mượt và thu hút ánh nhìn. Hãy trở thành chuyên gia phun môi jelly lip và mang đến vẻ đẹp cuốn hút cho mọi người." },
+							{ "title": "Phun Môi Make Up", "description": "Bạn sẽ được hướng dẫn cách phun môi make up để tạo nên đôi môi quyến rũ và hoàn hảo. Từ việc chọn màu sắc phù hợp đến kỹ năng phun chi tiết, khóa học này giúp bạn trở thành chuyên gia phun môi, tạo nên những bờ môi đầy sức sống và sắc sảo." }
+						]
+					},
+					{
+						"image": "course_chinh_sua_mau_moi",
+						"courses": [
+							{ "title": "Chỉnh Sửa Màu Môi", "description": "Bạn sẽ học cách chỉnh sửa màu môi không đều và không hài hòa. Từ việc chọn màu sắc phù hợp đến kỹ năng sử dụng công cụ và kỹ thuật phun, khóa học này giúp bạn trở thành chuyên gia chỉnh sửa màu môi, tạo nên bờ môi đẹp tự nhiên và hoàn hảo." },
+							{ "title": "Laser Chân Mày", "description": "Khám phá công nghệ laser chân mày, giúp bạn có đôi chân mày đẹp và sắc nét. Học viên sẽ được hướng dẫn cách sử dụng máy laser và kỹ thuật điều trị an toàn. Hãy học tập từ chuyên gia và trang điểm với chân mày hoàn hảo như mong muốn." },
+							{ "title": "Phun Chân Mày Tại Nhà", "description": "Học viên sẽ học cách phun chân mày tại nhà để có đôi chân mày tự nhiên và thu hút ánh nhìn. Từ việc tạo hình chân mày đến kỹ thuật phun chi tiết, khóa học này giúp bạn trở thành chuyên gia phun chân mày của chính mình, tạo nên sự tự tin và cuốn hút." }
+						]
+					}
+				]
+			},
+			{
+				"id": "salon",
+				"title": "Salon",
+				"clusters": [
+					{
+						"image": "course_cat_toc",
+						"courses": [
+							{ "title": "Cắt Tóc Cơ Bản", "description": "Bạn sẽ học các kỹ thuật cắt tóc cơ bản từ việc xác định dáng mặt, phân tích tóc đến kỹ năng sử dụng công cụ và cách tạo kiểu tóc. Khóa học này giúp bạn nắm vững cơ bản của nghề cắt tóc, trở thành một stylist tài năng và tự tin mang lại vẻ đẹp cho khách hàng." },
+							{ "title": "Cắt Tóc Thiết Kế", "description": "Khóa học này tập trung vào kỹ thuật cắt tóc thiết kế, từ việc tạo kiểu, xác định hình dáng cho đến cách tạo điểm nhấn độc đáo. Bạn sẽ học cách tạo nên những kiểu tóc độc đáo, phù hợp với cá nhân từng khách hàng, trở thành một nghệ nhân tạo tác tóc chuyên nghiệp." },
+							{ "title": "Tư Vấn Dịch Vụ Tóc - Hóa Chất", "description": "Học cách tư vấn dịch vụ tóc và sử dụng hóa chất đúng cách. Trở thành chuyên gia tư vấn dịch vụ tóc chuyên nghiệp, đảm bảo thành công và hài lòng khách hàng." },
+							{ "title": "Xóa Ngôi Mái Tại Nhà", "description": "Khóa học này giúp bạn xóa ngôi mái chuyên nghiệp tại nhà. Từ chẩn đoán đến phương pháp xóa và công cụ, bạn tự tin và an toàn. Khám phá kỹ thuật và công nghệ để tái tạo mái tóc tự nhiên." }
+						]
+					},
+					{
+						"image": "course_tao_kieu_toc",
+						"courses": [
+							{ "title": "Phân Tích Chuyển Hóa Hình Khối Và Xây Dựng Kiểu Tóc", "description": "Bạn sẽ học cách phân tích hình khối tóc và xây dựng kiểu tóc phù hợp. Khóa học này cung cấp kiến thức về các kỹ thuật tạo hình và chuyển đổi hình khối, từ việc lựa chọn kiểu tóc phù hợp đến cách tạo kiểu và tạo điểm nhấn độc đáo. Hãy trở thành một nghệ nhân tạo tác tóc và thể hiện sự sáng tạo của bạn thông qua kiểu tóc." },
+							{ "title": "Uốn Tóc", "description": "Bạn sẽ học cách uốn tóc để tạo ra những kiểu tóc đa dạng và ấn tượng. Từ việc chọn phương pháp uốn phù hợp, chuẩn bị tóc và sử dụng công cụ, khóa học này giúp bạn trở thành một stylist tạo kiểu tóc chuyên nghiệp, mang lại vẻ ngoài mới mẻ và cuốn hút cho khách hàng của bạn." },
+							{ "title": "Duỗi Voluminous", "description": "Khám phá kỹ thuật duỗi tóc voluminous để tạo ra những đường nét tóc thẳng mượt, đầy phong cách. Bạn sẽ học cách sử dụng công cụ và sản phẩm đúng cách để tạo ra vẻ đẹp tóc thời thượng và quyến rũ. Hãy học từ chuyên gia và trở thành một stylist tạo kiểu tóc chuyên nghiệp." }
+						]
+					},
+					{
+						"image": "course_nhuom_toc",
+						"courses": [
+							{ "title": "Cắt Cocktail Layer", "description": "Khóa học này giúp bạn nắm vững kỹ thuật cắt tóc cocktail layer, tạo ra những lớp tóc phức tạp và tạo kiểu đa chiều. Hãy học cách tạo ra những kiểu tóc sáng tạo và thể hiện sự cá nhân hóa thông qua kiểu tóc độc đáo của bạn." },
+							{ "title": "Nhuộm Cơ Bản", "description": "Bạn sẽ học cách nhuộm tóc cơ bản từ việc lựa chọn màu sắc, phân tích màu tóc, đến kỹ thuật nhuộm và chăm sóc tóc sau khi nhuộm. Khóa học này giúp bạn trở thành một nghệ nhân nhuộm tóc, tạo ra những phong cách tóc tươi mới và nổi bật." },
+							{ "title": "Nhuộm Nâng Cao", "description": "Khám phá những kỹ thuật nhuộm tóc nâng cao để tạo ra những màu sắc độc đáo và cá nhân hóa. Bạn sẽ học cách sử dụng các kỹ thuật và công cụ chuyên nghiệp, từ việc tạo nên sự sáng tạo trong nhuộm tóc đến việc làm nổi bật cá nhân của mỗi khách hàng. Hãy trở thành một chuyên gia nhuộm tóc và mang đến vẻ đẹp tuyệt vời cho mọi người." }
+						]
+					}
+				]
+			},
+			{
+				"id": "spa",
+				"title": "Spa",
+				"clusters": [
+					{
+						"image": "course_soi_da",
+						"courses": [
+							{ "title": "Soi Da Tại Nhà", "description": "Khóa học này sẽ giúp bạn học cách soi da một cách chính xác và hiệu quả ngay tại nhà. Bạn sẽ được hướng dẫn về các phương pháp soi da, hiểu rõ về tình trạng da và nhận biết các vấn đề cần được giải quyết. Khám phá những bước cơ bản và kỹ thuật chuyên sâu để chăm sóc da một cách tối ưu và giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ." }
+						]
+					}
+				]
+			}
+		],
+		"closing": {
+			"eyebrow": "Jannie Academy",
+			"title": "Sang Trọng Chuyên Nghiệp",
+			"text": "Chắp cánh cho ước mơ làm đẹp của bạn"
+		}
+	},
+	"clients": {
+		"page": {
+			"eyebrow_site": "Minh Chứng Thực Tế",
+			"title": "Những Cảm Nhận Từ Học Viên",
+			"title_accent": "Tại Jannie Academy",
+			"lead": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\""
+		},
+		"intro_body": "Khám phá những cảm nhận chân thành và đánh giá tích cực từ học viên đã trải qua khóa học tại Jannie Academy. Những chia sẻ này mang đến cái nhìn trực tiếp về chất lượng giảng dạy, sự chuyên nghiệp của đội ngũ giảng viên và giá trị thực tế mà khóa học mang lại cho học viên. Hãy lắng nghe những cảm nhận từ học viên để hiểu rõ hơn về sự ảnh hưởng và lợi ích mà Jannie Academy mang đến cho cuộc sống và sự nghiệp của họ.",
+		"press": [
+			{ "image": "logo_binh_phuoc", "name": "Báo Bình Phước", "url": "https://baobinhphuoc.com.vn/news/4/40968/khoi-nghiep-bang-0-dong-la-ban-da-may-man" },
+			{ "image": "logo_ngoi_sao", "name": "Ngôi Sao Ngành Làm Đẹp", "url": "", "note": "ngoisaonganhlamdep.vn no longer resolves and has no archived copy (checked 2026-10-30): logo shown without a link." },
+			{ "image": "logo_nguoi_tieu_dung", "name": "Người Tiêu Dùng", "url": "http://www.nguoitieudungonline.com/2021/04/the-balance-su-khac-biet-tao-nen-thanh_23.html" }
+		],
+		"about": {
+			"image": "client_mockup",
+			"blocks": [
+				{ "title": "Đào Tạo Chất Lượng Về Spa Và Thẩm Mỹ Tại Jannie Academy", "text": "Jannie Academy là nền tảng đào tạo hàng đầu trong lĩnh vực spa và thẩm mỹ, mang đến cho học viên những khóa học chuyên sâu và công nghệ tiên tiến. Với đội ngũ giảng viên giàu kinh nghiệm và chuyên môn, chúng tôi cam kết đào tạo học viên trở thành những chuyên gia chất lượng cao trong ngành, với kiến thức và kỹ năng vượt trội." },
+				{ "title": "Sự Chuyên Nghiệp Và Tận Tâm", "text": "Jannie Academy tận tụy và chuyên nghiệp trong việc đào tạo học viên về thẩm mỹ. Chúng tôi cung cấp những khóa học chất lượng, tạo điều kiện để học viên rèn luyện kỹ năng và nắm vững kiến thức cần thiết. Với sự tận tâm và sự chuyên nghiệp, chúng tôi hướng dẫn học viên trở thành những chuyên gia thẩm mỹ xuất sắc và thành công trong sự nghiệp." }
+			]
+		},
+		"groups": [
+			{
+				"title": "Khóa Học Phun Xăm Chân Mày Cơ Bản",
+				"text": "Khóa học này giúp bạn xây dựng nền tảng vững chắc trong phun xăm chân mày. Bạn sẽ được hướng dẫn các kỹ thuật cơ bản, công cụ và quy trình an toàn để tạo ra những đường nét chân mày tự nhiên và hài hòa với gương mặt. Từ việc tìm hiểu về hình dạng chân mày phù hợp, chọn màu sắc phù hợp, đến việc thực hiện các đường nét chính xác và đều, khóa học này sẽ giúp bạn có kiến thức và kỹ năng cơ bản để thực hiện phun xăm chân mày một cách chuyên nghiệp.",
+				"items": [
+					{ "title": "Phun Chân Mày Tại Nhà", "text": "Hướng dẫn cách tự phun chân mày tại nhà, từ việc chẩn đoán hình dạng và màu sắc phù hợp đến việc sử dụng công cụ và kỹ thuật phun xăm." },
+					{ "title": "Phun Xăm Tổng Hợp", "text": "Nắm vững các kỹ thuật phun xăm tổng hợp để tạo hình và điều chỉnh chân mày sao cho phù hợp với khách hàng." },
+					{ "title": "Kỹ Thuật Granulation Tổng Hợp", "text": "Tìm hiểu về kỹ thuật granulation và áp dụng vào phun xăm chân mày để tạo hiệu ứng khối và tự nhiên." },
+					{ "title": "Phun Mày Granulation", "text": "Học cách thực hiện kỹ thuật phun mày granulation để tạo ra đường nét chân mày đặc biệt, tạo khối và sắc thái cho gương mặt." }
+				]
+			},
+			{
+				"title": "Khóa Học Phun Xăm Chân Mày Nâng Cao",
+				"text": "Khóa học này giúp bạn nâng cao kiến thức và kỹ năng trong phun xăm chân mày. Bạn sẽ được học các kỹ thuật tiên tiến và áp dụng công nghệ tiên tiến để tạo nên những kết quả chuyên nghiệp và độc đáo. Từ việc tạo hiệu ứng 3D, áp dụng các kỹ thuật shading, đến việc làm việc với các loại mực và dụng cụ phun xăm cao cấp, khóa học này sẽ giúp bạn tiến xa hơn trong lĩnh vực phun xăm chân mày và trở thành một chuyên gia phun xăm chân mày đẳng cấp.",
+				"items": [
+					{ "title": "3D Shading", "text": "Tìm hiểu về kỹ thuật shading và áp dụng vào phun xăm chân mày để tạo hiệu ứng chiều sâu và tự nhiên." },
+					{ "title": "Chỉnh Sửa Chân Mày Hỏng Trổ Xanh, Đỏ", "text": "Học cách điều chỉnh và sửa chữa những trường hợp phun xăm chân mày bị hỏng trổ, màu xanh hoặc đỏ không đều." },
+					{ "title": "Laser Chân Mày", "text": "Tìm hiểu về công nghệ laser trong việc điều chỉnh hình dạng và màu sắc của chân mày." },
+					{ "title": "Cheek Blush", "text": "Tìm hiểu về công nghệ laser trong việc điều chỉnh hình dạng và màu sắc của chân mày." }
+				]
+			},
+			{
+				"title": "Khóa Học Phun Xăm Mắt Và Môi Tại Jannie Academy",
+				"text": "Tại Jannie Academy, chúng tôi mang đến những khóa học phun xăm đặc biệt, tập trung vào phun xăm mắt và môi để tạo nên nét đẹp và cuốn hút cho khuôn mặt. Bạn sẽ được hướng dẫn các kỹ thuật phun xăm tiên tiến và những bí quyết chuyên nghiệp để tạo ra các hiệu ứng sắc nét, tự nhiên và hoàn hảo trên vùng mắt và môi.",
+				"items": [
+					{ "title": "Phun Mí Make Up", "text": "Học cách phun xăm mí mắt để tạo hiệu ứng trang điểm tự nhiên và cuốn hút cho đôi mắt." },
+					{ "title": "Phun Môi Jelly Lip", "text": "Tìm hiểu về kỹ thuật phun xăm môi Jelly Lip để tạo nên đôi môi mềm mịn, tươi tắn và tự nhiên." },
+					{ "title": "Phun Môi Make Up", "text": "Học cách phun xăm môi để tạo hiệu ứng trang điểm môi đẹp và hài hòa với khuôn mặt." }
+				]
+			},
+			{
+				"title": "Khóa Học Tạo Kiểu Tóc Cơ Bản Tại Jannie Academy",
+				"text": "Khóa học này cung cấp những kiến thức và kỹ năng cơ bản trong lĩnh vực tóc. Bạn sẽ học cách cắt tóc cơ bản, nhuộm tóc, tư vấn dịch vụ tóc và xóa ngôi mái tại nhà. Từ việc hiểu về các phong cách cắt tóc cơ bản, chọn màu sắc tóc phù hợp, tư vấn cho khách hàng về các dịch vụ tóc cơ bản, đến việc nắm vững các phương pháp xóa ngôi mái tại nhà, khóa học này sẽ giúp bạn xây dựng nền tảng vững chắc trong việc làm việc với tóc.",
+				"items": [
+					{ "title": "Khóa Học Cắt Tóc Cơ Bản", "text": "Học các kỹ thuật cắt tóc cơ bản từ việc phân tích dáng mặt và tình trạng tóc." },
+					{ "title": "Khóa Học Nhuộm Cơ Bản - Nâng Cao", "text": "Nâng cao kỹ thuật nhuộm tóc và tạo ra những màu sắc độc đáo và cá nhân hóa." },
+					{ "title": "Tư Vấn Dịch Vụ Tóc - Hóa Chất", "text": "Học cách tư vấn dịch vụ tóc và sử dụng hóa chất đúng cách." },
+					{ "title": "Xóa Ngôi Mái Tại Nhà", "text": "Sử dụng công cụ đúng cách để tái tạo và mang lại vẻ đẹp tự nhiên cho mái tóc của bạn." }
+				]
+			},
+			{
+				"title": "Khóa Học Tạo Kiểu Tóc Chuyên Sâu Tại Jannie Academy",
+				"text": "Khóa học này cung cấp những kiến thức và kỹ năng cơ bản trong lĩnh vực tóc. Bạn sẽ học cách cắt tóc cơ bản, nhuộm tóc, tư vấn dịch vụ tóc và xóa ngôi mái tại nhà. Từ việc hiểu về các phong cách cắt tóc cơ bản, chọn màu sắc tóc phù hợp, tư vấn cho khách hàng về các dịch vụ tóc cơ bản, đến việc nắm vững các phương pháp xóa ngôi mái tại nhà, khóa học này sẽ giúp bạn xây dựng nền tảng vững chắc trong việc làm việc với tóc.",
+				"items": [
+					{ "title": "Cắt Tóc Thiết Kế", "text": "Học cách tạo kiểu độc đáo và phù hợp với từng khách hàng." },
+					{ "title": "Khóa Học Uốn Tóc", "text": "Học cách uốn tóc theo các phong cách đa dạng và sáng tạo, tạo nên những kiểu tóc đẹp và ấn tượng." },
+					{ "title": "Khóa Học Duỗi Tóc Voluminous", "text": "Học cách duỗi tóc theo phong cách Voluminous để tạo ra những kiểu tóc phong cách và đầy sức sống." },
+					{ "title": "Khóa Học Cắt Cocktail Layer", "text": "Học cách cắt tóc theo phong cách Cocktail Layer để tạo ra những lớp tóc phức tạp và kiểu tóc đa chiều." }
+				]
+			},
+			{
+				"title": "Khóa Học Soi Da Tại Nhà Tại Jannie Academy",
+				"text": "Tại Jannie Academy, chúng tôi cung cấp khóa học đặc biệt về soi da tại nhà, giúp bạn học cách chăm sóc da một cách chính xác và hiệu quả. Bạn sẽ được hướng dẫn về các phương pháp soi da, nhận biết tình trạng da và giải quyết các vấn đề da. Khám phá bước cơ bản và kỹ thuật chuyên sâu để tối ưu hóa việc chăm sóc da, giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ.",
+				"items": [
+					{
+						"title": "Soi Da Tại Nhà",
+						"bullets": [
+							"Hướng dẫn các phương pháp soi da chính xác và hiệu quả ngay tại nhà.",
+							"Hiểu rõ về tình trạng da và nhận biết các vấn đề cần được giải quyết.",
+							"Khám phá bước cơ bản và kỹ thuật chuyên sâu để chăm sóc da một cách tối ưu.",
+							"Giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ."
+						]
+					}
+				]
+			}
+		],
+		"values": {
+			"title": "Những Giá Trị Sau Khi Học Tại Jannie Academy",
+			"items": [
+				{ "title": "Khóa Học Phun Xăm", "text": "Khi tham gia khóa học phun xăm chân mày, môi và mắt tại Jannie Academy, học viên sẽ nhận được giá trị vô cùng quan trọng. Phát triển khả năng phun xăm chuyên nghiệp, tự tin với vẻ đẹp tự nhiên và cuốn hút của chân mày, môi và mắt." },
+				{ "title": "Khóa Học Tạo Kiểu Tóc", "text": "Học viên tại Jannie Academy sẽ nhận được những giá trị quan trọng khi tham gia các khóa học về tóc. Bạn sẽ trang bị những kỹ năng làm tóc chuyên nghiệp và phát triển sự sáng tạo của mình. Từ cắt tóc cơ bản đến nhuộm và tạo kiểu tóc, bạn sẽ có khả năng tạo ra những kiểu tóc độc đáo, phù hợp với cá nhân và phong cách của khách hàng." },
+				{ "title": "Khóa Học Chăm Sóc Da", "text": "Sau khóa học chăm sóc da tại Jannie Academy, học viên sẽ nhận được một làn da tươi trẻ và khỏe mạnh. Học cách chăm sóc da chính xác và hiệu quả, từ nhận biết tình trạng da đến giải quyết các vấn đề da. Khám phá bước cơ bản và kỹ thuật chuyên sâu để giữ cho làn da luôn rạng rỡ." }
+			]
+		},
+		"process": {
+			"title": "Quy Trình Học Tại Jannie Academy",
+			"steps": [
+				{ "title": "Đăng Ký Và Tư Vấn Chọn Khóa Học", "text": "Bắt đầu bằng việc đăng ký và tư vấn để lựa chọn khóa học phù hợp. Jannie Nguyễn - người dạy hàng đầu, sẽ tư vấn chuyên sâu và giúp bạn chọn khóa học phù hợp với mục tiêu cá nhân." },
+				{ "title": "Tham Gia Khóa Học", "text": "Tham gia khóa học trực tuyến tại Jannie Academy. Với hướng dẫn từ Jannie Nguyễn, môi trường học tập chất lượng, tài liệu đa dạng và công cụ tương tác, bạn sẽ nắm vững kiến thức và kỹ năng cần thiết." },
+				{ "title": "Thực Hành Và Rèn Luyện", "text": "Thực hành và rèn luyện kỹ năng tại Jannie Academy. Dưới sự hướng dẫn của Jannie Nguyễn, bạn sẽ thực hành các kỹ thuật và nhận được sự hỗ trợ từng bước để phát triển kỹ năng của mình." },
+				{ "title": "Kiểm Tra Và Đánh Giá", "text": "Tham gia kiểm tra và đánh giá tại Jannie Academy. Đảm bảo kiểm tra kỹ năng và hiệu suất để đạt mục tiêu học tập. Đánh giá này giúp bạn đo sự tiến bộ, nhận phản hồi và cải thiện. Với sự hỗ trợ từ Jannie Nguyễn, bạn sẽ phát triển thành công trong lĩnh vực mà bạn quan tâm." }
+			]
+		},
+		"closing": {
+			"title": "Khách Hàng Hài Lòng Với Spa Jannie",
+			"image": "client_spa",
+			"subtitle": "Chia Sẻ Cảm Nhận Của Bạn Với Jannie Academy",
+			"text": "Chúng tôi luôn trân trọng ý kiến của học viên về trải nghiệm học tập tại Jannie Academy. Hãy chia sẻ những cảm nhận, thành tựu và trải nghiệm của bạn để chúng tôi có thể cải thiện và mang đến một trải nghiệm học tập ngày càng tốt hơn cho tương lai. Hãy đóng góp ý kiến của bạn ngay hôm nay!",
+			"button": "Chia Sẻ Cảm Nhận"
+		},
+		"group_button": "Đặt Lịch Tư Vấn"
+	},
+	"testimonials": [
+		{
+			"name": "Loan Nguyễn",
+			"headline": "Tự tin và thay đổi",
+			"quote": "Sau khóa học phun xăm thẩm mỹ của Jannie Nguyễn, tôi thay đổi đáng kể. Nắm vững kỹ thuật chuyên nghiệp và sáng tạo, tự tin chăm sóc và làm đẹp cho khách hàng.",
+			"video": "https://www.youtube.com/watch?v=eDk34ql8Qb0",
+			"poster": "video_loan_nguyen"
+		},
+		{
+			"name": "Thu Minh",
+			"headline": "Sự thay đổi đáng kể sau khóa học",
+			"quote": "Tôi đã thay đổi từ suy nghĩ tới hành động sau khóa học của Jannie Nguyễn. Jannie Nguyễn đã giúp tôi nắm vững kỹ năng tư vấn, sử dụng hình ảnh video hấp dẫn để thu hút khách hàng. Đây là sự thay đổi đáng kể.",
+			"video": "https://www.youtube.com/watch?v=nWqff-L-mQg",
+			"poster": "video_thu_minh"
+		},
+		{
+			"name": "Hồng Hạnh",
+			"headline": "Trở Thành Chuyên Gia Phun Xăm với Jannie Nguyễn",
+			"quote": "Nhờ Jannie Nguyễn, tôi đã không chỉ nắm vững kỹ thuật phun xăm thẩm mỹ mà còn biết cách xây dựng thương hiệu cá nhân và sáng tạo nội dung chuyên nghiệp.",
+			"video": "https://www.youtube.com/watch?v=Qw-_mpLp-QQ",
+			"poster": "video_hong_hanh"
+		}
+	]
+}

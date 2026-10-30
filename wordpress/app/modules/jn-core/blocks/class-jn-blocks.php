@@ -2,7 +2,7 @@
 /**
  * Block Registration Manager & Core Block Accessibility/Performance Filters for JN Core.
  *
- * Registers `jn/icon`, `jn/rating`, `jn/booking-form` and `jn/hero-portrait`, and enforces:
+ * Registers `jn/icon`, `jn/rating`, `jn/booking-form`, `jn/hero-portrait` and `jn/video`, and enforces:
  * - `loading="eager"` + `fetchpriority="high"` (never lazy-loaded) on `.jn-hero-lcp-image`
  *
  * @package JN_Core
@@ -29,7 +29,7 @@ class JN_Blocks {
 	}
 
 	/**
-	 * Register custom Gutenberg blocks (`jn/icon`, `jn/rating`, `jn/booking-form`, `jn/hero-portrait`).
+	 * Register custom Gutenberg blocks (`jn/icon`, `jn/rating`, `jn/booking-form`, `jn/hero-portrait`, `jn/video`).
 	 *
 	 * @return void
 	 */
@@ -75,6 +75,25 @@ class JN_Blocks {
 		);
 
 		wp_register_script(
+			'jn-block-video-editor',
+			JN_CORE_URL . 'blocks/video/editor.js',
+			$editor_deps,
+			JN_CORE_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'jn-block-video-view',
+			JN_CORE_URL . 'blocks/video/view.js',
+			array(),
+			JN_CORE_VERSION,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+
+		wp_register_script(
 			'jn-block-booking-form-view',
 			JN_CORE_URL . 'blocks/booking-form/view.js',
 			array(),
@@ -89,6 +108,7 @@ class JN_Blocks {
 		register_block_type( JN_CORE_PATH . 'blocks/rating' );
 		register_block_type( JN_CORE_PATH . 'blocks/booking-form' );
 		register_block_type( JN_CORE_PATH . 'blocks/hero-portrait' );
+		register_block_type( JN_CORE_PATH . 'blocks/video' );
 	}
 
 	/**

@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Destructive local-only script: refuse to run against production (review 2026-10-28, H2).
 require_once __DIR__ . '/lib/jn-env-guard.php';
 jn_require_non_production( basename( __FILE__ ) );
+require_once __DIR__ . '/lib/jn-legacy-blocks.php';
 
 global $wpdb;
 
@@ -64,12 +65,15 @@ $all_products = get_posts(
 );
 
 $canonical_coaching_skus = array( 'jn-coaching-30m', 'jn-coaching-60m', 'jn-mentorship-3m' );
+// Step 15 (ADR-022): the owner's favourite products from jannieedu.com are real catalogue items, not demo data.
+$legacy_product_slugs = array_column( jn_lb_content()['products']['items'], 'slug' );
 foreach ( $all_products as $prod ) {
 	$sku          = (string) get_post_meta( $prod->ID, '_sku', true );
 	$is_bookable  = 'yes' === (string) get_post_meta( $prod->ID, '_jn_bookable', true );
 	$title_upper  = mb_strtoupper( (string) $prod->post_title, 'UTF-8' );
 	$slug_lower   = strtolower( (string) $prod->post_name );
-	$is_canonical = in_array( $sku, $canonical_coaching_skus, true ) || ( $is_bookable && in_array( (int) $prod->ID, array( 163, 164, 165 ), true ) );
+	$is_legacy    = in_array( $slug_lower, $legacy_product_slugs, true ) && '' !== (string) get_post_meta( $prod->ID, '_jn_legacy_source', true );
+	$is_canonical = $is_legacy || in_array( $sku, $canonical_coaching_skus, true ) || ( $is_bookable && in_array( (int) $prod->ID, array( 163, 164, 165 ), true ) );
 
 	if ( ! $is_canonical || str_contains( $title_upper, 'DEMO' ) || 'so-tay-dinh-huong-su-nghiep' === $slug_lower ) {
 		$cleaned_items['demo_products'][] = array(
@@ -246,6 +250,13 @@ $remaining_non_coaching_products = get_posts(
 		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
 		'posts_per_page' => 50,
 		'post__not_in'   => array( 163, 164, 165 ),
+	)
+);
+// Same rule as the cleanup above: the Step 15 legacy products are catalogue items, not leftovers.
+$remaining_non_coaching_products = array_values(
+	array_filter(
+		$remaining_non_coaching_products,
+		static fn( WP_Post $prod ): bool => ! ( in_array( $prod->post_name, $legacy_product_slugs, true ) && '' !== (string) get_post_meta( $prod->ID, '_jn_legacy_source', true ) )
 	)
 );
 $remaining_extra_pages = array();

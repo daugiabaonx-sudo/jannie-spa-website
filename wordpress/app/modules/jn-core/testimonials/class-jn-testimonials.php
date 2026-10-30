@@ -104,6 +104,7 @@ class JN_Testimonials {
 	public static function register_meta_fields() {
 		$string_fields = array(
 			'jn_quote'           => 'Trích dẫn cảm nhận nguyên văn',
+			'jn_headline'        => 'Câu tiêu đề của cảm nhận',
 			'jn_client_name'     => 'Tên khách hàng / học viên',
 			'jn_client_role'     => 'Chức danh / Cơ sở kinh doanh',
 			'jn_client_city'     => 'Tỉnh / Thành phố',
@@ -132,12 +133,41 @@ class JN_Testimonials {
 
 		register_post_meta(
 			self::POST_TYPE,
+			'jn_video_url',
+			array(
+				'type'              => 'string',
+				'description'       => 'Video YouTube của cảm nhận (dạng https://www.youtube.com/watch?v=…)',
+				'single'            => true,
+				'default'           => '',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_video_url' ),
+				'show_in_rest'      => true,
+				'auth_callback'     => static fn( $allowed, $key, $post_id ) => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
+
+		register_post_meta(
+			self::POST_TYPE,
+			'jn_video_poster_id',
+			array(
+				'type'              => 'integer',
+				'description'       => 'Ảnh bìa video tự host (ID trong Media Library)',
+				'single'            => true,
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+				'show_in_rest'      => true,
+				'auth_callback'     => static fn( $allowed, $key, $post_id ) => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
+
+		// 0 = no star rating: a testimonial never shows stars the client did not give (ADR-022).
+		register_post_meta(
+			self::POST_TYPE,
 			'jn_rating',
 			array(
 				'type'              => 'integer',
-				'description'       => 'Số sao đánh giá (1–5)',
+				'description'       => 'Số sao đánh giá (1–5; 0 = không hiển thị sao)',
 				'single'            => true,
-				'default'           => 5,
+				'default'           => 0,
 				'sanitize_callback' => array( __CLASS__, 'sanitize_rating' ),
 				'show_in_rest'      => true,
 			)
@@ -145,17 +175,52 @@ class JN_Testimonials {
 	}
 
 	/**
-	 * Clamp rating integer between 1 and 5.
+	 * Clamp a rating to 0–5, where 0 means "no star rating".
 	 *
 	 * @param mixed $value Raw rating value.
 	 * @return int
 	 */
 	public static function sanitize_rating( $value ) {
-		$rating = absint( $value );
-		if ( $rating < 1 ) {
-			return 5;
+		return min( 5, max( 0, (int) $value ) );
+	}
+
+	/**
+	 * Extract the 11-character video ID from a YouTube URL (youtube.com, youtu.be, youtube-nocookie.com).
+	 *
+	 * @param string $url Raw URL.
+	 * @return string Video ID, or '' when the URL is not an http(s) YouTube video URL.
+	 */
+	public static function youtube_id( $url ) {
+		$parts  = wp_parse_url( trim( (string) $url ) );
+		$scheme = strtolower( (string) ( $parts['scheme'] ?? '' ) );
+		$host   = strtolower( (string) ( $parts['host'] ?? '' ) );
+		$hosts  = array( 'youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtube-nocookie.com' );
+		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) || ! in_array( $host, $hosts, true ) ) {
+			return '';
 		}
-		return min( 5, $rating );
+
+		$path = (string) ( $parts['path'] ?? '' );
+		$id   = '';
+		if ( 'youtu.be' === $host ) {
+			$id = ltrim( $path, '/' );
+		} elseif ( preg_match( '#^/(?:embed|shorts|live)/([^/]+)#', $path, $match ) ) {
+			$id = $match[1];
+		} elseif ( '/watch' === $path ) {
+			wp_parse_str( (string) ( $parts['query'] ?? '' ), $query );
+			$id = (string) ( $query['v'] ?? '' );
+		}
+		return 1 === preg_match( '/^[A-Za-z0-9_-]{11}$/', $id ) ? $id : '';
+	}
+
+	/**
+	 * Store a YouTube URL in its canonical watch form; anything else becomes ''.
+	 *
+	 * @param mixed $value Raw URL.
+	 * @return string
+	 */
+	public static function sanitize_video_url( $value ) {
+		$id = self::youtube_id( is_string( $value ) ? $value : '' );
+		return '' === $id ? '' : 'https://www.youtube.com/watch?v=' . $id;
 	}
 
 	/**
@@ -256,13 +321,11 @@ class JN_Testimonials {
 		$name       = (string) get_post_meta( $post->ID, 'jn_client_name', true );
 		$role       = (string) get_post_meta( $post->ID, 'jn_client_role', true );
 		$city       = (string) get_post_meta( $post->ID, 'jn_client_city', true );
-		$rating     = (int) get_post_meta( $post->ID, 'jn_rating', true );
+		$rating     = self::sanitize_rating( get_post_meta( $post->ID, 'jn_rating', true ) );
 		$package    = (string) get_post_meta( $post->ID, 'jn_related_package', true );
 		$admin_note = (string) get_post_meta( $post->ID, 'jn_admin_note', true );
-
-		if ( $rating < 1 || $rating > 5 ) {
-			$rating = 5;
-		}
+		$headline   = (string) get_post_meta( $post->ID, 'jn_headline', true );
+		$video_url  = (string) get_post_meta( $post->ID, 'jn_video_url', true );
 		?>
 		<table class="form-table" role="presentation">
 			<tr>
@@ -281,10 +344,23 @@ class JN_Testimonials {
 				<th scope="row"><label for="jn_rating">Xếp hạng sao (1–5)</label></th>
 				<td>
 					<select id="jn_rating" name="jn_rating">
+						<option value="0" <?php selected( $rating, 0 ); ?>>Không hiển thị sao</option>
 						<?php for ( $i = 5; $i >= 1; $i-- ) : ?>
 							<option value="<?php echo esc_attr( (string) $i ); ?>" <?php selected( $rating, $i ); ?>><?php echo esc_html( $i . ' sao' ); ?></option>
 						<?php endfor; ?>
 					</select>
+					<p class="description">Chỉ chọn số sao khi khách thật sự cho điểm.</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="jn_headline">Câu tiêu đề</label></th>
+				<td><input type="text" id="jn_headline" name="jn_headline" value="<?php echo esc_attr( $headline ); ?>" class="large-text" /></td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="jn_video_url">Video YouTube</label></th>
+				<td>
+					<input type="url" id="jn_video_url" name="jn_video_url" value="<?php echo esc_attr( $video_url ); ?>" class="large-text" placeholder="https://www.youtube.com/watch?v=…" />
+					<p class="description">Chỉ nhận link YouTube; link khác sẽ bị bỏ.</p>
 				</td>
 			</tr>
 			<tr>
@@ -340,7 +416,9 @@ class JN_Testimonials {
 		$quote = isset( $_POST['jn_quote'] ) ? sanitize_textarea_field( wp_unslash( $_POST['jn_quote'] ) ) : '';
 		$pkg   = isset( $_POST['jn_related_package'] ) ? sanitize_key( wp_unslash( $_POST['jn_related_package'] ) ) : '60-phut';
 		$note  = isset( $_POST['jn_admin_note'] ) ? sanitize_text_field( wp_unslash( $_POST['jn_admin_note'] ) ) : '';
-		$stars = isset( $_POST['jn_rating'] ) ? self::sanitize_rating( wp_unslash( $_POST['jn_rating'] ) ) : 5;
+		$stars = isset( $_POST['jn_rating'] ) ? self::sanitize_rating( wp_unslash( $_POST['jn_rating'] ) ) : 0;
+		$head  = isset( $_POST['jn_headline'] ) ? sanitize_text_field( wp_unslash( $_POST['jn_headline'] ) ) : '';
+		$video = isset( $_POST['jn_video_url'] ) ? self::sanitize_video_url( wp_unslash( $_POST['jn_video_url'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitize_video_url() accepts only a YouTube video ID.
 
 		$role_display = $role;
 		if ( '' !== $city ) {
@@ -355,6 +433,8 @@ class JN_Testimonials {
 		update_post_meta( $post_id, 'jn_related_package', $pkg );
 		update_post_meta( $post_id, 'jn_admin_note', $note );
 		update_post_meta( $post_id, 'jn_rating', $stars );
+		update_post_meta( $post_id, 'jn_headline', $head );
+		update_post_meta( $post_id, 'jn_video_url', $video );
 	}
 
 	/**
@@ -389,7 +469,7 @@ class JN_Testimonials {
 				break;
 			case 'jn_rating':
 				$rating = self::sanitize_rating( get_post_meta( $post_id, 'jn_rating', true ) );
-				echo esc_html( $rating . '/5 ★' );
+				echo esc_html( $rating > 0 ? $rating . '/5 ★' : '—' );
 				break;
 			case 'jn_related_package':
 				echo esc_html( (string) get_post_meta( $post_id, 'jn_related_package', true ) );

@@ -3,7 +3,7 @@
  * Server-side render callback template for the `jn/rating` block.
  *
  * Reads `jn_rating` post meta when placed inside a Query Loop (`postId` context)
- * or falls back to the block's `rating` attribute (default 5).
+ * unless the block's `rating` attribute overrides it. A rating of 0 renders nothing.
  *
  * @var array<string, mixed> $attributes Block attributes.
  * @var string               $content    Block inner content (empty).
@@ -25,9 +25,11 @@ if ( 0 === $jn_rating_val && ! empty( $block->context['postId'] ) ) {
 	}
 }
 
-if ( $jn_rating_val < 1 || $jn_rating_val > 5 ) {
-	$jn_rating_val = 5;
+// 0 = the client gave no star rating: render nothing rather than invent five stars (ADR-022).
+if ( $jn_rating_val < 1 ) {
+	return;
 }
+$jn_rating_val = min( 5, $jn_rating_val );
 
 $jn_star_size = isset( $attributes['size'] ) ? max( 12, min( 36, absint( $attributes['size'] ) ) ) : 18;
 $jn_stars_out = '';

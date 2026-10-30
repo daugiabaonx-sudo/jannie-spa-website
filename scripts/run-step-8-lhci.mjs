@@ -330,7 +330,7 @@ async function main() {
 
   try {
     tempProduct = ensurePublishedProduct();
-    console.log(`[Setup] Provisioned published product ID=${tempProduct.id} (/product/${tempProduct.slug}/)`);
+    console.log(`[Setup] Provisioned published product ID=${tempProduct.id} (/san-pham/${tempProduct.slug}/)`);
 
     // Clear stale supercache before warming all URLs
     fs.rmSync(path.join(ROOT_DIR, 'wordpress/app/cache/supercache/localhost'), {

@@ -5,7 +5,8 @@
  *
  * Copy restates only facts already in the repo (patterns/expert-intro.php, the hero metrics, the SEO
  * descriptions in mu-plugins/jn-performance/class-jn-seo-meta.php): no figures, dates, prices, awards,
- * testimonials or process promises the owner has not confirmed.
+ * testimonials or process promises the owner has not confirmed. Since Step 15 (ADR-022) /course/ and
+ * /client-success-story/ use the old jannieedu.com lead from lib/jn-legacy-content.json instead.
  *
  * @package JN_Scripts
  */
@@ -13,6 +14,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+require_once __DIR__ . '/jn-legacy-blocks.php';
 
 if ( ! function_exists( 'jn_page_intro_leads' ) ) {
 	/**
@@ -24,8 +27,8 @@ if ( ! function_exists( 'jn_page_intro_leads' ) ) {
 		return array(
 			'home'                 => 'Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.',
 			'my-story'             => 'Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.',
-			'course'               => 'Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.',
-			'client-success-story' => 'Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.',
+			'course'               => jn_lb_content()['courses']['page']['lead'],
+			'client-success-story' => jn_lb_content()['clients']['page']['lead'],
 		);
 	}
 }

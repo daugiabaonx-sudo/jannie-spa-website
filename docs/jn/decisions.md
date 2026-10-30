@@ -541,3 +541,29 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - Ở một cột (< 1024 px) ảnh nằm dưới màn hình đầu, nên LCP mobile là lời dẫn (như trước); preload ảnh vẫn giữ vì trang chủ desktop dùng ảnh làm LCP.
 - Khung ảnh 448 px cần ~900 px ảnh trên màn hình retina, ảnh chân dung ID 86 chỉ có bản 800 px → hơi mềm trên màn hình 2x; muốn nét hơn thì xuất lại bản 1000×1250 từ master `jn-legacy-home-portrait` (việc riêng, đổi tên file theo ADR-019).
 - Chưa làm (LOW, đã cân nhắc): preload chỉ cho desktop (`media="(min-width: 1024px)"`) — Lighthouse mobile vẫn 100, LCP 1.7 s nên chưa cần; ảnh đổi tải bản lớn (`sizes` ~182vw trên mobile) lúc rảnh sau LCP; trong editor, hai block cùng trang có thể trùng ID checkbox vì mỗi ServerSideRender là một request riêng (ngoài site không bị).
+
+## ADR-022: Nội Dung jannieedu.com Cũ Cho Trang Sản Phẩm, Khóa Học & Cảm Nhận (Step 15)
+
+- **Ngày quyết định:** 2026-10-30
+- **Trạng thái:** Đã triển khai — chủ dự án gửi 3 bản lưu Wayback, yêu cầu "bám content cũ", duyệt `/plan` với các mặc định D1–D9.
+
+### 1. Bối cảnh
+- `/my-favorite-product/`, `/course/`, `/client-success-story/` chỉ có khung `[CẦN NỘI DUNG]` (UNK-08, UNK-03); trang chủ và `/coaching/` hiện 3 cảm nhận wireframe chưa xác minh kèm 5 sao.
+- Nguồn: Wayback 2025-01-19 (sản phẩm), 2025-01-23 (khóa học), 2025-02-07 (cảm nhận); giá ở JSON-LD các trang `/san-pham/*` bản lưu 05/2024. Wayback **không** lưu ảnh nội dung (21/24 ảnh trả 404), nhưng WordPress cũ ở jannieedu.com vẫn trả ảnh gốc (TLS hết hạn).
+
+### 2. Quyết định
+1. **Một nguồn câu chữ:** `scripts/lib/jn-legacy-content.json`, chép nguyên văn; chỉ đổi hoa/thường theo tiêu đề site và 9 lỗi chính tả đã duyệt (`corrections`). `eyebrow_site` giữ eyebrow đã duyệt của site mới ở trang cũ không có. `verify-step-15-legacy-pages.mjs` đối chiếu từng chuỗi với bản trích Wayback ở `docs/jn/legacy-content/`.
+2. **Trang dựng từ nguồn đó** bằng `scripts/lib/jn-legacy-blocks.php` (core blocks + style của theme, không `core/html`); migration `scripts/build-step-15-legacy-content.php` (idempotent, revision để hoàn tác, đọc lại để chắc kses không sửa markup).
+3. **Khóa học là nội dung, không phải sản phẩm:** 26 khóa (Phun Xăm 15, Salon 10, Spa 1) không giá, nút "Đặt Lịch Tư Vấn" → `#booking-form` như trang cũ. 6 "sản phẩm khóa học" có giá năm 2024 không tạo.
+4. **6 sản phẩm WooCommerce** (slug cũ, danh mục "Sản phẩm yêu thích", thứ tự thẻ cũ); giá 05/2024, Xà bông thảo dược "Liên hệ" (`woocommerce_empty_price_html`). `product_base` → `san-pham` để URL cũ chạy lại. Thẻ: ảnh, tên, mô tả, giá, "Mua Ngay" → trang sản phẩm (`core/read-more`) như trang cũ.
+5. **3 cảm nhận thật** (Loan Nguyễn, Thu Minh, Hồng Hạnh) thay 3 cảm nhận wireframe trên toàn site; 91–93 chuyển Nháp (không xoá). `jn_rating = 0` nghĩa là không có sao: `jn/rating` không render gì, mặc định của meta đổi 5 → 0 (bài cũ lưu 5 tường minh nên không đổi).
+6. **Video qua facade:** block `jn/video` (ảnh bìa tự host + link YouTube; `view.js` vanilla chỉ tạo iframe `youtube-nocookie.com` khi bấm). CSP thêm `frame-src https://www.youtube-nocookie.com` ở 5 file (6 chỗ). Meta `jn_headline`, `jn_video_url` (chỉ nhận URL YouTube, lưu dạng watch chuẩn), `jn_video_poster_id`.
+7. **Ảnh gốc, không AI:** 19 ảnh gốc tải một lần từ máy chủ cũ (`curl -k`, chỉ GET ảnh tĩnh, xem bằng mắt) + 3 ảnh bìa từ `i.ytimg.com`, lưu `scripts/.media-masters/<slug>.orig.<ext>` (gitignored) và sha256 ở `jn-legacy-media.json` + `docs/jn/legacy-content/originals.sha256`. `jn_placeholder_load_original()` bắt buộc file tồn tại và khớp sha256, không gọi mạng; ảnh chỉ thu nhỏ (scale 1×) rồi mã hoá lại (bỏ metadata).
+
+### 3. Hệ quả
+- Deploy: chạy `import-legacy-media.php` (22 khóa Step 15, cần các file `.orig.*`) rồi `build-step-15-legacy-content.php` (`JN_ALLOW_DESTRUCTIVE=1` trên production), xoá page cache. Trên cài mới: chạy sau `build-step-3.php` và `setup-step-4-woocommerce.php`.
+- Chờ chủ dự án trước go-live: xác nhận giá (2024 có thể cũ), phí/chính sách giao hàng (shop đang tắt giao hàng), rà pháp lý mô tả The Herpes Treatment, quyền dùng video học viên (video nằm trên kênh YouTube "khoa nguyễn"), logo Ngôi Sao không còn link (tên miền chết, không có bản lưu).
+- Còn giữ: huy hiệu "+180% Doanh Thu" (số liệu wireframe) cạnh cảm nhận thật trên `/` và `/coaching/`; trang Cảm nhận cũ lặp lại danh sách khóa học (trùng chủ đề `/course/`).
+- **Sự cố khi chạy lần đầu:** `wc_get_products( array( 'slug' => … ) )` bỏ qua `slug` và trả sản phẩm đầu tiên → ghi đè 3 gói Coaching (ID 163–165). Đã khôi phục toàn bộ DB từ `backups/pre-step-15-2026-10-30.sql.gz` (bản hỏng lưu ở `backups/step-15-incident-damaged-2026-10-30.sql.gz`), sửa sang `get_posts( name )` và thêm chốt chặn từ chối ghi vào gói Coaching hoặc sản phẩm khác slug.
+- **Sự cố thứ hai:** `scripts/check-launch-blockers.php` (Step 9) xoá vĩnh viễn mọi sản phẩm không phải 3 gói Coaching và tính chúng là "DEMO còn sót" → lần chạy kiểm tra đầu tiên đã xoá 6 sản phẩm Step 15. Đã sửa: sản phẩm có slug trong `jn-legacy-content.json` **và** meta `_jn_legacy_source` là sản phẩm chính thức (không xoá, không tính vào BL-07b); `test-step-15` khoá quy tắc này. Migration tạo lại 6 sản phẩm (ID mới).
+- **Sau code review độc lập (0 CRITICAL/HIGH, 4 MEDIUM, 3 LOW):** migration tra trang theo slug, kiểm tra slug danh mục 41 và block đồng bộ 95 trước khi ghi, chỉ chuyển Nháp 91–93 khi đúng là `jn_testimonial`, cập nhật cảm nhận bằng `wp_update_post()`; vòng focus của `jn/video` vẽ vào trong khung (khung cắt tràn); ẩn dòng chức danh rỗng trên thẻ cảm nhận dùng chung; `AXE_PATH` thử `axe-core` cài được trước khi dùng cache npx. MEDIUM "bán hàng vật lý khi đang tắt giao hàng" giữ theo lựa chọn D9 của chủ dự án → UNK-15.

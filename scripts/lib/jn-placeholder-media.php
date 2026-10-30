@@ -68,6 +68,17 @@ function jn_placeholder_master_path( string $slug ): string {
 }
 
 /**
+ * Path of a full-size original downloaded once on the host (Step 15: files big enough to only downscale).
+ *
+ * @param string $slug Item slug.
+ * @param string $ext  `png` or `jpg`.
+ * @return string
+ */
+function jn_placeholder_original_path( string $slug, string $ext ): string {
+	return JN_PLACEHOLDER_MASTER_DIR . '/' . $slug . '.orig.' . $ext;
+}
+
+/**
  * Largest crop with the target aspect ratio inside a source region, centred on `$focus_x`.
  *
  * @param int                  $src_w   Source width.
@@ -113,6 +124,9 @@ function jn_placeholder_crop_box( int $src_w, int $src_h, int $dst_w, int $dst_h
  * @return array{image: GdImage, origin: string}|WP_Error
  */
 function jn_placeholder_load_source( array $item ) {
+	if ( ! empty( $item['original'] ) ) {
+		return jn_placeholder_load_original( $item );
+	}
 	// `master_slug` lets an item reuse another item's master (Step 3 hero/expert use the ADR-018 photos).
 	$master = jn_placeholder_master_path( (string) ( $item['master_slug'] ?? $item['slug'] ) );
 	if ( ! empty( $item['ai_upscale'] ) && is_file( $master ) ) {
@@ -146,6 +160,32 @@ function jn_placeholder_load_source( array $item ) {
 	return array(
 		'image'  => $image,
 		'origin' => 's0',
+	);
+}
+
+/**
+ * Load an item's local original (`<slug>.orig.<ext>` in the masters folder). The file came from an
+ * untrusted host, so it must match the recorded sha256 and decode as an image; GD re-encodes it later,
+ * which drops any metadata. Never falls back to the network.
+ *
+ * @param array<string, mixed> $item Item definition with `original` (extension) and `sha256`.
+ * @return array{image: GdImage, origin: string}|WP_Error
+ */
+function jn_placeholder_load_original( array $item ) {
+	$path = jn_placeholder_original_path( (string) $item['slug'], (string) $item['original'] );
+	if ( ! is_file( $path ) ) {
+		return new WP_Error( 'jn_original_missing', "Original is required but missing: {$path} (download it as described in ADR-022)" );
+	}
+	if ( ! hash_equals( (string) ( $item['sha256'] ?? '' ), (string) hash_file( 'sha256', $path ) ) ) {
+		return new WP_Error( 'jn_original_checksum', "Original does not match its recorded sha256: {$path}" );
+	}
+	$image = @imagecreatefromstring( (string) file_get_contents( $path ) ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	if ( ! $image ) {
+		return new WP_Error( 'jn_original_decode', "Original is not a decodable image: {$path}" );
+	}
+	return array(
+		'image'  => $image,
+		'origin' => 'original',
 	);
 }
 
@@ -288,6 +328,12 @@ function jn_media_validate_item( array $item ): ?WP_Error {
 	}
 	if ( isset( $item['ink'] ) && ! jn_media_is_rgb( $item['ink'] ) ) {
 		return new WP_Error( 'jn_invalid_item', "{$slug}: ink must be [r, g, b] integers in 0–255, got " . wp_json_encode( $item['ink'] ) );
+	}
+	if ( isset( $item['original'] ) ) {
+		$is_ext = in_array( $item['original'], array( 'png', 'jpg' ), true );
+		if ( ! $is_ext || 1 !== preg_match( '/^[a-f0-9]{64}$/', (string) ( $item['sha256'] ?? '' ) ) ) {
+			return new WP_Error( 'jn_invalid_item', "{$slug}: original must be png|jpg with a 64-hex sha256" );
+		}
 	}
 	return null;
 }

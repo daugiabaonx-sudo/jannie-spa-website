@@ -1,0 +1,463 @@
+/* ==========================================================================
+   Step 15 (ADR-022) — old jannieedu.com content on /my-favorite-product/, /course/,
+   /client-success-story/: split image + text rows, course clusters, press logos,
+   video testimonials (`jn/video` facade), course groups, values and process.
+   Tokens only; animates transform/opacity only.
+   ========================================================================== */
+
+/* 1. Shared: image + text rows */
+.jn-legacy-split.wp-block-columns {
+	gap: var(--jn-space-2xl);
+	align-items: center !important;
+	margin-bottom: 0;
+}
+
+.jn-legacy-body {
+	font-size: var(--jn-text-body-lg);
+	line-height: var(--jn-lh-body-lg);
+	max-width: var(--jn-measure-lead);
+	text-wrap: pretty;
+}
+
+.jn-legacy-split__text > .wp-block-heading + .wp-block-paragraph {
+	margin-top: var(--jn-space-sm);
+}
+
+.jn-legacy-split__text > .wp-block-paragraph + .wp-block-heading {
+	margin-top: var(--jn-space-xl);
+}
+
+.jn-legacy-split__text .wp-block-buttons,
+.jn-course-cluster__list .wp-block-buttons {
+	margin-top: var(--jn-space-lg);
+}
+
+.jn-legacy-subtitle {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	font-weight: 500;
+	color: var(--jn-ink);
+	margin-top: var(--jn-space-md);
+}
+
+/* 2. /my-favorite-product/: the product grid sits inside the section container */
+.jn-legacy-product-list .wp-block-woocommerce-product-collection {
+	padding-inline: 0;
+	padding-top: var(--jn-space-xl);
+	padding-bottom: 0;
+}
+
+/* WooCommerce sizes `columns-3` for its own 1.25em gap; the theme's wider gutter would drop it to two columns. */
+.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1023.98px) {
+	.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 639.98px) {
+	.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.jn-legacy-product-summary {
+	color: var(--jn-muted-stone);
+	font-size: var(--jn-text-body-md);
+	line-height: var(--jn-lh-body-md);
+	margin-bottom: var(--jn-space-md);
+	flex-grow: 1;
+}
+
+.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now {
+	display: inline-flex;
+	align-self: flex-start;
+	align-items: center;
+	min-height: 44px;
+	margin-top: var(--jn-space-md);
+	padding: 0 var(--jn-space-lg);
+	border-radius: var(--jn-radius-pill);
+	background-color: var(--jn-ink);
+	color: var(--jn-surface-pure);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	font-weight: 600;
+	letter-spacing: var(--jn-ls-label-md);
+	text-decoration: none;
+	transition: background-color var(--jn-transition), transform var(--jn-transition);
+}
+
+.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now:hover {
+	background-color: var(--jn-primary-deep);
+}
+
+.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now:focus-visible {
+	outline: 2px solid var(--jn-secondary);
+	outline-offset: 3px;
+}
+
+/* `.jn-video` clips its overflow, so the ring sits inside the frame to stay visible (WCAG 2.4.7). */
+.jn-video__link:focus-visible {
+	outline: 3px solid var(--jn-surface-pure);
+	outline-offset: -6px;
+	box-shadow: inset 0 0 0 6px var(--jn-secondary);
+}
+
+/* Legacy testimonials have no role/city: drop the empty bound line on the shared cards (/, /coaching/). */
+.jn-testimonial-role:empty {
+	display: none;
+}
+
+.jn-price-on-request {
+	font-family: var(--jn-font-body);
+	font-weight: 600;
+	color: var(--jn-champagne-text-sm);
+}
+
+/* 3. /course/: banner, category titles, alternating clusters */
+.jn-course-banner.wp-block-image {
+	margin: var(--jn-space-xl) auto 0;
+	max-width: 1024px;
+	border-radius: var(--jn-radius-lg);
+	overflow: hidden;
+}
+
+.jn-course-banner img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.jn-course-category__title {
+	margin-bottom: var(--jn-space-2xl) !important;
+}
+
+.jn-course-cluster.wp-block-columns {
+	gap: var(--jn-space-2xl);
+	align-items: center !important;
+	margin-bottom: var(--jn-section-rhythm);
+}
+
+.jn-course-cluster.wp-block-columns:last-child {
+	margin-bottom: 0;
+}
+
+.jn-course-item {
+	padding-block: var(--jn-space-md);
+	border-bottom: 1px solid var(--jn-border);
+}
+
+.jn-course-item:first-child {
+	padding-top: 0;
+}
+
+.jn-course-item__title {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	font-weight: 500;
+	color: var(--jn-ink);
+	margin: 0 0 var(--jn-space-xs);
+}
+
+.jn-course-item__desc {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+.jn-course-closing__text {
+	font-family: var(--jn-font-heading);
+	font-style: italic;
+	font-size: var(--jn-text-headline-sm);
+	color: var(--jn-champagne-text-sm); /* -lg only passes AA at >= 24px; this shrinks below that on mobile */
+	margin-top: var(--jn-space-sm);
+}
+
+/* 4. /client-success-story/: press logos */
+.jn-legacy-lead-body {
+	margin-inline: auto;
+	text-align: center;
+}
+
+.jn-press-logos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: var(--jn-space-xl) var(--jn-space-2xl);
+	margin-top: var(--jn-space-2xl);
+}
+
+.jn-press-logos .jn-press-logo.wp-block-image {
+	margin: 0;
+	width: 200px;
+}
+
+.jn-press-logos .jn-press-logo img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.jn-press-logos .jn-press-logo a {
+	display: block;
+	border-radius: var(--jn-radius-sm);
+	transition: opacity var(--jn-transition);
+}
+
+.jn-press-logos .jn-press-logo a:hover {
+	opacity: 0.75;
+}
+
+/* 5. Video testimonials (Query Loop + `jn/video`) */
+.jn-video-testimonials {
+	display: flex !important;
+	flex-direction: column;
+	gap: var(--jn-section-rhythm);
+	padding: 0 !important;
+	margin: 0 !important;
+	list-style: none;
+}
+
+.jn-video-testimonial {
+	display: grid;
+	grid-template-columns: 7fr 5fr;
+	gap: var(--jn-space-2xl);
+	align-items: center;
+}
+
+.jn-video-testimonials > li:nth-child(even) .jn-video-testimonial {
+	grid-template-columns: 5fr 7fr;
+}
+
+.jn-video-testimonials > li:nth-child(even) .jn-video {
+	order: 2;
+}
+
+.jn-video-testimonial__headline {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-md);
+	line-height: var(--jn-lh-headline-md);
+	font-style: italic;
+	font-weight: 400;
+	color: var(--jn-ink);
+	margin: 0 0 var(--jn-space-md);
+	text-wrap: balance;
+}
+
+.jn-video-testimonial__quote {
+	color: var(--jn-muted-stone);
+	font-size: var(--jn-text-body-lg);
+	line-height: var(--jn-lh-body-lg);
+	margin: 0 0 var(--jn-space-md);
+}
+
+.jn-video-testimonial__name {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-md);
+	letter-spacing: var(--jn-ls-label-md);
+	text-transform: uppercase;
+	font-weight: 600;
+	color: var(--jn-secondary);
+	margin: 0;
+}
+
+.jn-video {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	border-radius: var(--jn-radius-lg);
+	overflow: hidden;
+	background-color: var(--jn-ink);
+	box-shadow: var(--jn-shadow-card);
+}
+
+.jn-video__link {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: var(--jn-ink);
+}
+
+.jn-video__poster {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform var(--jn-motion-normal, 300ms) var(--jn-ease-smooth, ease);
+}
+
+.jn-video__play {
+	position: absolute;
+	inset: 50% auto auto 50%;
+	display: grid;
+	place-items: center;
+	width: 72px;
+	height: 72px;
+	margin: -36px 0 0 -36px;
+	border-radius: 50%;
+	background-color: var(--jn-surface-pure);
+	box-shadow: var(--jn-shadow-ambient);
+	transition: transform var(--jn-transition);
+}
+
+.jn-video__icon {
+	fill: currentColor;
+	margin-left: 4px;
+}
+
+@media (hover: hover) {
+	.jn-video__link:hover .jn-video__poster {
+		transform: scale(1.03);
+	}
+
+	.jn-video__link:hover .jn-video__play {
+		transform: scale(1.08);
+	}
+}
+
+.jn-video__frame {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+/* 6. Course groups (client page) */
+.jn-course-groups {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--jn-gutter);
+}
+
+.jn-course-group.is-style-card {
+	padding: var(--jn-space-xl);
+	display: flex;
+	flex-direction: column;
+}
+
+.jn-course-group__title {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	font-weight: 500;
+	color: var(--jn-ink);
+	margin: 0 0 var(--jn-space-sm);
+	text-wrap: balance;
+}
+
+.jn-course-group__text {
+	margin: 0 0 var(--jn-space-md);
+	text-wrap: pretty;
+}
+
+.jn-course-group__item-title {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-title-sm);
+	line-height: var(--jn-lh-title-sm);
+	font-weight: 600;
+	color: var(--jn-ink);
+	margin: var(--jn-space-md) 0 var(--jn-space-xs);
+}
+
+.jn-course-group__item-text {
+	margin: 0;
+}
+
+.jn-course-group .wp-block-buttons {
+	margin-top: auto;
+	padding-top: var(--jn-space-lg);
+}
+
+/* 7. Values and process */
+.jn-legacy-values.wp-block-columns {
+	gap: var(--jn-gutter);
+	margin-top: var(--jn-space-2xl);
+}
+
+.jn-legacy-value.is-style-card {
+	height: 100%;
+	padding: var(--jn-space-xl);
+}
+
+ol.jn-booking-steps.jn-legacy-process {
+	max-width: 48rem;
+	margin: var(--jn-space-2xl) auto 0 !important;
+}
+
+/* `ol.jn-booking-steps` is styled for the dark booking panel; this list sits on a light surface. */
+ol.jn-booking-steps.jn-legacy-process {
+	gap: var(--jn-space-lg);
+}
+
+ol.jn-booking-steps.jn-legacy-process > li {
+	padding-left: 48px;
+	font-size: var(--jn-text-body-md);
+	line-height: var(--jn-lh-body-md);
+	color: var(--jn-muted-stone);
+}
+
+ol.jn-booking-steps.jn-legacy-process > li::before {
+	width: 32px;
+	height: 32px;
+	background-color: var(--jn-ink);
+	color: var(--jn-surface-pure);
+	font-size: var(--jn-text-label-md);
+}
+
+ol.jn-booking-steps.jn-legacy-process > li strong {
+	display: block;
+	margin-bottom: var(--jn-space-xs);
+	color: var(--jn-ink);
+}
+
+/* 8. Responsive (site breakpoints) */
+@media (max-width: 1023.98px) {
+	.jn-video-testimonial,
+	.jn-video-testimonials > li:nth-child(even) .jn-video-testimonial {
+		grid-template-columns: 1fr;
+		gap: var(--jn-space-lg);
+	}
+
+	.jn-video-testimonials > li:nth-child(even) .jn-video {
+		order: 0;
+	}
+
+	.jn-course-groups {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 781.98px) {
+	/* Core columns stack at 782px: keep the image above its text on every row. */
+	.jn-course-cluster.is-reversed .jn-course-cluster__media {
+		order: -1;
+	}
+
+	.jn-legacy-split.wp-block-columns,
+	.jn-course-cluster.wp-block-columns {
+		gap: var(--jn-space-lg);
+	}
+
+	.jn-course-cluster__media .wp-block-image,
+	.jn-legacy-split__media .wp-block-image {
+		max-width: 420px;
+		margin-inline: auto;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.jn-video__poster,
+	.jn-video__play,
+	.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now {
+		transition: none;
+	}
+
+	.jn-video__link:hover .jn-video__poster,
+	.jn-video__link:hover .jn-video__play {
+		transform: none;
+	}
+}

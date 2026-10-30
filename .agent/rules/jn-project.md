@@ -59,8 +59,8 @@ PROJECT CONTEXT CARD (write UNKNOWN for anything not known yet)
 - PAYMENT METHODS: bank transfer (bank, account number, holder UNKNOWN)
 - BOOKING MODEL: request-based, as in the wireframe
 - AUTO-CREATE CUSTOMER ACCOUNT ON BOOKING: no
-- MY FAVORITE PRODUCT: none yet
-- COURSES: UNKNOWN
+- MY FAVORITE PRODUCT: 6 products from the old jannieedu.com page (owner instruction 2026-10-30, ADR-022); prices = May 2024 archive, owner to confirm (UNK-15)
+- COURSES: 26 courses from the old jannieedu.com /course/ page (owner instruction 2026-10-30, ADR-022); no prices, consultation booking only
 - REAL PHOTOS: UNKNOWN
 - STAFF ACCOUNTS: UNKNOWN
 - PRODUCTION SMTP: UNKNOWN

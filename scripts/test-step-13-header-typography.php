@@ -199,7 +199,9 @@ jn_t_assert( count( $jn_titles ) >= 10 && array() === $jn_not_closing, 'Every pa
 $jn_shop    = get_page_by_path( 'my-favorite-product', OBJECT, 'page' );
 $jn_shop_c  = $jn_shop ? $jn_shop->post_content : '';
 $jn_shop_h1 = preg_match( '/<h1\b[^>]*>/', $jn_shop_c, $jn_h1_tag ) ? $jn_h1_tag[0] : '';
-jn_t_assert( false !== strpos( $jn_shop_c, 'jn-container jn-page-intro-inner' ) && false === strpos( $jn_shop_c, 'jn-section-header-centered' ), 'The shop header uses the page intro wrapper' );
+// Only the header section: a centred H2 further down the page is allowed (ADR-014; Step 15 adds one).
+$jn_shop_head = (string) strstr( $jn_shop_c, '</section>', true );
+jn_t_assert( false !== strpos( $jn_shop_head, 'jn-container jn-page-intro-inner' ) && false === strpos( $jn_shop_head, 'jn-section-header-centered' ), 'The shop header uses the page intro wrapper' );
 jn_t_assert( (bool) preg_match( '/<p class="is-style-eyebrow-dot">Danh Mục Tuyển Chọn<\/p>/', $jn_shop_c ), 'The shop eyebrow is the page-level dot eyebrow' );
 jn_t_assert( false !== strpos( $jn_shop_h1, 'jn-page-intro-title' ) && false === strpos( $jn_shop_h1, 'has-text-align-center' ), 'The shop title is left-aligned like the other pages', $jn_shop_h1 );
 jn_t_assert( '' !== jn_t13_element_text( $jn_shop_c, 'jn-page-intro-lead' ), 'The shop lead uses the page intro lead' );

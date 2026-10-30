@@ -1,0 +1,253 @@
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/banner-mobile.png alt='' w=498 h=687 big=https://jannieedu.com/wp-content/uploads/2023/06/banner-mobile-36x50.png
+  -- widget:heading --
+    [h2] Những Cảm Nhận Từ Học Viên Tại Jannie Academy
+  -- widget:heading --
+    [h2] "Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin"
+  -- widget:text-editor --
+    [p] Khám phá những cảm nhận chân thành và đánh giá tích cực từ học viên đã trải qua khóa học tại Jannie Academy. Những chia sẻ này mang đến cái nhìn trực tiếp về chất lượng giảng dạy, sự chuyên nghiệp của đội ngũ giảng viên và giá trị thực tế mà khóa học mang lại cho học viên. Hãy lắng nghe những cảm nhận từ học viên để hiểu rõ hơn về sự ảnh hưởng và lợi ích mà Jannie Academy mang đến cho cuộc sống và sự nghiệp của họ.
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] Những Cảm Nhận Từ Học Viên Tại Jannie Academy
+    -- widget:heading --
+      [h2] "Khi Sự Chuyên Nghiệp và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin"
+    -- widget:text-editor --
+      [p] Khám phá những cảm nhận chân thành và đánh giá tích cực từ học viên đã trải qua khóa học tại Jannie Academy. Những chia sẻ này mang đến cái nhìn trực tiếp về chất lượng giảng dạy, sự chuyên nghiệp của đội ngũ giảng viên và giá trị thực tế mà khóa học mang lại cho học viên. Hãy lắng nghe những cảm nhận từ học viên để hiểu rõ hơn về sự ảnh hưởng và lợi ích mà Jannie Academy mang đến cho cuộc sống và sự nghiệp của họ.
+== SECTION ==
+  == SECTION ==
+    -- widget:image --
+      [a] href=https://baobinhphuoc.com.vn/news/4/40968/khoi-nghiep-bang-0-dong-la-ban-da-may-man
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/binh-phuoc-logo.png alt='' w=200 h=100 big=https://jannieedu.com/wp-content/uploads/2023/06/binh-phuoc-logo-100x50.png
+    -- widget:image --
+      [a] href=https://ngoisaonganhlamdep.vn/su-kien-sao/Chuyen-gia-Nguyen-Hong-Nhung-doat-giai-thuong-Nghe-nhan-Ban-Tay-Vang-nganh-phun-xam-Viet-Nam-2018-tai-Oscar-for-Beauty-2018-18794.html?utm_source=zalo&utm_medium=zalo&utm_campaign=zalo&zarsrc=30&fbclid=IwAR2_Gjt91hxSp8wcU0q7BXUh6kXy_0hrw0L5S_ueEECGHijxJeooqlJGkAA
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/ngoi-sao-logo.png alt='' w=200 h=100 big=https://jannieedu.com/wp-content/uploads/2023/06/ngoi-sao-logo-100x50.png
+    -- widget:image --
+      [a] href=http://www.nguoitieudungonline.com/2021/04/the-balance-su-khac-biet-tao-nen-thanh_23.html?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo&m=1
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/nguoi-tieu-dung-logo.png alt='' w=200 h=100 big=https://jannieedu.com/wp-content/uploads/2023/06/nguoi-tieu-dung-logo-100x50.png
+== SECTION ==
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/cam-nhan-khach-hang-mockup-e1687490057487-768x1114.png alt='' w=640 h=928 big=https://jannieedu.com/wp-content/uploads/2023/06/cam-nhan-khach-hang-mockup-e1687490057487.png
+    -- widget:heading --
+      [h2] Đào tạo chất lượng về Spa và Thẩm Mỹ tại Jannie Academy
+    -- widget:text-editor --
+      [p] Jannie Academy là nền tảng đào tạo hàng đầu trong lĩnh vực spa và thẩm mỹ, mang đến cho học viên những khóa học chuyên sâu và công nghệ tiên tiến. Với đội ngũ giảng viên giàu kinh nghiệm và chuyên môn, chúng tôi cam kết đào tạo học viên trở thành những chuyên gia chất lượng cao trong ngành, với kiến thức và kỹ năng vượt trội.
+    -- widget:heading --
+      [h2] Sự Chuyên Nghiệp và Tận Tâm
+    -- widget:text-editor --
+      [p] Jannie Academy tận tụy và chuyên nghiệp trong việc đào tạo học viên về thẩm mỹ. Chúng tôi cung cấp những khóa học chất lượng, tạo điều kiện để học viên rèn luyện kỹ năng và nắm vững kiến thức cần thiết. Với sự tận tâm và sự chuyên nghiệp, chúng tôi hướng dẫn học viên trở thành những chuyên gia thẩm mỹ xuất sắc và thành công trong sự nghiệp.
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] "Tự tin và thay đổi"
+    -- widget:text-editor --
+      [p] Sau khóa học phun xăm thẩm mỹ của Jannie Nguyễn, tôi thay đổi đáng kể. Nắm vững kỹ thuật chuyên nghiệp và sáng tạo, tự tin chăm sóc và làm đẹp cho khách hàng.
+    -- widget:heading --
+      [h2] loan nguyễn
+    -- widget:video --
+      [settings] {"youtube_url": "https://youtu.be/eDk34ql8Qb0"}
+  -- widget:divider--view-line --
+  == SECTION ==
+    -- widget:video --
+      [settings] {}
+      [iframe] https://www.youtube.com/embed/nWqff-L-mQg?feature=oembed&color&autopause=0&loop=0&muted=0&title=1&portrait=1&byline=1
+    -- widget:heading --
+      [h2] "Sự thay đổi đáng kể sau khóa học"
+    -- widget:text-editor --
+      [p] Tôi đã thay đổi từ suy nghĩ tới hành động sau khóa học của Jannie nguyễn. Jannie Nguyễn đã giúp tôi nắm vững kỹ năng tư vấn, sử dụng hình ảnh video hấp dẫn để thu hút khách hàng. Đây là sự thay đổi đáng kể.
+    -- widget:heading --
+      [h2] Thu Minh
+  -- widget:divider--view-line --
+  == SECTION ==
+    -- widget:heading --
+      [h2] "Trở Thành Chuyên Gia Phun Xăm với Jannie Nguyễn"
+    -- widget:text-editor --
+      [p] Nhờ Jannie Nguyễn, tôi đã không chỉ nắm vững kỹ thuật phun xăm thẩm mỹ mà còn biết cách xây dựng thương hiệu cá nhân và sáng tạo nội dung chuyên nghiệp.
+    -- widget:heading --
+      [h2] hồng hạnh
+    -- widget:video --
+      [settings] {}
+      [iframe] https://www.youtube.com/embed/Qw-_mpLp-QQ?feature=oembed&color&autopause=0&loop=0&muted=0&title=1&portrait=1&byline=1
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Phun Xăm Chân mày cơ bản
+    -- widget:text-editor --
+      [p] Khóa học này giúp bạn xây dựng nền tảng vững chắc trong phun xăm chân mày. Bạn sẽ được hướng dẫn các kỹ thuật cơ bản, công cụ và quy trình an toàn để tạo ra những đường nét chân mày tự nhiên và hài hòa với gương mặt. Từ việc tìm hiểu về hình dạng chân mày phù hợp, chọn màu sắc phù hợp, đến việc thực hiện các đường nét chính xác và đều, khóa học này sẽ giúp bạn có kiến thức và kỹ năng cơ bản để thực hiện phun xăm chân mày một cách chuyên nghiệp.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] Phun Chân Mày Tại Nhà
+    -- widget:tm-list --
+      [div] Hướng dẫn cách tự phun chân mày tại nhà, từ việc chẩn đoán hình dạng và màu sắc phù hợp đến việc sử dụng công cụ và kỹ thuật phun xăm.
+    -- widget:heading --
+      [h2] Phun Xăm Tổng hợp
+    -- widget:tm-list --
+      [div] Nắm vững các kỹ thuật phun xăm tổng hợp để tạo hình và điều chỉnh chân mày sao cho phù hợp với khách hàng.
+    -- widget:heading --
+      [h2] Kỹ thuật Granulation Tổng hợp
+    -- widget:tm-list --
+      [div] Tìm hiểu về kỹ thuật granulation và áp dụng vào phun xăm chân mày để tạo hiệu ứng khối và tự nhiên.
+    -- widget:heading --
+      [h2] Phun Mày Granulation
+    -- widget:tm-list --
+      [div] Học cách thực hiện kỹ thuật phun mày granulation để tạo ra đường nét chân mày đặc biệt, tạo khối và sắc thái cho gương mặt.
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Phun Xăm Chân mày nâng cao
+    -- widget:text-editor --
+      [p] Khóa học này giúp bạn nâng cao kiến thức và kỹ năng trong phun xăm chân mày. Bạn sẽ được học các kỹ thuật tiên tiến và áp dụng công nghệ tiên tiến để tạo nên những kết quả chuyên nghiệp và độc đáo. Từ việc tạo hiệu ứng 3D, áp dụng các kỹ thuật shading, đến việc làm việc với các loại mực và dụng cụ phun xăm cao cấp, khóa học này sẽ giúp bạn tiến xa hơn trong lĩnh vực phun xăm chân mày và trở thành một chuyên gia phun xăm chân mày đẳng cấp.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] 3D Shading
+    -- widget:tm-list --
+      [div] Tìm hiểu về kỹ thuật shading và áp dụng vào phun xăm chân mày để tạo hiệu ứng chiều sâu và tự nhiên.
+    -- widget:heading --
+      [h2] Chỉnh Sửa Chân Mày Hỏng Trổ Xanh, Đỏ
+    -- widget:tm-list --
+      [div] Học cách điều chỉnh và sửa chữa những trường hợp phun xăm chân mày bị hỏng trổ, màu xanh hoặc đỏ không đều.
+    -- widget:heading --
+      [h2] Laser Chân Mày
+    -- widget:tm-list --
+      [div] Tìm hiểu về công nghệ laser trong việc điều chỉnh hình dạng và màu sắc của chân mày.
+    -- widget:heading --
+      [h2] Cheek Blush
+    -- widget:tm-list --
+      [div] Tìm hiểu về công nghệ laser trong việc điều chỉnh hình dạng và màu sắc của chân mày.
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Phun Xăm Mắt và Môi tại Jannie Academy
+    -- widget:text-editor --
+      [p] Tại Jannie Academy, chúng tôi mang đến những khóa học phun xăm đặc biệt, tập trung vào phun xăm mắt và môi để tạo nên nét đẹp và cuốn hút cho khuôn mặt. Bạn sẽ được hướng dẫn các kỹ thuật phun xăm tiên tiến và những bí quyết chuyên nghiệp để tạo ra các hiệu ứng sắc nét, tự nhiên và hoàn hảo trên vùng mắt và môi.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] Phun Mí Make Up
+    -- widget:tm-list --
+      [div] Học cách phun xăm mí mắt để tạo hiệu ứng trang điểm tự nhiên và cuốn hút cho đôi mắt.
+    -- widget:heading --
+      [h2] Phun Môi Jelly Lip
+    -- widget:tm-list --
+      [div] Tìm hiểu về kỹ thuật phun xăm môi Jelly Lip để tạo nên đôi môi mềm mịn, tươi tắn và tự nhiên.
+    -- widget:heading --
+      [h2] Phun Môi Make Up
+    -- widget:tm-list --
+      [div] Học cách phun xăm môi để tạo hiệu ứng trang điểm môi đẹp và hài hòa với khuôn mặt.
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Tạo kiểu Tóc cơ bản tại Jannie Academy
+    -- widget:text-editor --
+      [p] Khóa học này cung cấp những kiến thức và kỹ năng cơ bản trong lĩnh vực tóc. Bạn sẽ học cách cắt tóc cơ bản, nhuộm tóc, tư vấn dịch vụ tóc và xóa ngôi mái tại nhà. Từ việc hiểu về các phong cách cắt tóc cơ bản, chọn màu sắc tóc phù hợp, tư vấn cho khách hàng về các dịch vụ tóc cơ bản, đến việc nắm vững các phương pháp xóa ngôi mái tại nhà, khóa học này sẽ giúp bạn xây dựng nền tảng vững chắc trong việc làm việc với tóc.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] khóa học Cắt Tóc Cơ bản
+    -- widget:tm-list --
+      [div] Học các kỹ thuật cắt tóc cơ bản từ việc phân tích dáng mặt và tình trạng tóc.
+    -- widget:heading --
+      [h2] Khóa học Nhuộm Cơ bản - Nâng cao
+    -- widget:tm-list --
+      [div] Nâng cao kỹ thuật nhuộm tóc và tạo ra những màu sắc độc đáo và cá nhân hóa.
+    -- widget:heading --
+      [h2] Tư Vấn Dịch Vụ Tóc - Hóa Chất
+    -- widget:tm-list --
+      [div] Học cách tư vấn dịch vụ tóc và sử dụng hóa chất đúng cách.
+    -- widget:heading --
+      [h2] Xóa Ngôi Mái Tại Nhà
+    -- widget:tm-list --
+      [div] Sử dụng công cụ đúng cách để tái tạo và mang lại vẻ đẹp tự nhiên cho mái tóc của bạn.
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Tạo kiểu Tóc chuyên sâu tại Jannie Academy
+    -- widget:text-editor --
+      [p] Khóa học này cung cấp những kiến thức và kỹ năng cơ bản trong lĩnh vực tóc. Bạn sẽ học cách cắt tóc cơ bản, nhuộm tóc, tư vấn dịch vụ tóc và xóa ngôi mái tại nhà. Từ việc hiểu về các phong cách cắt tóc cơ bản, chọn màu sắc tóc phù hợp, tư vấn cho khách hàng về các dịch vụ tóc cơ bản, đến việc nắm vững các phương pháp xóa ngôi mái tại nhà, khóa học này sẽ giúp bạn xây dựng nền tảng vững chắc trong việc làm việc với tóc.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] Cắt tóc thiết kế
+    -- widget:tm-list --
+      [div] Học cách tạo kiểu độc đáo và phù hợp với từng khách hàng.
+    -- widget:heading --
+      [h2] Khóa học Uốn Tóc
+    -- widget:tm-list --
+      [div] Học cách uốn tóc theo các phong cách đa dạng và sáng tạo, tạo nên những kiểu tóc đẹp và ấn tượng.
+    -- widget:heading --
+      [h2] khóa học Duỗi tóc Voluminous
+    -- widget:tm-list --
+      [div] Học cách duỗi tóc theo phong cách Voluminous để tạo ra những kiểu tóc phong cách và đầy sức sống.
+    -- widget:heading --
+      [h2] Khóa học Cắt Cocktail Layer
+    -- widget:tm-list --
+      [div] Học cách cắt tóc theo phong cách Cocktail Layer để tạo ra những lớp tóc phức tạp và kiểu tóc đa chiều.
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Soi Da Tại Nhà tại Jannie Academy
+    -- widget:text-editor --
+      [p] Tại Jannie Academy, chúng tôi cung cấp khóa học đặc biệt về soi da tại nhà, giúp bạn học cách chăm sóc da một cách chính xác và hiệu quả. Bạn sẽ được hướng dẫn về các phương pháp soi da, nhận biết tình trạng da và giải quyết các vấn đề da. Khám phá bước cơ bản và kỹ thuật chuyên sâu để tối ưu hóa việc chăm sóc da, giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ.
+    -- widget:button --
+      [a] href=/booking
+      [span] đặt lịch tư vấn
+    -- widget:heading --
+      [h2] Soi Da Tại Nhà
+    -- widget:tm-list --
+      [div] Hướng dẫn các phương pháp soi da chính xác và hiệu quả ngay tại nhà.
+      [div] Hiểu rõ về tình trạng da và nhận biết các vấn đề cần được giải quyết.
+      [div] Khám phá bước cơ bản và kỹ thuật chuyên sâu để chăm sóc da một cách tối ưu.
+      [div] Giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ.
+== SECTION ==
+  -- widget:heading --
+    [h2] những giá trị sau khi học TẠI JANNIE ACADEMY
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khóa học Phun Xăm
+    -- widget:text-editor --
+      [p] Khi tham gia khóa học phun xăm chân mày, môi và mắt tại Jannie Academy, học viên sẽ nhận được giá trị vô cùng quan trọng. Phát triển khả năng phun xăm chuyên nghiệp, tự tin với vẻ đẹp tự nhiên và cuốn hút của chân mày, môi và mắt.
+    -- widget:heading --
+      [h2] Khóa học Tạo Kiểu Tóc
+    -- widget:text-editor --
+      [p] Học viên tại Jannie Academy sẽ nhận được những giá trị quan trọng khi tham gia các khóa học về tóc. Bạn sẽ trang bị những kỹ năng làm tóc chuyên nghiệp và phát triển sự sáng tạo của mình. Từ cắt tóc cơ bản đến nhuộm và tạo kiểu tóc, bạn sẽ có khả năng tạo ra những kiểu tóc độc đáo, phù hợp với cá nhân và phong cách của khách hàng.
+    -- widget:heading --
+      [h2] Khóa học Chăm Sóc Da
+    -- widget:text-editor --
+      [p] Sau khóa học chăm sóc da tại Jannie Academy, học viên sẽ nhận được một làn da tươi trẻ và khỏe mạnh. Học cách chăm sóc da chính xác và hiệu quả, từ nhận biết tình trạng da đến giải quyết các vấn đề da. Khám phá bước cơ bản và kỹ thuật chuyên sâu để giữ cho làn da luôn rạng rỡ.
+== SECTION ==
+  -- widget:heading --
+    [h2] quy trình học tại jannie academy
+  == SECTION ==
+    -- widget:image-box --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/1-1.png alt='' w=512 h=512 big=https://jannieedu.com/wp-content/uploads/2023/06/1-1-50x50.png
+      [h3] Đăng ký và Tư vấn chọn khóa học
+      [p] Bắt đầu bằng việc đăng ký và tư vấn để lựa chọn khóa học phù hợp. Jannie Nguyễn - người dạy hàng đầu, sẽ tư vấn chuyên sâu và giúp bạn chọn khóa học phù hợp với mục tiêu cá nhân.
+    -- widget:image-box --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/2-2.png alt='' w=512 h=512 big=https://jannieedu.com/wp-content/uploads/2023/06/2-2-50x50.png
+      [h3] Tham gia khóa học
+      [p] Tham gia khóa học trực tuyến tại Jannie Academy. Với hướng dẫn từ Jannie Nguyễn, môi trường học tập chất lượng, tài liệu đa dạng và công cụ tương tác, bạn sẽ nắm vững kiến thức và kỹ năng cần thiết.
+    -- widget:image-box --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/3-2.png alt='' w=512 h=512 big=https://jannieedu.com/wp-content/uploads/2023/06/3-2-50x50.png
+      [h3] Thực hành và rèn luyện
+      [p] Thực hành và rèn luyện kỹ năng tại Jannie Academy. Dưới sự hướng dẫn của Jannie Nguyễn, bạn sẽ thực hành các kỹ thuật và nhận được sự hỗ trợ từng bước để phát triển kỹ năng của mình.
+    -- widget:image-box --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/4.png alt='' w=512 h=512 big=https://jannieedu.com/wp-content/uploads/2023/06/4-50x50.png
+      [h3] Kiểm tra và đánh giá
+      [p] Tham gia kiểm tra và đánh giá tại Jannie Academy. Đảm bảo kiểm tra kỹ năng và hiệu suất để đạt mục tiêu học tập. Đánh giá này giúp bạn đo sự tiến bộ, nhận phản hồi và cải thiện. Với sự hỗ trợ từ Jannie Nguyễn, bạn sẽ phát triển thành công trong lĩnh vực mà bạn quan tâm.
+== SECTION ==
+  -- widget:heading --
+    [h2] Khách hàng hài lòng với Spa Jannie
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/05/dich-vu-1-684x1024.png alt='' w=640 h=958 big=https://jannieedu.com/wp-content/uploads/2023/05/dich-vu-1.png
+  -- widget:heading --
+    [h2] Chia sẻ Cảm nhận của Bạn với Jannie Academy
+  -- widget:text-editor --
+    [p] Chúng tôi luôn trân trọng ý kiến của học viên về trải nghiệm học tập tại Jannie Academy. Hãy chia sẻ những cảm nhận, thành tựu và trải nghiệm của bạn để chúng tôi có thể cải thiện và mang đến một trải nghiệm học tập ngày càng tốt hơn cho tương lai. Hãy đóng góp ý kiến của bạn ngay hôm nay!
+  -- widget:button --
+    [a] href=/datlich
+    [span] Chia sẻ Cảm nhận
+== SECTION ==

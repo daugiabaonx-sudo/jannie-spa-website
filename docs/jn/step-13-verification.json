@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T08:15:33.665Z",
+  "generatedAt": "2026-10-30T08:45:43.821Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -72,7 +72,12 @@
           {
             "top": 224,
             "words": [
-              "Thương",
+              "Thương"
+            ]
+          },
+          {
+            "top": 272,
+            "words": [
               "Hiệu",
               "&"
             ]
@@ -80,14 +85,14 @@
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 320,
             "words": [
               "Vẻ",
               "Đẹp"
             ]
           },
           {
-            "top": 320,
+            "top": 368,
             "words": [
               "Đích",
               "Thực"
@@ -163,32 +168,18 @@
           {
             "top": 176,
             "words": [
-              "Chương",
-              "Trình"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
-              "Đào",
-              "Tạo"
+              "Sang",
+              "Trọng",
+              "&"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
-              "Thẩm",
-              "Mỹ",
-              "&"
-            ]
-          },
-          {
-            "top": 320,
-            "words": [
-              "Phun",
-              "Xăm"
+              "Đẳng",
+              "Cấp"
             ]
           }
         ],
@@ -197,7 +188,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -216,32 +207,37 @@
           {
             "top": 176,
             "words": [
-              "Câu",
-              "Chuyện"
+              "Những",
+              "Cảm"
             ]
           },
           {
             "top": 224,
             "words": [
-              "Thành",
-              "Công"
+              "Nhận",
+              "Từ"
+            ]
+          },
+          {
+            "top": 272,
+            "words": [
+              "Học",
+              "Viên"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 320,
             "words": [
-              "Học",
-              "Viên",
-              "&"
+              "Tại"
             ]
           },
           {
-            "top": 320,
+            "top": 368,
             "words": [
-              "Khách",
-              "Hàng"
+              "Jannie",
+              "Academy"
             ]
           }
         ],
@@ -250,7 +246,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -295,7 +291,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -396,16 +392,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 20,
         "headerContentLeft": 20,
-        "leadWidth": 280,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -449,16 +445,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 20,
         "headerContentLeft": 20,
-        "leadWidth": 280,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -480,14 +476,19 @@
             "top": 237,
             "words": [
               "Tìm",
-              "Kiếm",
-              "Đã"
+              "Kiếm"
             ]
           },
           {
             "top": 285,
             "words": [
-              "Chuyển",
+              "Đã",
+              "Chuyển"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
               "Đi",
               "Hoặc"
             ]
@@ -495,7 +496,7 @@
         ],
         "accentLines": [
           {
-            "top": 333,
+            "top": 381,
             "words": [
               "Không",
               "Tồn",
@@ -546,7 +547,12 @@
             "top": 285,
             "words": [
               "Vẻ",
-              "Đẹp",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
               "Đích",
               "Thực"
             ]
@@ -594,7 +600,12 @@
             "top": 272,
             "words": [
               "Vẻ",
-              "Đẹp",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
               "Đích",
               "Thực"
             ]
@@ -669,32 +680,18 @@
           {
             "top": 176,
             "words": [
-              "Chương",
-              "Trình"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
-              "Đào",
-              "Tạo"
+              "Sang",
+              "Trọng",
+              "&"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
-              "Thẩm",
-              "Mỹ",
-              "&"
-            ]
-          },
-          {
-            "top": 320,
-            "words": [
-              "Phun",
-              "Xăm"
+              "Đẳng",
+              "Cấp"
             ]
           }
         ],
@@ -703,7 +700,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -722,32 +719,37 @@
           {
             "top": 176,
             "words": [
-              "Câu",
-              "Chuyện"
+              "Những",
+              "Cảm"
             ]
           },
           {
             "top": 224,
             "words": [
-              "Thành",
-              "Công"
+              "Nhận",
+              "Từ"
+            ]
+          },
+          {
+            "top": 272,
+            "words": [
+              "Học",
+              "Viên"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 320,
             "words": [
-              "Học",
-              "Viên",
-              "&"
+              "Tại"
             ]
           },
           {
-            "top": 320,
+            "top": 368,
             "words": [
-              "Khách",
-              "Hàng"
+              "Jannie",
+              "Academy"
             ]
           }
         ],
@@ -756,7 +758,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -801,7 +803,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -821,7 +823,12 @@
             "top": 176,
             "words": [
               "Đăng",
-              "Ký",
+              "Ký"
+            ]
+          },
+          {
+            "top": 224,
+            "words": [
               "Tư",
               "Vấn",
               "&"
@@ -830,14 +837,14 @@
         ],
         "accentLines": [
           {
-            "top": 224,
+            "top": 272,
             "words": [
               "Xếp",
               "Lịch"
             ]
           },
           {
-            "top": 272,
+            "top": 320,
             "words": [
               "Coaching",
               "1:1"
@@ -892,16 +899,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 20,
         "headerContentLeft": 20,
-        "leadWidth": 335,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -933,23 +940,28 @@
             "top": 272,
             "words": [
               "Quy",
-              "Định",
+              "Định"
+            ]
+          },
+          {
+            "top": 320,
+            "words": [
               "Học",
               "Viện"
             ]
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 20,
         "headerContentLeft": 20,
-        "leadWidth": 335,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -1016,7 +1028,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 171,
+            "top": 176,
             "words": [
               "Khám",
               "Phá",
@@ -1029,7 +1041,7 @@
         ],
         "accentLines": [
           {
-            "top": 219,
+            "top": 224,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -1145,10 +1157,9 @@
           {
             "top": 200,
             "words": [
-              "Chương",
-              "Trình",
-              "Đào",
-              "Tạo"
+              "Sang",
+              "Trọng",
+              "&"
             ]
           }
         ],
@@ -1156,11 +1167,8 @@
           {
             "top": 248,
             "words": [
-              "Thẩm",
-              "Mỹ",
-              "&",
-              "Phun",
-              "Xăm"
+              "Đẳng",
+              "Cấp"
             ]
           }
         ],
@@ -1169,7 +1177,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1188,10 +1196,12 @@
           {
             "top": 200,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thành",
-              "Công"
+              "Những",
+              "Cảm",
+              "Nhận",
+              "Từ",
+              "Học",
+              "Viên"
             ]
           }
         ],
@@ -1199,11 +1209,9 @@
           {
             "top": 248,
             "words": [
-              "Học",
-              "Viên",
-              "&",
-              "Khách",
-              "Hàng"
+              "Tại",
+              "Jannie",
+              "Academy"
             ]
           }
         ],
@@ -1212,7 +1220,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1252,7 +1260,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1333,16 +1341,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -1376,16 +1384,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -1447,7 +1455,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 168,
+            "top": 173,
             "words": [
               "Khám",
               "Phá",
@@ -1455,7 +1463,7 @@
             ]
           },
           {
-            "top": 235,
+            "top": 240,
             "words": [
               "Cân",
               "Bằng",
@@ -1465,7 +1473,7 @@
         ],
         "accentLines": [
           {
-            "top": 302,
+            "top": 307,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -1478,7 +1486,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 632,
+        "leadWidth": 592,
         "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1542,7 +1550,12 @@
             "top": 168,
             "words": [
               "Coaching",
-              "&",
+              "&"
+            ]
+          },
+          {
+            "top": 235,
+            "words": [
               "Đồng",
               "Hành"
             ]
@@ -1550,7 +1563,7 @@
         ],
         "accentLines": [
           {
-            "top": 235,
+            "top": 302,
             "words": [
               "Chuyên",
               "Sâu"
@@ -1581,10 +1594,9 @@
           {
             "top": 197,
             "words": [
-              "Chương",
-              "Trình",
-              "Đào",
-              "Tạo"
+              "Sang",
+              "Trọng",
+              "&"
             ]
           }
         ],
@@ -1592,11 +1604,8 @@
           {
             "top": 264,
             "words": [
-              "Thẩm",
-              "Mỹ",
-              "&",
-              "Phun",
-              "Xăm"
+              "Đẳng",
+              "Cấp"
             ]
           }
         ],
@@ -1605,7 +1614,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1624,10 +1633,12 @@
           {
             "top": 197,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thành",
-              "Công"
+              "Những",
+              "Cảm",
+              "Nhận",
+              "Từ",
+              "Học",
+              "Viên"
             ]
           }
         ],
@@ -1635,11 +1646,9 @@
           {
             "top": 264,
             "words": [
-              "Học",
-              "Viên",
-              "&",
-              "Khách",
-              "Hàng"
+              "Tại",
+              "Jannie",
+              "Academy"
             ]
           }
         ],
@@ -1648,7 +1657,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1688,7 +1697,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1769,16 +1778,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -1812,16 +1821,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -1883,7 +1892,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 167,
+            "top": 221,
             "words": [
               "Khám",
               "Phá",
@@ -1896,7 +1905,7 @@
         ],
         "accentLines": [
           {
-            "top": 239,
+            "top": 293,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -2012,10 +2021,9 @@
           {
             "top": 196,
             "words": [
-              "Chương",
-              "Trình",
-              "Đào",
-              "Tạo"
+              "Sang",
+              "Trọng",
+              "&"
             ]
           }
         ],
@@ -2023,11 +2031,8 @@
           {
             "top": 268,
             "words": [
-              "Thẩm",
-              "Mỹ",
-              "&",
-              "Phun",
-              "Xăm"
+              "Đẳng",
+              "Cấp"
             ]
           }
         ],
@@ -2036,7 +2041,7 @@
         "titleLeft": 96,
         "headerContentLeft": 96,
         "leadWidth": 640,
-        "leadText": "Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến, đúc kết từ hơn 20 năm kinh nghiệm lâm sàng và hàng ngàn ca thực tế trên làn da người Việt.",
+        "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -2055,10 +2060,12 @@
           {
             "top": 196,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thành",
-              "Công"
+              "Những",
+              "Cảm",
+              "Nhận",
+              "Từ",
+              "Học",
+              "Viên"
             ]
           }
         ],
@@ -2066,11 +2073,9 @@
           {
             "top": 268,
             "words": [
-              "Học",
-              "Viên",
-              "&",
-              "Khách",
-              "Hàng"
+              "Tại",
+              "Jannie",
+              "Academy"
             ]
           }
         ],
@@ -2079,7 +2084,7 @@
         "titleLeft": 96,
         "headerContentLeft": 96,
         "leadWidth": 640,
-        "leadText": "Những câu chuyện chuyển hóa thực tế từ học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Jannie Nguyễn.",
+        "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -2119,7 +2124,7 @@
         "titleLeft": 96,
         "headerContentLeft": 96,
         "leadWidth": 640,
-        "leadText": "Mỗi sản phẩm xuất hiện tại đây đều được Jannie trực tiếp trải nghiệm và kiểm chứng về chất lượng, độ an toàn cũng như giá trị bền vững cho sắc đẹp và sự cân bằng nội tại.",
+        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -2200,16 +2205,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 96,
         "headerContentLeft": 96,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Chính sách bảo mật dữ liệu cá nhân chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }
@@ -2243,16 +2248,16 @@
           }
         ],
         "eyebrowGap": 16,
-        "leadGap": 24,
+        "leadGap": null,
         "titleLeft": 96,
         "headerContentLeft": 96,
-        "leadWidth": 640,
-        "leadText": "[CẦN NỘI DUNG: Văn bản Điều khoản dịch vụ chính thức được chủ dự án và bộ phận pháp lý phê duyệt — UNK-09.]",
+        "leadWidth": null,
+        "leadText": "",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
           "accent": "rgb(160, 132, 110)",
-          "lead": "rgb(113, 106, 97)"
+          "lead": null
         },
         "overflow": false
       }

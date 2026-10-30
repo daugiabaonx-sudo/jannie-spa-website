@@ -160,10 +160,11 @@ $checks = array(
 	'Tier 2 link ?goi=60-phut#booking-form'  => strpos( $rendered_coaching, '?goi=60-phut#booking-form' ) !== false,
 	'Tier 3 link ?goi=mentorship-3-thang'    => strpos( $rendered_coaching, '?goi=mentorship-3-thang#booking-form' ) !== false,
 	'Booking steps rendered as <ol>'         => strpos( $rendered_coaching, '<ol class="wp-block-list jn-booking-steps">' ) !== false,
-	'Testimonial quote 1 rendered via meta'  => strpos( $rendered_coaching, 'Buổi coaching 60 phút với cô Jannie đã tháo gỡ điểm nghẽn lớn nhất' ) !== false,
-	'Testimonial quote 2 rendered via meta'  => strpos( $rendered_coaching, 'Chương trình Mentorship 3 tháng thực sự thay đổi tư duy kinh doanh của mình' ) !== false,
-	'Testimonial quote 3 rendered via meta'  => strpos( $rendered_coaching, 'Chỉ sau 30 phút tư vấn 1:1, Jannie đã giúp em hiểu được làn da của mình' ) !== false,
-	'jn/rating SVG stars rendered'           => strpos( $rendered_coaching, 'aria-label="Đánh giá 5 trên 5 sao"' ) !== false,
+	// Step 15 (ADR-022): the published testimonials are the jannieedu.com students; stars only when given.
+	'Testimonial quotes rendered via meta'   => array() === array_filter( $testimonials, static fn( $t ) => false === strpos( $rendered_coaching, wptexturize( (string) get_post_meta( $t->ID, 'jn_quote', true ) ) ) ),
+	'jn/rating renders only given ratings'   => array() !== array_filter( $testimonials, static fn( $t ) => (int) get_post_meta( $t->ID, 'jn_rating', true ) > 0 )
+		? false !== strpos( $rendered_coaching, 'class="wp-block-jn-rating jn-rating"' )
+		: false === strpos( $rendered_coaching, 'jn-rating__star' ),
 	'No href="#" placeholder links'          => strpos( $rendered_coaching, 'href="#"' ) === false,
 );
 

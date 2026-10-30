@@ -340,7 +340,7 @@ async function main() {
 	let tempProduct = null;
 	try {
 		tempProduct = ensurePublishedProductForScan();
-		const productRoute = `/product/${ tempProduct.slug }/`;
+		const productRoute = `/san-pham/${ tempProduct.slug }/`; // Step 15: product base is /san-pham/
 		const cartCookie = await createCartSessionCookie( tempProduct.id );
 
 		const PUBLIC_PAGES = [

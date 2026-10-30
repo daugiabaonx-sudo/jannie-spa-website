@@ -63,11 +63,11 @@ class JN_SEO_Meta {
 			),
 			'course'               => array(
 				'title'       => 'Chương Trình Đào Tạo & Khóa Học Chuyên Sâu | Jannie Nguyễn',
-				'description' => 'Hệ thống khóa học kỹ thuật điêu khắc, phun xăm tự nhiên và tư duy vận hành thẩm mỹ thực chiến được đúc kết từ hơn 20 năm kinh nghiệm lâm sàng của Jannie Nguyễn.',
+				'description' => 'Các khóa học làm đẹp tại Jannie Academy: phun xăm (Granulation, Ombre Brows, 3D Shading, phun môi, phun mí), salon (cắt, uốn, nhuộm tóc) và soi da tại nhà.',
 			),
 			'client-success-story' => array(
 				'title'       => 'Cảm Nhận Học Viên & Kết Quả Thực Tế | Jannie Nguyễn',
-				'description' => 'Minh chứng thành công và câu chuyện chuyển hóa thực tế từ các học viên, chủ cơ sở thẩm mỹ và spa sau lộ trình cố vấn 1:1 cùng Chuyên gia Jannie Nguyễn.',
+				'description' => 'Những cảm nhận từ học viên tại Jannie Academy: video chia sẻ của Loan Nguyễn, Thu Minh, Hồng Hạnh, các khóa học đã tham gia và quy trình học cùng Jannie Nguyễn.',
 			),
 			'booking'              => array(
 				'title'       => 'Đặt Lịch Tư Vấn 1:1 Cùng Chuyên Gia | Jannie Nguyễn',
@@ -75,7 +75,7 @@ class JN_SEO_Meta {
 			),
 			'my-favorite-product'  => array(
 				'title'       => 'Sản Phẩm Yêu Thích & Khuyên Dùng | Jannie Nguyễn',
-				'description' => 'Danh mục sản phẩm chăm sóc, dụng cụ và giải pháp làm đẹp được Chuyên gia Jannie Nguyễn trực tiếp tuyển chọn và kiểm chứng qua thực tế lâm sàng.',
+				'description' => 'Bộ sưu tập sản phẩm chất lượng cao của Jannie Academy: The Balance EGF Cleansing Gel, Peeling Gel, Melting Mask, Collagen Ampoule và xà bông thảo dược.',
 			),
 			'cart'                 => array(
 				'title'       => 'Giỏ Hàng Của Bạn | Jannie Nguyễn',

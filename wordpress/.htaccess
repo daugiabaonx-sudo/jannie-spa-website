@@ -25,7 +25,7 @@ ServerSignature Off
 	Header always setifempty X-Frame-Options "SAMEORIGIN"
 	Header always setifempty Referrer-Policy "strict-origin-when-cross-origin"
 	Header always setifempty Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(self), usb=(), interest-cohort=()"
-	Header always setifempty Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; report-uri /api/jn/v1/csp-report"
+	Header always setifempty Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; report-uri /api/jn/v1/csp-report"
 
 	# Long-lived immutable browser caching for hashed static assets, fonts, and media (Step 8 Task 2)
 	<FilesMatch "\.(?:css|js|mjs|woff2|woff|ttf|otf|avif|webp|png|jpg|jpeg|gif|svg|ico)$">

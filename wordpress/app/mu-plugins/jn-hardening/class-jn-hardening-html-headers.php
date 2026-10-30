@@ -405,7 +405,7 @@ class JN_Hardening_HTML_Headers {
 			'X-Frame-Options'                     => 'SAMEORIGIN',
 			'Referrer-Policy'                     => 'strict-origin-when-cross-origin',
 			'Permissions-Policy'                  => 'camera=(), microphone=(), geolocation=(), payment=(self), usb=(), interest-cohort=()',
-			'Content-Security-Policy-Report-Only' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; report-uri " . self::CSP_REPORT_PATH,
+			'Content-Security-Policy-Report-Only' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; report-uri " . self::CSP_REPORT_PATH,
 		);
 	}
 

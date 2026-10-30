@@ -1,0 +1,25 @@
+====================================================================================================
+egf-cleansing-gel.html
+title: EGF Cleansing Gel
+price: 496.000 ₫
+    offers: [{"@type": "Offer", "price": "496000", "priceValidUntil": "2025-12-31", "priceSpecification": {"price": "496000", "priceCurrency": "VND", "valueAddedTaxIncluded": "false"}, "priceCurrency": "VND", "availability": "http://schema.org/InStock", "url": "https://jannieedu.com/san-pham/egf-cleansing-gel/", 
+====================================================================================================
+egf-peeling-gel.html
+title: EGF Peeling Gel
+price: 646.000 ₫
+    offers: [{"@type": "Offer", "price": "646000", "priceValidUntil": "2025-12-31", "priceSpecification": {"price": "646000", "priceCurrency": "VND", "valueAddedTaxIncluded": "false"}, "priceCurrency": "VND", "availability": "http://schema.org/InStock", "url": "https://jannieedu.com/san-pham/egf-peeling-gel/", 
+====================================================================================================
+egf-melting-mask.html
+title: EGF Melting Mask
+price: 646.000 ₫
+    offers: [{"@type": "Offer", "price": "646000", "priceValidUntil": "2025-12-31", "priceSpecification": {"price": "646000", "priceCurrency": "VND", "valueAddedTaxIncluded": "false"}, "priceCurrency": "VND", "availability": "http://schema.org/InStock", "url": "https://jannieedu.com/san-pham/egf-melting-mask/", 
+====================================================================================================
+herpes-treatment.html
+title: Herpes Treatment
+price: 1.296.000 ₫
+    offers: [{"@type": "Offer", "price": "1296000", "priceValidUntil": "2025-12-31", "priceSpecification": {"price": "1296000", "priceCurrency": "VND", "valueAddedTaxIncluded": "false"}, "priceCurrency": "VND", "availability": "http://schema.org/InStock", "url": "https://jannieedu.com/san-pham/herpes-treatment/", 
+====================================================================================================
+collagen-ampoule.html
+title: Collagen Ampoule
+price: 796.000 ₫
+    offers: [{"@type": "Offer", "price": "796000", "priceValidUntil": "2025-12-31", "priceSpecification": {"price": "796000", "priceCurrency": "VND", "valueAddedTaxIncluded": "false"}, "priceCurrency": "VND", "availability": "http://schema.org/InStock", "url": "https://jannieedu.com/san-pham/collagen-ampoule/", 

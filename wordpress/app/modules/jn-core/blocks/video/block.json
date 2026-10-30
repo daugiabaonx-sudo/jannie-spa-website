@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/video",
+	"version": "1.0.0",
+	"title": "JN Video (YouTube facade)",
+	"category": "media",
+	"icon": "video-alt3",
+	"description": "Self-hosted poster + play button linking to YouTube; the youtube-nocookie player loads only after a click. Reads jn_video_url / jn_video_poster_id from a testimonial in a Query Loop, or the block's own attributes.",
+	"keywords": [ "video", "youtube", "testimonial", "jannie" ],
+	"textdomain": "jn-core",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"posterId": {
+			"type": "number",
+			"default": 0
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"editorScript": "jn-block-video-editor",
+	"viewScript": "jn-block-video-view",
+	"render": "file:./render.php"
+}

@@ -33,6 +33,8 @@ echo "=================================================================\n";
 
 const JN_TLM_ITEMS_FILE  = __DIR__ . '/lib/jn-legacy-media.json';
 const JN_TLM_ITEM_COUNT  = 14;
+// Step 15 (ADR-022) full-size originals in the same list.
+const JN_TLM_ORIGINAL_COUNT = 22;
 const JN_TLM_MAX_WEBP_KB = 400;
 const JN_TLM_ALPHA_CLEAR = 127;
 const JN_TLM_ALPHA_SOLID = 0;
@@ -167,8 +169,23 @@ if ( ! function_exists( 'jn_media_sharpen' ) || ! function_exists( 'jn_import_me
 	return;
 }
 
-$jn_items = jn_placeholder_media_items( JN_TLM_ITEMS_FILE );
+// Step 15 (ADR-022) adds full-size originals (`original`) that are only downscaled, never AI-upscaled:
+// the ADR-018 checks below apply to the 14 archive items, the originals get their own section.
+$jn_all       = jn_placeholder_media_items( JN_TLM_ITEMS_FILE );
+$jn_items     = array_filter( $jn_all, static fn( array $item ): bool => empty( $item['original'] ) );
+$jn_originals = array_filter( $jn_all, static fn( array $item ): bool => ! empty( $item['original'] ) );
 jn_t_assert( JN_TLM_ITEM_COUNT === count( $jn_items ), 'All 14 legacy items are defined', (string) count( $jn_items ) );
+jn_t_assert( JN_TLM_ORIGINAL_COUNT === count( $jn_originals ), 'All 22 Step 15 originals are defined', (string) count( $jn_originals ) );
+foreach ( $jn_originals as $jn_key => $jn_item ) {
+	$jn_is_valid = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
+		&& $jn_item['slug'] . '.webp' === $jn_item['filename']
+		&& '' !== trim( (string) $jn_item['alt'] )
+		&& empty( $jn_item['ai_upscale'] )
+		&& ! empty( $jn_item['require_master'] )
+		&& null === jn_media_validate_item( $jn_item )
+		&& str_starts_with( (string) $jn_item['source_url'], 'https://' );
+	jn_t_assert( $jn_is_valid, "{$jn_key}: original declared with checksum, alt, size and source" );
+}
 
 foreach ( $jn_items as $jn_key => $jn_item ) {
 	$jn_is_valid = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
@@ -373,6 +390,34 @@ foreach ( $jn_items as $jn_key => $jn_item ) {
 	}
 	imagedestroy( $jn_web );
 	imagedestroy( $jn_baseline );
+}
+
+// ---------------------------------------------------------------------------------------------
+jn_t_section( 'Step 15 originals' );
+
+$jn_probe = reset( $jn_originals );
+if ( is_array( $jn_probe ) ) {
+	$jn_err = jn_placeholder_load_source( array_merge( $jn_probe, array( 'slug' => 'jn-legacy-does-not-exist' ) ) );
+	jn_t_assert( is_wp_error( $jn_err ) && 'jn_original_missing' === $jn_err->get_error_code(), 'a missing original is an error (no network fallback)' );
+	$jn_err = jn_placeholder_load_source( array_merge( $jn_probe, array( 'sha256' => str_repeat( '0', 64 ) ) ) );
+	jn_t_assert( is_wp_error( $jn_err ) && 'jn_original_checksum' === $jn_err->get_error_code(), 'an original that does not match its sha256 is rejected' );
+	jn_t_assert( is_wp_error( jn_media_validate_item( array_merge( $jn_probe, array( 'original' => 'php' ) ) ) ), 'an original with a non-image extension is rejected' );
+}
+
+foreach ( $jn_originals as $jn_key => $jn_item ) {
+	$jn_id = (int) ( $jn_map[ $jn_key ]['id'] ?? 0 );
+	jn_t_assert( $jn_id > 0, "{$jn_key}: attachment is in jn_legacy_media_map" );
+	if ( $jn_id <= 0 ) {
+		continue;
+	}
+	$jn_file = (string) get_attached_file( $jn_id );
+	$jn_dims = is_file( $jn_file ) ? getimagesize( $jn_file ) : false;
+	jn_t_assert( is_array( $jn_dims ) && (int) $jn_item['width'] === $jn_dims[0] && (int) $jn_item['height'] === $jn_dims[1] && 'image/webp' === get_post_mime_type( $jn_id ), "{$jn_key}: WebP is exactly {$jn_item['width']}x{$jn_item['height']}" );
+	jn_t_assert( is_file( $jn_file ) && filesize( $jn_file ) / 1024 <= JN_TLM_MAX_WEBP_KB, "{$jn_key}: WebP stays within " . JN_TLM_MAX_WEBP_KB . ' KB' );
+	$jn_scale = (float) get_post_meta( $jn_id, '_jn_media_scale', true );
+	jn_t_assert( 'original' === get_post_meta( $jn_id, '_jn_media_source', true ) && $jn_scale > 0 && $jn_scale <= 1.0, "{$jn_key}: built from the original, only downscaled", (string) $jn_scale );
+	jn_t_assert( get_post_meta( $jn_id, '_wp_attachment_image_alt', true ) === $jn_item['alt'] && get_post_meta( $jn_id, '_jn_media_origin', true ) === $jn_item['source_url'], "{$jn_key}: alt text and origin recorded" );
+	jn_t_assert( is_file( (string) preg_replace( '/\.webp$/i', '.avif', $jn_file ) ), "{$jn_key}: full-size AVIF companion exists" );
 }
 
 jn_t_finish();

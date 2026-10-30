@@ -124,6 +124,17 @@ function jannie_redirect_legacy_woo_slugs() {
 add_action( 'template_redirect', 'jannie_redirect_legacy_woo_slugs', 5 );
 
 /**
+ * Show "Liên hệ" for a product without a price (Step 15: the old site never priced Xà bông thảo dược).
+ * WooCommerce already makes such a product unpurchasable; this only replaces the empty price slot.
+ *
+ * @return string
+ */
+function jannie_empty_price_html() {
+	return '<span class="jn-price-on-request">Liên hệ</span>';
+}
+add_filter( 'woocommerce_empty_price_html', 'jannie_empty_price_html' );
+
+/**
  * Add semantic body classes on commerce surfaces and virtual-only checkouts.
  *
  * @param string[] $classes Body classes.

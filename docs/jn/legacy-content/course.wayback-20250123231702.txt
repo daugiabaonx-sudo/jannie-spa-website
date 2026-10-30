@@ -1,0 +1,197 @@
+== SECTION ==
+  -- widget:heading --
+    [h1] SANG TRỌNG & ĐẲNG CẤP
+  -- widget:heading --
+    [h2] Các Khoá Học làm đẹp
+  -- widget:heading --
+    [h2] Jannie Academy - Sự Đẳng Cấp và Chuyên Nghiệp
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/05/banner-about-1-768x432.png alt='' w=640 h=360 big=https://jannieedu.com/wp-content/uploads/2023/05/banner-about-1.png
+  -- widget:heading --
+    [text] sang trọng &
+    [h1] đẳng cấp
+  -- widget:heading --
+    [h2] Các Khoá Học Làm Đẹp​
+  -- widget:heading --
+    [h2] Jannie Academy - Sự Đẳng Cấp và Chuyên Nghiệp
+== SECTION ==
+  -- widget:heading --
+    [h2] Kỹ thuật tinh tế, sắc đẹp tự nhiên
+== SECTION ==
+  -- widget:heading --
+    [h2] các khóa học tại jannie academy
+== SECTION ==
+  -- widget:heading --
+    [h2] PHUN XĂM
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PHUN-MAY.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PHUN-MAY-33x50.png
+    -- widget:heading --
+      [h2] PHUN XĂM TỔNG HỢP
+    -- widget:text-editor --
+      [p] Khóa học giúp bạn có một nền tảng vững chắc trong phun xăm thẩm mỹ, từ đó có thể nghiên cứu và phát triển năng lực một cách chuyên sâu và dễ dàng.
+    -- widget:heading --
+      [h2] KỸ THUẬT GRANULATION TỔNG HỢP
+    -- widget:text-editor --
+      [p] Chuyên gia sẽ sử dụng kim với nhiều kích thước khác nhau để tạo khối đậm nhạt cho lông mày, mí mắt, nhân trung hoặc tạo khối gương mặt. Ưu điểm của kỹ thuật này có thể tạo khối cho gương mặt, mí mắt, sóng mũi, tạo khuôn môi cười, ứng dụng cho cả nam và nữ. Đặc biệt trong chỉnh sửa lông mày.
+    -- widget:heading --
+      [h2] PHUN MÀY GRANULATION
+    -- widget:text-editor --
+      [p] Chuyên gia sẽ sử dụng kim với nhiều kích thước khác nhau để tạo khối đậm nhạt cho lông mày hoặc tạo khối gương mặt. Ưu điểm của kỹ thuật này có thể tạo khối cho gương mặt, sóng mũi, ứng dụng cho cả nam và nữ.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+  == SECTION ==
+    -- widget:heading --
+      [h2] CHEEK BLUSH
+    -- widget:text-editor --
+      [p] Dùng kim lăn vi điểm và kim chuyên dụng trong phun thêu siêu mãnh, tạo khối má hồng trong trẽo, giảm thăm nám và rối loạn sắc tố, trẻ hóa da sau đó.
+    -- widget:heading --
+      [h2] PHUN CHÂN TÓC (GRANULATION)
+    -- widget:text-editor --
+      [p] Dùng kỹ thuật Ganulation Ombre để tạo hiệu ứng chân tóc từ nhạt qua đậm theo từng khu vực với cách đi vi chậm từng điểm một. Thời gian thực hiện từ 4-8 tiếng
+    -- widget:heading --
+      [h2] Plasma Trẻ Hóa Môi Và Gương Mặt
+    -- widget:text-editor --
+      [p] Khám phá công nghệ plasma trẻ hóa môi và gương mặt, giúp bạn có làn da săn chắc và môi tràn đầy sức sống. Khóa học này cung cấp kiến thức về cách sử dụng thiết bị plasma và kỹ thuật điều trị an toàn. Hãy học tập từ chuyên gia và mang lại vẻ đẹp trẻ trung và tươi mới cho môi và gương mặt của bạn.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PLASMA.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PLASMA-33x50.png
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-3D-SHARING.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-3D-SHARING-33x50.png
+    -- widget:heading --
+      [h2] OMBRE BROWS
+    -- widget:text-editor --
+      [p] Jannie sẽ chia sẻ những kỹ thuật tiên tiến và bí quyết trong việc tạo độ sắc nét, sự chuyển tiếp màu sắc hoàn hảo và tạo hình chân mày theo ý thích. Bạn sẽ được hướng dẫn từ cơ bản đến nâng cao, giúp bạn trở thành một chuyên gia phun xăm chân mày Ombre.
+    -- widget:heading --
+      [h2] 3D SHADING
+    -- widget:text-editor --
+      [p] Bạn sẽ được hướng dẫn từng bước chi tiết để tạo ra sự kết hợp hoàn hảo giữa sắc tố và độ sáng, tạo nên những đường nét mềm mại và tạo hình chân mày tự nhiên hơn bao giờ hết. Jannie sẽ chia sẻ những bí quyết và kỹ thuật độc đáo để bạn có thể thực hiện 3D Shading một cách chuyên nghiệp.
+    -- widget:heading --
+      [h2] Chỉnh Sửa Chân Mày Hỏng Trổ Xanh, Đỏ
+    -- widget:text-editor --
+      [p] Bạn sẽ tìm hiểu các phương pháp chỉnh sửa chân mày khi hỏng trổ, có màu xanh hoặc đỏ không đẹp. Từ việc tạo hình chân mày phù hợp đến kỹ năng sử dụng công cụ và màu sắc, khóa học này giúp bạn trở thành chuyên gia chỉnh sửa chân mày, mang đến vẻ đẹp tự nhiên và hài hòa cho gương mặt.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+  == SECTION ==
+    -- widget:heading --
+      [h2] Phun Mí Make Up
+    -- widget:text-editor --
+      [p] Bạn sẽ được hướng dẫn kỹ thuật phun mí để tạo ra đôi mắt sắc nét và cuốn hút. Từ việc chọn màu sắc phù hợp đến kỹ năng phun tỉ mỉ, khóa học này giúp bạn trở thành chuyên gia phun mí make up, tạo nên ánh nhìn rạng rỡ và quyến rũ.
+    -- widget:heading --
+      [h2] Phun Môi Jelly Lip
+    -- widget:text-editor --
+      [p] Với kỹ thuật phun môi jelly lip, bạn sẽ có đôi môi căng mọng, tự nhiên và tươi tắn. Khóa học này cung cấp kiến thức về chọn màu, phối màu và kỹ năng phun để tạo ra hiệu ứng môi bóng mượt và thu hút ánh nhìn. Hãy trở thành chuyên gia phun môi jelly lip và mang đến vẻ đẹp cuốn hút cho mọi người.
+    -- widget:heading --
+      [h2] Phun Môi Make Up
+    -- widget:text-editor --
+      [p] Bạn sẽ được hướng dẫn cách phun môi make up để tạo nên đôi môi quyến rũ và hoàn hảo. Từ việc chọn màu sắc phù hợp đến kỹ năng phun chi tiết, khóa học này giúp bạn trở thành chuyên gia phun môi, tạo nên những bờ môi đầy sức sống và sắc sảo.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PHUN-MOI-1.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-PHUN-MOI-1-33x50.png
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-CHINH-SUA-MAU-MOI.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-CHINH-SUA-MAU-MOI-33x50.png
+    -- widget:heading --
+      [h2] Chỉnh Sửa Màu Môi
+    -- widget:text-editor --
+      [p] Bạn sẽ học cách chỉnh sửa màu môi không đều và không hài hòa. Từ việc chọn màu sắc phù hợp đến kỹ năng sử dụng công cụ và kỹ thuật phun, khóa học này giúp bạn trở thành chuyên gia chỉnh sửa màu môi, tạo nên bờ môi đẹp tự nhiên và hoàn hảo.
+    -- widget:heading --
+      [h2] Laser Chân Mày
+    -- widget:text-editor --
+      [p] Khám phá công nghệ laser chân mày, giúp bạn có đôi chân mày đẹp và sắc nét. Học viên sẽ được hướng dẫn cách sử dụng máy laser và kỹ thuật điều trị an toàn. Hãy học tập từ chuyên gia và trang điểm với chân mày hoàn hảo như mong muốn.
+    -- widget:heading --
+      [h2] Phun Chân Mày Tại Nhà
+    -- widget:text-editor --
+      [p] Học viên sẽ học cách phun chân mày tại nhà để có đôi chân mày tự nhiên và thu hút ánh nhìn. Từ việc tạo hình chân mày đến kỹ thuật phun chi tiết, khóa học này giúp bạn trở thành chuyên gia phun chân mày của chính mình, tạo nên sự tự tin và cuốn hút.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+== SECTION ==
+  -- widget:heading --
+    [h2] salon
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-CAT-TOC.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-CAT-TOC-33x50.png
+    -- widget:heading --
+      [h2] Cắt Tóc Cơ Bản
+    -- widget:text-editor --
+      [p] Bạn sẽ học các kỹ thuật cắt tóc cơ bản từ việc xác định dáng mặt, phân tích tóc đến kỹ năng sử dụng công cụ và cách tạo kiểu tóc. Khóa học này giúp bạn nắm vững cơ bản của nghề cắt tóc, trở thành một stylist tài năng và tự tin mang lại vẻ đẹp cho khách hàng.
+    -- widget:heading --
+      [h2] Cắt Tóc Thiết Kế
+    -- widget:text-editor --
+      [p] Khóa học này tập trung vào kỹ thuật cắt tóc thiết kế, từ việc tạo kiểu, xác định hình dáng cho đến cách tạo điểm nhấn độc đáo. Bạn sẽ học cách tạo nên những kiểu tóc độc đáo, phù hợp với cá nhân từng khách hàng, trở thành một nghệ nhân tạo tác tóc chuyên nghiệp.
+    -- widget:heading --
+      [h2] Tư Vấn Dịch Vụ Tóc - Hóa Chất
+    -- widget:text-editor --
+      [p] Học cách tư vấn dịch vụ tóc và sử dụng hóa chất đúng cách. Trở thành chuyên gia tư vấn dịch vụ tóc chuyên nghiệp, đảm bảo thành công và hài lòng khách hàng.
+    -- widget:heading --
+      [h2] Xóa Ngôi Mái Tại Nhà
+    -- widget:text-editor --
+      [p] Khóa học này giúp bạn xóa ngôi mái chuyên nghiệp tại nhà. Từ chẩn đoán đến phương pháp xóa và công cụ, bạn tự tin và an toàn. Khám phá kỹ thuật và công nghệ để tái tạo mái tóc tự nhiên.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+  == SECTION ==
+    -- widget:heading --
+      [h2] Phân Tích Chuyển Hóa Hình Khối Và Xây Dựng Kiểu Tóc
+    -- widget:text-editor --
+      [p] Bạn sẽ học cách phân tích hình khối tóc và xây dựng kiểu tóc phù hợp. Khóa học này cung cấp kiến thức về các kỹ thuật tạo hình và chuyển đổi hình khối, từ việc lựa chọn kiểu tóc phù hợp đến cách tạo kiểu và tạo điểm nhấn độc đáo. Hãy trở thành một nghệ nhân tạo tác tóc và thể hiện sự sáng tạo của bạn thông qua kiểu tóc.
+    -- widget:heading --
+      [h2] Uốn Tóc
+    -- widget:text-editor --
+      [p] Bạn sẽ học cách uốn tóc để tạo ra những kiểu tóc đa dạng và ấn tượng. Từ việc chọn phương pháp uốn phù hợp, chuẩn bị tóc và sử dụng công cụ, khóa học này giúp bạn trở thành một stylist tạo kiểu tóc chuyên nghiệp, mang lại vẻ ngoài mới mẻ và cuốn hút cho khách hàng của bạn.
+    -- widget:heading --
+      [h2] Duỗi Voluminous
+    -- widget:text-editor --
+      [p] Khám phá kỹ thuật duỗi tóc voluminous để tạo ra những đường nét tóc thẳng mượt, đầy phong cách. Bạn sẽ học cách sử dụng công cụ và sản phẩm đúng cách để tạo ra vẻ đẹp tóc thời thượng và quyến rũ. Hãy học từ chuyên gia và trở thành một stylist tạo kiểu tóc chuyên nghiệp.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/khach-hang-1.jpg.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/khach-hang-1.jpg-33x50.png
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-NHUOM-TOC.png alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KHOA-HOC-NHUOM-TOC-33x50.png
+    -- widget:heading --
+      [h2] Cắt Cocktail Layer
+    -- widget:text-editor --
+      [p] Khóa học này giúp bạn nắm vững kỹ thuật cắt tóc cocktail layer, tạo ra những lớp tóc phức tạp và tạo kiểu đa chiều. Hãy học cách tạo ra những kiểu tóc sáng tạo và thể hiện sự cá nhân hóa thông qua kiểu tóc độc đáo của bạn.
+    -- widget:heading --
+      [h2] Nhuộm Cơ Bản
+    -- widget:text-editor --
+      [p] Bạn sẽ học cách nhuộm tóc cơ bản từ việc lựa chọn màu sắc, phân tích màu tóc, đến kỹ thuật nhuộm và chăm sóc tóc sau khi nhuộm. Khóa học này giúp bạn trở thành một nghệ nhân nhuộm tóc, tạo ra những phong cách tóc tươi mới và nổi bật.
+    -- widget:heading --
+      [h2] Nhuộm Nâng Cao
+    -- widget:text-editor --
+      [p] Khám phá những kỹ thuật nhuộm tóc nâng cao để tạo ra những màu sắc độc đáo và cá nhân hóa. Bạn sẽ học cách sử dụng các kỹ thuật và công cụ chuyên nghiệp, từ việc tạo nên sự sáng tạo trong nhuộm tóc đến việc làm nổi bật cá nhân của mỗi khách hàng. Hãy trở thành một chuyên gia nhuộm tóc và mang đến vẻ đẹp tuyệt vời cho mọi người.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+== SECTION ==
+  -- widget:heading --
+    [h2] spa
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/07/khach-hang-5.jpg alt='' w=800 h=1200 big=https://jannieedu.com/wp-content/uploads/2023/07/khach-hang-5-33x50.jpg
+    -- widget:heading --
+      [h2] Soi Da Tại Nhà
+    -- widget:text-editor --
+      [p] Khóa học này sẽ giúp bạn học cách soi da một cách chính xác và hiệu quả ngay tại nhà. Bạn sẽ được hướng dẫn về các phương pháp soi da, hiểu rõ về tình trạng da và nhận biết các vấn đề cần được giải quyết. Khám phá những bước cơ bản và kỹ thuật chuyên sâu để chăm sóc da một cách tối ưu và giữ cho làn da của bạn luôn khỏe mạnh, tươi trẻ và rạng rỡ.
+    -- widget:button --
+      [a] href=/booking
+      [span] Đặt Lịch Tư Vấn
+== SECTION ==
+  -- widget:heading --
+    [h2] jannie academy
+  -- widget:heading --
+    [h2] sang trọng chuyên nghiệp
+  -- widget:heading --
+    [h2] chắp cánh cho ước mơ làm đẹp của bạn
