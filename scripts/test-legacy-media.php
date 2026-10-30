@@ -33,8 +33,8 @@ echo "=================================================================\n";
 
 const JN_TLM_ITEMS_FILE  = __DIR__ . '/lib/jn-legacy-media.json';
 const JN_TLM_ITEM_COUNT  = 14;
-// Step 15 (ADR-022) full-size originals in the same list.
-const JN_TLM_ORIGINAL_COUNT = 22;
+// Step 15 (ADR-022, 22) and Step 16 (ADR-023, 12) full-size originals in the same list.
+const JN_TLM_ORIGINAL_COUNT = 34;
 const JN_TLM_MAX_WEBP_KB = 400;
 const JN_TLM_ALPHA_CLEAR = 127;
 const JN_TLM_ALPHA_SOLID = 0;
@@ -175,7 +175,7 @@ $jn_all       = jn_placeholder_media_items( JN_TLM_ITEMS_FILE );
 $jn_items     = array_filter( $jn_all, static fn( array $item ): bool => empty( $item['original'] ) );
 $jn_originals = array_filter( $jn_all, static fn( array $item ): bool => ! empty( $item['original'] ) );
 jn_t_assert( JN_TLM_ITEM_COUNT === count( $jn_items ), 'All 14 legacy items are defined', (string) count( $jn_items ) );
-jn_t_assert( JN_TLM_ORIGINAL_COUNT === count( $jn_originals ), 'All 22 Step 15 originals are defined', (string) count( $jn_originals ) );
+jn_t_assert( JN_TLM_ORIGINAL_COUNT === count( $jn_originals ), 'All 34 Step 15–16 originals are defined', (string) count( $jn_originals ) );
 foreach ( $jn_originals as $jn_key => $jn_item ) {
 	$jn_is_valid = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
 		&& $jn_item['slug'] . '.webp' === $jn_item['filename']
@@ -393,7 +393,7 @@ foreach ( $jn_items as $jn_key => $jn_item ) {
 }
 
 // ---------------------------------------------------------------------------------------------
-jn_t_section( 'Step 15 originals' );
+jn_t_section( 'Step 15–16 originals' );
 
 $jn_probe = reset( $jn_originals );
 if ( is_array( $jn_probe ) ) {

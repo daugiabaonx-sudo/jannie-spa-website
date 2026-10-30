@@ -5,8 +5,8 @@
  *
  * Copy restates only facts already in the repo (patterns/expert-intro.php, the hero metrics, the SEO
  * descriptions in mu-plugins/jn-performance/class-jn-seo-meta.php): no figures, dates, prices, awards,
- * testimonials or process promises the owner has not confirmed. Since Step 15 (ADR-022) /course/ and
- * /client-success-story/ use the old jannieedu.com lead from lib/jn-legacy-content.json instead.
+ * testimonials or process promises the owner has not confirmed. Since Step 15 (ADR-022) /course/,
+ * /client-success-story/ (Step 15) and /my-story/ (Step 16) use the old jannieedu.com lead from lib/jn-legacy-content.json instead.
  *
  * @package JN_Scripts
  */
@@ -26,7 +26,7 @@ if ( ! function_exists( 'jn_page_intro_leads' ) ) {
 	function jn_page_intro_leads(): array {
 		return array(
 			'home'                 => 'Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.',
-			'my-story'             => 'Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.',
+			'my-story'             => jn_lb_content()['my_story']['page']['lead'],
 			'course'               => jn_lb_content()['courses']['page']['lead'],
 			'client-success-story' => jn_lb_content()['clients']['page']['lead'],
 		);

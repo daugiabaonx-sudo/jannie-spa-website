@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-30T08:44:43.187Z",
+  "generatedAt": "2026-10-30T11:05:42.622Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
-      "check": "verbatim: 176 source strings found in the Wayback evidence",
+      "check": "verbatim: 228 source strings found in the Wayback evidence",
       "viewport": "-",
       "failures": [],
       "data": {
-        "checked": 176,
+        "checked": 228,
         "missing": []
       }
     },
@@ -276,6 +276,182 @@
       }
     },
     {
+      "check": "/my-story/ layout",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-story/ layout",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-story/ axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/my-story/ layout",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-story/ layout",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-story/ layout",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/my-story/ axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/my-story/ layout",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
+      "check": "/coaching/ axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "/coaching/ layout",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "offenders": [],
+        "h1": 1,
+        "iframes": 0,
+        "broken": []
+      }
+    },
+    {
       "check": "/ axe WCAG 2.2 AA (legacy testimonials)",
       "viewport": 375,
       "failures": [],
@@ -311,7 +487,7 @@
     }
   ],
   "summary": {
-    "checks": 28,
+    "checks": 44,
     "failed": 0
   }
 }

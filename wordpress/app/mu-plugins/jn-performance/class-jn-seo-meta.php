@@ -55,11 +55,11 @@ class JN_SEO_Meta {
 			),
 			'coaching'             => array(
 				'title'       => 'Coaching & Đồng Hành Chuyên Sâu 1:1 | Jannie Nguyễn',
-				'description' => 'Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn: Tư Vấn Định Hướng Cá Nhân, Khai Vấn Chiến Lược Kinh Doanh và Master Mentorship (3 Tháng).',
+				'description' => 'Chương trình coaching của Jannie Nguyễn: bí quyết làm đẹp và chăm sóc tự nhiên tại nhà, chiến lược kinh doanh và quản lý cửa hàng, cùng 3 gói tư vấn 1:1.',
 			),
 			'my-story'             => array(
-				'title'       => 'Hành Trình Hơn 20 Năm Của Chuyên Gia Jannie Nguyễn',
-				'description' => 'Hành trình hơn 20 năm đồng hành cùng vẻ đẹp đích thực của Nghệ nhân Bàn Tay Vàng Jannie Nguyễn và phương pháp cân bằng tự nhiên The Balance.',
+				'title'       => 'Sứ Mệnh Làm Đẹp Với Tình Yêu Và Sự Cân Bằng | Jannie Nguyễn',
+				'description' => 'Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ và thương hiệu The Balance với sứ mệnh Be balanced – Be beautiful.',
 			),
 			'course'               => array(
 				'title'       => 'Chương Trình Đào Tạo & Khóa Học Chuyên Sâu | Jannie Nguyễn',

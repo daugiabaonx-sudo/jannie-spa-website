@@ -1,0 +1,125 @@
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/BANNER-KHOI-NGHIEP-0-DONGMOBILE-684x1024.png alt='' w=640 h=958 big=https://jannieedu.com/wp-content/uploads/2023/06/BANNER-KHOI-NGHIEP-0-DONGMOBILE.png
+  == SECTION ==
+    -- widget:heading --
+      [h2] Khám phá Bí Quyết Làm Đẹp và Chăm Sóc Tự Nhiên Tại Nhà cùng Jannie Nguyễn
+    -- widget:heading --
+      [h2] Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn
+    -- widget:text-editor --
+      [p] Bạn đang mơ ước có một diện mạo tự nhiên hoàn hảo và khao khát tự chăm sóc và làm đẹp tại nhà? Jannie sẽ giúp bạn biến ước mơ đó thành hiện thực!
+    -- widget:button --
+      [a] href=/booking
+      [span] Khám Phá Ngay
+== SECTION ==
+  -- widget:heading --
+    [h2] Khám phá Bí Quyết Làm Đẹp và Chăm Sóc Tự Nhiên Tại Nhà cùng Jannie Nguyễn
+  -- widget:heading --
+    [h2] Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn
+  -- widget:text-editor --
+    [p] Bạn đang mơ ước có một diện mạo tự nhiên hoàn hảo và khao khát tự chăm sóc và làm đẹp tại nhà? Jannie sẽ giúp bạn biến ước mơ đó thành hiện thực!
+  -- widget:button --
+    [a] href=/booking
+    [span] Khám Phá Ngay
+== SECTION ==
+  -- widget:heading --
+    [h2] Học Cách Tự Làm Đẹp và Chăm Sóc bản thân Tại Nhà với Jannie Nguyễn
+  -- widget:heading --
+    [h2] Trở Thành Chuyên Gia Làm Đẹp Tự Nhiên và Chăm Sóc Cá Nhân của Bản Thân
+  -- widget:text-editor --
+    [p] Với kinh nghiệm và tài năng của mình, Jannie đã tạo ra một chương trình coaching độc đáo nhằm giúp bạn trở thành chuyên gia tự làm đẹp và chăm sóc cá nhân tại nhà. Không chỉ dừng lại ở việc chỉ dạy kỹ thuật, Jannie còn chia sẻ những bí quyết, mẹo và công thức tự nhiên để bạn có thể làm đẹp và chăm sóc bản thân một cách dễ dàng và hiệu quả
+== SECTION ==
+  == SECTION ==
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-1-1.png alt='' w=500 h=500 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-1-1-50x50.png
+    -- widget:tm-image-box --
+      [a] href=/booking
+      [h3] Khóa Học Làm Đẹp Chuyên Sâu
+      [div] Điều đặc biệt với chương trình coaching của Jannie là nếu bạn có tay nghề và ước mơ sở hữu một cửa hàng làm đẹp riêng, Jannie sẽ hướng dẫn bạn cả về khía cạnh kinh doanh và quản lý cửa hàng. Với sự hỗ trợ tận tâm của Jannie, bạn có thể xây dựng một thương hiệu riêng, thu hút khách hàng và tạo ra doanh thu ổn định.
+      [span] Khám Phá Ngay
+== SECTION ==
+  -- widget:heading --
+    [h2] Tại chương trình coaching của Jannie, bạn sẽ được học:
+  -- widget:tm-list --
+    [div] Các phương pháp làm đẹp tự nhiên từ nguyên liệu có sẵn tại nhà.
+    [div] Kỹ thuật trang điểm và làm tóc chuyên nghiệp để tạo ra các phong cách đa dạng.
+    [div] Cách chăm sóc da mặt và cơ thể để duy trì vẻ đẹp tự nhiên và khỏe mạnh.
+    [div] Những bí quyết và mẹo nhỏ để nhanh chóng và hiệu quả thay đổi diện mạo của bạn
+    [div] Chiến lược kinh doanh và quản lý cửa hàng để thành công trong lĩnh vực làm đẹp.
+  -- widget:icon --
+== SECTION ==
+  == SECTION ==
+    -- widget:tm-image-box --
+      [a] href=/booking
+      [h3] Chương Trình Coaching-Tự Tin Làm Đẹp và Xây Dựng Sự Nghiệp
+      [div] Chương trình coaching của Jannie là sự kết hợp hoàn hảo giữa kiến thức chuyên môn và kinh nghiệm thực tế. Với sự hướng dẫn tận tâm của Jannie, bạn sẽ nắm vững các kỹ năng và công cụ cần thiết để tự tin làm đẹp và chăm sóc bản thân, cũng như xây dựng một sự nghiệp trong ngành làm đẹp.
+      [span] Khám Phá Ngay
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-2-1.png alt='' w=500 h=500 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-2-1-50x50.png
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] Jannie Nguyễn - Chuyên Gia Làm Đẹp
+    -- widget:heading --
+      [h2] Kinh Nghiệm và Sự Tận Tâm Của Jannie
+    -- widget:button --
+      [a] href=/booking
+      [span] tim hiểu ngay
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] Phản Hồi Từ học viên
+== SECTION ==
+  == SECTION ==
+    -- widget:video --
+      [settings] {"youtube_url": "https://youtu.be/eDk34ql8Qb0"}
+    -- widget:heading --
+      [h2] "Tự tin và thay đổi"
+    -- widget:text-editor --
+      [p] Sau khóa học phun xăm thẩm mỹ của Jannie Nguyễn, tôi thay đổi đáng kể. Nắm vững kỹ thuật chuyên nghiệp và sáng tạo, tự tin chăm sóc và làm đẹp cho khách hàng.
+    -- widget:heading --
+      [h2] loan nguyễn
+  -- widget:divider--view-line --
+  == SECTION ==
+    -- widget:heading --
+      [h2] "Sự thay đổi đáng kể sau khóa học"
+    -- widget:text-editor --
+      [p] Tôi đã thay đổi từ suy nghĩ tới hành động sau khóa học của Jannie nguyễn. Jannie Nguyễn đã giúp tôi nắm vững kỹ năng tư vấn, sử dụng hình ảnh video hấp dẫn để thu hút khách hàng. Đây là sự thay đổi đáng kể.
+    -- widget:heading --
+      [h2] Thu Minh
+    -- widget:video --
+      [settings] {}
+      [iframe] https://www.youtube.com/embed/nWqff-L-mQg?feature=oembed&color&autopause=0&loop=0&muted=0&title=1&portrait=1&byline=1
+  -- widget:divider--view-line --
+  == SECTION ==
+    -- widget:video --
+      [settings] {}
+      [iframe] https://www.youtube.com/embed/Qw-_mpLp-QQ?feature=oembed&color&autopause=0&loop=0&muted=0&title=1&portrait=1&byline=1
+    -- widget:heading --
+      [h2] "Trở Thành Chuyên Gia Phun Xăm với Jannie Nguyễn"
+    -- widget:text-editor --
+      [p] Nhờ Jannie Nguyễn, tôi đã không chỉ nắm vững kỹ thuật phun xăm thẩm mỹ mà còn biết cách xây dựng thương hiệu cá nhân và sáng tạo nội dung chuyên nghiệp.
+    -- widget:heading --
+      [h2] hồng hạnh
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] lợi ích đặt biệt của khóa học coaching jannie nguyễn
+    -- widget:tm-list --
+      [div] tiết kiệm thời gian
+      [div] tự tin và thành thạo
+      [div] đa dạng và linh hoạt
+      [div] sự hỗ trợ và hướng dẫn tận tâm
+    -- widget:text-editor --
+      [p] Khóa coaching Jannie Nguyễn không chỉ mang lại sự tiết kiệm thời gian mà còn giúp bạn phát triển tự tin, thành thạo và linh hoạt trong việc chăm sóc và làm đẹp bản thân. Bạn sẽ được hướng dẫn tận tâm và nhận được sự hỗ trợ toàn diện từ chuyên gia hàng đầu, giúp bạn trở thành ngôi sao làm đẹp của chính mình.”
+    -- widget:image --
+      [img] src=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-4-1.png alt='' w=500 h=500 big=https://jannieedu.com/wp-content/uploads/2023/06/HINH-KN0D-4-1-50x50.png
+== SECTION ==
+  == SECTION ==
+    -- widget:heading --
+      [h2] Jannie Nguyễn - Chuyên Gia Làm Đẹp
+    -- widget:heading --
+      [h2] Hãy bắt đầu hành trình của bạn ngay hôm nay và trở thành ngôi sao làm đẹp của riêng bạn. Đặt lịch hẹn với Jannie Nguyễn để khám phá chương trình coaching và nhận được sự hỗ trợ đặc biệt từ chuyên gia hàng đầu. Hãy đăng ký ngay để thay đổi cuộc sống và trở thành phiên bản tốt nhất của chính bạn!
+    -- widget:button --
+      [a] href=/booking
+      [span] đĂNG KÝ NGAY

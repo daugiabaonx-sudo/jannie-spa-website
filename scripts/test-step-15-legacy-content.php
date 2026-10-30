@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/lib/jn-test-kit.php';
 require_once __DIR__ . '/lib/jn-legacy-blocks.php';
+require_once __DIR__ . '/lib/jn-legacy-test-kit.php';
 jn_require_non_production( 'test-step-15-legacy-content.php' );
 
 echo "=================================================================\n";
@@ -32,19 +33,6 @@ const JN_T15_PAGES = array(
 	'course'               => 10,
 	'client-success-story' => 11,
 );
-
-/**
- * Visible text of an HTML fragment, normalised the way wptexturize() and the block editor change it.
- *
- * @param string $html HTML.
- * @return string
- */
-function jn_t15_text( string $html ): string {
-	$html = (string) preg_replace( '#<(script|style)\b[^>]*>.*?</\1>#is', ' ', $html );
-	$text = html_entity_decode( wp_strip_all_tags( str_replace( '<', ' <', $html ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
-	$text = str_replace( array( '“', '”', '″', '‘', '’', '–', '—', "\u{00a0}" ), array( '"', '"', '"', "'", "'", '-', '-', ' ' ), $text );
-	return trim( (string) preg_replace( '/\s+/u', ' ', $text ) );
-}
 
 /**
  * Every string a page must show, from the shared content source.
@@ -94,40 +82,7 @@ function jn_t15_expected_strings( string $slug ): array {
 			array_push( $out, $t['name'], $t['headline'], $t['quote'] );
 		}
 	}
-	return array_values( array_unique( array_map( 'jn_t15_text', $out ) ) );
-}
-
-/**
- * Strings from $expected missing in $text.
- *
- * @param string[] $expected Expected strings.
- * @param string   $text     Normalised page text.
- * @return string[]
- */
-function jn_t15_missing( array $expected, string $text ): array {
-	return array_values( array_filter( $expected, static fn( string $s ): bool => false === mb_strpos( $text, $s ) ) );
-}
-
-/**
- * GET a local URL through the web container (follows no redirects).
- *
- * @param string $path Path starting with `/`.
- * @return array{code: int, body: string}
- */
-function jn_t15_get( string $path ): array {
-	$base = gethostbyname( 'wordpress' ) !== 'wordpress' ? 'http://wordpress' : 'http://localhost:8080';
-	$res  = wp_remote_get(
-		$base . $path,
-		array(
-			'timeout'     => 20,
-			'redirection' => 0,
-			'headers'     => array( 'Host' => 'localhost:8080' ),
-		)
-	);
-	return array(
-		'code' => is_wp_error( $res ) ? 0 : (int) wp_remote_retrieve_response_code( $res ),
-		'body' => is_wp_error( $res ) ? '' : (string) wp_remote_retrieve_body( $res ),
-	);
+	return array_values( array_unique( array_map( 'jn_lt_text', $out ) ) );
 }
 
 /**
@@ -306,15 +261,15 @@ jn_t_assert( false !== strpos( $jn_pattern, trim( jn_lb_video_testimonials() ) )
 // -----------------------------------------------------------------------------
 jn_t_section( 'Live pages' );
 foreach ( array_keys( JN_T15_PAGES ) as $jn_slug ) {
-	$jn_res = jn_t15_get( "/{$jn_slug}/" );
+	$jn_res = jn_lt_get( "/{$jn_slug}/" );
 	jn_t_assert( 200 === $jn_res['code'], "/{$jn_slug}/ returns 200", (string) $jn_res['code'] );
-	$jn_missing = jn_t15_missing( jn_t15_expected_strings( $jn_slug ), jn_t15_text( $jn_res['body'] ) );
+	$jn_missing = jn_lt_missing( jn_t15_expected_strings( $jn_slug ), jn_lt_text( $jn_res['body'] ) );
 	jn_t_assert( array() === $jn_missing, "/{$jn_slug}/ shows every source string", implode( ' | ', array_map( static fn( $s ) => mb_substr( $s, 0, 60 ), $jn_missing ) ) );
 	jn_t_assert( false === stripos( $jn_res['body'], '<iframe' ), "/{$jn_slug}/ embeds no frame before a click" );
 }
-$jn_product_page = jn_t15_get( '/san-pham/egf-cleansing-gel/' );
-jn_t_assert( 200 === $jn_product_page['code'] && false !== strpos( jn_t15_text( $jn_product_page['body'] ), '496.000' ), '/san-pham/egf-cleansing-gel/ shows the archived price' );
-$jn_home = jn_t15_text( jn_t15_get( '/' )['body'] );
+$jn_product_page = jn_lt_get( '/san-pham/egf-cleansing-gel/' );
+jn_t_assert( 200 === $jn_product_page['code'] && false !== strpos( jn_lt_text( $jn_product_page['body'] ), '496.000' ), '/san-pham/egf-cleansing-gel/ shows the archived price' );
+$jn_home = jn_lt_text( jn_lt_get( '/' )['body'] );
 jn_t_assert( false !== mb_strpos( $jn_home, 'Loan Nguyễn' ) && false === mb_strpos( $jn_home, 'Minh Thảo' ), 'home testimonials now show the legacy students' );
 
 jn_t_finish();

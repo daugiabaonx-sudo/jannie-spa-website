@@ -254,7 +254,8 @@ ob_start();
 include $jn_theme . '/patterns/hero-home.php';
 jn_t_assert( false !== strpos( $jn_home_c, trim( (string) ob_get_clean() ) ), 'Stored Home hero matches the current pattern (build-home-hero.php is up to date)' );
 jn_t_assert( 1 === preg_match_all( '/<h1\b/', $jn_home_c ), 'Home has exactly one H1' );
-jn_t_assert( $jn_coaching instanceof WP_Post && false !== strpos( $jn_coaching->post_content, 'jn-hero-media-card' ) && false === strpos( $jn_coaching->post_content, 'jn-hero-home' ), 'Coaching keeps the editorial hero' );
+// Step 16 (ADR-023): /coaching/ now opens with the old jannieedu.com hero; it must not borrow the home hero.
+jn_t_assert( $jn_coaching instanceof WP_Post && false !== strpos( $jn_coaching->post_content, 'jn-legacy-hero' ) && false === strpos( $jn_coaching->post_content, 'jn-hero-home' ), 'Coaching has its own legacy hero, not the home hero' );
 
 $jn_build3 = jn_thh_read( __DIR__ . '/build-step-3.php' );
 jn_t_assert( false !== strpos( $jn_build3, "jn_render_pattern_file( 'hero-home.php' )" ) && false === strpos( $jn_build3, '$home_hero_markup = str_replace(' ), 'build-step-3.php seeds Home from the new pattern' );

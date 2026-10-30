@@ -179,26 +179,14 @@ function jn_s15_upsert_testimonial( array $t, int $order ): void {
  * @return void
  */
 function jn_s15_write_page( int $page_id, string $content ): void {
-	$current = (string) get_post_field( 'post_content', $page_id, 'raw' );
-	if ( $current === $content ) {
-		echo "[SKIP] page {$page_id} already matches the legacy content\n";
-		return;
+	try {
+		$status = jn_lb_write_page( $page_id, $content );
+	} catch ( RuntimeException $error ) {
+		jn_s15_fail( $error->getMessage() );
 	}
-	$updated = wp_update_post(
-		array(
-			'ID'           => $page_id,
-			'post_content' => wp_slash( $content ),
-		),
-		true
-	);
-	if ( is_wp_error( $updated ) ) {
-		jn_s15_fail( "page {$page_id}: " . $updated->get_error_message() );
-	}
-	clean_post_cache( $page_id );
-	if ( (string) get_post_field( 'post_content', $page_id, 'raw' ) !== $content ) {
-		jn_s15_fail( "page {$page_id}: saved content differs from the built markup (kses?) — restore the latest revision" );
-	}
-	echo "[OK] page {$page_id} (" . get_post_field( 'post_name', $page_id ) . ") written; previous content kept as a revision\n";
+	echo 'skip' === $status
+		? "[SKIP] page {$page_id} already matches the legacy content\n"
+		: "[OK] page {$page_id} (" . get_post_field( 'post_name', $page_id ) . ") written; previous content kept as a revision\n";
 }
 
 if ( ! function_exists( 'wc_get_products' ) || ! class_exists( 'JN_Testimonials' ) ) {
@@ -255,6 +243,11 @@ foreach ( JN_S15_OLD_TESTIMONIALS as $jn_old ) {
 
 foreach ( JN_S15_PAGES as $jn_slug => $jn_builder ) {
 	jn_s15_write_page( $jn_page_ids[ $jn_slug ], $jn_builder() );
+	try {
+		echo jn_lb_sync_seo_meta( $jn_page_ids[ $jn_slug ], $jn_slug ) ? "[OK] /{$jn_slug}/ SEO title/description synced to the TSF fields\n" : "[SKIP] /{$jn_slug}/ SEO fields already match\n";
+	} catch ( RuntimeException $jn_error ) {
+		jn_s15_fail( $jn_error->getMessage() );
+	}
 }
 
 wp_get_theme()->delete_pattern_cache();

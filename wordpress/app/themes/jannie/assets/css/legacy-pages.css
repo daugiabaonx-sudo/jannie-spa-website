@@ -2,6 +2,7 @@
    Step 15 (ADR-022) — old jannieedu.com content on /my-favorite-product/, /course/,
    /client-success-story/: split image + text rows, course clusters, press logos,
    video testimonials (`jn/video` facade), course groups, values and process.
+   Step 16 (ADR-023) — /my-story/ and /coaching/: split hero, photo bands (core/cover).
    Tokens only; animates transform/opacity only.
    ========================================================================== */
 
@@ -414,7 +415,131 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 	color: var(--jn-ink);
 }
 
-/* 8. Responsive (site breakpoints) */
+/* 8. Step 16: split hero, story photos, square cards, photo bands */
+/* The page-header rhythm of ADR-014 (block-styles.css) targets direct children of .jn-page-intro-inner; in the
+   split hero the eyebrow sits one level deeper, in the text column. Same (0,2,1) specificity. */
+.jn-legacy-hero__text > p.is-style-eyebrow-dot {
+	font-size: var(--jn-text-label-md);
+	line-height: var(--jn-lh-label-md);
+	margin: 0 0 var(--jn-space-md) 0 !important;
+}
+
+.jn-legacy-hero.wp-block-columns {
+	gap: var(--jn-space-2xl);
+	align-items: center !important;
+	margin-bottom: 0;
+}
+
+.jn-legacy-hero__text .wp-block-buttons {
+	margin-top: var(--jn-space-lg);
+}
+
+.jn-legacy-hero__text .jn-legacy-body {
+	margin-top: var(--jn-space-md);
+}
+
+.jn-legacy-hero__image.wp-block-image {
+	margin: 0;
+	border-radius: var(--jn-radius-lg);
+	overflow: hidden;
+	box-shadow: var(--jn-shadow-card);
+}
+
+.jn-legacy-hero__image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 640px;
+	object-fit: cover;
+}
+
+/* The My Story photos are 400x600 originals: never shown larger than that (D3: downscale only). */
+.jn-legacy-media--story.wp-block-image {
+	max-width: 400px;
+	margin-inline: auto;
+	border-radius: var(--jn-radius-lg);
+	overflow: hidden;
+}
+
+.jn-legacy-media--square.wp-block-image {
+	max-width: 500px;
+	margin-inline: auto;
+	border-radius: var(--jn-radius-lg);
+	overflow: hidden;
+}
+
+.jn-legacy-media--story img,
+.jn-legacy-media--square img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.jn-legacy-subtitle-p {
+	font-family: var(--jn-font-heading);
+	font-style: italic;
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	color: var(--jn-secondary);
+	text-wrap: balance;
+}
+
+.jn-coaching-intro__head {
+	margin-bottom: var(--jn-space-2xl);
+}
+
+.jn-coaching-intro__head .jn-legacy-lead-body {
+	margin-top: var(--jn-space-md);
+}
+
+.jn-legacy-checklist {
+	margin-block: var(--jn-space-lg) !important;
+}
+
+.jn-legacy-checklist > li + li {
+	margin-top: var(--jn-space-sm);
+}
+
+.jn-legacy-center .wp-block-buttons {
+	justify-content: center;
+	margin-top: var(--jn-space-lg);
+}
+
+.wp-block-cover.jn-coaching-expert,
+.wp-block-cover.jn-coaching-closing {
+	min-height: 520px;
+	padding-block: var(--jn-section-rhythm);
+}
+
+.jn-cover-inner {
+	max-width: 44rem;
+	text-align: center;
+	margin-inline: auto;
+}
+
+/* Champagne fails on the photo bands; white stays above 6:1 over the 60% overlay. */
+.jn-cover-inner .jn-cover-eyebrow {
+	color: var(--jn-surface-pure);
+}
+
+.jn-cover-inner .jn-cover-title,
+.jn-cover-inner .jn-cover-text {
+	color: var(--jn-surface-pure);
+}
+
+.jn-cover-inner .jn-cover-text {
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-headline-sm);
+	line-height: var(--jn-lh-headline-sm);
+	text-wrap: balance;
+}
+
+.jn-cover-inner .wp-block-buttons {
+	justify-content: center;
+	margin-top: var(--jn-space-lg);
+}
+
+/* 9. Responsive (site breakpoints) */
 @media (max-width: 1023.98px) {
 	.jn-video-testimonial,
 	.jn-video-testimonials > li:nth-child(even) .jn-video-testimonial {
@@ -433,8 +558,13 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 
 @media (max-width: 781.98px) {
 	/* Core columns stack at 782px: keep the image above its text on every row. */
-	.jn-course-cluster.is-reversed .jn-course-cluster__media {
+	.jn-course-cluster.is-reversed .jn-course-cluster__media,
+	.jn-legacy-split.is-reversed .jn-legacy-split__media {
 		order: -1;
+	}
+
+	.jn-legacy-hero__image img {
+		max-height: 420px;
 	}
 
 	.jn-legacy-split.wp-block-columns,
@@ -446,6 +576,12 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 	.jn-legacy-split__media .wp-block-image {
 		max-width: 420px;
 		margin-inline: auto;
+	}
+
+	/* 400px originals on ~1.75x phones: at 300px they keep >= 0.75 of the pixels Lighthouse expects
+	   (image-size-responsive) — D3, no AI upscaling. */
+	.jn-legacy-split__media .jn-legacy-media--story.wp-block-image {
+		max-width: 300px;
 	}
 }
 

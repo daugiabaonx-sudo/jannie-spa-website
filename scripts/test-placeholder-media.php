@@ -186,7 +186,8 @@ foreach ( array( 'hero_portrait', 'expert_consultation' ) as $jn_key ) {
 
 	$jn_file  = (string) get_attached_file( $jn_id );
 	$jn_alt   = (string) get_post_meta( $jn_id, '_wp_attachment_image_alt', true );
-	$jn_pages = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type <> 'attachment' AND post_content LIKE %s", '%wp-image-' . $jn_id . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	// The home hero block references the portrait by attribute (`"primaryId":86`), not by a wp-image class.
+	$jn_pages = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type <> 'attachment' AND ( post_content LIKE %s OR post_content LIKE %s )", '%wp-image-' . $jn_id . '%', '%"primaryId":' . $jn_id . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	jn_t_assert( ! empty( $jn_pages ), "{$jn_key}: used by published pages", (string) count( $jn_pages ) );
 	foreach ( $jn_pages as $jn_page_id ) {
 		$jn_tags = new WP_HTML_Tag_Processor( (string) get_post_field( 'post_content', (int) $jn_page_id ) );

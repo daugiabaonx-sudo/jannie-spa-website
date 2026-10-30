@@ -487,11 +487,13 @@ function jn_lb_course_page(): string {
 
 /**
  * Video testimonials Query Loop: every published `jn_testimonial`, old order, with `jn/video` and the
- * headline, quote and name bound to post meta (Block Bindings). Same markup as patterns/video-testimonials.php.
+ * headline, quote and name bound to post meta (Block Bindings). Same markup as patterns/video-testimonials.php
+ * when called without a title.
  *
+ * @param string $title Optional centred H2 above the list (Step 16: "Phản Hồi Từ Học Viên" on /coaching/).
  * @return string
  */
-function jn_lb_video_testimonials(): string {
+function jn_lb_video_testimonials( string $title = '' ): string {
 	$bound = static fn( string $tag, string $key, string $class ): string => 'heading' === $tag
 		? jn_lb_block(
 			'heading',
@@ -539,7 +541,8 @@ function jn_lb_video_testimonials(): string {
 			. jn_lb_block( 'post-template', array( 'className' => 'jn-video-testimonials' ), $item )
 			. '</div>'
 	);
-	return jn_lb_section( $loop, 'jn-video-testimonials-section', 'Cảm nhận học viên (video)' );
+	$head = '' !== $title ? jn_lb_section_header( $title ) : '';
+	return jn_lb_section( $head . $loop, 'jn-video-testimonials-section', 'Cảm nhận học viên (video)' );
 }
 
 /**
@@ -627,4 +630,267 @@ function jn_lb_clients_page(): string {
 	) . "\n";
 
 	return $out . JN_LB_BOOKING_BLOCK;
+}
+
+/**
+ * Write a page's content when it differs from the built markup, then check it was stored byte for byte
+ * (kses would strip the column style and Block Bindings). The revision is the rollback point.
+ *
+ * @param int    $page_id Page ID.
+ * @param string $content Built content.
+ * @return string `skip` or `written`.
+ * @throws RuntimeException When the write fails or the stored markup differs.
+ */
+function jn_lb_write_page( int $page_id, string $content ): string {
+	if ( (string) get_post_field( 'post_content', $page_id, 'raw' ) === $content ) {
+		return 'skip';
+	}
+	$updated = wp_update_post(
+		array(
+			'ID'           => $page_id,
+			'post_content' => wp_slash( $content ),
+		),
+		true
+	);
+	if ( is_wp_error( $updated ) ) {
+		throw new RuntimeException( "page {$page_id}: " . $updated->get_error_message() );
+	}
+	clean_post_cache( $page_id );
+	if ( (string) get_post_field( 'post_content', $page_id, 'raw' ) !== $content ) {
+		throw new RuntimeException( "page {$page_id}: saved content differs from the built markup (kses?) — restore the latest revision" );
+	}
+	return 'written';
+}
+
+/**
+ * Split page hero (Step 16): eyebrow, H1 with accent, lead, optional body and CTA beside the old photo,
+ * which is the page's LCP image (jn-performance preloads it via jn_legacy_hero_lcp_id()).
+ *
+ * @param array<string, string> $page Page copy: eyebrow_site, title, title_accent, lead, image, body?, button?.
+ * @param string                $name Section label in List View.
+ * @return string
+ */
+function jn_lb_split_hero( array $page, string $name ): string {
+	$text = jn_lb_p( $page['eyebrow_site'], 'is-style-eyebrow-dot' )
+		. jn_lb_h( 1, $page['title'], 'jn-page-intro-title', $page['title_accent'] )
+		. jn_lb_p(
+			$page['lead'],
+			'jn-page-intro-lead',
+			array(
+				'textColor' => 'muted-stone',
+				'fontSize'  => 'body-lg',
+			)
+		)
+		. ( isset( $page['body'] ) ? jn_lb_p( $page['body'], 'jn-legacy-body', array( 'textColor' => 'muted-stone' ) ) : '' )
+		. ( isset( $page['button'] ) ? jn_lb_button( $page['button'], JN_LB_BOOKING_HREF ) : '' );
+	$grid = jn_lb_columns(
+		array(
+			array( $text, '58.33%', 'jn-legacy-hero__text' ),
+			array( jn_lb_image( $page['image'], 'jn-legacy-hero__image jn-hero-lcp-image' ), '41.67%', 'jn-legacy-hero__media' ),
+		),
+		'jn-legacy-hero'
+	);
+	return jn_lb_group(
+		jn_lb_group( $grid, 'jn-container jn-page-intro-inner' ),
+		'jn-section jn-page-intro-section jn-legacy-hero-section',
+		array(
+			'tagName'         => 'section',
+			'name'            => $name,
+			'align'           => 'full',
+			'backgroundColor' => 'palette-color-7',
+		)
+	);
+}
+
+/**
+ * `core/cover` band with an old photo behind white text, as on the old page. The photos are mostly cream, so a
+ * 60% black overlay (darkest-case background ~rgb(96,96,96)) keeps white text above 6:1; axe cannot measure text on images.
+ *
+ * @param string $key   Media-map key of the background photo.
+ * @param string $inner Inner blocks.
+ * @param string $class className.
+ * @return string
+ */
+function jn_lb_cover( string $key, string $inner, string $class ): string {
+	$media = jn_lb_media( $key );
+	if ( $media['id'] < 1 ) {
+		throw new RuntimeException( "Legacy image `{$key}` is not imported — run import-legacy-media.php first" );
+	}
+	$attrs = array(
+		'url'       => $media['url'],
+		'id'        => $media['id'],
+		'dimRatio'  => 60,
+		'isDark'    => true,
+		'align'     => 'full',
+		'className' => $class,
+	);
+	$html  = '<div class="' . jn_lb_classes( 'wp-block-cover', 'alignfull', $class ) . '">'
+		. '<img class="wp-block-cover__image-background wp-image-' . $media['id'] . '" alt="" src="' . esc_url( $media['url'] ) . '" data-object-fit="cover"/>'
+		. '<span aria-hidden="true" class="wp-block-cover__background has-background-dim-60 has-background-dim"></span>'
+		. "<div class=\"wp-block-cover__inner-container\">\n" . jn_lb_group( $inner, 'jn-container jn-cover-inner' ) . '</div></div>';
+	return jn_lb_block( 'cover', $attrs, $html );
+}
+
+/**
+ * Image beside text, image side alternating (shared by My Story and the Coaching cards).
+ *
+ * @param string $image    Media-map key.
+ * @param string $text     Text column blocks.
+ * @param bool   $reversed Image on the right.
+ * @param string $style    Image block style (`portrait-3-4` or square).
+ * @return string
+ */
+function jn_lb_media_row( string $image, string $text, bool $reversed, string $style = 'is-style-portrait-3-4' ): string {
+	$media = array( jn_lb_image( $image, trim( $style . ' jn-legacy-media' ) ), '41.67%', 'jn-legacy-split__media' );
+	$copy  = array( $text, '58.33%', 'jn-legacy-split__text' );
+	return jn_lb_columns( $reversed ? array( $copy, $media ) : array( $media, $copy ), 'jn-legacy-split' . ( $reversed ? ' is-reversed' : '' ) );
+}
+
+/**
+ * /my-story/: split hero, the five old image/text blocks, the closing invitation, then booking.
+ *
+ * @return string
+ */
+function jn_lb_my_story_page(): string {
+	$k   = jn_lb_content()['my_story'];
+	$out = jn_lb_split_hero( $k['page'], 'Hero My Story (jannieedu.com)' ) . "\n";
+	foreach ( $k['blocks'] as $index => $block ) {
+		$text = jn_lb_h( 2, $block['title'], 'jn-section-title-md' );
+		foreach ( $block['paragraphs'] as $paragraph ) {
+			$text .= jn_lb_p( $paragraph, 'jn-legacy-body', array( 'textColor' => 'muted-stone' ) );
+		}
+		$out .= jn_lb_section(
+			jn_lb_media_row( $block['image'], $text, 1 === $index % 2, 'jn-legacy-media--story' ),
+			'jn-story-block',
+			'My Story: ' . $block['title'],
+			1 === $index % 2 ? 'palette-color-6' : ''
+		) . "\n";
+	}
+	$closing = '';
+	foreach ( $k['closing']['paragraphs'] as $paragraph ) {
+		$closing .= jn_lb_p( $paragraph, 'jn-legacy-body jn-legacy-lead-body', array( 'textColor' => 'muted-stone' ) );
+	}
+	$closing .= jn_lb_group( jn_lb_button( $k['closing']['button'], JN_LB_BOOKING_HREF ), 'jn-legacy-center' );
+	$out     .= jn_lb_section( $closing, 'jn-story-closing', 'Mời đặt lịch (jannieedu.com)', 'palette-color-7' ) . "\n";
+	return $out . JN_LB_BOOKING_BLOCK;
+}
+
+/**
+ * /coaching/: the eight old blocks in order, then the kept tiers and FAQ (D1), then booking.
+ *
+ * @param string $tiers Stored "Section 3 — Coaching Tiers" markup ('' to build without it).
+ * @param string $faq   Stored FAQ section markup ('' to build without it).
+ * @return string
+ */
+function jn_lb_coaching_page( string $tiers, string $faq ): string {
+	$k   = jn_lb_content()['coaching'];
+	$out = jn_lb_split_hero( $k['page'], 'Hero Coaching (jannieedu.com)' ) . "\n";
+
+	$intro = jn_lb_h( 2, $k['intro']['title'], 'jn-section-title-lg', '', 'center' )
+		. jn_lb_p( $k['intro']['subtitle'], 'jn-legacy-subtitle-p', array( 'align' => 'center' ) )
+		. jn_lb_p( $k['intro']['text'], 'jn-legacy-body jn-legacy-lead-body', array( 'textColor' => 'muted-stone' ) );
+	$card  = static fn( array $c ): string => jn_lb_h( 3, $c['title'], 'jn-legacy-subtitle' )
+		. jn_lb_p( $c['text'], 'jn-legacy-body', array( 'textColor' => 'muted-stone' ) )
+		. jn_lb_button( $c['button'], JN_LB_BOOKING_HREF );
+	$out  .= jn_lb_section(
+		jn_lb_group( $intro, 'jn-section-header-centered jn-coaching-intro__head' )
+			. jn_lb_media_row( $k['card_1']['image'], $card( $k['card_1'] ), false, 'jn-legacy-media--square' ),
+		'jn-coaching-intro',
+		'Học cách tự làm đẹp (jannieedu.com)'
+	) . "\n";
+
+	$out .= jn_lb_section(
+		jn_lb_h( 2, $k['learn']['title'], 'jn-section-title-md' ) . jn_lb_list( $k['learn']['items'], 'is-style-check jn-legacy-checklist' ),
+		'jn-coaching-learn',
+		'Bạn sẽ được học (jannieedu.com)',
+		'palette-color-6'
+	) . "\n";
+
+	$out .= jn_lb_section(
+		jn_lb_media_row( $k['card_2']['image'], $card( $k['card_2'] ), true, 'jn-legacy-media--square' ),
+		'jn-coaching-card',
+		'Chương trình coaching (jannieedu.com)'
+	) . "\n";
+
+	$out .= jn_lb_cover(
+		$k['expert']['image'],
+		jn_lb_p( $k['expert']['eyebrow'], 'is-style-eyebrow jn-cover-eyebrow' )
+			. jn_lb_h( 2, $k['expert']['title'], 'jn-section-title-lg jn-cover-title' )
+			. jn_lb_button( $k['expert']['button'], JN_LB_BOOKING_HREF, 'accent-pill' ),
+		'jn-coaching-expert'
+	) . "\n";
+
+	$out .= jn_lb_video_testimonials( $k['testimonials_title'] ) . "\n";
+
+	$benefits = jn_lb_h( 2, $k['benefits']['title'], 'jn-section-title-md' )
+		. jn_lb_list( $k['benefits']['items'], 'is-style-check jn-legacy-checklist' )
+		. jn_lb_p( $k['benefits']['text'], 'jn-legacy-body', array( 'textColor' => 'muted-stone' ) );
+	$out     .= jn_lb_section(
+		jn_lb_media_row( $k['benefits']['image'], $benefits, true, 'jn-legacy-media--square' ),
+		'jn-coaching-benefits',
+		'Lợi ích đặc biệt (jannieedu.com)',
+		'palette-color-6'
+	) . "\n";
+
+	$out .= jn_lb_cover(
+		$k['closing']['image'],
+		jn_lb_p( $k['closing']['eyebrow'], 'is-style-eyebrow jn-cover-eyebrow' )
+			. jn_lb_p( $k['closing']['text'], 'jn-cover-text' )
+			. jn_lb_button( $k['closing']['button'], JN_LB_BOOKING_HREF, 'accent-pill' ),
+		'jn-coaching-closing'
+	) . "\n";
+
+	return $out . ( '' !== $tiers ? $tiers . "\n\n" : '' ) . ( '' !== $faq ? $faq . "\n\n" : '' ) . JN_LB_BOOKING_BLOCK;
+}
+
+/**
+ * Cut one top-level section out of stored page content by its List View name (opening comment up to the
+ * first column-0 `</section>` + `<!-- /wp:group -->`), as build-home-hero.php does.
+ *
+ * @param string $content Stored page content.
+ * @param string $name    `metadata.name` of the section.
+ * @return string Section markup, or '' when it is missing or ambiguous.
+ */
+function jn_lb_extract_section( string $content, string $name ): string {
+	$open = '<!-- wp:group {"tagName":"section","metadata":{"name":"' . $name . '"}';
+	$end  = "</section>\n<!-- /wp:group -->";
+	if ( 1 !== substr_count( $content, $open ) ) {
+		return '';
+	}
+	$start = (int) strpos( $content, $open );
+	$stop  = strpos( $content, $end, $start );
+	return false === $stop ? '' : substr( $content, $start, $stop + strlen( $end ) - $start );
+}
+
+/**
+ * Copy a page's SEO title/description from JN_SEO_Meta::get_page_map() into its TSF custom fields.
+ * build-step-8.php seeded those fields, and TSF custom fields win over the map, so a copy change in the
+ * map alone never reaches the page (missed in Step 15, fixed in Step 16).
+ *
+ * @param int    $page_id Page ID.
+ * @param string $slug    Page slug (key of the map).
+ * @return bool True when a field changed.
+ * @throws RuntimeException When the SEO module or the slug is missing.
+ */
+function jn_lb_sync_seo_meta( int $page_id, string $slug ): bool {
+	$map = class_exists( 'JN_SEO_Meta' ) ? JN_SEO_Meta::get_page_map() : array();
+	if ( empty( $map[ $slug ]['title'] ) || empty( $map[ $slug ]['description'] ) ) {
+		throw new RuntimeException( "no SEO title/description for /{$slug}/ in JN_SEO_Meta::get_page_map()" );
+	}
+	$fields  = array(
+		'_genesis_title'          => $map[ $slug ]['title'],
+		'_genesis_description'    => $map[ $slug ]['description'],
+		'_open_graph_title'       => $map[ $slug ]['title'],
+		'_open_graph_description' => $map[ $slug ]['description'],
+		'_twitter_title'          => $map[ $slug ]['title'],
+		'_twitter_description'    => $map[ $slug ]['description'],
+	);
+	$changed = false;
+	foreach ( $fields as $key => $value ) {
+		if ( (string) get_post_meta( $page_id, $key, true ) !== $value ) {
+			update_post_meta( $page_id, $key, $value );
+			$changed = true;
+		}
+	}
+	return $changed;
 }

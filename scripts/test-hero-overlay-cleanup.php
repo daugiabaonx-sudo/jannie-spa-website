@@ -65,11 +65,10 @@ foreach ( array( 'home', 'coaching' ) as $jn_slug ) {
 	$jn_rendered = (string) apply_filters( 'the_content', $jn_page->post_content );
 	jn_t_assert( empty( jn_tho_leftovers( $jn_page->post_content ) ), "{$jn_slug}: stored content has no watermark / spec badge", implode( ', ', jn_tho_leftovers( $jn_page->post_content ) ) );
 	jn_t_assert( empty( jn_tho_leftovers( $jn_rendered ) ), "{$jn_slug}: rendered HTML has no watermark / spec badge", implode( ', ', jn_tho_leftovers( $jn_rendered ) ) );
-	// ADR-021: Home now has the arched-portrait hero, so the ∞ icon and glass caption only belong to /coaching/.
-	if ( 'coaching' === $jn_slug ) {
-		jn_t_assert( false !== strpos( $jn_rendered, 'jn-hero-overlay-top' ), "{$jn_slug}: ∞ icon row still renders" );
-		jn_t_assert( false !== strpos( $jn_rendered, 'jn-hero-glass-title' ), "{$jn_slug}: glass caption still renders" );
-	}
+	// ADR-021 moved Home to the arched hero and ADR-023 (Step 16) /coaching/ to the old jannieedu.com hero, so the
+	// editorial hero (∞ icon, glass caption) now lives only in patterns/hero-editorial.php, checked below.
+	jn_t_assert( false === strpos( $jn_rendered, 'jn-hero-spec-badge' ), "{$jn_slug}: no spec badge" );
+	// "1:1" still appears in real copy: the home metrics and the coaching package names.
 	jn_t_assert( false !== strpos( $jn_rendered, '1:1' ), "{$jn_slug}: real \"1:1\" copy is untouched" );
 	jn_t_assert( has_blocks( $jn_page->post_content ) && count( parse_blocks( $jn_page->post_content ) ) > 0, "{$jn_slug}: content still parses as blocks" );
 }

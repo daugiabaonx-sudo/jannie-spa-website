@@ -1,0 +1,56 @@
+== SECTION ==
+  -- widget:heading --
+    [h2] Sứ Mệnh Làm Đẹp Với Tình Yêu Và Sự Cân Bằng
+  -- widget:heading --
+    [h2] Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.
+== SECTION ==
+== SECTION ==
+  -- widget:heading --
+    [h2] Sứ Mệnh Làm Đẹp Với Tình Yêu Và Sự Cân Bằng
+  -- widget:heading --
+    [h2] Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/1.png alt='' w=400 h=600 big=https://jannieedu.com/wp-content/uploads/2023/06/1-33x50.png
+  -- widget:heading --
+    [h2] Khởi nguồn sự nghiệp đầy triển vọng
+  -- widget:text-editor --
+    [p] Jannie Nguyễn là một chuyên gia làm đẹp hàng đầu tại Việt Nam, người đã ghi dấu ấn đáng kể trong ngành làm đẹp. Sự nghiệp của cô bắt đầu từ khi còn rất trẻ, và từ đó, Jannie đã không ngừng phát triển và mở rộng tầm nhìn của mình. Hiện tại, cô là chủ sở hữu của Hồng Nhung salon & Spa, một thương hiệu nổi tiếng với hai cơ sở tại Bình Phước.
+== SECTION ==
+  -- widget:heading --
+    [h2] Sự chuyên môn và những giải thưởng danh giá
+  -- widget:text-editor --
+    [p] Jannie không ngừng học hỏi và áp dụng những kỹ thuật tiên tiến trong ngành làm đẹp. Cô đã nhận được nhiều giải thưởng, bao gồm giải Nghệ nhân phun xăm tại lễ vinh danh ngành làm đẹp Oscar for Beauty vào năm 2018. Đặc biệt, Jannie được hiệp hội làm đẹp Việt Nam và Hàn Quốc Kbiz đánh giá và khen ngợi về khả năng và kiến thức của mình trong ngành phun xăm. Điều này chứng tỏ sự tận tụy và độc đáo trong việc thực hiện nghề.
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-PRIZE-1.png alt='' w=400 h=600 big=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-PRIZE-1-33x50.png
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-SU-MENH-2.png alt='' w=400 h=600 big=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-SU-MENH-2-33x50.png
+  -- widget:heading --
+    [h2] Tầm nhìn và sứ mệnh
+  -- widget:text-editor --
+    [p] Jannie Nguyễn không chỉ tập trung vào việc tạo ra vẻ đẹp bên ngoài mà còn coi trọng sức khoẻ và sự phù hợp như nền tảng cho vẻ đẹp bền vững. Cô luôn đặt mục tiêu làm đẹp từ bên trong, đưa ra những liệu trình điều trị và phục hồi làn da hiệu quả. Bằng cách áp dụng công nghệ tiên tiến và những phương pháp độc đáo, Jannie hy vọng mang đến vẻ đẹp hoàn hảo cho mỗi khách hàng của mình.
+== SECTION ==
+  -- widget:heading --
+    [h2] Sự phát triển và tầm nhìn tương lai
+  -- widget:text-editor --
+    [p] Với sứ mệnh “Be balanced – Be beautiful”, Jannie Nguyễn đã tạo ra thương hiệu The Balance, đang xây dựng để trở thành chuỗi hệ thống beauty salon & spa chuyên nghiệp. Cô hi vọng rằng ngành làm đẹp sẽ ngày càng có nhiều chuyên gia sống hết mình vì chữ tâm và đóng góp vào sự phát triển của ngành. Với những thành tựu và tầm nhìn tương lai sáng tạo, Jannie Nguyễn không chỉ là một chuyên gia làm đẹp hàng đầu mà còn là người đi đầu trong việc tạo ra vẻ đẹp và sự tự tin cho mọi người.
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-VALUE-1.png alt='' w=400 h=600 big=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-VALUE-1-33x50.png
+== SECTION ==
+  -- widget:image --
+    [img] src=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-MISSION-1.png alt='' w=400 h=600 big=https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-MISSION-1-33x50.png
+  -- widget:heading --
+    [h2] Lan tỏa giá trị làm đẹp đến cộng đồng
+  -- widget:text-editor --
+    [p] Không chỉ là một chuyên gia làm đẹp hàng đầu, Jannie Nguyễn còn tận dụng kiến thức và kinh nghiệm của mình để chia sẻ và đào tạo cho những học viên đam mê ngành làm đẹp. Cô tổ chức các khóa học chuyên sâu về phun xăm và các phương pháp làm đẹp tiên tiến khác, nhằm truyền đạt kiến thức và kỹ năng cho các chuyên gia làm đẹp trẻ.
+    [p] Qua việc đào tạo, Jannie Nguyễn mong muốn lan tỏa giá trị làm đẹp đến cộng đồng và đóng góp vào sự phát triển của ngành. Cô tận tụy chia sẻ những phương pháp tiên tiến và những kỹ thuật độc đáo, giúp học viên phát triển tư duy sáng tạo và khám phá tiềm năng của mình trong ngành làm đẹp.
+    [p] Nhờ những khóa học đầy kiến thức và kinh nghiệm, Jannie Nguyễn không chỉ là một chuyên gia hàng đầu trong ngành làm đẹp mà còn là người đóng góp tích cực vào việc nâng cao năng lực và chất lượng của ngành làm đẹp trong cộng đồng.
+== SECTION ==
+  -- widget:text-editor --
+    [p] Nếu bạn cảm thấy hứng thú và muốn trải nghiệm sự tận tâm và chuyên nghiệp của Jannie Nguyễn, hãy đặt lịch tư vấn 1:1 với cô ngay hôm nay. Jannie sẽ sẵn lòng lắng nghe những nhu cầu và mong muốn của bạn về vẻ đẹp, cung cấp những thông tin chi tiết và hướng dẫn cá nhân hóa để bạn đạt được mục tiêu làm đẹp của mình.
+    [p] Bấm vào nút đặt lịch tư vấn ngay dưới đây và trải nghiệm một cuộc trò chuyện 1:1 với Jannie Nguyễn. Đừng bỏ lỡ cơ hội được tư vấn bởi một chuyên gia hàng đầu với kinh nghiệm và kiến thức sâu rộng trong ngành làm đẹp.
+    [p] Hãy khám phá thế giới làm đẹp với Jannie Nguyễn và tận hưởng sự tự tin và quyến rũ mà vẻ đẹp bền vững mang lại cho bạn
+  -- widget:button --
+    [a] href=/booking
+    [span] Đặt Lịch Tư Vấn

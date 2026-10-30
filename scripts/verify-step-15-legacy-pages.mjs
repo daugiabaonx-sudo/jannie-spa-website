@@ -1,5 +1,6 @@
 /**
- * JN — Step 15 (ADR-022) browser verification of /my-favorite-product/, /course/ and /client-success-story/.
+ * JN — Steps 15–16 (ADR-022, ADR-023) browser verification of the pages rebuilt from jannieedu.com:
+ * /my-favorite-product/, /course/, /client-success-story/, /my-story/ and /coaching/.
  *
  * 1. Verbatim: every string in scripts/lib/jn-legacy-content.json occurs in the Wayback evidence
  *    (docs/jn/legacy-content/*.txt), ignoring case and after the approved spelling corrections.
@@ -32,7 +33,8 @@ const OUT_DIR = path.join(ROOT_DIR, 'docs', 'jn', 'legacy-content');
 const SHOT_DIR = path.join(OUT_DIR, 'screens');
 const DEBUG_PORT = 9345;
 
-const PAGES = ['/my-favorite-product/', '/course/', '/client-success-story/'];
+// Step 16 (ADR-023) adds /my-story/ and /coaching/.
+const PAGES = ['/my-favorite-product/', '/course/', '/client-success-story/', '/my-story/', '/coaching/'];
 const VIEWPORTS = [320, 375, 768, 1024, 1440, 1920];
 const SHOT_VIEWPORTS = [375, 1440];
 const AXE_VIEWPORTS = [375, 1440];
@@ -88,7 +90,7 @@ function verbatimFailures() {
   const norm = (s) => s.replace(/​/g, '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('vi');
   let evidence = norm(
     fs.readdirSync(OUT_DIR)
-      .filter((f) => /\.wayback-2025\d+\.txt$/.test(f))
+      .filter((f) => /\.wayback-20\d+\.txt$/.test(f))
       .map((f) => fs.readFileSync(path.join(OUT_DIR, f), 'utf8'))
       .join(' ')
   );

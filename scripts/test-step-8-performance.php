@@ -263,21 +263,28 @@ jn_step8_assert(
 	(bool) preg_match( '/<link\s+rel="preload"\s+as="image"[^>]+imagesrcset="[^"]+\.avif[^"]*"[^>]+fetchpriority="high"/i', $coaching_html ),
 	'/coaching/ <head> preloads the LCP hero image with AVIF imagesrcset and fetchpriority="high"'
 );
+// Step 16 (ADR-023): /coaching/ and /my-story/ open with the old jannieedu.com photo, which is their LCP image.
+$legacy_map   = (array) get_option( 'jn_legacy_media_map', array() );
+$coach_hero   = (int) ( $legacy_map['coaching_hero']['id'] ?? 0 );
+$story_hero   = (int) ( $legacy_map['my_story_banner']['id'] ?? 0 );
+$expert_id    = (int) ( ( get_option( 'jn_step3_media_map', array() )['expert_consultation']['id'] ?? 87 ) );
 jn_step8_assert(
-	(bool) preg_match( '/<img[^>]+loading="eager"[^>]+fetchpriority="high"[^>]+class="wp-image-86"/i', $coaching_html ),
-	'Hero image (wp-image-86) has loading="eager" and fetchpriority="high"'
+	$coach_hero > 0 && (bool) preg_match( '/<img[^>]+loading="eager"[^>]+fetchpriority="high"[^>]+class="[^"]*wp-image-' . $coach_hero . '\b/i', $coaching_html ),
+	"/coaching/ hero image (wp-image-{$coach_hero}) has loading=\"eager\" and fetchpriority=\"high\""
 );
+$home_html = wp_remote_retrieve_body( jn_step8_http_get( '/' ) );
 jn_step8_assert(
-	(bool) preg_match( '/<img[^>]+loading="lazy"[^>]+class="wp-image-87"/i', $coaching_html )
-	&& ! (bool) preg_match( '/<img[^>]+fetchpriority="high"[^>]+class="wp-image-87"/i', $coaching_html ),
-	'Below-the-fold Expert image (wp-image-87) has loading="lazy" and no fetchpriority="high"'
+	(bool) preg_match( '/<img[^>]+loading="lazy"[^>]+class="[^"]*wp-image-' . $expert_id . '\b/i', $home_html )
+	&& ! (bool) preg_match( '/<img[^>]+fetchpriority="high"[^>]+class="[^"]*wp-image-' . $expert_id . '\b/i', $home_html ),
+	"Below-the-fold Expert image (wp-image-{$expert_id}) on / has loading=\"lazy\" and no fetchpriority=\"high\""
 );
 
 $story_res  = jn_step8_http_get( '/my-story/' );
 $story_html = wp_remote_retrieve_body( $story_res );
+$story_file = (string) preg_replace( '/\.webp$/', '', basename( (string) ( $legacy_map['my_story_banner']['url'] ?? '' ) ) );
 jn_step8_assert(
-	false === strpos( $story_html, 'rel="preload" as="image"' ),
-	'/my-story/ (where LCP is H1 heading) does NOT preload the hero image'
+	$story_hero > 0 && 1 === substr_count( $story_html, 'rel="preload" as="image"' ) && 1 === preg_match( '/<link rel="preload" as="image" href="[^"]*' . preg_quote( $story_file, '/' ) . '/', $story_html ),
+	'/my-story/ preloads exactly one image: its own legacy hero photo'
 );
 
 // -----------------------------------------------------------------------------
@@ -342,10 +349,11 @@ jn_step8_assert(
 	'The SEO Framework HTML signature comment is disabled (0 HTML comments in output)'
 );
 jn_step8_assert(
-	str_contains( $coaching_html, '<meta name="description" content="Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn' )
+	// Step 16 (ADR-023): the description follows the old jannieedu.com copy; JN_SEO_Meta's map is its single source.
+	str_contains( $coaching_html, '<meta name="description" content="' . esc_attr( JN_SEO_Meta::get_page_map()['coaching']['description'] ) . '"' )
 	&& str_contains( $coaching_html, '<link rel="canonical" href="http://localhost:8080/coaching/"' )
 	&& str_contains( $coaching_html, 'property="og:image"' ),
-	'/coaching/ has Vietnamese wireframe meta description, canonical URL, and Open Graph image'
+	'/coaching/ has its Vietnamese meta description (JN_SEO_Meta map), canonical URL, and Open Graph image'
 );
 jn_step8_assert(
 	str_contains( $coaching_html, '"@type":"Organization"' )

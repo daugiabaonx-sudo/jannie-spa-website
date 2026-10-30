@@ -567,3 +567,25 @@ Step 8 gỡ `noindex` khỏi mọi trang (kể cả Giỏ hàng/Thanh toán/Tài
 - **Sự cố khi chạy lần đầu:** `wc_get_products( array( 'slug' => … ) )` bỏ qua `slug` và trả sản phẩm đầu tiên → ghi đè 3 gói Coaching (ID 163–165). Đã khôi phục toàn bộ DB từ `backups/pre-step-15-2026-10-30.sql.gz` (bản hỏng lưu ở `backups/step-15-incident-damaged-2026-10-30.sql.gz`), sửa sang `get_posts( name )` và thêm chốt chặn từ chối ghi vào gói Coaching hoặc sản phẩm khác slug.
 - **Sự cố thứ hai:** `scripts/check-launch-blockers.php` (Step 9) xoá vĩnh viễn mọi sản phẩm không phải 3 gói Coaching và tính chúng là "DEMO còn sót" → lần chạy kiểm tra đầu tiên đã xoá 6 sản phẩm Step 15. Đã sửa: sản phẩm có slug trong `jn-legacy-content.json` **và** meta `_jn_legacy_source` là sản phẩm chính thức (không xoá, không tính vào BL-07b); `test-step-15` khoá quy tắc này. Migration tạo lại 6 sản phẩm (ID mới).
 - **Sau code review độc lập (0 CRITICAL/HIGH, 4 MEDIUM, 3 LOW):** migration tra trang theo slug, kiểm tra slug danh mục 41 và block đồng bộ 95 trước khi ghi, chỉ chuyển Nháp 91–93 khi đúng là `jn_testimonial`, cập nhật cảm nhận bằng `wp_update_post()`; vòng focus của `jn/video` vẽ vào trong khung (khung cắt tràn); ẩn dòng chức danh rỗng trên thẻ cảm nhận dùng chung; `AXE_PATH` thử `axe-core` cài được trước khi dùng cache npx. MEDIUM "bán hàng vật lý khi đang tắt giao hàng" giữ theo lựa chọn D9 của chủ dự án → UNK-15.
+
+## ADR-023: Nội Dung jannieedu.com Cũ Cho My Story & Coaching — Thay Nội Dung Wireframe Của `/coaching/` (Step 16)
+
+- **Ngày quyết định:** 2026-10-30
+- **Trạng thái:** Đã triển khai — chủ dự án gửi 2 bản lưu Wayback (My Story 2026-05-20, Coaching 2026-07-10), yêu cầu "bám content cũ", duyệt `/plan` với mặc định D1–D6.
+
+### 1. Bối cảnh
+- `/coaching/` là trang chuẩn của wireframe (Step 3, `code.html`): hero editorial, 3 trụ cột, 3 thẻ gói, chuyên gia, cảm nhận, FAQ, form. Quy tắc §1 coi wireframe là nguồn câu chữ; chủ dự án nay chọn nội dung trang cũ.
+- `/my-story/` chỉ có khối chuyên gia (chép từ trang chủ) và khung `[CẦN NỘI DUNG]`.
+
+### 2. Quyết định
+1. **Câu chữ** thêm vào `scripts/lib/jn-legacy-content.json` (`my_story`, `coaching`), nguyên văn; sửa "tim hiểu", "đặt biệt", dấu ” thừa (bảng `corrections`); eyebrow giữ chữ đã duyệt của site mới (`eyebrow_site`). Tuyên bố của trang cũ (Hồng Nhung salon & Spa 2 cơ sở Bình Phước, Oscar for Beauty 2018, Kbiz) giữ nguyên, chờ chủ dự án xác nhận (UNK-03).
+2. **`/my-story/`:** hero chia đôi (ảnh banner cũ) → 5 khối ảnh/chữ xen kẽ → lời mời đặt lịch → form.
+3. **`/coaching/`:** 8 khối cũ theo thứ tự (hero chia đôi, học cách tự làm đẹp + thẻ khóa học, 5 điều được học, thẻ chương trình, dải ảnh "Kinh Nghiệm Và Sự Tận Tâm", "Phản Hồi Từ Học Viên" = 3 video Step 15, lợi ích đặc biệt, dải ảnh "Đăng Ký Ngay") → **giữ** "Section 3 — Coaching Tiers" và FAQ (D1: trang cũ không có phần tương đương, form vẫn hỏi gói) → form. Bỏ: hero editorial, 3 trụ cột, khối chuyên gia, khối cảm nhận dạng thẻ (synced 94). Pattern `jannie/hero-editorial` vẫn còn trong thư viện.
+4. **Dải ảnh** là `core/cover`, lớp phủ đen 60% (ảnh tông kem → nền tối nhất ~rgb(96,96,96), chữ trắng > 6:1; axe không đo được chữ trên ảnh nên tính tay), eyebrow trắng.
+5. **Ảnh hero là LCP:** `jn-performance` thêm `jn_legacy_hero_ids()` (nhận diện theo ID, cả ngoài request) và `jn_legacy_hero_lcp_id()` (trang hiện tại, chỉ khi nội dung thật sự chứa ảnh); preload, `eager` + `fetchpriority`, ngưỡng lazy và `sizes` (`JN_LEGACY_HERO_SIZES`, chung cho `<img>` và preload) đi theo ảnh đó.
+6. **Ảnh:** 12 ảnh gốc từ WordPress cũ (sha256, chỉ thu nhỏ); 5 ảnh My Story 400×600 hiển thị tối đa 400 px (D3, không phóng AI). Mọi nút → `#booking-form` (D6).
+
+### 3. Hệ quả
+- Các kiểm tra gắn cứng vào wireframe Coaching được chuyển sang nội dung mới, không bỏ: Step 8 (hero `/coaching/` = ảnh cũ eager/high; ảnh chuyên gia lazy nay kiểm tra trên `/`; `/my-story/` preload đúng 1 ảnh của nó), home hero ("Coaching có hero riêng"), overlay cleanup (icon ∞/hộp kính chỉ còn trong pattern), placeholder media (ảnh 86 được dùng qua `primaryId` của hero trang chủ). `verify-step-3-visual-parity.mjs` (so `/coaching/` với `screen.png`) không còn ý nghĩa cho trang này.
+- Deploy: có các file `.orig.*` → `import-legacy-media.php` (12 khóa Step 16) → `build-step-16-legacy-pages.php` (`JN_ALLOW_DESTRUCTIVE=1`) → purge page cache.
+- **Bổ sung sau kiểm chứng:** (1) Mô tả SEO đổi ở Step 15 chưa từng lên trang — trường tùy chỉnh TSF do `build-step-8.php` gieo luôn thắng `JN_SEO_Meta::get_page_map()`; nay hai migration gọi `jn_lb_sync_seo_meta()` để chép map vào trường TSF của 5 trang, và test kiểm tra thẻ `<meta name="description">` thật. (2) Lighthouse `image-size-responsive`: ảnh My Story 400 px giới hạn 300 px trên mobile (không phóng AI, D3). (3) Sau review độc lập: `jn_hero_image_sizes()` xét hero cũ trước (preload và `<img>` cùng `sizes`); trong request trang chỉ ảnh hero của chính trang được ưu tiên; tiêu đề/mô tả SEO My Story theo câu chữ cũ, không nêu giải thưởng chưa xác minh.

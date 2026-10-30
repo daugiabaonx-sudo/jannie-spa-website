@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T08:45:43.821Z",
+  "generatedAt": "2026-10-30T11:07:17.144Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -65,37 +65,39 @@
           {
             "top": 176,
             "words": [
-              "Câu",
-              "Chuyện"
+              "Sứ",
+              "Mệnh"
             ]
           },
           {
             "top": 224,
             "words": [
-              "Thương"
-            ]
-          },
-          {
-            "top": 272,
-            "words": [
-              "Hiệu",
-              "&"
+              "Làm",
+              "Đẹp"
             ]
           }
         ],
         "accentLines": [
           {
+            "top": 272,
+            "words": [
+              "Với",
+              "Tình"
+            ]
+          },
+          {
             "top": 320,
             "words": [
-              "Vẻ",
-              "Đẹp"
+              "Yêu",
+              "Và"
             ]
           },
           {
             "top": 368,
             "words": [
-              "Đích",
-              "Thực"
+              "Sự",
+              "Cân",
+              "Bằng"
             ]
           }
         ],
@@ -104,7 +106,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -123,24 +125,54 @@
           {
             "top": 189,
             "words": [
-              "Coaching",
-              "&"
+              "Khám",
+              "Phá"
             ]
           },
           {
             "top": 237,
             "words": [
-              "Đồng",
-              "Hành"
+              "Bí",
+              "Quyết"
+            ]
+          },
+          {
+            "top": 285,
+            "words": [
+              "Làm",
+              "Đẹp",
+              "Và"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
+              "Chăm",
+              "Sóc",
+              "Tự"
+            ]
+          },
+          {
+            "top": 381,
+            "words": [
+              "Nhiên",
+              "Tại",
+              "Nhà"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 285,
+            "top": 429,
             "words": [
-              "Chuyên",
-              "Sâu"
+              "Cùng"
+            ]
+          },
+          {
+            "top": 477,
+            "words": [
+              "Jannie",
+              "Nguyễn"
             ]
           }
         ],
@@ -149,7 +181,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -582,16 +614,15 @@
           {
             "top": 176,
             "words": [
-              "Câu",
-              "Chuyện"
+              "Sứ",
+              "Mệnh"
             ]
           },
           {
             "top": 224,
             "words": [
-              "Thương",
-              "Hiệu",
-              "&"
+              "Làm",
+              "Đẹp"
             ]
           }
         ],
@@ -599,15 +630,18 @@
           {
             "top": 272,
             "words": [
-              "Vẻ",
-              "Đẹp"
+              "Với",
+              "Tình",
+              "Yêu"
             ]
           },
           {
             "top": 320,
             "words": [
-              "Đích",
-              "Thực"
+              "Và",
+              "Sự",
+              "Cân",
+              "Bằng"
             ]
           }
         ],
@@ -616,7 +650,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -635,24 +669,49 @@
           {
             "top": 189,
             "words": [
-              "Coaching",
-              "&"
+              "Khám",
+              "Phá",
+              "Bí"
             ]
           },
           {
             "top": 237,
             "words": [
-              "Đồng",
-              "Hành"
+              "Quyết",
+              "Làm",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 285,
+            "words": [
+              "Và",
+              "Chăm",
+              "Sóc",
+              "Tự"
+            ]
+          },
+          {
+            "top": 333,
+            "words": [
+              "Nhiên",
+              "Tại",
+              "Nhà"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 285,
+            "top": 381,
             "words": [
-              "Chuyên",
-              "Sâu"
+              "Cùng"
+            ]
+          },
+          {
+            "top": 429,
+            "words": [
+              "Jannie",
+              "Nguyễn"
             ]
           }
         ],
@@ -661,7 +720,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1074,11 +1133,10 @@
           {
             "top": 200,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thương",
-              "Hiệu",
-              "&"
+              "Sứ",
+              "Mệnh",
+              "Làm",
+              "Đẹp"
             ]
           }
         ],
@@ -1086,10 +1144,13 @@
           {
             "top": 248,
             "words": [
-              "Vẻ",
-              "Đẹp",
-              "Đích",
-              "Thực"
+              "Với",
+              "Tình",
+              "Yêu",
+              "Và",
+              "Sự",
+              "Cân",
+              "Bằng"
             ]
           }
         ],
@@ -1098,7 +1159,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1115,21 +1176,36 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 171,
+            "top": 200,
             "words": [
-              "Coaching",
-              "&",
-              "Đồng",
-              "Hành"
+              "Khám",
+              "Phá",
+              "Bí",
+              "Quyết",
+              "Làm",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 248,
+            "words": [
+              "Và",
+              "Chăm",
+              "Sóc",
+              "Tự",
+              "Nhiên",
+              "Tại",
+              "Nhà"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 219,
+            "top": 296,
             "words": [
-              "Chuyên",
-              "Sâu"
+              "Cùng",
+              "Jannie",
+              "Nguyễn"
             ]
           }
         ],
@@ -1138,7 +1214,7 @@
         "titleLeft": 32,
         "headerContentLeft": 32,
         "leadWidth": 640,
-        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1506,11 +1582,10 @@
           {
             "top": 197,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thương",
-              "Hiệu",
-              "&"
+              "Sứ",
+              "Mệnh",
+              "Làm",
+              "Đẹp"
             ]
           }
         ],
@@ -1518,10 +1593,18 @@
           {
             "top": 264,
             "words": [
-              "Vẻ",
-              "Đẹp",
-              "Đích",
-              "Thực"
+              "Với",
+              "Tình",
+              "Yêu"
+            ]
+          },
+          {
+            "top": 331,
+            "words": [
+              "Và",
+              "Sự",
+              "Cân",
+              "Bằng"
             ]
           }
         ],
@@ -1529,8 +1612,8 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "leadWidth": 523,
+        "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1547,26 +1630,51 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 168,
+            "top": 197,
             "words": [
-              "Coaching",
-              "&"
+              "Khám",
+              "Phá",
+              "Bí"
             ]
           },
           {
-            "top": 235,
+            "top": 264,
             "words": [
-              "Đồng",
-              "Hành"
+              "Quyết",
+              "Làm",
+              "Đẹp"
+            ]
+          },
+          {
+            "top": 331,
+            "words": [
+              "Và",
+              "Chăm",
+              "Sóc",
+              "Tự"
+            ]
+          },
+          {
+            "top": 398,
+            "words": [
+              "Nhiên",
+              "Tại",
+              "Nhà"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 302,
+            "top": 465,
             "words": [
-              "Chuyên",
-              "Sâu"
+              "Cùng"
+            ]
+          },
+          {
+            "top": 532,
+            "words": [
+              "Jannie",
+              "Nguyễn"
             ]
           }
         ],
@@ -1574,8 +1682,8 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 632,
-        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "leadWidth": 523,
+        "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1938,11 +2046,10 @@
           {
             "top": 196,
             "words": [
-              "Câu",
-              "Chuyện",
-              "Thương",
-              "Hiệu",
-              "&"
+              "Sứ",
+              "Mệnh",
+              "Làm",
+              "Đẹp"
             ]
           }
         ],
@@ -1950,10 +2057,18 @@
           {
             "top": 268,
             "words": [
-              "Vẻ",
-              "Đẹp",
-              "Đích",
-              "Thực"
+              "Với",
+              "Tình",
+              "Yêu"
+            ]
+          },
+          {
+            "top": 340,
+            "words": [
+              "Và",
+              "Sự",
+              "Cân",
+              "Bằng"
             ]
           }
         ],
@@ -1962,7 +2077,7 @@
         "titleLeft": 96,
         "headerContentLeft": 96,
         "leadWidth": 640,
-        "leadText": "Hơn 20 năm theo nghề, Nghệ nhân Bàn Tay Vàng Jannie Nguyễn theo đuổi phương pháp cân bằng tự nhiên The Balance: làm đẹp từ sự cân bằng giữa thể chất, tâm trí và cảm xúc.",
+        "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1979,21 +2094,41 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 167,
+            "top": 237,
             "words": [
-              "Coaching",
-              "&",
-              "Đồng",
-              "Hành"
+              "Khám",
+              "Phá",
+              "Bí",
+              "Quyết"
+            ]
+          },
+          {
+            "top": 309,
+            "words": [
+              "Làm",
+              "Đẹp",
+              "Và",
+              "Chăm"
+            ]
+          },
+          {
+            "top": 381,
+            "words": [
+              "Sóc",
+              "Tự",
+              "Nhiên",
+              "Tại",
+              "Nhà"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 239,
+            "top": 453,
             "words": [
-              "Chuyên",
-              "Sâu"
+              "Cùng",
+              "Jannie",
+              "Nguyễn"
             ]
           }
         ],
@@ -2002,7 +2137,7 @@
         "titleLeft": 96,
         "headerContentLeft": 96,
         "leadWidth": 640,
-        "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
+        "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",

@@ -599,7 +599,7 @@ add_filter( 'wp_editor_set_quality', 'jn_filter_avif_editor_quality', 20, 2 );
  * @return int
  */
 function jn_filter_omit_loading_attr_threshold() {
-	if ( is_front_page() || is_page( 'coaching' ) || is_singular( 'product' ) ) {
+	if ( is_front_page() || is_page( 'coaching' ) || jn_legacy_hero_lcp_id() > 0 || is_singular( 'product' ) ) {
 		return 1;
 	}
 	return 0;
@@ -677,13 +677,66 @@ function jn_hero_portrait_lcp_id(): int {
 	return $cache[ $post_id ];
 }
 
+const JN_LEGACY_HERO_KEYS = array(
+	'coaching' => 'coaching_hero',
+	'my-story' => 'my_story_banner',
+);
+// Legacy hero column (legacy-pages.css): full width below 782px, then 41.67% of the container, max ~500px.
+const JN_LEGACY_HERO_SIZES = '(max-width: 781px) calc(100vw - 40px), (max-width: 1199px) 40vw, 500px';
+
 /**
- * `sizes` of the hero LCP portrait, shared by the `<img>` and its preload so the browser fetches one file.
- * Pages with the arched `jn/hero-portrait` frame (ADR-021) use its larger sizes; /coaching/ keeps the 4:5 card.
+ * Attachment IDs of the Step 16 legacy hero photos, whatever page is rendering (also outside a request).
+ *
+ * @return int[]
+ */
+function jn_legacy_hero_ids(): array {
+	$map = get_option( 'jn_legacy_media_map', array() );
+	$ids = array();
+	foreach ( JN_LEGACY_HERO_KEYS as $key ) {
+		$id = is_array( $map ) ? (int) ( $map[ $key ]['id'] ?? 0 ) : 0;
+		if ( $id > 0 ) {
+			$ids[] = $id;
+		}
+	}
+	return $ids;
+}
+
+/**
+ * LCP photo of a Step 16 legacy hero (ADR-023): the old jannieedu.com photo beside the page title on
+ * /coaching/ and /my-story/, or 0 when the page does not show it. Read from `jn_legacy_media_map` and only
+ * used when the page content really contains that attachment, so an edited page falls back cleanly.
+ *
+ * @return int
+ */
+function jn_legacy_hero_lcp_id(): int {
+	static $cache = array();
+
+	$keys    = JN_LEGACY_HERO_KEYS;
+	$post_id = is_page() ? (int) get_queried_object_id() : 0;
+	$slug    = $post_id > 0 ? (string) get_post_field( 'post_name', $post_id ) : '';
+	if ( ! isset( $keys[ $slug ] ) ) {
+		return 0;
+	}
+	if ( ! isset( $cache[ $post_id ] ) ) {
+		$map  = get_option( 'jn_legacy_media_map', array() );
+		$id   = is_array( $map ) ? (int) ( $map[ $keys[ $slug ] ]['id'] ?? 0 ) : 0;
+		$html = (string) get_post_field( 'post_content', $post_id );
+		$cache[ $post_id ] = $id > 0 && false !== strpos( $html, 'jn-legacy-hero__image' ) && 1 === preg_match( '/\bwp-image-' . $id . '\b/', $html ) ? $id : 0;
+	}
+	return $cache[ $post_id ];
+}
+
+/**
+ * `sizes` of the hero LCP image, shared by the `<img>` and its preload so the browser fetches one file.
+ * Step 16 legacy heroes (/coaching/, /my-story/, ADR-023) first, as the preload picks them first; then the
+ * arched `jn/hero-portrait` frame (ADR-021); otherwise the 4:5 editorial card.
  *
  * @return string
  */
 function jn_hero_image_sizes(): string {
+	if ( jn_legacy_hero_lcp_id() > 0 ) {
+		return JN_LEGACY_HERO_SIZES;
+	}
 	if ( jn_hero_portrait_lcp_id() > 0 ) {
 		return JN_Hero_Portrait::sizes();
 	}
@@ -719,14 +772,27 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 	// On a page with `jn/hero-portrait` only its primary image is the hero, whatever attachment it shows;
 	// elsewhere the 4:5 card is recognised by the media-map ID.
 	$portrait_id = jn_hero_portrait_lcp_id();
+	// Step 16 legacy hero photos: on a page, only that page's own hero; outside a request (e.g. rendering
+	// content from WP-CLI) recognise them by ID, as the 4:5 card is recognised by its media-map ID.
+	$legacy_hero = 0;
+	$page_legacy = jn_legacy_hero_lcp_id();
+	foreach ( jn_legacy_hero_ids() as $candidate ) {
+		$in_scope = is_singular() ? $candidate === $page_legacy : true;
+		if ( $in_scope && ( $attachment_id === $candidate || $has_image_class( $candidate ) ) ) {
+			$legacy_hero = $candidate;
+		}
+	}
 	if ( $portrait_id > 0 ) {
 		$is_hero = false !== strpos( $filtered_image, 'jn-hero-portrait__img--primary' );
 		$hero_id = $portrait_id;
+	} elseif ( $legacy_hero > 0 ) {
+		$is_hero = true;
+		$hero_id = $legacy_hero;
 	} else {
 		$is_hero = $attachment_id === $hero_id || $has_image_class( $hero_id );
 	}
 	if ( $is_hero ) {
-		$hero_sizes     = jn_hero_image_sizes();
+		$hero_sizes     = in_array( $hero_id, jn_legacy_hero_ids(), true ) ? JN_LEGACY_HERO_SIZES : jn_hero_image_sizes();
 		$hero_srcset    = wp_get_attachment_image_srcset( $hero_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
 		$filtered_image = (string) preg_replace( '/\s+fetchpriority=(["\'])[^"\']*\1/i', '', $filtered_image );
@@ -836,10 +902,11 @@ function jn_preload_lcp_image() {
 		return;
 	}
 
-	// `/` and `/coaching/` use the Hero 4:5 portrait as the LCP element.
-	if ( is_front_page() || is_page( 'coaching' ) ) {
+	// `/` and `/coaching/` use the Hero 4:5 portrait as the LCP element; /coaching/ and /my-story/ show the
+	// old jannieedu.com photo instead since Step 16 (ADR-023).
+	if ( is_front_page() || is_page( 'coaching' ) || jn_legacy_hero_lcp_id() > 0 ) {
 		$media_map = get_option( 'jn_step3_media_map', array() );
-		$hero_id   = jn_hero_portrait_lcp_id();
+		$hero_id   = jn_legacy_hero_lcp_id() > 0 ? jn_legacy_hero_lcp_id() : jn_hero_portrait_lcp_id();
 		if ( $hero_id <= 0 ) {
 			$hero_id = isset( $media_map['hero_portrait']['id'] ) ? (int) $media_map['hero_portrait']['id'] : 86;
 		}
