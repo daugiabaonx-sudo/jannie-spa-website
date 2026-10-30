@@ -270,25 +270,13 @@ function jn_build_scaffold_section_markup( $heading, $placeholder_copy ) {
 // ============================================================================
 // 4. Upsert all pages with 100% Core + `jn/*` blocks (zero `core/html`)
 // ============================================================================
-$hero_media = jannie_get_placeholder_media( 'hero_portrait', 'jn-hero-portrait.webp' );
-
-// Home Hero variation built from `jannie/hero-editorial` pattern structure.
-$home_hero_markup = str_replace(
-	array(
-		'Private Mentorship &amp; Advisory Program',
-		'Coaching &amp; Đồng Hành <em class="jn-accent-italic">Chuyên Sâu</em>',
-		'Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.',
-		'<a class="wp-block-button__link wp-element-button" href="#booking-form">Đặt Lịch Coaching Ngay</a>',
-		'<a class="wp-block-button__link wp-element-button" href="#coaching-tiers">Xem Chi Tiết 3 Gói Cố Vấn</a>',
-	),
-	array(
-		'Jannie Nguyen Academy &amp; Mentorship',
-		'Khám Phá Sự Cân Bằng &amp; <em class="jn-accent-italic">Vẻ Đẹp Đích Thực</em>',
-		$jn_leads['home'],
-		'<a class="wp-block-button__link wp-element-button" href="' . esc_url( home_url( '/coaching/' ) ) . '">Khám Phá Chương Trình Coaching</a>',
-		'<a class="wp-block-button__link wp-element-button" href="#booking-form">Đặt Lịch Tư Vấn 1:1</a>',
-	),
-	$pattern_hero
+// Home has its own arched-portrait hero (ADR-021); /coaching/ keeps `jannie/hero-editorial`.
+// The lead is re-seeded from the shared copy, so the pattern text can never drift from lib/jn-page-copy.php.
+$home_hero_markup = (string) preg_replace_callback(
+	'#(<p class="jn-hero-lead[^"]*">)[^<]*(</p>)#',
+	static fn( array $m ): string => $m[1] . $jn_leads['home'] . $m[2],
+	jn_render_pattern_file( 'hero-home.php' ),
+	1
 );
 
 $pages_spec = array(

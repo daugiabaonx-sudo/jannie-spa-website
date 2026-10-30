@@ -40,6 +40,7 @@ add_action(
 );
 
 require_once JN_CORE_PATH . 'blocks/icon/class-jn-icon-sprite.php';
+require_once JN_CORE_PATH . 'blocks/hero-portrait/class-jn-hero-portrait.php';
 require_once JN_CORE_PATH . 'blocks/class-jn-blocks.php';
 require_once JN_CORE_PATH . 'testimonials/class-jn-testimonials.php';
 require_once JN_CORE_PATH . 'booking/class-jn-coaching-packages.php';

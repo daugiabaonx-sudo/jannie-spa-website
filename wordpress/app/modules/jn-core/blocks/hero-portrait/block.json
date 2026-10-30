@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/hero-portrait",
+	"version": "1.0.0",
+	"title": "JN Hero Portrait",
+	"category": "media",
+	"icon": "format-image",
+	"description": "Arched hero portrait with a polaroid that swaps in a second photo (CSS only, keyboard accessible).",
+	"keywords": [ "hero", "portrait", "polaroid", "jannie" ],
+	"textdomain": "jn-core",
+	"attributes": {
+		"primaryId": {
+			"type": "number",
+			"default": 0
+		},
+		"secondaryId": {
+			"type": "number",
+			"default": 0
+		},
+		"captionKicker": {
+			"type": "string",
+			"default": "The Art Of"
+		},
+		"captionTitle": {
+			"type": "string",
+			"default": "Inner Beauty"
+		},
+		"polaroidLabel": {
+			"type": "string",
+			"default": "Tap to explore"
+		},
+		"labelLang": {
+			"type": "string",
+			"default": "en"
+		},
+		"toggleLabel": {
+			"type": "string",
+			"default": "Đổi ảnh chân dung"
+		},
+		"sideText": {
+			"type": "string",
+			"default": "Balance ✳ Beauty"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "jn-block-hero-portrait-editor",
+	"render": "file:./render.php"
+}

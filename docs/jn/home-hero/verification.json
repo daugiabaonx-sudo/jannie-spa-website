@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-10-30T06:43:17.759Z",
+  "baseUrl": "http://localhost:8080",
+  "results": [
+    {
+      "check": "layout + LCP (P 180ms)",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "P",
+          "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
+          "ms": 180
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-400x500.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 42,
+          "right": 278,
+          "width": 237
+        },
+        "polaroidRight": 310,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "layout + LCP (P 76ms)",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "P",
+          "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
+          "ms": 76
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-400x500.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 43,
+          "right": 332,
+          "width": 290
+        },
+        "polaroidRight": 365,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "keyboard + click photo swap (8 Tabs)",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "failures": [],
+        "tabs": 8,
+        "swapped": {
+          "focused": true,
+          "checked": true,
+          "primaryOpacity": "0",
+          "altOpacity": "1",
+          "altLoaded": true,
+          "polaroidOutline": "solid"
+        }
+      }
+    },
+    {
+      "check": "layout + LCP (P 40ms)",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "P",
+          "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
+          "ms": 40
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-600x750.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 130,
+          "right": 638,
+          "width": 508
+        },
+        "polaroidRight": 671,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "layout + LCP (IMG 52ms)",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "IMG",
+          "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
+          "ms": 52
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-600x750.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 608,
+          "right": 976,
+          "width": 368
+        },
+        "polaroidRight": 1008,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "layout + LCP (IMG 52ms)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "IMG",
+          "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
+          "ms": 52
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-600x750.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 843,
+          "right": 1328,
+          "width": 485
+        },
+        "polaroidRight": 1361,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "keyboard + click photo swap (16 Tabs)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "failures": [],
+        "tabs": 16,
+        "swapped": {
+          "focused": true,
+          "checked": true,
+          "primaryOpacity": "0",
+          "altOpacity": "1",
+          "altLoaded": true,
+          "polaroidOutline": "solid"
+        }
+      }
+    },
+    {
+      "check": "layout + LCP (IMG 52ms)",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "overflow": false,
+        "lcp": {
+          "tag": "IMG",
+          "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
+          "ms": 52
+        },
+        "lcpIsHero": true,
+        "primary": {
+          "complete": true,
+          "src": "http://localhost:8080/media/2026/10/jn-hero-portrait-600x750.avif",
+          "opacity": "1",
+          "loading": "eager",
+          "fetchPriority": "high"
+        },
+        "frame": {
+          "left": 1083,
+          "right": 1568,
+          "width": 485
+        },
+        "polaroidRight": 1601,
+        "ctas": [
+          "#booking-form",
+          "http://localhost:8080/coaching/"
+        ],
+        "h1Count": 1
+      }
+    },
+    {
+      "check": "reduced motion stops the loops",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "rings": "none",
+        "polaroid": "none"
+      }
+    }
+  ],
+  "summary": {
+    "checks": 9,
+    "failed": 0
+  }
+}

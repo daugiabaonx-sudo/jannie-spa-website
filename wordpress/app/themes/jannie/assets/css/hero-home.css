@@ -1,0 +1,459 @@
+/**
+ * Jannie Home Hero (ADR-021): `jannie/hero-home` pattern + `jn/hero-portrait` block.
+ *
+ * Copy column (eyebrow, three-line H1, lead, ruled metrics, CTA pills, scroll cue) beside an arched
+ * portrait whose polaroid swaps in a second photo through a CSS-only checkbox. The shared hero title /
+ * eyebrow / lead rules of ADR-014 still apply; this file only scales them up for the home page.
+ *
+ * Motion is decorative only (breathing rings, floating polaroid, scroll cue, hover lift): the H1 and the
+ * LCP portrait are painted immediately, never faded in, and every loop stops under reduced motion and on
+ * low-end devices (`.jn-motion-lite`, inc/motion.php).
+ */
+
+/* 1. Section & local tokens (warm tones of the design with no global token) */
+.jn-section.jn-hero-home {
+	--jn-hero-glow: #EDE3D8;
+	--jn-hero-ring: #E0D2C4;
+	--jn-hero-arch: #CCB5A3;
+	--jn-hero-photo-bg: #CBB49D;
+	--jn-hero-shade: rgba(33, 21, 11, 0.6);
+	--jn-hero-portrait-shadow: 0 30px 60px -10px rgba(72, 49, 38, 0.28);
+	--jn-hero-polaroid-shadow: 0 14px 35px rgba(51, 36, 27, 0.26);
+	isolation: isolate;
+	padding-top: var(--jn-space-2xl) !important;
+	background: radial-gradient(ellipse at 85% 45%, var(--jn-hero-glow) 0%, transparent 53%);
+}
+
+/* Two concentric rings behind the portrait: pseudo-elements, so the pattern needs no empty blocks. */
+.jn-section.jn-hero-home::before,
+.jn-section.jn-hero-home::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	border: 1px solid var(--jn-hero-ring);
+	border-radius: 50%;
+	pointer-events: none;
+	animation: jn-hero-breathe 8s ease-in-out infinite;
+}
+
+.jn-section.jn-hero-home::before {
+	width: 650px;
+	height: 650px;
+	top: -65px;
+	right: -175px;
+}
+
+.jn-section.jn-hero-home::after {
+	width: 470px;
+	height: 470px;
+	top: 30px;
+	right: -82px;
+	animation-delay: -4s;
+}
+
+/* 2. Grid: 1.12fr copy / 0.88fr portrait (FRAME_WIDTHS in class-jn-hero-portrait.php mirrors this). */
+.jn-hero-home__grid {
+	display: grid !important;
+	grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+	align-items: center;
+	column-gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.jn-hero-home__grid > * {
+	margin-block: 0 !important;
+}
+
+/* 3. Copy column (eyebrow → 16px → title → 24px → lead rhythm comes from the shared ADR-014 rules) */
+.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow::before {
+	width: 10px;
+	height: 10px;
+	box-shadow: 0 0 0 5px color-mix(in srgb, var(--jn-champagne) 16%, transparent);
+}
+
+.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow::after {
+	display: none;
+}
+
+.jn-hero-home .jn-hero-title {
+	font-size: clamp(2.5rem, 1.25rem + 4.2vw, 5rem);
+	line-height: 1.14;
+	letter-spacing: -0.035em;
+	max-width: none;
+}
+
+.jn-hero-home .jn-hero-title .jn-accent-italic {
+	font-size: 0.92em;
+	letter-spacing: -0.04em;
+}
+
+.jn-hero-home .jn-hero-lead {
+	margin-bottom: var(--jn-space-lg) !important;
+}
+
+/* Metrics: hairline-ruled row instead of the floating card used on /coaching/. */
+.jn-hero-home .jn-hero-metrics.is-style-metrics-bar {
+	gap: 0;
+	max-width: 35rem;
+	padding: var(--jn-space-md) 0;
+	border-block: 1px solid var(--jn-wireframe-guide);
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > * {
+	padding-inline: var(--jn-space-md);
+	border-color: var(--jn-wireframe-guide);
+}
+
+.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > :first-child {
+	padding-left: 0;
+}
+
+.jn-hero-home .jn-metric-value {
+	font-size: clamp(1.875rem, 1.25rem + 1.4vw, 2.8125rem);
+}
+
+/* CTA pills: taller, label left / arrow right, lift on hover; the secondary pill is translucent. */
+.jn-hero-home .jn-hero-actions {
+	margin-top: var(--jn-space-xl) !important;
+}
+
+.jn-hero-home .jn-hero-actions .wp-block-button__link {
+	min-height: 56px;
+	justify-content: space-between;
+	gap: var(--jn-space-md);
+	padding-inline: var(--jn-space-lg);
+	transition:
+		background-color var(--jn-transition),
+		color var(--jn-transition),
+		border-color var(--jn-transition),
+		box-shadow var(--jn-motion-normal) var(--jn-ease-smooth),
+		transform var(--jn-motion-normal) var(--jn-ease-smooth);
+}
+
+.jn-hero-home .jn-hero-actions .wp-block-button__link:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--jn-shadow-featured);
+}
+
+.jn-hero-home .jn-hero-actions .is-style-soft-pill .wp-block-button__link {
+	background-color: color-mix(in srgb, var(--jn-surface-pure) 66%, transparent);
+	border-color: var(--jn-border);
+}
+
+.jn-hero-home .jn-hero-actions .is-style-soft-pill .wp-block-button__link:hover {
+	background-color: var(--jn-surface-pure);
+}
+
+/* Scroll cue: a decorative ↓ capsule drawn by ::before, so the paragraph only holds the tagline. */
+.jn-hero-home p.jn-hero-home__note {
+	display: flex;
+	align-items: center;
+	gap: var(--jn-space-sm);
+	margin-top: var(--jn-space-2xl) !important;
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-sm);
+	line-height: var(--jn-lh-label-sm);
+	font-weight: 600;
+	letter-spacing: 0.19em;
+	text-transform: uppercase;
+	color: var(--jn-secondary); /* 5.12:1 even on the warm glow (champagne-text-sm drops to 4.19:1) */
+}
+
+.jn-hero-home p.jn-hero-home__note::before {
+	content: "↓";
+	display: grid;
+	place-items: center;
+	flex-shrink: 0;
+	width: 27px;
+	height: 40px;
+	border: 1px solid var(--jn-wireframe-guide);
+	border-radius: var(--jn-radius-pill);
+	font-size: 1.125rem;
+	letter-spacing: 0;
+	animation: jn-hero-cue 2.5s ease-in-out infinite;
+}
+
+/* 4. Arched portrait (jn/hero-portrait) */
+.jn-hero-portrait {
+	position: relative;
+	min-width: 0;
+	padding: var(--jn-space-lg) var(--jn-space-md) var(--jn-space-xl) var(--jn-space-md);
+}
+
+.jn-hero-portrait p {
+	margin: 0;
+}
+
+.jn-hero-portrait__outline {
+	position: absolute;
+	inset: 8% 0 9% 12%;
+	border: 1px solid var(--jn-hero-arch);
+	border-radius: 48% 48% 12px 12px;
+	transform: translate(10px, -13px);
+	pointer-events: none;
+}
+
+/* Visually hidden but focusable: the polaroid <label> is its visible control. */
+.jn-hero-portrait__toggle {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.jn-hero-portrait__frame {
+	position: relative;
+	aspect-ratio: 4 / 5.1;
+	overflow: hidden;
+	border-radius: 49% 49% 13px 13px;
+	background: linear-gradient(130deg, var(--jn-hero-photo-bg), var(--jn-secondary));
+	box-shadow: var(--jn-hero-portrait-shadow);
+	transition:
+		border-radius var(--jn-motion-slow) var(--jn-ease-smooth),
+		transform var(--jn-motion-normal) var(--jn-ease-smooth);
+}
+
+.jn-hero-portrait__frame:hover {
+	transform: translateY(-5px);
+}
+
+.jn-hero-portrait__img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* visibility flips after the fade, so screen readers only meet the photo on show. */
+	transition:
+		opacity var(--jn-motion-slow) var(--jn-ease-smooth),
+		transform 800ms var(--jn-ease-smooth),
+		visibility 0s linear var(--jn-motion-slow);
+}
+
+/* The swap photo waits invisible above the LCP portrait; the subject of the 16:9 banner sits right of centre. */
+.jn-hero-portrait__img--alt {
+	opacity: 0;
+	visibility: hidden;
+	object-position: 72% 50%;
+}
+
+.jn-hero-portrait__frame:hover .jn-hero-portrait__img {
+	transform: scale(1.05);
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__frame {
+	border-radius: 18px;
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__frame .jn-hero-portrait__img--primary {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__frame .jn-hero-portrait__img--alt,
+.jn-hero-portrait__toggle:not(:checked) ~ .jn-hero-portrait__frame .jn-hero-portrait__img--primary {
+	transition-delay: 0s;
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__frame .jn-hero-portrait__img--alt {
+	opacity: 1;
+	visibility: visible;
+}
+
+.jn-hero-portrait__shade {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(transparent 55%, var(--jn-hero-shade));
+	pointer-events: none;
+}
+
+.jn-hero-portrait__caption {
+	position: absolute;
+	left: 9%;
+	bottom: 9%;
+	display: grid;
+	gap: 6px;
+	color: var(--jn-surface-cream);
+	text-shadow: 0 2px 9px rgba(0, 0, 0, 0.33);
+}
+
+.jn-hero-portrait__caption small {
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-sm);
+	font-weight: 600;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+}
+
+.jn-hero-portrait__caption strong {
+	font-family: var(--jn-font-heading);
+	font-size: clamp(1.75rem, 1rem + 1.6vw, 2.375rem);
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.1;
+}
+
+.jn-hero-portrait__polaroid {
+	position: absolute;
+	z-index: 2;
+	right: -9px;
+	bottom: 8px;
+	width: 37%;
+	max-width: 190px;
+	padding: 9px 9px 13px;
+	background-color: var(--jn-surface-pure);
+	box-shadow: var(--jn-hero-polaroid-shadow);
+	font-family: var(--jn-font-heading);
+	font-size: var(--jn-text-body-sm);
+	font-style: italic;
+	color: var(--jn-ink);
+	text-align: center;
+	cursor: pointer;
+	transform: rotate(7deg);
+	animation: jn-hero-float 5.5s ease-in-out infinite;
+}
+
+.jn-hero-portrait__thumb {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	margin-bottom: 11px;
+}
+
+.jn-hero-portrait__polaroid-text > span {
+	color: var(--jn-champagne-text-sm);
+}
+
+.jn-hero-portrait__toggle:focus-visible ~ .jn-hero-portrait__polaroid {
+	outline: 3px solid var(--jn-secondary);
+	outline-offset: 4px;
+}
+
+.jn-hero-portrait__side {
+	position: absolute;
+	left: -8%;
+	top: 32%;
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	font-family: var(--jn-font-body);
+	font-size: var(--jn-text-label-sm);
+	font-weight: 600;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--jn-secondary); /* small text over the glow: champagne-text-lg is only for >= 24px */
+}
+
+/* 5. Keyframes (transform only) */
+@keyframes jn-hero-breathe {
+	50% {
+		transform: scale(1.05);
+	}
+}
+
+@keyframes jn-hero-float {
+	0%,
+	100% {
+		transform: rotate(7deg) translateY(0);
+	}
+
+	50% {
+		transform: rotate(4deg) translateY(-12px);
+	}
+}
+
+@keyframes jn-hero-cue {
+	50% {
+		transform: translateY(6px);
+	}
+}
+
+/* 6. Responsive (site breakpoints, ADR-014) */
+@media (max-width: 1023.98px) {
+	.jn-hero-home__grid {
+		grid-template-columns: minmax(0, 1fr);
+		row-gap: var(--jn-space-2xl);
+	}
+
+	.jn-hero-portrait {
+		width: 88%;
+		max-width: 540px;
+		margin-inline: auto !important;
+	}
+
+	/* One column: the portrait moves below the copy, so the rings shrink into the top-right corner
+	   instead of crossing the lead and metrics. */
+	.jn-section.jn-hero-home::before {
+		width: 340px;
+		height: 340px;
+		top: -150px;
+		right: -170px;
+	}
+
+	.jn-section.jn-hero-home::after {
+		width: 240px;
+		height: 240px;
+		top: -95px;
+		right: -115px;
+	}
+}
+
+@media (max-width: 639.98px) {
+	.jn-section.jn-hero-home {
+		padding-top: var(--jn-space-xl) !important;
+	}
+
+	.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow {
+		letter-spacing: 0.1em;
+	}
+
+	.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > * {
+		padding-inline: var(--jn-space-sm);
+	}
+
+	.jn-hero-home .jn-hero-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.jn-hero-home .jn-hero-actions .wp-block-button,
+	.jn-hero-home .jn-hero-actions .wp-block-button__link {
+		width: 100%;
+	}
+
+	.jn-hero-portrait {
+		width: 96%;
+	}
+
+	.jn-hero-portrait__side {
+		display: none;
+	}
+}
+
+/* 7. Reduced motion & low-end devices: no decorative loops, no hover travel. */
+@media (prefers-reduced-motion: reduce) {
+	.jn-section.jn-hero-home::before,
+	.jn-section.jn-hero-home::after,
+	.jn-hero-home p.jn-hero-home__note::before,
+	.jn-hero-portrait__polaroid {
+		animation: none;
+	}
+
+	.jn-hero-home .jn-hero-actions .wp-block-button__link:hover,
+	.jn-hero-portrait__frame:hover,
+	.jn-hero-portrait__frame:hover .jn-hero-portrait__img {
+		transform: none;
+	}
+}
+
+.jn-motion-lite .jn-section.jn-hero-home::before,
+.jn-motion-lite .jn-section.jn-hero-home::after,
+.jn-motion-lite .jn-hero-home p.jn-hero-home__note::before,
+.jn-motion-lite .jn-hero-portrait__polaroid {
+	animation: none;
+}

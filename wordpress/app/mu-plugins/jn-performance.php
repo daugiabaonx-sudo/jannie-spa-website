@@ -658,6 +658,39 @@ function jn_prefer_avif_in_srcset( $sources, $size_array, $image_src, $image_met
 add_filter( 'wp_calculate_image_srcset', 'jn_prefer_avif_in_srcset', 20, 5 );
 
 /**
+ * LCP image of the `jn/hero-portrait` block on the current page (ADR-021), or 0 when the page has none.
+ * The block's own `primaryId` wins over `jn_step3_media_map`, so an image picked in the editor still gets
+ * the preload and the eager / high-priority treatment. Cached per page: the content filter runs per `<img>`.
+ *
+ * @return int
+ */
+function jn_hero_portrait_lcp_id(): int {
+	static $cache = array();
+
+	$post_id = is_singular() ? (int) get_queried_object_id() : 0;
+	if ( $post_id <= 0 || ! class_exists( 'JN_Hero_Portrait' ) ) {
+		return 0;
+	}
+	if ( ! isset( $cache[ $post_id ] ) ) {
+		$cache[ $post_id ] = JN_Hero_Portrait::primary_id_in( (string) get_post_field( 'post_content', $post_id ) );
+	}
+	return $cache[ $post_id ];
+}
+
+/**
+ * `sizes` of the hero LCP portrait, shared by the `<img>` and its preload so the browser fetches one file.
+ * Pages with the arched `jn/hero-portrait` frame (ADR-021) use its larger sizes; /coaching/ keeps the 4:5 card.
+ *
+ * @return string
+ */
+function jn_hero_image_sizes(): string {
+	if ( jn_hero_portrait_lcp_id() > 0 ) {
+		return JN_Hero_Portrait::sizes();
+	}
+	return '(max-width: 767px) 228px, (max-width: 1023px) 340px, 384px';
+}
+
+/**
  * Enforce accurate `sizes`, `srcset`, `loading`, `fetchpriority`, and `width`/`height` on content images (Task 4).
  *
  * @param string $filtered_image Full `<img>` tag markup.
@@ -682,9 +715,18 @@ function jn_optimize_content_img_tag( $filtered_image, $context, $attachment_id 
 	// Exact class match: `wp-image-86` must not match `wp-image-860`.
 	$has_image_class = static fn( int $id ): bool => 1 === preg_match( '/\bwp-image-' . $id . '\b/', $filtered_image );
 
-	// 1. Hero 4:5 portrait (above the fold LCP image): eager + fetchpriority="high" + exact responsive sizes & srcset.
-	if ( $attachment_id === $hero_id || $has_image_class( $hero_id ) ) {
-		$hero_sizes     = '(max-width: 767px) 228px, (max-width: 1023px) 340px, 384px';
+	// 1. Hero portrait (above the fold LCP image): eager + fetchpriority="high" + exact responsive sizes & srcset.
+	// On a page with `jn/hero-portrait` only its primary image is the hero, whatever attachment it shows;
+	// elsewhere the 4:5 card is recognised by the media-map ID.
+	$portrait_id = jn_hero_portrait_lcp_id();
+	if ( $portrait_id > 0 ) {
+		$is_hero = false !== strpos( $filtered_image, 'jn-hero-portrait__img--primary' );
+		$hero_id = $portrait_id;
+	} else {
+		$is_hero = $attachment_id === $hero_id || $has_image_class( $hero_id );
+	}
+	if ( $is_hero ) {
+		$hero_sizes     = jn_hero_image_sizes();
 		$hero_srcset    = wp_get_attachment_image_srcset( $hero_id, 'full' );
 		$filtered_image = (string) preg_replace( '/\s+loading=(["\'])[^"\']*\1/i', '', $filtered_image );
 		$filtered_image = (string) preg_replace( '/\s+fetchpriority=(["\'])[^"\']*\1/i', '', $filtered_image );
@@ -797,10 +839,13 @@ function jn_preload_lcp_image() {
 	// `/` and `/coaching/` use the Hero 4:5 portrait as the LCP element.
 	if ( is_front_page() || is_page( 'coaching' ) ) {
 		$media_map = get_option( 'jn_step3_media_map', array() );
-		$hero_id   = isset( $media_map['hero_portrait']['id'] ) ? (int) $media_map['hero_portrait']['id'] : 86;
+		$hero_id   = jn_hero_portrait_lcp_id();
+		if ( $hero_id <= 0 ) {
+			$hero_id = isset( $media_map['hero_portrait']['id'] ) ? (int) $media_map['hero_portrait']['id'] : 86;
+		}
 		$src       = wp_get_attachment_image_url( $hero_id, 'full' );
 		$srcset    = wp_get_attachment_image_srcset( $hero_id, 'full' );
-		$sizes     = '(max-width: 767px) 228px, (max-width: 1023px) 340px, 384px';
+		$sizes     = jn_hero_image_sizes();
 
 		if ( $src && $srcset ) {
 			printf(
