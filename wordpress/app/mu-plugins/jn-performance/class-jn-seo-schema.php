@@ -169,7 +169,7 @@ class JN_SEO_Schema {
 			'@type'         => 'Organization',
 			'@id'           => $ids['org'],
 			'name'          => $brand['org_name'],
-			'alternateName' => 'Jannie Nguyễn — Beauty Blog & Mentorship',
+			'alternateName' => $brand['org_alternate_names'], // All in-use spellings resolve to this entity (F14-02).
 			'url'           => home_url( '/' ),
 			'image'         => JN_SEO_Meta::get_default_og_image()['url'],
 			'email'         => $brand['email'],

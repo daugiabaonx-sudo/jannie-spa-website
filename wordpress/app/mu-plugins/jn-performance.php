@@ -943,12 +943,14 @@ require_once __DIR__ . '/jn-performance/class-jn-seo-robots.php';
 require_once __DIR__ . '/jn-performance/class-jn-seo-sitemap.php';
 require_once __DIR__ . '/jn-performance/class-jn-seo-schema.php';
 require_once __DIR__ . '/jn-performance/class-jn-seo-llms.php';
+require_once __DIR__ . '/jn-performance/class-jn-seo-placeholders.php';
 
 JN_SEO_Meta::init();
 JN_SEO_Robots::init();
 JN_SEO_Sitemap::init();
 JN_SEO_Schema::init();
 JN_SEO_Llms::init();
+JN_SEO_Placeholders::init();
 
 // =============================================================================
 // Task 10 — Database Autoload Hygiene & Expired Transient Cleanup

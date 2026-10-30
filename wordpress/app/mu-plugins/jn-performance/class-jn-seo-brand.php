@@ -37,6 +37,8 @@ class JN_SEO_Brand {
 		return array(
 			'name'               => 'Jannie Nguyễn',
 			'org_name'           => 'Jannie Nguyễn Academy',
+			// Every other spelling the pages use (footer/page-intro, meta descriptions) + the site tagline (Step 14, F14-02).
+			'org_alternate_names' => array( 'Jannie Nguyen Academy', 'Học viện Jannie Nguyễn', 'Jannie Nguyễn — Beauty Blog & Mentorship' ),
 			'email'              => 'contact@jannienguyen.vn',
 			'telephone'          => sanitize_text_field( (string) get_option( 'jn_brand_telephone', '' ) ),
 			'locality'           => 'TP. Hồ Chí Minh',
