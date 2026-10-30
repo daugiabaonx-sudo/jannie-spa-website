@@ -282,8 +282,9 @@ function evaluateBudget(entry, preset) {
   if (entry.metrics.fcpMs > 1500) {
     failures.push(`FCP ${entry.metrics.fcpMs}ms > 1500ms`);
   }
-  if (entry.metrics.lcpMs > 2000) {
-    failures.push(`LCP ${entry.metrics.lcpMs}ms > 2000ms`);
+  // 2.5 s = Core Web Vitals "good". Raised from 2.0 s when Blocksy's CSS became render-blocking (ADR-024).
+  if (entry.metrics.lcpMs > 2500) {
+    failures.push(`LCP ${entry.metrics.lcpMs}ms > 2500ms`);
   }
   if (entry.metrics.tbtMs > 100) {
     failures.push(`TBT ${entry.metrics.tbtMs}ms > 100ms`);

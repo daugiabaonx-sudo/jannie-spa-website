@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T11:07:17.144Z",
+  "generatedAt": "2026-10-30T17:42:30.019Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -82,18 +82,13 @@
             "top": 272,
             "words": [
               "Với",
-              "Tình"
-            ]
-          },
-          {
-            "top": 320,
-            "words": [
+              "Tình",
               "Yêu",
               "Và"
             ]
           },
           {
-            "top": 368,
+            "top": 320,
             "words": [
               "Sự",
               "Cân",
@@ -126,34 +121,29 @@
             "top": 189,
             "words": [
               "Khám",
-              "Phá"
+              "Phá",
+              "Bí"
             ]
           },
           {
             "top": 237,
             "words": [
-              "Bí",
-              "Quyết"
+              "Quyết",
+              "Làm",
+              "Đẹp"
             ]
           },
           {
             "top": 285,
             "words": [
-              "Làm",
-              "Đẹp",
-              "Và"
-            ]
-          },
-          {
-            "top": 333,
-            "words": [
+              "Và",
               "Chăm",
               "Sóc",
               "Tự"
             ]
           },
           {
-            "top": 381,
+            "top": 333,
             "words": [
               "Nhiên",
               "Tại",
@@ -163,13 +153,13 @@
         ],
         "accentLines": [
           {
-            "top": 429,
+            "top": 381,
             "words": [
               "Cùng"
             ]
           },
           {
-            "top": 477,
+            "top": 429,
             "words": [
               "Jannie",
               "Nguyễn"
@@ -508,19 +498,14 @@
             "top": 237,
             "words": [
               "Tìm",
-              "Kiếm"
+              "Kiếm",
+              "Đã"
             ]
           },
           {
             "top": 285,
             "words": [
-              "Đã",
-              "Chuyển"
-            ]
-          },
-          {
-            "top": 333,
-            "words": [
+              "Chuyển",
               "Đi",
               "Hoặc"
             ]
@@ -528,7 +513,7 @@
         ],
         "accentLines": [
           {
-            "top": 381,
+            "top": 333,
             "words": [
               "Không",
               "Tồn",
@@ -579,12 +564,7 @@
             "top": 285,
             "words": [
               "Vẻ",
-              "Đẹp"
-            ]
-          },
-          {
-            "top": 333,
-            "words": [
+              "Đẹp",
               "Đích",
               "Thực"
             ]
@@ -615,12 +595,7 @@
             "top": 176,
             "words": [
               "Sứ",
-              "Mệnh"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
+              "Mệnh",
               "Làm",
               "Đẹp"
             ]
@@ -628,17 +603,17 @@
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
               "Với",
               "Tình",
-              "Yêu"
+              "Yêu",
+              "Và"
             ]
           },
           {
-            "top": 320,
+            "top": 272,
             "words": [
-              "Và",
               "Sự",
               "Cân",
               "Bằng"
@@ -779,19 +754,14 @@
             "top": 176,
             "words": [
               "Những",
-              "Cảm"
+              "Cảm",
+              "Nhận"
             ]
           },
           {
             "top": 224,
             "words": [
-              "Nhận",
-              "Từ"
-            ]
-          },
-          {
-            "top": 272,
-            "words": [
+              "Từ",
               "Học",
               "Viên"
             ]
@@ -799,14 +769,9 @@
         ],
         "accentLines": [
           {
-            "top": 320,
+            "top": 272,
             "words": [
-              "Tại"
-            ]
-          },
-          {
-            "top": 368,
-            "words": [
+              "Tại",
               "Jannie",
               "Academy"
             ]
@@ -882,12 +847,7 @@
             "top": 176,
             "words": [
               "Đăng",
-              "Ký"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
+              "Ký",
               "Tư",
               "Vấn",
               "&"
@@ -896,14 +856,14 @@
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
               "Xếp",
               "Lịch"
             ]
           },
           {
-            "top": 320,
+            "top": 272,
             "words": [
               "Coaching",
               "1:1"
@@ -999,12 +959,7 @@
             "top": 272,
             "words": [
               "Quy",
-              "Định"
-            ]
-          },
-          {
-            "top": 320,
-            "words": [
+              "Định",
               "Học",
               "Viện"
             ]
@@ -1531,7 +1486,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 173,
+            "top": 172,
             "words": [
               "Khám",
               "Phá",
@@ -1539,7 +1494,7 @@
             ]
           },
           {
-            "top": 240,
+            "top": 239,
             "words": [
               "Cân",
               "Bằng",
@@ -1549,7 +1504,7 @@
         ],
         "accentLines": [
           {
-            "top": 307,
+            "top": 306,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -1562,7 +1517,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 592,
+        "leadWidth": 582,
         "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1580,7 +1535,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Sứ",
               "Mệnh",
@@ -1591,17 +1546,17 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Với",
               "Tình",
-              "Yêu"
+              "Yêu",
+              "Và"
             ]
           },
           {
-            "top": 331,
+            "top": 330,
             "words": [
-              "Và",
               "Sự",
               "Cân",
               "Bằng"
@@ -1612,7 +1567,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 523,
+        "leadWidth": 514,
         "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1630,7 +1585,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Khám",
               "Phá",
@@ -1638,7 +1593,7 @@
             ]
           },
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Quyết",
               "Làm",
@@ -1646,7 +1601,7 @@
             ]
           },
           {
-            "top": 331,
+            "top": 330,
             "words": [
               "Và",
               "Chăm",
@@ -1655,7 +1610,7 @@
             ]
           },
           {
-            "top": 398,
+            "top": 397,
             "words": [
               "Nhiên",
               "Tại",
@@ -1665,14 +1620,9 @@
         ],
         "accentLines": [
           {
-            "top": 465,
+            "top": 464,
             "words": [
-              "Cùng"
-            ]
-          },
-          {
-            "top": 532,
-            "words": [
+              "Cùng",
               "Jannie",
               "Nguyễn"
             ]
@@ -1682,7 +1632,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 523,
+        "leadWidth": 514,
         "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1700,7 +1650,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Sang",
               "Trọng",
@@ -1710,7 +1660,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Đẳng",
               "Cấp"
@@ -1739,7 +1689,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Những",
               "Cảm",
@@ -1752,7 +1702,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Tại",
               "Jannie",
@@ -1782,7 +1732,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Sản",
               "Phẩm",
@@ -1793,7 +1743,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Của",
               "Jannie"
@@ -1822,7 +1772,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Đăng",
               "Ký",
@@ -1834,7 +1784,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Xếp",
               "Lịch",
@@ -1865,7 +1815,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Chính",
               "Sách",
@@ -1876,7 +1826,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Dữ",
               "Liệu",
@@ -1907,7 +1857,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Điều",
               "Khoản",
@@ -1919,7 +1869,7 @@
         ],
         "accentLines": [
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Quy",
               "Định",
@@ -1950,7 +1900,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 197,
+            "top": 196,
             "words": [
               "Trang",
               "Bạn",
@@ -1959,7 +1909,7 @@
             ]
           },
           {
-            "top": 264,
+            "top": 263,
             "words": [
               "Đã",
               "Chuyển",
@@ -1970,7 +1920,7 @@
         ],
         "accentLines": [
           {
-            "top": 331,
+            "top": 330,
             "words": [
               "Không",
               "Tồn",
@@ -2000,7 +1950,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 221,
+            "top": 216,
             "words": [
               "Khám",
               "Phá",
@@ -2013,7 +1963,7 @@
         ],
         "accentLines": [
           {
-            "top": 293,
+            "top": 288,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -2024,8 +1974,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
         "colors": {
@@ -2059,13 +2009,13 @@
             "words": [
               "Với",
               "Tình",
-              "Yêu"
+              "Yêu",
+              "Và"
             ]
           },
           {
             "top": 340,
             "words": [
-              "Và",
               "Sự",
               "Cân",
               "Bằng"
@@ -2074,8 +2024,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
@@ -2094,7 +2044,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 237,
+            "top": 238,
             "words": [
               "Khám",
               "Phá",
@@ -2134,8 +2084,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
@@ -2173,8 +2123,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
@@ -2216,8 +2166,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
@@ -2256,8 +2206,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
         "colors": {
@@ -2299,8 +2249,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
         "colors": {
@@ -2341,8 +2291,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": null,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": null,
         "leadText": "",
         "colors": {
@@ -2384,8 +2334,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": null,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": null,
         "leadText": "",
         "colors": {
@@ -2434,8 +2384,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 96,
-        "headerContentLeft": 96,
+        "titleLeft": 89,
+        "headerContentLeft": 89,
         "leadWidth": 640,
         "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
         "colors": {

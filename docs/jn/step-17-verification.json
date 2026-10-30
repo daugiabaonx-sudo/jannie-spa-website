@@ -1,0 +1,1724 @@
+{
+  "generatedAt": "2026-10-30T18:10:58.821Z",
+  "baseUrl": "http://localhost:8080",
+  "checks": [
+    {
+      "name": "desktop-1440 /: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+    },
+    {
+      "name": "desktop-1440 /: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+    },
+    {
+      "name": "desktop-1440 /my-story/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /my-story/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /my-story/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /my-story/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+    },
+    {
+      "name": "desktop-1440 /my-story/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+    },
+    {
+      "name": "desktop-1440 /coaching/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /coaching/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /coaching/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /coaching/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "desktop-1440 /coaching/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "desktop-1440 /course/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /course/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /course/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /course/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":268,\"used\":true,\"loaded\":true,\"readyAt\":233}"
+    },
+    {
+      "name": "desktop-1440 /course/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":268,\"used\":true,\"loaded\":true,\"readyAt\":233}"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":212,\"used\":true,\"loaded\":true,\"readyAt\":180}"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":212,\"used\":true,\"loaded\":true,\"readyAt\":180}"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "desktop-1440 /booking/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "desktop-1440 /booking/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "desktop-1440 /booking/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "desktop-1440 /booking/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":76,\"used\":true,\"loaded\":true,\"readyAt\":43}"
+    },
+    {
+      "name": "desktop-1440 /booking/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":76,\"used\":true,\"loaded\":true,\"readyAt\":43}"
+    },
+    {
+      "name": "desktop-1440 /my-story/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.13px"
+    },
+    {
+      "name": "desktop-1440 /coaching/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.05px"
+    },
+    {
+      "name": "desktop-1440 /course/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.03px"
+    },
+    {
+      "name": "desktop-1440 /client-success-story/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.03px"
+    },
+    {
+      "name": "desktop-1440 /my-favorite-product/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.03px"
+    },
+    {
+      "name": "desktop-1440 /booking/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.08px"
+    },
+    {
+      "name": "mobile-390 /: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "mobile-390 /: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+    },
+    {
+      "name": "mobile-390 /my-story/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /my-story/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /my-story/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /my-story/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
+    },
+    {
+      "name": "mobile-390 /my-story/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
+    },
+    {
+      "name": "mobile-390 /coaching/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /coaching/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /coaching/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /coaching/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":55}"
+    },
+    {
+      "name": "mobile-390 /coaching/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":55}"
+    },
+    {
+      "name": "mobile-390 /course/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /course/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /course/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /course/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":58}"
+    },
+    {
+      "name": "mobile-390 /course/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":58}"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":72,\"used\":true,\"loaded\":true,\"readyAt\":61}"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":72,\"used\":true,\"loaded\":true,\"readyAt\":61}"
+    },
+    {
+      "name": "mobile-390 /booking/: header and footer do not move on first input",
+      "pass": true,
+      "detail": "moved: none, menu drift 0px"
+    },
+    {
+      "name": "mobile-390 /booking/: navigation runs a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=true"
+    },
+    {
+      "name": "mobile-390 /booking/: no long frame during the transition",
+      "pass": true,
+      "detail": "LoAF supported=true, long frames ms"
+    },
+    {
+      "name": "mobile-390 /booking/: Playfair Display is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":64,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+    },
+    {
+      "name": "mobile-390 /booking/: Playfair Display italic is loaded before first contentful paint",
+      "pass": true,
+      "detail": "{\"fcp\":64,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+    },
+    {
+      "name": "mobile-390 /my-story/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "mobile-390 /coaching/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "mobile-390 /course/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "mobile-390 /client-success-story/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "mobile-390 /my-favorite-product/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "mobile-390 /booking/: header geometry matches the home tab",
+      "pass": true,
+      "detail": "moved: none, menu drift 0.00px"
+    },
+    {
+      "name": "prefers-reduced-motion: navigation runs without a view transition",
+      "pass": true,
+      "detail": "pagereveal.viewTransition=false"
+    },
+    {
+      "name": "1440x1080: logo x is the same on a short legal page and a long page",
+      "pass": true,
+      "detail": "legal x=88.5, coaching x=88.5"
+    },
+    {
+      "name": "Cross-page #booking-form lands without a smooth scroll",
+      "pass": true,
+      "detail": "scroll events 1, at load 4989, now 4989"
+    }
+  ],
+  "samples": {
+    "desktop-1440": [
+      {
+        "tab": "/",
+        "before": {
+          "path": "/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.05,
+            413.02,
+            489.81,
+            570.94,
+            637.55,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.05,
+            413.02,
+            489.81,
+            570.94,
+            637.55,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 88,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 49
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 49
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/my-story/",
+        "before": {
+          "path": "/my-story/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            361.92,
+            412.94,
+            489.94,
+            571.06,
+            637.67,
+            805.95,
+            968.08
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/my-story/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            361.92,
+            412.94,
+            489.94,
+            571.06,
+            637.67,
+            805.95,
+            968.08
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 88,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 49
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 49
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/coaching/",
+        "before": {
+          "path": "/coaching/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.05,
+            413.06,
+            489.86,
+            570.94,
+            637.55,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/coaching/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.05,
+            413.06,
+            489.86,
+            570.94,
+            637.55,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 84,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/course/",
+        "before": {
+          "path": "/course/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.03,
+            413.05,
+            489.84,
+            570.97,
+            637.56,
+            805.84,
+            967.97
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/course/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.03,
+            413.05,
+            489.84,
+            570.97,
+            637.56,
+            805.84,
+            967.97
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 268,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 233
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 233
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/client-success-story/",
+        "before": {
+          "path": "/client-success-story/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.03,
+            413.05,
+            489.84,
+            570.97,
+            637.58,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/client-success-story/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.03,
+            413.05,
+            489.84,
+            570.97,
+            637.58,
+            805.83,
+            967.95
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 212,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 180
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 180
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/my-favorite-product/",
+        "before": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.02,
+            413.03,
+            489.83,
+            570.95,
+            637.56,
+            805.84,
+            967.98
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            362.02,
+            413.03,
+            489.83,
+            570.95,
+            637.56,
+            805.84,
+            967.98
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 84,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/booking/",
+        "before": {
+          "path": "/booking/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            361.97,
+            412.98,
+            489.78,
+            570.91,
+            637.52,
+            805.8,
+            967.92
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/booking/",
+          "logo": [
+            88.5,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            164.5,
+            30.09,
+            161.97,
+            19.81
+          ],
+          "menu": [
+            361.97,
+            412.98,
+            489.78,
+            570.91,
+            637.52,
+            805.8,
+            967.92
+          ],
+          "account": [
+            1304.5,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 76,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 43
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 43
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      }
+    ],
+    "mobile-390": [
+      {
+        "tab": "/",
+        "before": {
+          "path": "/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 68,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 53
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/my-story/",
+        "before": {
+          "path": "/my-story/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/my-story/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 80,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 57
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 57
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/coaching/",
+        "before": {
+          "path": "/coaching/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/coaching/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 84,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 55
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 55
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/course/",
+        "before": {
+          "path": "/course/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/course/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 80,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 58
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 58
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/client-success-story/",
+        "before": {
+          "path": "/client-success-story/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/client-success-story/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 68,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 48
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 48
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/my-favorite-product/",
+        "before": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 72,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 61
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 61
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/booking/",
+        "before": {
+          "path": "/booking/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "after": {
+          "path": "/booking/",
+          "logo": [
+            20,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            96,
+            32,
+            130.83,
+            16
+          ],
+          "menu": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "account": [
+            290,
+            34,
+            32,
+            32
+          ],
+          "trigger": [
+            330,
+            30,
+            40,
+            40
+          ],
+          "footerHeight": 832
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 64,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 48
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 48
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      }
+    ],
+    "scrollbarGutter": {
+      "legal": [
+        88.5,
+        28,
+        44,
+        44
+      ],
+      "coaching": [
+        88.5,
+        28,
+        44,
+        44
+      ]
+    },
+    "anchor": {
+      "viewTransition": true,
+      "fcp": 76,
+      "playfair": {
+        "used": true,
+        "loaded": true,
+        "readyAt": 51
+      },
+      "playfairItalic": {
+        "used": true,
+        "loaded": true,
+        "readyAt": 51
+      },
+      "loafSupported": true,
+      "longFrames": [],
+      "scrolls": 1,
+      "scrollAtLoad": 4989,
+      "scrollNow": 4989
+    }
+  }
+}

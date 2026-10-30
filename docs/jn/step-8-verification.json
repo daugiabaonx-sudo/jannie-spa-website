@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T23:53:54.645Z",
+  "timestamp": "2026-10-30T18:11:42.491Z",
   "checks": {
     "lhciDashboard": {
       "totalTargets": 22,
@@ -7,7 +7,7 @@
       "pass": true
     },
     "coachingAvif": {
-      "heroCurrentSrc": "http://localhost:8080/media/2026/10/jn-placeholder-hero-portrait-768x960.avif",
+      "heroCurrentSrc": "http://localhost:8080/media/2026/10/jn-legacy-coaching-hero.avif",
       "preloadHasAvif": true,
       "preloadFontsCount": 2,
       "hasSpeculationRules": true,

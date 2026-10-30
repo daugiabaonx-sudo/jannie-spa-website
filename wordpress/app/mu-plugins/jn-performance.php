@@ -421,8 +421,9 @@ function jn_defer_non_critical_scripts( $tag, $handle ) {
 add_filter( 'script_loader_tag', 'jn_defer_non_critical_scripts', 20, 2 );
 
 /**
- * Load non-inlined parent/commerce stylesheets asynchronously (`media="print" onload="this.media='all'"`)
- * while critical layout & Jannie design system CSS is already inlined in `<head>` (Task 3).
+ * Load non-inlined commerce stylesheets after first paint; the Jannie design system CSS is inlined in `<head>`.
+ * Blocksy's `ct-main-styles` stays render-blocking (immutable, ~17 KB br): it lays out the header, footer and
+ * form controls, so activating it on first input re-laid out every page (ADR-024).
  *
  * @param string $html   Link tag HTML.
  * @param string $handle Style handle.
@@ -434,13 +435,19 @@ function jn_defer_non_critical_stylesheets( $html, $handle ) {
 	}
 
 	$async_style_handles = array(
-		'ct-main-styles',
 		'ct-woocommerce-styles',
 		'woocommerce-general',
 		'woocommerce-layout',
 		'woocommerce-smallscreen',
 		'wc-blocks-style',
 	);
+
+	// Blocksy's WooCommerce stylesheet lays out the account forms and the single product (gallery | summary):
+	// deferred there, the summary jumped from under the gallery to beside it after load (CLS 0.36, ADR-024).
+	$is_woo_layout_page = ( function_exists( 'is_account_page' ) && is_account_page() ) || is_singular( 'product' );
+	if ( 'ct-woocommerce-styles' === $handle && $is_woo_layout_page ) {
+		return $html;
+	}
 
 	if ( in_array( $handle, $async_style_handles, true ) && false === strpos( $html, 'data-jn-href=' ) ) {
 		// Extract only the <link ...> tag for the noscript fallback (do not duplicate inline <style> blocks).
@@ -468,27 +475,21 @@ add_filter( 'style_loader_tag', 'jn_defer_non_critical_stylesheets', 20, 2 );
 
 /**
  * Activate deferred scripts (`script[data-jn-script-src]`) right after initial paint (`window.load + 150ms`),
- * and activate non-critical parent stylesheets (`link[data-jn-href]`) + italic accent WOFF2 font on first
- * user interaction so they never contend with FCP/LCP bandwidth or trigger unused-CSS / dependency-chain warnings.
+ * and activate the commerce stylesheets (`link[data-jn-href]`) on first user interaction so they never contend
+ * with FCP/LCP bandwidth. Fonts are not loaded here: Playfair Display and Geist are declared in the inlined
+ * bundle and preloaded, so every page paints its final typography first (ADR-024).
  *
  * @return void
  */
-function jn_print_deferred_style_and_font_loader() {
+function jn_print_deferred_style_loader() {
 	if ( is_admin() ) {
 		return;
-	}
-
-	$normal_url = content_url( 'themes/jannie/assets/fonts/playfair-display-vi-normal.woff2' );
-	$italic_url = content_url( 'themes/jannie/assets/fonts/playfair-display-vi-italic.woff2' );
-	if ( class_exists( 'JN_Hardening_HTML_Headers' ) ) {
-		$normal_url = JN_Hardening_HTML_Headers::alias_asset_url( $normal_url );
-		$italic_url = JN_Hardening_HTML_Headers::alias_asset_url( $italic_url );
 	}
 	?>
 	<script id="jn-deferred-assets">
 	(function(){
 		var stylesLoaded=false;
-		function loadDeferredStylesAndFont(){
+		function loadDeferredStyles(){
 			if(stylesLoaded){return;}
 			stylesLoaded=true;
 			var links=document.querySelectorAll('link[data-jn-href]');
@@ -496,21 +497,15 @@ function jn_print_deferred_style_and_font_loader() {
 				var href=links[i].getAttribute('data-jn-href');
 				if(href){links[i].setAttribute('href',href);links[i].removeAttribute('data-jn-href');}
 			}
-			if('FontFace' in window&&document.fonts){
-				var fn=new FontFace('Playfair Display',"url('<?php echo esc_url( $normal_url ); ?>') format('woff2')",{style:'normal',weight:'400 900',display:'swap'});
-				fn.load().then(function(l){document.fonts.add(l);}).catch(function(){});
-				var fi=new FontFace('Playfair Display',"url('<?php echo esc_url( $italic_url ); ?>') format('woff2')",{style:'italic',weight:'400 900',display:'swap'});
-				fi.load().then(function(l){document.fonts.add(l);}).catch(function(){});
-			}
 		}
 		var evts=['pointerdown','pointermove','touchstart','keydown','scroll','wheel'];
 		for(var e=0;e<evts.length;e++){
-			window.addEventListener(evts[e],loadDeferredStylesAndFont,{once:true,passive:true});
+			window.addEventListener(evts[e],loadDeferredStyles,{once:true,passive:true});
 		}
 		function loadDeferredScripts(){
 			var scripts=Array.prototype.slice.call(document.querySelectorAll('script[data-jn-script-src]'));
 			if(!scripts.length){return;}
-			loadDeferredStylesAndFont();
+			loadDeferredStyles();
 			function loadNextScript(idx){
 				if(idx>=scripts.length){return;}
 				var s=scripts[idx];
@@ -532,7 +527,7 @@ function jn_print_deferred_style_and_font_loader() {
 	</script>
 	<?php
 }
-add_action( 'wp_footer', 'jn_print_deferred_style_and_font_loader', 99 );
+add_action( 'wp_footer', 'jn_print_deferred_style_loader', 99 );
 
 /**
  * Strip `woocommerce-no-js` body class on non-commerce content pages.

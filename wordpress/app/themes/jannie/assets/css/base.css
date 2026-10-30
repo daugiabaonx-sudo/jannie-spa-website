@@ -67,8 +67,17 @@
 	box-sizing: border-box;
 }
 
+/* The gutter is reserved on short pages too, so the centred layout (logo included) never shifts by half a
+   scrollbar when moving between a short and a long page. `auto` overrides Blocksy's html smooth scrolling. */
 html {
 	scroll-padding-top: var(--jn-header-height, 100px);
+	scrollbar-gutter: stable;
+	scroll-behavior: auto;
+}
+
+/* In-page anchors glide from the first input on (inc/motion.php adds the class): a link to another page's
+   #anchor lands on its target at once instead of scrolling through the page after it opens. */
+html.jn-smooth-scroll {
 	scroll-behavior: smooth;
 }
 
@@ -381,8 +390,8 @@ textarea:focus-visible,
 }
 
 /* Hover/current indicator: a champagne line that grows from the left over the reserved 2px border.
-   Replaces Blocksy's type-2 indicator, which transitions width (a layout property). Self-contained:
-   Blocksy's main.min.css (which also positions this pseudo) loads after first paint. */
+   Replaces Blocksy's type-2 indicator, which transitions width (a layout property). Self-contained, so it
+   does not depend on how Blocksy's main.min.css positions this pseudo. */
 #header .header-menu-1 .menu > li > a.ct-menu-link::after {
 	content: "";
 	position: absolute;
@@ -423,6 +432,7 @@ textarea:focus-visible,
 #header .header-menu-1 .menu > li > a.ct-menu-link[aria-current="page"] {
 	color: var(--jn-ink) !important;
 	font-weight: 600 !important;
+	letter-spacing: calc(0.02em + var(--jn-nav-semibold-tracking-offset)) !important;
 }
 
 /* Right Actions: Đăng nhập | Đăng ký + Account Icon Button */

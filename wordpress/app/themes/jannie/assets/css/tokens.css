@@ -126,6 +126,9 @@
 	   brand + 7 menu items + guest auth links only just fit, and reach title-md / label-md at >=1440px. */
 	--jn-text-header-brand: clamp(1.125rem, 0.125rem + 1.25vw, 1.25rem);  /* 18 -> 20px */
 	--jn-text-header-label: clamp(0.75rem, 0.25rem + 0.625vw, 0.8125rem); /* 12 -> 13px */
+	/* Geist 500 -> 600 widens every glyph by ~0.0092em (measured +0.41 to +2.38px per label at 12-13px). The
+	   active menu label tracks tighter by the same amount, so the centred menu keeps one width on every page. */
+	--jn-nav-semibold-tracking-offset: -0.0092em;
 
 	/* 4. Spacing, Container & Rhythm Scale */
 	--jn-space-xs: 0.25rem;   /* 4px */
@@ -178,6 +181,8 @@
 	--jn-motion-distance-sm: 8px;
 	--jn-motion-distance-lg: 24px;
 	--jn-motion-stagger: 80ms; /* <= 100ms or a list feels slow */
+	--jn-motion-page: 300ms;
+	--jn-ease-ios: cubic-bezier(0.32, 0.72, 0, 1); /* page transitions: quick start, long settle */
 }
 
 @media (max-width: 1199.98px) {
@@ -203,6 +208,7 @@
 		--jn-motion-fast: 0ms;
 		--jn-motion-normal: 0ms;
 		--jn-motion-slow: 0ms;
+		--jn-motion-page: 0ms;
 		--jn-motion-distance-sm: 0px;
 		--jn-motion-distance-lg: 0px;
 		--jn-motion-stagger: 0ms;

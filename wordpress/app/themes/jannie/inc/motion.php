@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Print the motion script:
  * - Header gets `.is-scrolled` once a top-of-page sentinel leaves the viewport (no scroll handler).
+ * - `html.jn-smooth-scroll` (smooth in-page anchors) is set on first input, so a cross-page #anchor lands at once.
  * - Below-the-fold section headers, grid items and FAQ items fade up once as they scroll in; items of
  *   one grid are staggered. Skipped entirely under `prefers-reduced-motion`.
  * - Low-end devices (<= 2 GB RAM, or <= 4 cores where RAM is not exposed) get `.jn-motion-lite`.
@@ -30,6 +31,15 @@ function jannie_print_motion_script() {
 			return;
 		}
 		var root = document.documentElement;
+
+		// Smooth in-page anchors from the first input on: the browser's own scroll to a cross-page #anchor
+		// (which can run after load) stays instant, while every anchor the visitor clicks still glides.
+		var enableSmoothScroll = function () {
+			root.classList.add('jn-smooth-scroll');
+		};
+		['pointerdown', 'keydown', 'touchstart'].forEach(function (type) {
+			window.addEventListener(type, enableSmoothScroll, { once: true, passive: true, capture: true });
+		});
 
 		var header = document.getElementById('header');
 		if (header) {

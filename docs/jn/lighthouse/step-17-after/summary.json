@@ -1,0 +1,728 @@
+{
+  "generatedAt": "2026-10-30T18:23:47.083Z",
+  "runsPerUrl": 3,
+  "mobile": [
+    {
+      "url": "http://localhost:8080/",
+      "path": "/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 913,
+        "lcpMs": 1813,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 913,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17760,
+        "maxImageBytes": 40135,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/home-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/coaching/",
+      "path": "/coaching/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 909,
+        "lcpMs": 2033,
+        "tbtMs": 0,
+        "cls": 0.0275,
+        "siMs": 909,
+        "ttfbMs": 15
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 16824,
+        "cssBytes": 17760,
+        "maxImageBytes": 23466,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/coaching-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-story/",
+      "path": "/my-story/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 912,
+        "lcpMs": 2112,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 912,
+        "ttfbMs": 17
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17760,
+        "maxImageBytes": 160132,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/my-story-mobile.json",
+      "pass": false,
+      "failures": [
+        "LCP Image 160132B > 150KB"
+      ]
+    },
+    {
+      "url": "http://localhost:8080/course/",
+      "path": "/course/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 1359,
+        "lcpMs": 2409,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 1359,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17759,
+        "maxImageBytes": 63744,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/course-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/client-success-story/",
+      "path": "/client-success-story/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 912,
+        "lcpMs": 1814,
+        "tbtMs": 0,
+        "cls": 0.0331,
+        "siMs": 912,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 16825,
+        "cssBytes": 17759,
+        "maxImageBytes": 54872,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/client-success-story-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/booking/",
+      "path": "/booking/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 1359,
+        "lcpMs": 2109,
+        "tbtMs": 0,
+        "cls": 0.0361,
+        "siMs": 1359,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17759,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/booking-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-favorite-product/",
+      "path": "/my-favorite-product/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 1363,
+        "lcpMs": 2485,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 1363,
+        "ttfbMs": 23
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 32330,
+        "cssBytes": 21229,
+        "maxImageBytes": 29975,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 3
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/my-favorite-product-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/san-pham/egf-cleansing-gel/",
+      "path": "/san-pham/egf-cleansing-gel/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 1055,
+        "lcpMs": 1955,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 1055,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 84526,
+        "jsBytes": 61794,
+        "cssBytes": 30516,
+        "maxImageBytes": 16576,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 7
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/san-pham-egf-cleansing-gel-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/cart/",
+      "path": "/cart/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 1036,
+        "lcpMs": 1036,
+        "tbtMs": 77,
+        "cls": 0.0012,
+        "siMs": 1301,
+        "ttfbMs": 194
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 41
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/cart-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/checkout/",
+      "path": "/checkout/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 69
+      },
+      "metrics": {
+        "fcpMs": 1089,
+        "lcpMs": 1089,
+        "tbtMs": 74,
+        "cls": 0,
+        "siMs": 1129,
+        "ttfbMs": 219
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 42
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/checkout-mobile.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/tai-khoan/",
+      "path": "/tai-khoan/",
+      "preset": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 1054,
+        "lcpMs": 1954,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 1054,
+        "ttfbMs": 173
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 84526,
+        "jsBytes": 56196,
+        "cssBytes": 30515,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 6
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/tai-khoan-mobile.json",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "desktop": [
+    {
+      "url": "http://localhost:8080/",
+      "path": "/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 371,
+        "lcpMs": 531,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 371,
+        "ttfbMs": 17
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17760,
+        "maxImageBytes": 23505,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/home-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/coaching/",
+      "path": "/coaching/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 367,
+        "lcpMs": 507,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 367,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 16824,
+        "cssBytes": 17760,
+        "maxImageBytes": 32985,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/coaching-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-story/",
+      "path": "/my-story/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 374,
+        "lcpMs": 694,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 374,
+        "ttfbMs": 17
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17760,
+        "maxImageBytes": 182623,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/my-story-desktop.json",
+      "pass": false,
+      "failures": [
+        "LCP Image 182623B > 150KB"
+      ]
+    },
+    {
+      "url": "http://localhost:8080/course/",
+      "path": "/course/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 370,
+        "lcpMs": 490,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 370,
+        "ttfbMs": 12
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17759,
+        "maxImageBytes": 76323,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/course-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/client-success-story/",
+      "path": "/client-success-story/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 370,
+        "lcpMs": 510,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 370,
+        "ttfbMs": 13
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 16825,
+        "cssBytes": 17759,
+        "maxImageBytes": 64600,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/client-success-story-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/booking/",
+      "path": "/booking/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 372,
+        "lcpMs": 452,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 372,
+        "ttfbMs": 10
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 15208,
+        "cssBytes": 17759,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 0
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/booking-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/my-favorite-product/",
+      "path": "/my-favorite-product/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 343,
+        "lcpMs": 580,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 343,
+        "ttfbMs": 18
+      },
+      "resources": {
+        "fontCount": 3,
+        "fontBytes": 130714,
+        "jsBytes": 32330,
+        "cssBytes": 21229,
+        "maxImageBytes": 50702,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 3
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/my-favorite-product-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/san-pham/egf-cleansing-gel/",
+      "path": "/san-pham/egf-cleansing-gel/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcpMs": 288,
+        "lcpMs": 488,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 288,
+        "ttfbMs": 14
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 84526,
+        "jsBytes": 61794,
+        "cssBytes": 30516,
+        "maxImageBytes": 21915,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 7
+      },
+      "seoFailedAudits": [],
+      "reportPath": "docs/jn/lighthouse/step-17-after/san-pham-egf-cleansing-gel-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/cart/",
+      "path": "/cart/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 301,
+        "lcpMs": 301,
+        "tbtMs": 0,
+        "cls": 0.0121,
+        "siMs": 400,
+        "ttfbMs": 240
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 41
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/cart-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/checkout/",
+      "path": "/checkout/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 69
+      },
+      "metrics": {
+        "fcpMs": 294,
+        "lcpMs": 391,
+        "tbtMs": 0,
+        "cls": 0.0064,
+        "siMs": 440,
+        "ttfbMs": 215
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 0,
+        "jsBytes": 0,
+        "cssBytes": 0,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 42
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/checkout-desktop.json",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "url": "http://localhost:8080/tai-khoan/",
+      "path": "/tai-khoan/",
+      "preset": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 66
+      },
+      "metrics": {
+        "fcpMs": 284,
+        "lcpMs": 444,
+        "tbtMs": 0,
+        "cls": 0,
+        "siMs": 285,
+        "ttfbMs": 189
+      },
+      "resources": {
+        "fontCount": 2,
+        "fontBytes": 84526,
+        "jsBytes": 56196,
+        "cssBytes": 30515,
+        "maxImageBytes": 0,
+        "thirdPartyCount": 0,
+        "wooAssetCount": 6
+      },
+      "seoFailedAudits": [
+        "is-crawlable"
+      ],
+      "reportPath": "docs/jn/lighthouse/step-17-after/tai-khoan-desktop.json",
+      "pass": true,
+      "failures": []
+    }
+  ]
+}

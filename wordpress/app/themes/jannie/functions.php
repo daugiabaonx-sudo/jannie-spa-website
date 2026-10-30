@@ -116,8 +116,6 @@ function jannie_enqueue_front_assets() {
 			$fonts_base = JN_Hardening_HTML_Headers::alias_asset_url( $fonts_base );
 		}
 		$inline_css = str_replace( "url('../fonts/", "url('" . esc_url_raw( $fonts_base ), $inline_css );
-		// Defer the Playfair Display WOFF2 @font-face rules to post-paint (rendered with metric-matched fallback at FCP/LCP).
-		$inline_css = (string) preg_replace( '/@font-face\{font-family:\'Playfair Display\';font-style:(?:normal|italic);[^}]+\}/', '', $inline_css );
 
 		wp_register_style( 'jn-tokens', false, array( 'ct-main-styles' ), JANNIE_VERSION );
 		wp_enqueue_style( 'jn-tokens' );

@@ -110,3 +110,48 @@
 		transform: translate3d(0, calc(-1 * var(--jn-motion-distance-sm)), 0);
 	}
 }
+
+/* 5. Page Transitions (cross-document View Transitions)
+   Same-origin navigations fade the content while the header keeps its own snapshot: it sits at the same rect
+   on both pages (sticky, top 0), so it never travels and only the active menu state cross-fades in place. An
+   open off-canvas drawer is captured on its own so it fades above the header. Browsers without support, and
+   prefers-reduced-motion, keep the instant swap. */
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+}
+
+#header.ct-header {
+	view-transition-name: jn-header;
+}
+
+#offcanvas.active {
+	view-transition-name: jn-offcanvas;
+}
+
+::view-transition-group(jn-header) {
+	animation-name: none;
+	animation-duration: var(--jn-motion-page);
+}
+
+::view-transition-old(root) {
+	animation: jn-page-out var(--jn-motion-fast) var(--jn-ease-ios) both;
+}
+
+::view-transition-new(root) {
+	animation: jn-page-in var(--jn-motion-page) var(--jn-ease-ios) both;
+}
+
+@keyframes jn-page-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes jn-page-in {
+	from {
+		opacity: 0;
+		transform: translate3d(0, var(--jn-motion-distance-sm), 0);
+	}
+}
