@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-30T06:43:17.759Z",
+  "generatedAt": "2026-10-30T07:08:42.939Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
-      "check": "layout + LCP (P 180ms)",
+      "check": "layout + LCP (P 112ms)",
       "viewport": 320,
       "failures": [],
       "data": {
@@ -11,7 +11,7 @@
         "lcp": {
           "tag": "P",
           "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
-          "ms": 180
+          "ms": 112
         },
         "lcpIsHero": true,
         "primary": {
@@ -28,14 +28,14 @@
         },
         "polaroidRight": 310,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }
     },
     {
-      "check": "layout + LCP (P 76ms)",
+      "check": "layout + LCP (P 56ms)",
       "viewport": 375,
       "failures": [],
       "data": {
@@ -43,7 +43,7 @@
         "lcp": {
           "tag": "P",
           "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
-          "ms": 76
+          "ms": 56
         },
         "lcpIsHero": true,
         "primary": {
@@ -60,8 +60,8 @@
         },
         "polaroidRight": 365,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }
@@ -84,15 +84,15 @@
       }
     },
     {
-      "check": "layout + LCP (P 40ms)",
+      "check": "layout + LCP (IMG 32ms)",
       "viewport": 768,
       "failures": [],
       "data": {
         "overflow": false,
         "lcp": {
-          "tag": "P",
-          "cls": "jn-hero-lead has-muted-stone-color has-text-color has-body-lg-font-size wp-block-paragraph",
-          "ms": 40
+          "tag": "IMG",
+          "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
+          "ms": 32
         },
         "lcpIsHero": true,
         "primary": {
@@ -109,14 +109,14 @@
         },
         "polaroidRight": 671,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }
     },
     {
-      "check": "layout + LCP (IMG 52ms)",
+      "check": "layout + LCP (IMG 48ms)",
       "viewport": 1024,
       "failures": [],
       "data": {
@@ -124,7 +124,7 @@
         "lcp": {
           "tag": "IMG",
           "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
-          "ms": 52
+          "ms": 48
         },
         "lcpIsHero": true,
         "primary": {
@@ -135,14 +135,14 @@
           "fetchPriority": "high"
         },
         "frame": {
-          "left": 608,
-          "right": 976,
-          "width": 368
+          "left": 680,
+          "right": 968,
+          "width": 288
         },
-        "polaroidRight": 1008,
+        "polaroidRight": 999,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }
@@ -167,14 +167,14 @@
           "fetchPriority": "high"
         },
         "frame": {
-          "left": 843,
-          "right": 1328,
-          "width": 485
+          "left": 928,
+          "right": 1376,
+          "width": 448
         },
-        "polaroidRight": 1361,
+        "polaroidRight": 1408,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }
@@ -197,7 +197,7 @@
       }
     },
     {
-      "check": "layout + LCP (IMG 52ms)",
+      "check": "layout + LCP (IMG 48ms)",
       "viewport": 1920,
       "failures": [],
       "data": {
@@ -205,7 +205,7 @@
         "lcp": {
           "tag": "IMG",
           "cls": "jn-hero-portrait__img jn-hero-portrait__img--primary wp-image-86",
-          "ms": 52
+          "ms": 48
         },
         "lcpIsHero": true,
         "primary": {
@@ -216,14 +216,14 @@
           "fetchPriority": "high"
         },
         "frame": {
-          "left": 1083,
-          "right": 1568,
-          "width": 485
+          "left": 1168,
+          "right": 1616,
+          "width": 448
         },
-        "polaroidRight": 1601,
+        "polaroidRight": 1648,
         "ctas": [
-          "#booking-form",
-          "http://localhost:8080/coaching/"
+          "http://localhost:8080/coaching/",
+          "#booking-form"
         ],
         "h1Count": 1
       }

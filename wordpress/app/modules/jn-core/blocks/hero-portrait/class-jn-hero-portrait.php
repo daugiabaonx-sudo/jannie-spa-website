@@ -26,13 +26,13 @@ class JN_Hero_Portrait {
 
 	/**
 	 * Rendered frame width per breakpoint, mirroring hero-home.css (media condition => [value, unit]).
-	 * Desktop: (1248px container - gap) * 0.88fr share - art padding. Tablet: 540px art cap - padding.
-	 * Mobile: 96% of the container - padding.
+	 * Desktop: 432px track + 56px bleed into the container padding - 40px art padding. Tablet: 540px art
+	 * cap - padding. Mobile: 96% of the container - padding.
 	 */
 	const FRAME_WIDTHS = array(
 		'(max-width: 639px)'  => array( 80, 'vw' ),
 		'(max-width: 1023px)' => array( 506, 'px' ),
-		''                    => array( 485, 'px' ),
+		''                    => array( 448, 'px' ),
 	);
 
 	/**
@@ -168,26 +168,29 @@ class JN_Hero_Portrait {
 					'decoding' => 'async',
 				)
 			);
-			$thumb     = wp_get_attachment_image(
-				$secondary_id,
-				'medium_large',
+			// The polaroid previews the photo the swap leads to: the secondary while the portrait shows, the
+			// portrait once swapped. Both are decorative (the checkbox label names the action).
+			$thumb = static fn( int $id, string $size, string $modifier ): string => wp_get_attachment_image(
+				$id,
+				$size,
 				false,
 				array(
-					'class'       => 'jn-hero-portrait__thumb',
+					'class'       => 'jn-hero-portrait__thumb jn-hero-portrait__thumb--' . $modifier,
 					'alt'         => '',
-					'sizes'       => '(max-width: 639px) 34vw, 190px',
+					'sizes'       => '(max-width: 639px) 34vw, 200px',
 					'loading'     => 'lazy',
 					'decoding'    => 'async',
 					'aria-hidden' => 'true',
 				)
 			);
+			$thumbs = '<span class="jn-hero-portrait__thumbs">' . $thumb( $secondary_id, 'medium_large', 'alt' ) . $thumb( $primary_id, 'jn-hero-400', 'primary' ) . '</span>';
 			// The <label> names the checkbox: the visible words first (WCAG 2.5.3, voice control), then the
 			// Vietnamese description for screen readers.
 			$label_lang = (string) ( $attributes['labelLang'] ?? 'en' );
 			$polaroid   = sprintf(
 				'<label for="%1$s" class="jn-hero-portrait__polaroid">%2$s<span class="jn-hero-portrait__polaroid-text"%3$s>%4$s <span aria-hidden="true">✧</span></span><span class="screen-reader-text"> — %5$s</span></label>',
 				esc_attr( $swap_id ),
-				$thumb,
+				$thumbs,
 				preg_match( '/^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})?$/', $label_lang ) ? ' lang="' . esc_attr( $label_lang ) . '"' : '',
 				$text( 'polaroidLabel', 'Tap to explore' ),
 				$text( 'toggleLabel', 'Đổi ảnh chân dung' )

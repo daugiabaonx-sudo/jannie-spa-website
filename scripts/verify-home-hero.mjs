@@ -5,7 +5,7 @@
  *   - no horizontal overflow, the portrait frame and polaroid stay inside the viewport,
  *   - the LCP element is inside the hero (portrait on desktop, H1 / lead on one column), the portrait is
  *     painted (opacity 1, AVIF loaded),
- *   - the CTAs point at #booking-form and /coaching/.
+ *   - the CTAs point at /coaching/ (primary) and #booking-form (secondary).
  * At 375 and 1440px it also drives the photo swap: Tab reaches the hidden checkbox (focus ring on the
  * polaroid), Space swaps the photos, a click on the polaroid swaps them back. Under
  * `prefers-reduced-motion: reduce` the decorative loops stop.
@@ -140,7 +140,7 @@ function checkHero(m, vw) {
   if (m.primary.loading !== 'eager' || m.primary.fetchPriority !== 'high') failures.push('portrait not eager/high');
   if (m.frame.left < 0 || m.frame.right > vw) failures.push(`frame x=${m.frame.left}..${m.frame.right}`);
   if (m.polaroidRight > vw) failures.push(`polaroid overflows to ${m.polaroidRight}px`);
-  if (m.ctas[0] !== '#booking-form' || !/\/coaching\/$/.test(m.ctas[1] || '')) failures.push(`CTAs ${m.ctas.join(', ')}`);
+  if (!/\/coaching\/$/.test(m.ctas[0] || '') || m.ctas[1] !== '#booking-form') failures.push(`CTAs ${m.ctas.join(', ')}`);
   if (m.h1Count !== 1) failures.push(`${m.h1Count} H1`);
   return failures;
 }

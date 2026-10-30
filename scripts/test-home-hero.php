@@ -102,8 +102,10 @@ if ( class_exists( 'JN_Hero_Portrait' ) ) {
 	$jn_html    = jn_thh_render();
 	$jn_primary = jn_thh_imgs( $jn_html, 'jn-hero-portrait__img--primary' );
 	$jn_second  = jn_thh_imgs( $jn_html, 'jn-hero-portrait__img--alt' );
-	$jn_thumb   = jn_thh_imgs( $jn_html, 'jn-hero-portrait__thumb' );
-	jn_t_assert( 1 === count( $jn_primary ) && 1 === count( $jn_second ) && 1 === count( $jn_thumb ), 'Renders the primary, secondary and polaroid images once each' );
+	$jn_thumb   = jn_thh_imgs( $jn_html, 'jn-hero-portrait__thumb--alt' );
+	$jn_thumb_p = jn_thh_imgs( $jn_html, 'jn-hero-portrait__thumb--primary' );
+	jn_t_assert( 1 === count( $jn_primary ) && 1 === count( $jn_second ) && 1 === count( $jn_thumb ) && 1 === count( $jn_thumb_p ), 'Renders the primary, secondary and both polaroid previews once each' );
+	jn_t_assert( false !== strpos( $jn_thumb_p[0] ?? '', 'jn-hero-portrait__thumb--primary' ) && false === strpos( $jn_thumb_p[0] ?? '', '__img--primary' ) && 'lazy' === jn_thh_attr( $jn_thumb_p[0] ?? '', 'loading' ), 'The portrait preview is lazy and never mistaken for the LCP image' );
 
 	$jn_p = $jn_primary[0] ?? '';
 	jn_t_assert( false !== strpos( $jn_p, 'wp-image-' . $jn_hero_id ), "Primary carries wp-image-{$jn_hero_id} so the jn-performance LCP rules apply" );
@@ -197,14 +199,21 @@ jn_t_assert( 1 === substr_count( $jn_pattern, '<!-- wp:jn/hero-portrait' ), 'Use
 $jn_h1      = preg_match( '/<h1\b.*?<\/h1>/s', $jn_pattern, $jn_m ) ? $jn_m[0] : '';
 $jn_h1_text = html_entity_decode( trim( (string) preg_replace( '/\s+/', ' ', wp_strip_all_tags( $jn_h1 ) ) ), ENT_QUOTES, 'UTF-8' );
 jn_t_assert( (bool) preg_match( '/class="[^"]*\bjn-hero-title\b/', $jn_h1 ) && (bool) preg_match( '/<\/em>\s*<\/h1>$/', $jn_h1 ), 'H1 is a jn-hero-title ending with its accent italic (ADR-014)', $jn_h1 );
-jn_t_assert( 'Khám Phá Sự Cân Bằng & Vẻ Đẹp Đích Thực' === $jn_h1_text, 'H1 reads as one sentence (a space survives each <br> for SEO / screen readers)', $jn_h1_text );
-jn_t_assert( 1 === substr_count( $jn_h1, '<br' ), 'H1 breaks into the designed three lines (one <br>, the italic takes its own line)' );
+jn_t_assert( 'Khám Phá Sự Cân Bằng & Vẻ Đẹp Đích Thực' === $jn_h1_text, 'H1 reads as one sentence', $jn_h1_text );
+jn_t_assert( 0 === substr_count( $jn_h1, '<br' ), 'H1 is two lines like every page header (no forced <br>; the italic takes its own line via CSS)' );
 jn_t_assert( false !== strpos( html_entity_decode( $jn_pattern, ENT_QUOTES, 'UTF-8' ), $jn_lead ), 'Lead is the shared copy from lib/jn-page-copy.php' );
 jn_t_assert( (bool) preg_match( '/<p class="jn-hero-lead\b/', $jn_pattern ), 'Lead keeps the .jn-hero-lead class (speakable selector)' );
-jn_t_assert( false !== strpos( $jn_pattern, '>03<' ) && false !== strpos( $jn_pattern, 'Hướng Đồng Hành' ) && false === strpos( $jn_pattern, '98%' ), 'Third metric is "03 Hướng Đồng Hành" (98% removed)' );
-jn_t_assert( (bool) preg_match( '/href="#booking-form"[^>]*>Đặt Lịch Tư Vấn 1:1</', $jn_pattern ), 'Primary CTA books a 1:1 consultation (#booking-form)' );
-jn_t_assert( (bool) preg_match( '/href="[^"]*\/coaching\/"[^>]*>Khám Phá Coaching</', $jn_pattern ), 'Secondary CTA opens /coaching/' );
+jn_t_assert(
+	false !== strpos( $jn_pattern, '>Cố Vấn Độc Bản<' ) && false !== strpos( $jn_pattern, '>98%<' ) && false !== strpos( $jn_pattern, '>Tỷ Lệ Tối Ưu Hóa<' ),
+	'Metrics are 20+ / 1:1 Cố Vấn Độc Bản / 98% Tỷ Lệ Tối Ưu Hóa (owner\'s reference, 2026-10-30)'
+);
+$jn_cta_coaching = (int) strpos( $jn_pattern, 'Khám Phá Chương Trình Coaching</a>' );
+$jn_cta_booking  = (int) strpos( $jn_pattern, 'Đặt Lịch Tư Vấn 1:1</a>' );
+jn_t_assert( (bool) preg_match( '/is-style-primary-pill has-icon-north-east"><a [^>]*href="[^"]*\/coaching\/"[^>]*>Khám Phá Chương Trình Coaching</', $jn_pattern ), 'Primary (ink) CTA opens /coaching/ with the ↗ icon' );
+jn_t_assert( (bool) preg_match( '/is-style-soft-pill has-icon-south"><a [^>]*href="#booking-form"[^>]*>Đặt Lịch Tư Vấn 1:1</', $jn_pattern ), 'Secondary (soft) CTA scrolls to #booking-form with the ↓ icon' );
+jn_t_assert( $jn_cta_coaching > 0 && $jn_cta_booking > $jn_cta_coaching, 'The coaching CTA comes first' );
 jn_t_assert( false === strpos( $jn_pattern, '<details' ) && false === stripos( $jn_pattern, 'demo' ), 'No demo <details> panels' );
+jn_t_assert( false === strpos( $jn_pattern, 'jn-hero-home__note' ), 'No scroll-cue line under the CTAs' );
 
 // ---------------------------------------------------------------------------------------------
 jn_t_section( 'Stylesheet' );
@@ -240,7 +249,10 @@ $jn_home     = get_post( (int) get_option( 'page_on_front' ) );
 $jn_coaching = get_page_by_path( 'coaching' );
 $jn_home_c   = $jn_home instanceof WP_Post ? $jn_home->post_content : '';
 jn_t_assert( 1 === substr_count( $jn_home_c, '<!-- wp:jn/hero-portrait' ) && false !== strpos( $jn_home_c, 'jn-hero-home' ), 'Home uses the new hero' );
-jn_t_assert( false === strpos( $jn_home_c, 'jn-hero-media-card' ) && false === strpos( $jn_home_c, '98%' ), 'Home no longer has the old media card or the 98% metric' );
+jn_t_assert( false === strpos( $jn_home_c, 'jn-hero-media-card' ), 'Home no longer has the old media card' );
+ob_start();
+include $jn_theme . '/patterns/hero-home.php';
+jn_t_assert( false !== strpos( $jn_home_c, trim( (string) ob_get_clean() ) ), 'Stored Home hero matches the current pattern (build-home-hero.php is up to date)' );
 jn_t_assert( 1 === preg_match_all( '/<h1\b/', $jn_home_c ), 'Home has exactly one H1' );
 jn_t_assert( $jn_coaching instanceof WP_Post && false !== strpos( $jn_coaching->post_content, 'jn-hero-media-card' ) && false === strpos( $jn_coaching->post_content, 'jn-hero-home' ), 'Coaching keeps the editorial hero' );
 

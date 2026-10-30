@@ -1,12 +1,13 @@
 <?php
 /**
- * JN — Home hero (ADR-021): swap the stored Home hero section (`Section 1 — Hero Editorial`) for the
- * `jannie/hero-home` pattern. /coaching/ keeps the editorial hero; build-step-3.php seeds the new hero
- * on a fresh install, so this script only migrates content that already exists.
+ * JN — Home hero (ADR-021): replace the stored Home hero section (`Section 1 — Hero Editorial`, or an
+ * earlier `Section 1 — Hero Home`) with the current `jannie/hero-home` pattern. /coaching/ keeps the
+ * editorial hero; build-step-3.php seeds the new hero on a fresh install, so this script only migrates
+ * content that already exists. Re-run it after editing the pattern.
  *
- * Idempotent: a Home that already has `jn-hero-home` is skipped. The old section is located by its exact
+ * Idempotent: a Home whose hero already equals the pattern is skipped. The section is located by its exact
  * opening comment and the first `</section><!-- /wp:group -->` after it (inner groups close with `</div>`),
- * and is only replaced when it occurs once and holds one H1 and the old media card. `parse_blocks()` /
+ * and is only replaced when it occurs once and holds one H1 and its expected markup. `parse_blocks()` /
  * `serialize_blocks()` is not used because it does not round-trip these pages byte for byte (ADR-016).
  * `wp_update_post()` stores a revision, which is the rollback point.
  *
@@ -26,43 +27,46 @@ jn_require_non_production( basename( __FILE__ ) );
 
 echo "=== JN — HOME HERO (ADR-021) ===\n";
 
-const JN_HHB_OLD_START = '<!-- wp:group {"tagName":"section","metadata":{"name":"Section 1 — Hero Editorial"}';
-const JN_HHB_OLD_END   = "</section>\n<!-- /wp:group -->";
+// Opening comment of a replaceable hero section => markup it must contain. The editorial hero is the
+// pre-ADR-021 Home; an earlier `Hero Home` is replaced when the pattern changes (re-runnable).
+const JN_HHB_SECTIONS = array(
+	'<!-- wp:group {"tagName":"section","metadata":{"name":"Section 1 — Hero Editorial"}' => 'jn-hero-media-card',
+	'<!-- wp:group {"tagName":"section","metadata":{"name":"Section 1 — Hero Home"}'      => '<!-- wp:jn/hero-portrait',
+);
+const JN_HHB_SECTION_END = "</section>\n<!-- /wp:group -->";
 
 /**
- * Replace the old hero section in the Home content.
+ * Replace the hero section in the Home content with the current pattern.
  *
  * @param string $content  Stored post content.
  * @param string $new_hero Rendered `jannie/hero-home` markup.
  * @return array{content: string, status: string, errors: string[]}
  */
 function jn_hhb_swap_hero( string $content, string $new_hero ): array {
-	if ( false !== strpos( $content, 'jn-hero-home' ) ) {
-		return array( 'content' => $content, 'status' => 'skip', 'errors' => array() );
-	}
-
-	$count = substr_count( $content, JN_HHB_OLD_START );
+	$fail  = static fn( string $error ): array => array( 'content' => $content, 'status' => 'fail', 'errors' => array( $error ) );
+	$found = array_filter( array_keys( JN_HHB_SECTIONS ), static fn( string $open ): bool => false !== strpos( $content, $open ) );
+	$count = array_sum( array_map( static fn( string $open ): int => substr_count( $content, $open ), $found ) );
 	if ( 1 !== $count ) {
-		return array( 'content' => $content, 'status' => 'fail', 'errors' => array( "old hero opening matched {$count} times (expected 1)" ) );
+		return $fail( "hero section opening matched {$count} times (expected 1)" );
 	}
 
-	$start = (int) strpos( $content, JN_HHB_OLD_START );
-	$end   = strpos( $content, JN_HHB_OLD_END, $start );
+	$open  = (string) reset( $found );
+	$start = (int) strpos( $content, $open );
+	$end   = strpos( $content, JN_HHB_SECTION_END, $start );
 	if ( false === $end ) {
-		return array( 'content' => $content, 'status' => 'fail', 'errors' => array( 'old hero has no closing </section> (edited by hand?)' ) );
+		return $fail( 'hero section has no closing </section> (edited by hand?)' );
 	}
 
-	$end    += strlen( JN_HHB_OLD_END );
-	$old     = substr( $content, $start, $end - $start );
-	$errors  = array();
+	$end += strlen( JN_HHB_SECTION_END );
+	$old  = substr( $content, $start, $end - $start );
 	if ( 1 !== preg_match_all( '/<h1\b/', $old ) ) {
-		$errors[] = 'old hero does not hold exactly one H1';
+		return $fail( 'hero section does not hold exactly one H1' );
 	}
-	if ( false === strpos( $old, 'jn-hero-media-card' ) ) {
-		$errors[] = 'old hero has no jn-hero-media-card (unexpected markup)';
+	if ( false === strpos( $old, JN_HHB_SECTIONS[ $open ] ) ) {
+		return $fail( 'hero section has no ' . JN_HHB_SECTIONS[ $open ] . ' (unexpected markup)' );
 	}
-	if ( ! empty( $errors ) ) {
-		return array( 'content' => $content, 'status' => 'fail', 'errors' => $errors );
+	if ( trim( $new_hero ) === $old ) {
+		return array( 'content' => $content, 'status' => 'skip', 'errors' => array() );
 	}
 
 	return array(
@@ -108,7 +112,7 @@ if ( 'fail' === $jn_result['status'] ) {
 }
 
 if ( 'skip' === $jn_result['status'] ) {
-	echo "[SKIP] Home (ID={$jn_home_id}) already uses the new hero\n";
+	echo "[SKIP] Home (ID={$jn_home_id}) hero already matches patterns/hero-home.php\n";
 } else {
 	$jn_updated = wp_update_post(
 		array(

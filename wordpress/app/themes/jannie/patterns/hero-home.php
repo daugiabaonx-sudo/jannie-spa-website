@@ -3,7 +3,7 @@
  * Title: Hero Home (Arched Portrait)
  * Slug: jannie/hero-home
  * Categories: jannie-nguyen
- * Description: Hero trang chủ: tiêu đề H1 ba dòng, thanh 3 chỉ số, hai nút CTA và khung ảnh vòm có polaroid đổi ảnh (jn/hero-portrait).
+ * Description: Hero trang chủ: cột chữ theo hệ tiêu đề chung (H1 hai dòng, thẻ 3 chỉ số, hai nút CTA) và khung ảnh vòm có polaroid đổi ảnh (jn/hero-portrait).
  * Viewport Width: 1440
  *
  * @package Jannie
@@ -28,7 +28,7 @@ $jn_swap_id    = isset( $jn_legacy_map['banner_home']['id'] ) ? (int) $jn_legacy
 			<!-- /wp:paragraph -->
 
 			<!-- wp:heading {"level":1,"className":"jn-hero-title"} -->
-			<h1 class="wp-block-heading jn-hero-title">Khám Phá Sự <br>Cân Bằng &amp; <em class="jn-accent-italic">Vẻ Đẹp Đích Thực</em></h1>
+			<h1 class="wp-block-heading jn-hero-title">Khám Phá Sự Cân Bằng &amp; <em class="jn-accent-italic">Vẻ Đẹp Đích Thực</em></h1>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"className":"jn-hero-lead","textColor":"muted-stone","fontSize":"body-lg"} -->
@@ -54,7 +54,7 @@ $jn_swap_id    = isset( $jn_legacy_map['banner_home']['id'] ) ? (int) $jn_legacy
 					<p class="jn-metric-value">1:1</p>
 					<!-- /wp:paragraph -->
 					<!-- wp:paragraph {"className":"jn-metric-label"} -->
-					<p class="jn-metric-label">Cố Vấn Cá Nhân</p>
+					<p class="jn-metric-label">Cố Vấn Độc Bản</p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
@@ -62,10 +62,10 @@ $jn_swap_id    = isset( $jn_legacy_map['banner_home']['id'] ) ? (int) $jn_legacy
 				<!-- wp:group {"className":"jn-metric-item"} -->
 				<div class="wp-block-group jn-metric-item">
 					<!-- wp:paragraph {"className":"jn-metric-value"} -->
-					<p class="jn-metric-value">03</p>
+					<p class="jn-metric-value">98%</p>
 					<!-- /wp:paragraph -->
 					<!-- wp:paragraph {"className":"jn-metric-label"} -->
-					<p class="jn-metric-label">Hướng Đồng Hành</p>
+					<p class="jn-metric-label">Tỷ Lệ Tối Ưu Hóa</p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
@@ -75,18 +75,14 @@ $jn_swap_id    = isset( $jn_legacy_map['banner_home']['id'] ) ? (int) $jn_legacy
 			<!-- wp:buttons {"className":"jn-hero-actions"} -->
 			<div class="wp-block-buttons jn-hero-actions">
 				<!-- wp:button {"className":"is-style-primary-pill has-icon-north-east"} -->
-				<div class="wp-block-button is-style-primary-pill has-icon-north-east"><a class="wp-block-button__link wp-element-button" href="#booking-form">Đặt Lịch Tư Vấn 1:1</a></div>
+				<div class="wp-block-button is-style-primary-pill has-icon-north-east"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/coaching/' ) ); ?>">Khám Phá Chương Trình Coaching</a></div>
 				<!-- /wp:button -->
 
-				<!-- wp:button {"className":"is-style-soft-pill has-icon-north-east"} -->
-				<div class="wp-block-button is-style-soft-pill has-icon-north-east"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/coaching/' ) ); ?>">Khám Phá Coaching</a></div>
+				<!-- wp:button {"className":"is-style-soft-pill has-icon-south"} -->
+				<div class="wp-block-button is-style-soft-pill has-icon-south"><a class="wp-block-button__link wp-element-button" href="#booking-form">Đặt Lịch Tư Vấn 1:1</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
-
-			<!-- wp:paragraph {"className":"jn-hero-home__note"} -->
-			<p class="jn-hero-home__note">Beauty · Balance · Mentorship</p>
-			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
 

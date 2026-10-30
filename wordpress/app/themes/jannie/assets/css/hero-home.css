@@ -1,13 +1,12 @@
 /**
  * Jannie Home Hero (ADR-021): `jannie/hero-home` pattern + `jn/hero-portrait` block.
  *
- * Copy column (eyebrow, three-line H1, lead, ruled metrics, CTA pills, scroll cue) beside an arched
- * portrait whose polaroid swaps in a second photo through a CSS-only checkbox. The shared hero title /
- * eyebrow / lead rules of ADR-014 still apply; this file only scales them up for the home page.
+ * The copy column keeps the shared hero look (ADR-014: eyebrow, two-line H1, lead, metrics card, pills),
+ * beside an arched portrait whose polaroid swaps in a second photo through a CSS-only checkbox.
  *
- * Motion is decorative only (breathing rings, floating polaroid, scroll cue, hover lift): the H1 and the
- * LCP portrait are painted immediately, never faded in, and every loop stops under reduced motion and on
- * low-end devices (`.jn-motion-lite`, inc/motion.php).
+ * Motion is decorative only (breathing rings, floating polaroid, hover lift): the H1 and the LCP portrait
+ * are painted immediately, never faded in, and every loop stops under reduced motion and on low-end
+ * devices (`.jn-motion-lite`, inc/motion.php).
  */
 
 /* 1. Section & local tokens (warm tones of the design with no global token) */
@@ -20,7 +19,6 @@
 	--jn-hero-portrait-shadow: 0 30px 60px -10px rgba(72, 49, 38, 0.28);
 	--jn-hero-polaroid-shadow: 0 14px 35px rgba(51, 36, 27, 0.26);
 	isolation: isolate;
-	padding-top: var(--jn-space-2xl) !important;
 	background: radial-gradient(ellipse at 85% 45%, var(--jn-hero-glow) 0%, transparent 53%);
 }
 
@@ -51,129 +49,38 @@
 	animation-delay: -4s;
 }
 
-/* 2. Grid: 1.12fr copy / 0.88fr portrait (FRAME_WIDTHS in class-jn-hero-portrait.php mirrors this). */
+/* 2. Grid: the copy keeps >= 776px at 1440 so "Khám Phá Sự Cân Bằng &" stays on one 64px line; the
+   portrait track is capped at 27rem and the portrait then bleeds into the container's right padding
+   (editorial grid break), so the photo grows without squeezing the title.
+   FRAME_WIDTHS in class-jn-hero-portrait.php mirrors this. */
 .jn-hero-home__grid {
 	display: grid !important;
-	grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+	grid-template-columns: minmax(0, 1fr) clamp(20rem, 32vw, 27rem);
 	align-items: center;
-	column-gap: clamp(2.5rem, 5vw, 4.5rem);
+	column-gap: var(--jn-space-xl);
+}
+
+@media (min-width: 1024px) {
+	/* Bleed = the container padding, but only as far as the viewport leaves >= 40px beside the portrait:
+	   full 56px from 1440px up, none below 1360px where the container already spans the viewport. */
+	.jn-hero-home__grid > .jn-hero-portrait {
+		margin-right: calc(-1 * clamp(0px, var(--jn-container-pad) + (100vw - var(--jn-container-max)) / 2 - 40px, var(--jn-container-pad))) !important;
+		padding-right: var(--jn-space-lg);
+	}
+
+	/* Keeps the tilted polaroid >= 24px inside the viewport now that the portrait bleeds. */
+	.jn-hero-home .jn-hero-portrait__polaroid {
+		right: 0;
+		max-width: 200px;
+	}
 }
 
 .jn-hero-home__grid > * {
 	margin-block: 0 !important;
 }
 
-/* 3. Copy column (eyebrow → 16px → title → 24px → lead rhythm comes from the shared ADR-014 rules) */
-.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow::before {
-	width: 10px;
-	height: 10px;
-	box-shadow: 0 0 0 5px color-mix(in srgb, var(--jn-champagne) 16%, transparent);
-}
-
-.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow::after {
-	display: none;
-}
-
-.jn-hero-home .jn-hero-title {
-	font-size: clamp(2.5rem, 1.25rem + 4.2vw, 5rem);
-	line-height: 1.14;
-	letter-spacing: -0.035em;
-	max-width: none;
-}
-
-.jn-hero-home .jn-hero-title .jn-accent-italic {
-	font-size: 0.92em;
-	letter-spacing: -0.04em;
-}
-
-.jn-hero-home .jn-hero-lead {
-	margin-bottom: var(--jn-space-lg) !important;
-}
-
-/* Metrics: hairline-ruled row instead of the floating card used on /coaching/. */
-.jn-hero-home .jn-hero-metrics.is-style-metrics-bar {
-	gap: 0;
-	max-width: 35rem;
-	padding: var(--jn-space-md) 0;
-	border-block: 1px solid var(--jn-wireframe-guide);
-	border-radius: 0;
-	background: transparent;
-	box-shadow: none;
-}
-
-.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > * {
-	padding-inline: var(--jn-space-md);
-	border-color: var(--jn-wireframe-guide);
-}
-
-.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > :first-child {
-	padding-left: 0;
-}
-
-.jn-hero-home .jn-metric-value {
-	font-size: clamp(1.875rem, 1.25rem + 1.4vw, 2.8125rem);
-}
-
-/* CTA pills: taller, label left / arrow right, lift on hover; the secondary pill is translucent. */
-.jn-hero-home .jn-hero-actions {
-	margin-top: var(--jn-space-xl) !important;
-}
-
-.jn-hero-home .jn-hero-actions .wp-block-button__link {
-	min-height: 56px;
-	justify-content: space-between;
-	gap: var(--jn-space-md);
-	padding-inline: var(--jn-space-lg);
-	transition:
-		background-color var(--jn-transition),
-		color var(--jn-transition),
-		border-color var(--jn-transition),
-		box-shadow var(--jn-motion-normal) var(--jn-ease-smooth),
-		transform var(--jn-motion-normal) var(--jn-ease-smooth);
-}
-
-.jn-hero-home .jn-hero-actions .wp-block-button__link:hover {
-	transform: translateY(-4px);
-	box-shadow: var(--jn-shadow-featured);
-}
-
-.jn-hero-home .jn-hero-actions .is-style-soft-pill .wp-block-button__link {
-	background-color: color-mix(in srgb, var(--jn-surface-pure) 66%, transparent);
-	border-color: var(--jn-border);
-}
-
-.jn-hero-home .jn-hero-actions .is-style-soft-pill .wp-block-button__link:hover {
-	background-color: var(--jn-surface-pure);
-}
-
-/* Scroll cue: a decorative ↓ capsule drawn by ::before, so the paragraph only holds the tagline. */
-.jn-hero-home p.jn-hero-home__note {
-	display: flex;
-	align-items: center;
-	gap: var(--jn-space-sm);
-	margin-top: var(--jn-space-2xl) !important;
-	font-family: var(--jn-font-body);
-	font-size: var(--jn-text-label-sm);
-	line-height: var(--jn-lh-label-sm);
-	font-weight: 600;
-	letter-spacing: 0.19em;
-	text-transform: uppercase;
-	color: var(--jn-secondary); /* 5.12:1 even on the warm glow (champagne-text-sm drops to 4.19:1) */
-}
-
-.jn-hero-home p.jn-hero-home__note::before {
-	content: "↓";
-	display: grid;
-	place-items: center;
-	flex-shrink: 0;
-	width: 27px;
-	height: 40px;
-	border: 1px solid var(--jn-wireframe-guide);
-	border-radius: var(--jn-radius-pill);
-	font-size: 1.125rem;
-	letter-spacing: 0;
-	animation: jn-hero-cue 2.5s ease-in-out infinite;
-}
+/* 3. Copy column: the shared hero eyebrow / title / lead / metrics card / pill rules (block-styles.css §9,
+   ADR-014) apply unchanged, so the home page opens like every other page. */
 
 /* 4. Arched portrait (jn/hero-portrait) */
 .jn-hero-portrait {
@@ -317,13 +224,35 @@
 	animation: jn-hero-float 5.5s ease-in-out infinite;
 }
 
-.jn-hero-portrait__thumb {
+/* Two stacked previews: the one shown is always the photo the swap leads to. */
+.jn-hero-portrait__thumbs {
+	position: relative;
 	display: block;
-	width: 100%;
-	height: auto;
 	aspect-ratio: 4 / 3;
-	object-fit: cover;
+	overflow: hidden;
 	margin-bottom: 11px;
+}
+
+.jn-hero-portrait__thumb {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: opacity var(--jn-motion-slow) var(--jn-ease-smooth);
+}
+
+.jn-hero-portrait__thumb--primary {
+	opacity: 0;
+	object-position: 50% 25%;
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__polaroid .jn-hero-portrait__thumb--alt {
+	opacity: 0;
+}
+
+.jn-hero-portrait__toggle:checked ~ .jn-hero-portrait__polaroid .jn-hero-portrait__thumb--primary {
+	opacity: 1;
 }
 
 .jn-hero-portrait__polaroid-text > span {
@@ -367,12 +296,6 @@
 	}
 }
 
-@keyframes jn-hero-cue {
-	50% {
-		transform: translateY(6px);
-	}
-}
-
 /* 6. Responsive (site breakpoints, ADR-014) */
 @media (max-width: 1023.98px) {
 	.jn-hero-home__grid {
@@ -404,28 +327,6 @@
 }
 
 @media (max-width: 639.98px) {
-	.jn-section.jn-hero-home {
-		padding-top: var(--jn-space-xl) !important;
-	}
-
-	.jn-hero-home p.is-style-eyebrow-dot.jn-hero-eyebrow {
-		letter-spacing: 0.1em;
-	}
-
-	.jn-hero-home .jn-hero-metrics.is-style-metrics-bar > * {
-		padding-inline: var(--jn-space-sm);
-	}
-
-	.jn-hero-home .jn-hero-actions {
-		flex-direction: column;
-		align-items: stretch;
-	}
-
-	.jn-hero-home .jn-hero-actions .wp-block-button,
-	.jn-hero-home .jn-hero-actions .wp-block-button__link {
-		width: 100%;
-	}
-
 	.jn-hero-portrait {
 		width: 96%;
 	}
@@ -439,12 +340,10 @@
 @media (prefers-reduced-motion: reduce) {
 	.jn-section.jn-hero-home::before,
 	.jn-section.jn-hero-home::after,
-	.jn-hero-home p.jn-hero-home__note::before,
 	.jn-hero-portrait__polaroid {
 		animation: none;
 	}
 
-	.jn-hero-home .jn-hero-actions .wp-block-button__link:hover,
 	.jn-hero-portrait__frame:hover,
 	.jn-hero-portrait__frame:hover .jn-hero-portrait__img {
 		transform: none;
@@ -453,7 +352,6 @@
 
 .jn-motion-lite .jn-section.jn-hero-home::before,
 .jn-motion-lite .jn-section.jn-hero-home::after,
-.jn-motion-lite .jn-hero-home p.jn-hero-home__note::before,
 .jn-motion-lite .jn-hero-portrait__polaroid {
 	animation: none;
 }
