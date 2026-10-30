@@ -571,9 +571,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/banner-my-story.png",
 		"original": "png",
 		"sha256": "e4189bb50c8020930b5deb945a07bdd288b095f886b2e7117d1bbf265f827cd5",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 1024,
-		"height": 576,
+		"sharpen": 0.15,
+		"width": 1920,
+		"height": 1080,
 		"quality": 82
 	},
 	"my_story_1": {
@@ -584,9 +587,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/1.png",
 		"original": "png",
 		"sha256": "7bda2342eedbbec08ccdd132da4ea961c3b1ddf990d8ed393c01f3e361083b22",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 400,
-		"height": 600,
+		"sharpen": 0.15,
+		"width": 800,
+		"height": 1200,
 		"quality": 82
 	},
 	"my_story_prize": {
@@ -597,9 +603,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-PRIZE-1.png",
 		"original": "png",
 		"sha256": "d6be07b0216fcb57820daa6be1fe5e9901f58273de38d84ced64131c8576121f",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 400,
-		"height": 600,
+		"sharpen": 0.15,
+		"width": 800,
+		"height": 1200,
 		"quality": 82
 	},
 	"my_story_su_menh": {
@@ -610,9 +619,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-SU-MENH-2.png",
 		"original": "png",
 		"sha256": "fc516ba9e474b1ddb80c462040b0b1cd55551436ed22da8fd8512e009b5d5303",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 400,
-		"height": 600,
+		"sharpen": 0.15,
+		"width": 800,
+		"height": 1200,
 		"quality": 82
 	},
 	"my_story_value": {
@@ -623,9 +635,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-VALUE-1.png",
 		"original": "png",
 		"sha256": "594149d3c8a380f1b29cca0b9f1079e8f0a7102bdf943f73f605e795bf4b1016",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 400,
-		"height": 600,
+		"sharpen": 0.15,
+		"width": 800,
+		"height": 1200,
 		"quality": 82
 	},
 	"my_story_mission": {
@@ -636,9 +651,12 @@
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-MISSION-1.png",
 		"original": "png",
 		"sha256": "93c7bb78fc72c16933f0e670be10ba919565769e7016041b596180d1748bd188",
+		"model": "realesrgan-x4plus",
+		"ai_upscale": true,
 		"require_master": true,
-		"width": 400,
-		"height": 600,
+		"sharpen": 0.15,
+		"width": 800,
+		"height": 1200,
 		"quality": 82
 	}
 }

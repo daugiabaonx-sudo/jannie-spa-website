@@ -453,7 +453,7 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 	object-fit: cover;
 }
 
-/* The My Story photos are 400x600 originals: never shown larger than that (D3: downscale only). */
+/* My Story 2:3 photos (800x1200 from 4x AI masters): shown at max 400px for 2x Retina crispness. */
 .jn-legacy-media--story.wp-block-image {
 	max-width: 400px;
 	margin-inline: auto;
@@ -578,10 +578,9 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 		margin-inline: auto;
 	}
 
-	/* 400px originals on ~1.75x phones: at 300px they keep >= 0.75 of the pixels Lighthouse expects
-	   (image-size-responsive) — D3, no AI upscaling. */
+	/* 800x1200 2x Retina My Story photos: keep at 400px max-width on mobile too. */
 	.jn-legacy-split__media .jn-legacy-media--story.wp-block-image {
-		max-width: 300px;
+		max-width: 400px;
 	}
 }
 

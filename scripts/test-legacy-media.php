@@ -177,14 +177,16 @@ $jn_originals = array_filter( $jn_all, static fn( array $item ): bool => ! empty
 jn_t_assert( JN_TLM_ITEM_COUNT === count( $jn_items ), 'All 14 legacy items are defined', (string) count( $jn_items ) );
 jn_t_assert( JN_TLM_ORIGINAL_COUNT === count( $jn_originals ), 'All 34 Step 15–16 originals are defined', (string) count( $jn_originals ) );
 foreach ( $jn_originals as $jn_key => $jn_item ) {
-	$jn_is_valid = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
+	$jn_expect_ai = str_starts_with( (string) $jn_key, 'my_story_' );
+	$jn_is_valid  = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
 		&& $jn_item['slug'] . '.webp' === $jn_item['filename']
 		&& '' !== trim( (string) $jn_item['alt'] )
-		&& empty( $jn_item['ai_upscale'] )
+		&& $jn_expect_ai === ! empty( $jn_item['ai_upscale'] )
+		&& ( ! $jn_expect_ai || ! empty( $jn_item['sharpen'] ) )
 		&& ! empty( $jn_item['require_master'] )
 		&& null === jn_media_validate_item( $jn_item )
 		&& str_starts_with( (string) $jn_item['source_url'], 'https://' );
-	jn_t_assert( $jn_is_valid, "{$jn_key}: original declared with checksum, alt, size and source" );
+	jn_t_assert( $jn_is_valid, "{$jn_key}: original declared with checksum, alt, size, source and expected AI upscale flag" );
 }
 
 foreach ( $jn_items as $jn_key => $jn_item ) {
@@ -401,6 +403,17 @@ if ( is_array( $jn_probe ) ) {
 	jn_t_assert( is_wp_error( $jn_err ) && 'jn_original_missing' === $jn_err->get_error_code(), 'a missing original is an error (no network fallback)' );
 	$jn_err = jn_placeholder_load_source( array_merge( $jn_probe, array( 'sha256' => str_repeat( '0', 64 ) ) ) );
 	jn_t_assert( is_wp_error( $jn_err ) && 'jn_original_checksum' === $jn_err->get_error_code(), 'an original that does not match its sha256 is rejected' );
+	$jn_err = jn_placeholder_load_source(
+		array_merge(
+			$jn_probe,
+			array(
+				'ai_upscale'     => true,
+				'require_master' => true,
+				'master_slug'    => 'jn-legacy-does-not-exist',
+			)
+		)
+	);
+	jn_t_assert( is_wp_error( $jn_err ) && 'jn_master_missing' === $jn_err->get_error_code(), 'an AI-upscaled original with a missing 4x master fails fast instead of falling back to the original' );
 	jn_t_assert( is_wp_error( jn_media_validate_item( array_merge( $jn_probe, array( 'original' => 'php' ) ) ) ), 'an original with a non-image extension is rejected' );
 }
 
@@ -414,10 +427,25 @@ foreach ( $jn_originals as $jn_key => $jn_item ) {
 	$jn_dims = is_file( $jn_file ) ? getimagesize( $jn_file ) : false;
 	jn_t_assert( is_array( $jn_dims ) && (int) $jn_item['width'] === $jn_dims[0] && (int) $jn_item['height'] === $jn_dims[1] && 'image/webp' === get_post_mime_type( $jn_id ), "{$jn_key}: WebP is exactly {$jn_item['width']}x{$jn_item['height']}" );
 	jn_t_assert( is_file( $jn_file ) && filesize( $jn_file ) / 1024 <= JN_TLM_MAX_WEBP_KB, "{$jn_key}: WebP stays within " . JN_TLM_MAX_WEBP_KB . ' KB' );
-	$jn_scale = (float) get_post_meta( $jn_id, '_jn_media_scale', true );
-	jn_t_assert( 'original' === get_post_meta( $jn_id, '_jn_media_source', true ) && $jn_scale > 0 && $jn_scale <= 1.0, "{$jn_key}: built from the original, only downscaled", (string) $jn_scale );
+	$jn_scale           = (float) get_post_meta( $jn_id, '_jn_media_scale', true );
+	$jn_expected_source = ! empty( $jn_item['ai_upscale'] ) ? 'ai-x4' : 'original';
+	jn_t_assert( $jn_expected_source === get_post_meta( $jn_id, '_jn_media_source', true ) && $jn_scale > 0 && $jn_scale <= 1.0, "{$jn_key}: built from {$jn_expected_source}, only downscaled", (string) $jn_scale );
 	jn_t_assert( get_post_meta( $jn_id, '_wp_attachment_image_alt', true ) === $jn_item['alt'] && get_post_meta( $jn_id, '_jn_media_origin', true ) === $jn_item['source_url'], "{$jn_key}: alt text and origin recorded" );
 	jn_t_assert( is_file( (string) preg_replace( '/\.webp$/i', '.avif', $jn_file ) ), "{$jn_key}: full-size AVIF companion exists" );
+
+	if ( ! empty( $jn_item['ai_upscale'] ) ) {
+		$jn_orig_path = jn_placeholder_original_path( (string) $jn_item['slug'], (string) $jn_item['original'] );
+		$jn_baseline  = is_file( $jn_orig_path ) ? jn_tlm_bicubic_baseline( $jn_orig_path, (int) $jn_item['width'], (int) $jn_item['height'] ) : false;
+		$jn_web       = is_file( $jn_file ) ? @imagecreatefromwebp( $jn_file ) : false; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( ! $jn_baseline || ! $jn_web ) {
+			jn_t_assert( false, "{$jn_key}: original copy and WebP are readable for the sharpness check", $jn_orig_path );
+			continue;
+		}
+		$jn_gain = jn_tlm_sharpness( $jn_web ) / max( 1e-6, jn_tlm_sharpness( $jn_baseline ) );
+		jn_t_assert( $jn_gain >= JN_TLM_MIN_SHARPNESS_GAIN, "{$jn_key}: >= " . JN_TLM_MIN_SHARPNESS_GAIN . 'x sharper than a bicubic resize of the original copy', round( $jn_gain, 2 ) . 'x' );
+		imagedestroy( $jn_web );
+		imagedestroy( $jn_baseline );
+	}
 }
 
 jn_t_finish();

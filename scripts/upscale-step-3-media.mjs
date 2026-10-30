@@ -20,6 +20,7 @@
  *   or: ./scripts/wp.sh eval-file /scripts/import-legacy-media.php
  */
 import { spawnSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -129,13 +130,23 @@ function upscale(input, output, model) {
 async function buildMaster(item) {
 	// `master_slug` points an item at another item's master (Step 3 hero/expert reuse the legacy photos).
 	const slug = item.master_slug || item.slug;
-	const src = path.join(MASTER_DIR, `${slug}.src${sourceExt(item.source_url)}`);
+	const src = item.original
+		? path.join(MASTER_DIR, `${slug}.orig.${item.original}`)
+		: path.join(MASTER_DIR, `${slug}.src${sourceExt(item.source_url)}`);
 	const out = path.join(MASTER_DIR, `${slug}.x4.png`);
 	const flat = path.join(MASTER_DIR, `${slug}.flat.png`);
 	// A stale master would be imported silently if this rebuild fails (e.g. an RGBA master after adding `ink`).
 	fs.rmSync(out, { force: true });
 	fs.rmSync(flat, { force: true });
-	if (!fs.existsSync(src)) {
+	if (item.original) {
+		if (!fs.existsSync(src)) {
+			throw new Error(`original is required but missing: ${src}`);
+		}
+		const digest = crypto.createHash('sha256').update(fs.readFileSync(src)).digest('hex');
+		if (digest !== item.sha256) {
+			throw new Error(`original does not match its recorded sha256: ${src}`);
+		}
+	} else if (!fs.existsSync(src)) {
 		await download(sourceUrl(item.source_url), src);
 	}
 	let input = src;

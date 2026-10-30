@@ -125,7 +125,11 @@ function jn_placeholder_crop_box( int $src_w, int $src_h, int $dst_w, int $dst_h
  */
 function jn_placeholder_load_source( array $item ) {
 	if ( ! empty( $item['original'] ) ) {
-		return jn_placeholder_load_original( $item );
+		$original = jn_placeholder_load_original( $item );
+		if ( is_wp_error( $original ) || empty( $item['ai_upscale'] ) ) {
+			return $original;
+		}
+		imagedestroy( $original['image'] );
 	}
 	// `master_slug` lets an item reuse another item's master (Step 3 hero/expert use the ADR-018 photos).
 	$master = jn_placeholder_master_path( (string) ( $item['master_slug'] ?? $item['slug'] ) );
