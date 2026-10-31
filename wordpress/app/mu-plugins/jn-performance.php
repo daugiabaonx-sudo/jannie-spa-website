@@ -442,6 +442,14 @@ function jn_defer_non_critical_stylesheets( $html, $handle ) {
 		'wc-blocks-style',
 	);
 
+	// /my-favorite-product/ (ADR-025): favorite-products.css (inline) lays out the card image and summary, so
+	// WooCommerce's per-block styles only touch below-the-fold cards; render-blocking they cost ~150–300 ms FCP.
+	// Only when that inline stylesheet really is on the page (the theme skips it if the CSS cannot be built).
+	if ( wp_style_is( 'jn-favorite', 'enqueued' ) ) {
+		$async_style_handles[] = 'wc-blocks-style-product-image';
+		$async_style_handles[] = 'wc-blocks-style-product-summary';
+	}
+
 	// Blocksy's WooCommerce stylesheet lays out the account forms and the single product (gallery | summary):
 	// deferred there, the summary jumped from under the gallery to beside it after load (CLS 0.36, ADR-024).
 	$is_woo_layout_page = ( function_exists( 'is_account_page' ) && is_account_page() ) || is_singular( 'product' );

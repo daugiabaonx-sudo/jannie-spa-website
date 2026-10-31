@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T13:45:41.572Z",
+  "generatedAt": "2026-10-31T04:20:38.357Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -17,7 +17,10 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "span.jn-product-stage__spotlight →540",
+          "span.jn-product-stage__orbit.jn-product-stage__orbit--outer →358"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -29,7 +32,10 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "span.jn-product-stage__spotlight →568",
+          "span.jn-product-stage__orbit.jn-product-stage__orbit--outer →385"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -49,7 +55,10 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "span.jn-product-stage__spotlight →936",
+          "a. →776"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -61,7 +70,9 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "span.jn-product-stage__spotlight →1127"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -137,7 +148,9 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "a. →776"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -225,7 +238,9 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "a. →776"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -313,7 +328,9 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "a. →776"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []
@@ -401,7 +418,9 @@
       "failures": [],
       "data": {
         "overflow": false,
-        "offenders": [],
+        "offenders": [
+          "a. →776"
+        ],
         "h1": 1,
         "iframes": 0,
         "broken": []

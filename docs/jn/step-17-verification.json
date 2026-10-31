@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T18:10:58.821Z",
+  "generatedAt": "2026-10-31T04:19:39.304Z",
   "baseUrl": "http://localhost:8080",
   "checks": [
     {
@@ -10,12 +10,12 @@
     {
       "name": "desktop-1440 /: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+      "detail": "{\"fcp\":108,\"used\":true,\"loaded\":true,\"readyAt\":66}"
     },
     {
       "name": "desktop-1440 /: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+      "detail": "{\"fcp\":108,\"used\":true,\"loaded\":true,\"readyAt\":66}"
     },
     {
       "name": "desktop-1440 /my-story/: header and footer do not move on first input",
@@ -35,12 +35,12 @@
     {
       "name": "desktop-1440 /my-story/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+      "detail": "{\"fcp\":92,\"used\":true,\"loaded\":true,\"readyAt\":39}"
     },
     {
       "name": "desktop-1440 /my-story/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":49}"
+      "detail": "{\"fcp\":92,\"used\":true,\"loaded\":true,\"readyAt\":39}"
     },
     {
       "name": "desktop-1440 /coaching/: header and footer do not move on first input",
@@ -60,12 +60,12 @@
     {
       "name": "desktop-1440 /coaching/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":59}"
     },
     {
       "name": "desktop-1440 /coaching/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":59}"
     },
     {
       "name": "desktop-1440 /course/: header and footer do not move on first input",
@@ -85,12 +85,12 @@
     {
       "name": "desktop-1440 /course/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":268,\"used\":true,\"loaded\":true,\"readyAt\":233}"
+      "detail": "{\"fcp\":100,\"used\":true,\"loaded\":true,\"readyAt\":56}"
     },
     {
       "name": "desktop-1440 /course/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":268,\"used\":true,\"loaded\":true,\"readyAt\":233}"
+      "detail": "{\"fcp\":100,\"used\":true,\"loaded\":true,\"readyAt\":56}"
     },
     {
       "name": "desktop-1440 /client-success-story/: header and footer do not move on first input",
@@ -110,12 +110,12 @@
     {
       "name": "desktop-1440 /client-success-story/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":212,\"used\":true,\"loaded\":true,\"readyAt\":180}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":54}"
     },
     {
       "name": "desktop-1440 /client-success-story/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":212,\"used\":true,\"loaded\":true,\"readyAt\":180}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":54}"
     },
     {
       "name": "desktop-1440 /my-favorite-product/: header and footer do not move on first input",
@@ -135,12 +135,12 @@
     {
       "name": "desktop-1440 /my-favorite-product/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":61}"
     },
     {
       "name": "desktop-1440 /my-favorite-product/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":53}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":61}"
     },
     {
       "name": "desktop-1440 /booking/: header and footer do not move on first input",
@@ -160,12 +160,12 @@
     {
       "name": "desktop-1440 /booking/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":76,\"used\":true,\"loaded\":true,\"readyAt\":43}"
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":38}"
     },
     {
       "name": "desktop-1440 /booking/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":76,\"used\":true,\"loaded\":true,\"readyAt\":43}"
+      "detail": "{\"fcp\":88,\"used\":true,\"loaded\":true,\"readyAt\":38}"
     },
     {
       "name": "desktop-1440 /my-story/: header geometry matches the home tab",
@@ -185,7 +185,7 @@
     {
       "name": "desktop-1440 /client-success-story/: header geometry matches the home tab",
       "pass": true,
-      "detail": "moved: none, menu drift 0.03px"
+      "detail": "moved: none, menu drift 0.04px"
     },
     {
       "name": "desktop-1440 /my-favorite-product/: header geometry matches the home tab",
@@ -195,7 +195,7 @@
     {
       "name": "desktop-1440 /booking/: header geometry matches the home tab",
       "pass": true,
-      "detail": "moved: none, menu drift 0.08px"
+      "detail": "moved: none, menu drift 0.07px"
     },
     {
       "name": "mobile-390 /: header and footer do not move on first input",
@@ -230,12 +230,12 @@
     {
       "name": "mobile-390 /my-story/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":54}"
     },
     {
       "name": "mobile-390 /my-story/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":54}"
     },
     {
       "name": "mobile-390 /coaching/: header and footer do not move on first input",
@@ -255,12 +255,12 @@
     {
       "name": "mobile-390 /coaching/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":55}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":58}"
     },
     {
       "name": "mobile-390 /coaching/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":55}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":58}"
     },
     {
       "name": "mobile-390 /course/: header and footer do not move on first input",
@@ -280,12 +280,12 @@
     {
       "name": "mobile-390 /course/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":58}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":73}"
     },
     {
       "name": "mobile-390 /course/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":58}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":73}"
     },
     {
       "name": "mobile-390 /client-success-story/: header and footer do not move on first input",
@@ -305,12 +305,12 @@
     {
       "name": "mobile-390 /client-success-story/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
     },
     {
       "name": "mobile-390 /client-success-story/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":68,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":57}"
     },
     {
       "name": "mobile-390 /my-favorite-product/: header and footer do not move on first input",
@@ -330,12 +330,12 @@
     {
       "name": "mobile-390 /my-favorite-product/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":72,\"used\":true,\"loaded\":true,\"readyAt\":61}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":75}"
     },
     {
       "name": "mobile-390 /my-favorite-product/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":72,\"used\":true,\"loaded\":true,\"readyAt\":61}"
+      "detail": "{\"fcp\":84,\"used\":true,\"loaded\":true,\"readyAt\":75}"
     },
     {
       "name": "mobile-390 /booking/: header and footer do not move on first input",
@@ -355,12 +355,12 @@
     {
       "name": "mobile-390 /booking/: Playfair Display is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":64,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":60}"
     },
     {
       "name": "mobile-390 /booking/: Playfair Display italic is loaded before first contentful paint",
       "pass": true,
-      "detail": "{\"fcp\":64,\"used\":true,\"loaded\":true,\"readyAt\":48}"
+      "detail": "{\"fcp\":80,\"used\":true,\"loaded\":true,\"readyAt\":60}"
     },
     {
       "name": "mobile-390 /my-story/: header geometry matches the home tab",
@@ -405,7 +405,7 @@
     {
       "name": "Cross-page #booking-form lands without a smooth scroll",
       "pass": true,
-      "detail": "scroll events 1, at load 4989, now 4989"
+      "detail": "scroll events 1, at load 4990, now 4990"
     }
   ],
   "samples": {
@@ -415,28 +415,28 @@
         "before": {
           "path": "/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.05,
-            413.02,
-            489.81,
-            570.94,
-            637.55,
-            805.83,
-            967.95
+            367.73,
+            419,
+            496.3,
+            577.95,
+            644.98,
+            814.47,
+            977.75
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -447,28 +447,28 @@
         "after": {
           "path": "/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.05,
-            413.02,
-            489.81,
-            570.94,
-            637.55,
-            805.83,
-            967.95
+            367.73,
+            419,
+            496.3,
+            577.95,
+            644.98,
+            814.47,
+            977.75
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -478,16 +478,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 88,
+          "fcp": 108,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 49
+            "readyAt": 66
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 49
+            "readyAt": 66
           },
           "loafSupported": true,
           "longFrames": [],
@@ -501,28 +501,28 @@
         "before": {
           "path": "/my-story/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            361.92,
-            412.94,
-            489.94,
-            571.06,
-            637.67,
-            805.95,
-            968.08
+            367.61,
+            418.92,
+            496.42,
+            578.08,
+            645.11,
+            814.59,
+            977.88
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -533,28 +533,28 @@
         "after": {
           "path": "/my-story/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            361.92,
-            412.94,
-            489.94,
-            571.06,
-            637.67,
-            805.95,
-            968.08
+            367.61,
+            418.92,
+            496.42,
+            578.08,
+            645.11,
+            814.59,
+            977.88
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -564,16 +564,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 88,
+          "fcp": 92,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 49
+            "readyAt": 39
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 49
+            "readyAt": 39
           },
           "loafSupported": true,
           "longFrames": [],
@@ -587,28 +587,28 @@
         "before": {
           "path": "/coaching/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.05,
-            413.06,
-            489.86,
-            570.94,
-            637.55,
-            805.83,
-            967.95
+            367.73,
+            419.05,
+            496.34,
+            577.95,
+            644.98,
+            814.47,
+            977.75
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -619,28 +619,28 @@
         "after": {
           "path": "/coaching/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.05,
-            413.06,
-            489.86,
-            570.94,
-            637.55,
-            805.83,
-            967.95
+            367.73,
+            419.05,
+            496.34,
+            577.95,
+            644.98,
+            814.47,
+            977.75
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -650,16 +650,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 84,
+          "fcp": 88,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 53
+            "readyAt": 59
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 53
+            "readyAt": 59
           },
           "loafSupported": true,
           "longFrames": [],
@@ -673,28 +673,28 @@
         "before": {
           "path": "/course/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.03,
-            413.05,
-            489.84,
-            570.97,
-            637.56,
-            805.84,
-            967.97
+            367.72,
+            419.03,
+            496.33,
+            577.98,
+            645,
+            814.48,
+            977.77
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -705,28 +705,28 @@
         "after": {
           "path": "/course/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.03,
-            413.05,
-            489.84,
-            570.97,
-            637.56,
-            805.84,
-            967.97
+            367.72,
+            419.03,
+            496.33,
+            577.98,
+            645,
+            814.48,
+            977.77
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -736,16 +736,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 268,
+          "fcp": 100,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 233
+            "readyAt": 56
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 233
+            "readyAt": 56
           },
           "loafSupported": true,
           "longFrames": [],
@@ -759,28 +759,28 @@
         "before": {
           "path": "/client-success-story/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.03,
-            413.05,
-            489.84,
-            570.97,
-            637.58,
-            805.83,
-            967.95
+            367.72,
+            419.03,
+            496.33,
+            577.98,
+            645.02,
+            814.48,
+            977.77
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -791,114 +791,28 @@
         "after": {
           "path": "/client-success-story/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            362.03,
-            413.05,
-            489.84,
-            570.97,
-            637.58,
-            805.83,
-            967.95
+            367.72,
+            419.03,
+            496.33,
+            577.98,
+            645.02,
+            814.48,
+            977.77
           ],
           "account": [
-            1304.5,
-            34,
-            32,
-            32
-          ],
-          "trigger": null,
-          "footerHeight": 578
-        },
-        "timeline": {
-          "viewTransition": true,
-          "fcp": 212,
-          "playfair": {
-            "used": true,
-            "loaded": true,
-            "readyAt": 180
-          },
-          "playfairItalic": {
-            "used": true,
-            "loaded": true,
-            "readyAt": 180
-          },
-          "loafSupported": true,
-          "longFrames": [],
-          "scrolls": 0,
-          "scrollAtLoad": 0,
-          "scrollNow": 0
-        }
-      },
-      {
-        "tab": "/my-favorite-product/",
-        "before": {
-          "path": "/my-favorite-product/",
-          "logo": [
-            88.5,
-            28,
-            44,
-            44
-          ],
-          "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
-          ],
-          "menu": [
-            362.02,
-            413.03,
-            489.83,
-            570.95,
-            637.56,
-            805.84,
-            967.98
-          ],
-          "account": [
-            1304.5,
-            34,
-            32,
-            32
-          ],
-          "trigger": null,
-          "footerHeight": 578
-        },
-        "after": {
-          "path": "/my-favorite-product/",
-          "logo": [
-            88.5,
-            28,
-            44,
-            44
-          ],
-          "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
-          ],
-          "menu": [
-            362.02,
-            413.03,
-            489.83,
-            570.95,
-            637.56,
-            805.84,
-            967.98
-          ],
-          "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -912,12 +826,98 @@
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 53
+            "readyAt": 54
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 53
+            "readyAt": 54
+          },
+          "loafSupported": true,
+          "longFrames": [],
+          "scrolls": 0,
+          "scrollAtLoad": 0,
+          "scrollNow": 0
+        }
+      },
+      {
+        "tab": "/my-favorite-product/",
+        "before": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            96,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            172,
+            30,
+            163.53,
+            20
+          ],
+          "menu": [
+            367.7,
+            419.02,
+            496.31,
+            577.97,
+            645,
+            814.48,
+            977.78
+          ],
+          "account": [
+            1312,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "after": {
+          "path": "/my-favorite-product/",
+          "logo": [
+            96,
+            28,
+            44,
+            44
+          ],
+          "title": [
+            172,
+            30,
+            163.53,
+            20
+          ],
+          "menu": [
+            367.7,
+            419.02,
+            496.31,
+            577.97,
+            645,
+            814.48,
+            977.78
+          ],
+          "account": [
+            1312,
+            34,
+            32,
+            32
+          ],
+          "trigger": null,
+          "footerHeight": 578
+        },
+        "timeline": {
+          "viewTransition": true,
+          "fcp": 84,
+          "playfair": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 61
+          },
+          "playfairItalic": {
+            "used": true,
+            "loaded": true,
+            "readyAt": 61
           },
           "loafSupported": true,
           "longFrames": [],
@@ -931,28 +931,28 @@
         "before": {
           "path": "/booking/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            361.97,
-            412.98,
-            489.78,
-            570.91,
-            637.52,
-            805.8,
-            967.92
+            367.66,
+            418.97,
+            496.27,
+            577.92,
+            644.95,
+            814.44,
+            977.72
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -963,28 +963,28 @@
         "after": {
           "path": "/booking/",
           "logo": [
-            88.5,
+            96,
             28,
             44,
             44
           ],
           "title": [
-            164.5,
-            30.09,
-            161.97,
-            19.81
+            172,
+            30,
+            163.53,
+            20
           ],
           "menu": [
-            361.97,
-            412.98,
-            489.78,
-            570.91,
-            637.52,
-            805.8,
-            967.92
+            367.66,
+            418.97,
+            496.27,
+            577.92,
+            644.95,
+            814.44,
+            977.72
           ],
           "account": [
-            1304.5,
+            1312,
             34,
             32,
             32
@@ -994,16 +994,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 76,
+          "fcp": 88,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 43
+            "readyAt": 38
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 43
+            "readyAt": 38
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1188,16 +1188,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 80,
+          "fcp": 84,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 57
+            "readyAt": 54
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 57
+            "readyAt": 54
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1288,12 +1288,12 @@
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 55
+            "readyAt": 58
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 55
+            "readyAt": 58
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1384,12 +1384,12 @@
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 58
+            "readyAt": 73
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 58
+            "readyAt": 73
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1476,16 +1476,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 68,
+          "fcp": 80,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 48
+            "readyAt": 57
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 48
+            "readyAt": 57
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1572,16 +1572,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 72,
+          "fcp": 84,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 61
+            "readyAt": 75
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 61
+            "readyAt": 75
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1668,16 +1668,16 @@
         },
         "timeline": {
           "viewTransition": true,
-          "fcp": 64,
+          "fcp": 80,
           "playfair": {
             "used": true,
             "loaded": true,
-            "readyAt": 48
+            "readyAt": 60
           },
           "playfairItalic": {
             "used": true,
             "loaded": true,
-            "readyAt": 48
+            "readyAt": 60
           },
           "loafSupported": true,
           "longFrames": [],
@@ -1703,22 +1703,22 @@
     },
     "anchor": {
       "viewTransition": true,
-      "fcp": 76,
+      "fcp": 84,
       "playfair": {
         "used": true,
         "loaded": true,
-        "readyAt": 51
+        "readyAt": 48
       },
       "playfairItalic": {
         "used": true,
         "loaded": true,
-        "readyAt": 51
+        "readyAt": 48
       },
       "loafSupported": true,
       "longFrames": [],
       "scrolls": 1,
-      "scrollAtLoad": 4989,
-      "scrollNow": 4989
+      "scrollAtLoad": 4990,
+      "scrollNow": 4990
     }
   }
 }

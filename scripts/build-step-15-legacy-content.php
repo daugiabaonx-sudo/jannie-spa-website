@@ -105,7 +105,9 @@ function jn_s15_upsert_product( array $item, int $order ): void {
 	$product->set_catalog_visibility( 'visible' );
 	$product->set_regular_price( $price );
 	$product->set_sale_price( '' );
-	$product->set_short_description( $item['description'] );
+	// Step 18 (ADR-025 D6): the card shows the mockup teaser; the jannieedu.com copy stays on the product page.
+	$product->set_short_description( (string) ( $item['teaser'] ?? $item['description'] ) );
+	$product->set_description( isset( $item['teaser'] ) ? $item['description'] : '' );
 	$product->set_category_ids( array( JN_S15_FAVORITE_CAT ) );
 	$product->set_image_id( $image );
 	$product->set_menu_order( $order );

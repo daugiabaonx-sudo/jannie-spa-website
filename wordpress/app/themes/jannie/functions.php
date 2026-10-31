@@ -47,16 +47,31 @@ function jannie_minify_css_string( $css ) {
  * @return string Relative path to the bundle or fallback stylesheet.
  */
 function jannie_ensure_front_css_bundle() {
-	$css_dir     = JANNIE_PATH . '/assets/css';
-	$bundle_file = $css_dir . '/jannie-bundle.min.css';
-	$sources     = array(
-		$css_dir . '/tokens.css',
-		$css_dir . '/base.css',
-		$css_dir . '/block-styles.css',
-		$css_dir . '/hero-home.css',
-		$css_dir . '/legacy-pages.css',
-		$css_dir . '/motion.css',
+	$css_dir = JANNIE_PATH . '/assets/css';
+	jannie_build_css_bundle(
+		$css_dir . '/jannie-bundle.min.css',
+		array(
+			$css_dir . '/tokens.css',
+			$css_dir . '/base.css',
+			$css_dir . '/block-styles.css',
+			$css_dir . '/hero-home.css',
+			$css_dir . '/legacy-pages.css',
+			$css_dir . '/motion.css',
+		)
 	);
+
+	return is_file( $css_dir . '/jannie-bundle.min.css' ) ? '/assets/css/jannie-bundle.min.css' : '/assets/css/block-styles.css';
+}
+
+/**
+ * (Re)write a minified bundle of the given sources when their content changed.
+ *
+ * @param string   $bundle_file Absolute path of the minified bundle.
+ * @param string[] $sources     Absolute paths of the source stylesheets, in order.
+ * @return void
+ */
+function jannie_build_css_bundle( $bundle_file, $sources ) {
+	$css_dir = dirname( $bundle_file );
 
 	// Staleness is decided by source CONTENT (mtimes are unreliable after git checkout / rsync).
 	$source_hashes = array();
@@ -92,8 +107,41 @@ function jannie_ensure_front_css_bundle() {
 			}
 		}
 	}
+}
 
-	return is_file( $bundle_file ) ? '/assets/css/jannie-bundle.min.css' : '/assets/css/block-styles.css';
+/** Content markers of the /my-favorite-product/ design (Step 18, ADR-025). */
+const JANNIE_FAVORITE_MARKERS = array( 'jn-fav-', '<!-- wp:jn/product-stage', '<!-- wp:jn/marquee', '<!-- wp:jn/product-actions' );
+
+/**
+ * Whether the current singular page uses the favorite-products sections, so their CSS is inlined there only
+ * (every other page keeps the site-wide bundle alone).
+ *
+ * @return bool
+ */
+function jannie_page_uses_favorite_css() {
+	$queried = is_singular() ? get_queried_object() : null;
+	if ( ! $queried instanceof WP_Post ) {
+		return false;
+	}
+	foreach ( JANNIE_FAVORITE_MARKERS as $marker ) {
+		if ( false !== strpos( $queried->post_content, $marker ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Minified `favorite-products.css` (rebuilt when the source changes), or '' when unavailable.
+ *
+ * @return string
+ */
+function jannie_favorite_css() {
+	$css_dir = JANNIE_PATH . '/assets/css';
+	$bundle  = $css_dir . '/favorite-products.min.css';
+	jannie_build_css_bundle( $bundle, array( $css_dir . '/favorite-products.css' ) );
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	return is_file( $bundle ) && is_readable( $bundle ) ? (string) file_get_contents( $bundle ) : '';
 }
 
 /**
@@ -177,6 +225,26 @@ function jannie_enqueue_front_assets() {
 add_action( 'wp_enqueue_scripts', 'jannie_enqueue_front_assets', 20 );
 
 /**
+ * Inline the favorite-products stylesheet in <head> on the pages that use it (Step 18, ADR-025): no extra
+ * request, no render-blocking file, and no weight on any other page.
+ *
+ * @return void
+ */
+function jannie_enqueue_favorite_assets() {
+	if ( ! jannie_page_uses_favorite_css() ) {
+		return;
+	}
+	$css = jannie_favorite_css();
+	if ( '' === $css ) {
+		return;
+	}
+	wp_register_style( 'jn-favorite', false, array( 'jn-motion' ), JANNIE_VERSION );
+	wp_enqueue_style( 'jn-favorite' );
+	wp_add_inline_style( 'jn-favorite', $css );
+}
+add_action( 'wp_enqueue_scripts', 'jannie_enqueue_favorite_assets', 21 );
+
+/**
  * Enqueue design system stylesheets inside the Block Editor so editor and front-end match.
  *
  * @return void
@@ -217,6 +285,13 @@ function jannie_enqueue_editor_assets() {
 	wp_enqueue_style(
 		'jannie-editor-legacy-pages',
 		JANNIE_URI . '/assets/css/legacy-pages.css',
+		array( 'jannie-editor-block-styles' ),
+		JANNIE_VERSION
+	);
+
+	wp_enqueue_style(
+		'jannie-editor-favorite-products',
+		JANNIE_URI . '/assets/css/favorite-products.css',
 		array( 'jannie-editor-block-styles' ),
 		JANNIE_VERSION
 	);

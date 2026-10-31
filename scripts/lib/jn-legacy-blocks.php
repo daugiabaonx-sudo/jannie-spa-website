@@ -4,7 +4,8 @@
  * /my-favorite-product/, /course/ and /client-success-story/ from it. Shared by the migration
  * (build-step-15-legacy-content.php) and its test, so the stored pages and the checks can never drift.
  *
- * Markup uses core blocks, the theme's block styles and `jn/video` only (no Custom HTML, no shortcodes).
+ * Markup uses core blocks, the theme's block styles and `jn/*` blocks only (no Custom HTML, no shortcodes);
+ * /my-favorite-product/ comes from the theme's `jannie/favorite-*` patterns (Step 18).
  *
  * @package JN_Scripts
  */
@@ -323,110 +324,39 @@ const JN_LB_BOOKING_BLOCK = "<!-- wp:block {\"ref\":95} /-->\n";
 const JN_LB_BOOKING_HREF  = '#booking-form';
 
 /**
- * /my-favorite-product/: intro, the old image + paragraph, the section title and the product collection
- * (category "Sản phẩm yêu thích", old order via menu_order) with image, title, description, price and
- * a "Mua Ngay" link to the product page, as on the old cards.
+ * Render a theme pattern file to block markup (PHP in the file runs, e.g. home_url()).
+ *
+ * @param string $filename File name inside the theme `patterns/` directory.
+ * @return string
+ * @throws RuntimeException When the pattern file is missing.
+ */
+function jn_lb_render_pattern( string $filename ): string {
+	$path = get_stylesheet_directory() . '/patterns/' . $filename;
+	if ( ! is_file( $path ) ) {
+		throw new RuntimeException( "Missing theme pattern: patterns/{$filename}" );
+	}
+	ob_start();
+	include $path;
+	return trim( (string) ob_get_clean() );
+}
+
+/**
+ * /my-favorite-product/ (Step 18, ADR-025 — the owner's 2026-10-31 design): hero + marquee, intro with a drop
+ * cap, the WooCommerce collection (category "Sản phẩm yêu thích", old order via menu_order) whose cards show
+ * the photo, name, mockup teaser (short description), price and `jn/product-actions`, then the manifesto.
+ * Built from the `jannie/favorite-*` patterns so the inserter, this builder and the stored page never drift.
  *
  * @return string
  */
 function jn_lb_products_page(): string {
-	$p      = jn_lb_content()['products'];
-	$intro  = jn_lb_section(
-		jn_lb_columns(
-			array(
-				array( jn_lb_image( $p['intro']['image'], 'is-style-portrait-4-5 jn-legacy-media' ), '41.67%', 'jn-legacy-split__media' ),
-				array( jn_lb_p( $p['intro']['body'], 'jn-legacy-body', array( 'textColor' => 'muted-stone' ) ), '58.33%', 'jn-legacy-split__text' ),
-			),
-			'jn-legacy-split'
-		),
-		'jn-legacy-intro',
-		'Giới thiệu sản phẩm (jannieedu.com)'
-	);
-	$query  = array(
-		'queryId'    => 1,
-		'query'      => array(
-			'perPage'                        => 9,
-			'pages'                          => 0,
-			'offset'                         => 0,
-			'postType'                       => 'product',
-			'order'                          => 'asc',
-			'orderBy'                        => 'menu_order',
-			'search'                         => '',
-			'exclude'                        => array(),
-			'inherit'                        => false,
-			'taxQuery'                       => array( 'product_cat' => array( 41 ) ),
-			'isProductCollectionBlock'       => true,
-			'featured'                       => false,
-			'woocommerceOnSale'              => false,
-			'woocommerceStockStatus'         => array( 'instock', 'onbackorder' ),
-			'woocommerceAttributes'          => array(),
-			'woocommerceHandPickedProducts'  => array(),
-			'filterable'                     => false,
-		),
-		'tagName'       => 'div',
-		'displayLayout' => array(
-			'type'           => 'flex',
-			'columns'        => 3,
-			'shrinkColumns'  => true,
-		),
-		'dimensions'    => array( 'widthType' => 'fill' ),
-		'collection'    => 'woocommerce/product-collection/product-catalog',
-		'hideControls'  => array( 'inherit', 'filterable' ),
-		'className'     => 'jn-legacy-products',
-	);
-	$card   = jn_lb_block(
-		'woocommerce/product-image',
+	return implode(
+		"\n\n",
 		array(
-			'showSaleBadge'            => false,
-			'imageSizing'              => 'single',
-			'isDescendentOfQueryLoop'  => true,
-		),
-		''
-	)
-		. jn_lb_block(
-			'post-title',
-			array(
-				'textAlign'                  => 'left',
-				'level'                      => 3,
-				'isLink'                     => true,
-				'fontSize'                   => 'headline-sm',
-				'__woocommerceNamespace'     => 'woocommerce/product-collection/product-title',
-			)
+			jn_lb_render_pattern( 'favorite-hero.php' ),
+			jn_lb_render_pattern( 'favorite-collection.php' ),
+			jn_lb_render_pattern( 'favorite-manifesto.php' ),
 		)
-		. jn_lb_block(
-			'woocommerce/product-summary',
-			array(
-				'isDescendentOfQueryLoop' => true,
-				'showDescriptionIfEmpty'  => true,
-				'summaryLength'           => 0,
-				'className'               => 'jn-legacy-product-summary',
-			)
-		)
-		. jn_lb_block(
-			'woocommerce/product-price',
-			array(
-				'isDescendentOfQueryLoop' => true,
-				'textAlign'               => 'left',
-			)
-		)
-		. jn_lb_block(
-			'read-more',
-			array(
-				'content'   => $p['button'],
-				'className' => 'jn-legacy-buy-now',
-			)
-		);
-	$empty  = jn_lb_block( 'woocommerce/product-collection-no-results', array(), jn_lb_p( 'Danh mục đang được cập nhật.', '', array( 'align' => 'center', 'textColor' => 'muted-stone' ) ) );
-	$grid   = jn_lb_block(
-		'woocommerce/product-collection',
-		$query,
-		"<div class=\"wp-block-woocommerce-product-collection jn-legacy-products\">\n"
-			. jn_lb_block( 'woocommerce/product-template', array(), $card )
-			. $empty
-			. '</div>'
 	);
-	$list   = jn_lb_section( jn_lb_section_header( $p['section_title'] ) . $grid, 'jn-legacy-product-list', 'Bộ sản phẩm yêu thích (jannieedu.com)', 'palette-color-6' );
-	return jn_lb_page_intro( $p['page'] ) . "\n" . $intro . "\n" . $list;
 }
 
 /**

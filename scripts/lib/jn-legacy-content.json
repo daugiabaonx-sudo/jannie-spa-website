@@ -6,7 +6,8 @@
 		"course": "https://web.archive.org/web/20250123231702/https://jannieedu.com/course/",
 		"prices": "https://web.archive.org/web/2024052*/https://jannieedu.com/san-pham/* (Product JSON-LD offers, May 2024)",
 		"my-story": "https://web.archive.org/web/20260520140511/https://jannieedu.com/my-story/",
-		"coaching": "https://web.archive.org/web/20260710235505/https://jannieedu.com/coaching/"
+		"coaching": "https://web.archive.org/web/20260710235505/https://jannieedu.com/coaching/",
+		"favorite-edit": "docs/jn/favorite-products/mockup-2026-10-31.html (owner HTML \"Nâng cấp My Favorite Product\", 2026-10-31, sha256 4ed06038…3a68; Step 18 / ADR-025): products.items[].teaser = card copy, stored as the WooCommerce short description; description = jannieedu.com copy, stored as the long description"
 	},
 	"corrections": [
 		{
@@ -98,42 +99,48 @@
 				"name": "The Balance EGF Cleansing Gel",
 				"price": 496000,
 				"image": "product_egf_cleansing_gel",
-				"description": "\"The Balance EGF Cleansing Gel\" của Jannie Nguyễn là sữa rửa mặt đặc biệt, làm sạch sâu, điều chỉnh dầu và cân bằng da. Kết hợp với EGF và chiết xuất tự nhiên, sản phẩm mang lại làn da tươi sáng, mềm mịn."
+				"description": "\"The Balance EGF Cleansing Gel\" của Jannie Nguyễn là sữa rửa mặt đặc biệt, làm sạch sâu, điều chỉnh dầu và cân bằng da. Kết hợp với EGF và chiết xuất tự nhiên, sản phẩm mang lại làn da tươi sáng, mềm mịn.",
+				"teaser": "Sữa rửa mặt đặc biệt, làm sạch sâu, điều chỉnh dầu và cân bằng da. Kết hợp với EGF và chiết xuất tự nhiên, mang lại làn da tươi sáng, mềm mịn."
 			},
 			{
 				"slug": "egf-peeling-gel",
 				"name": "The Balance EGF Peeling Gel",
 				"price": 646000,
 				"image": "product_egf_peeling_gel",
-				"description": "\"The Balance EGF Peeling Gel\" là gel tẩy da chết độc đáo, giúp làm sạch sâu, tái tạo da một cách nhẹ nhàng. Với EGF và các thành phần tự nhiên, sản phẩm làm da sáng mịn, tăng cường độ đàn hồi."
+				"description": "\"The Balance EGF Peeling Gel\" là gel tẩy da chết độc đáo, giúp làm sạch sâu, tái tạo da một cách nhẹ nhàng. Với EGF và các thành phần tự nhiên, sản phẩm làm da sáng mịn, tăng cường độ đàn hồi.",
+				"teaser": "Gel tẩy da chết độc đáo, làm sạch sâu và hỗ trợ tái tạo da một cách nhẹ nhàng. Với EGF và các thành phần tự nhiên, sản phẩm giúp da sáng mịn."
 			},
 			{
 				"slug": "egf-melting-mask",
 				"name": "The Balance EGF Melting Mask",
 				"price": 646000,
 				"image": "product_egf_melting_mask",
-				"description": "\"The Balance EGF Melting Mask\" là mặt nạ tan chảy độc đáo, dưỡng ẩm, làm mềm da và cung cấp dưỡng chất. Với EGF và các dưỡng chất chăm sóc da, sản phẩm giúp làm dịu da, tái tạo và làm sáng da."
+				"description": "\"The Balance EGF Melting Mask\" là mặt nạ tan chảy độc đáo, dưỡng ẩm, làm mềm da và cung cấp dưỡng chất. Với EGF và các dưỡng chất chăm sóc da, sản phẩm giúp làm dịu da, tái tạo và làm sáng da.",
+				"teaser": "Mặt nạ tan chảy độc đáo, dưỡng ẩm, làm mềm da và cung cấp dưỡng chất. Hỗ trợ làm dịu và chăm sóc làn da rạng rỡ mỗi ngày."
 			},
 			{
 				"slug": "xa-bong-thao-duoc",
 				"name": "Xà Bông Thảo Dược",
 				"price": null,
 				"image": "product_xa_bong_thao_duoc",
-				"description": "\"Xà bông thảo dược\" là sự kết hợp hoàn hảo giữa các thành phần tự nhiên và công nghệ hiện đại. Sản phẩm làm sạch da hiệu quả, loại bỏ bụi bẩn và dầu thừa, đồng thời mang lại cảm giác mềm mịn, tươi mới cho làn da. Sản phẩm phù hợp cho mọi loại da, kể cả da nhạy cảm."
+				"description": "\"Xà bông thảo dược\" là sự kết hợp hoàn hảo giữa các thành phần tự nhiên và công nghệ hiện đại. Sản phẩm làm sạch da hiệu quả, loại bỏ bụi bẩn và dầu thừa, đồng thời mang lại cảm giác mềm mịn, tươi mới cho làn da. Sản phẩm phù hợp cho mọi loại da, kể cả da nhạy cảm.",
+				"teaser": "Sự kết hợp giữa các thành phần tự nhiên và công nghệ hiện đại, giúp làm sạch da hiệu quả, mang lại cảm giác mềm mại và tươi mới."
 			},
 			{
 				"slug": "herpes-treatment",
 				"name": "The Herpes Treatment",
 				"price": 1296000,
 				"image": "product_herpes_treatment",
-				"description": "\"The Herpes Treatment\" của Jannie Nguyễn là sản phẩm chăm sóc đặc biệt dành cho vấn đề mụn viêm và tổn thương da. Với công thức chứa các thành phần chống viêm và kháng vi khuẩn, sản phẩm giúp giảm viêm, làm dịu da và làm lành tổn thương, để bạn có một làn da khỏe mạnh."
+				"description": "\"The Herpes Treatment\" của Jannie Nguyễn là sản phẩm chăm sóc đặc biệt dành cho vấn đề mụn viêm và tổn thương da. Với công thức chứa các thành phần chống viêm và kháng vi khuẩn, sản phẩm giúp giảm viêm, làm dịu da và làm lành tổn thương, để bạn có một làn da khỏe mạnh.",
+				"teaser": "Sản phẩm chăm sóc đặc biệt dành cho vùng da cần được quan tâm. Công thức hỗ trợ làm dịu và chăm sóc làn da mỗi ngày."
 			},
 			{
 				"slug": "collagen-ampoule",
 				"name": "The Balance Collagen Ampoule",
 				"price": 796000,
 				"image": "product_collagen_ampoule",
-				"description": "\"The Balance Collagen Ampoule\" là một loại tinh chất dưỡng da cao cấp, chứa collagen tự nhiên và các dưỡng chất quan trọng. Sản phẩm giúp cung cấp độ ẩm, tăng cường độ đàn hồi và độ săn chắc cho da, làm da mềm mịn, rạng rỡ và tươi sáng."
+				"description": "\"The Balance Collagen Ampoule\" là một loại tinh chất dưỡng da cao cấp, chứa collagen tự nhiên và các dưỡng chất quan trọng. Sản phẩm giúp cung cấp độ ẩm, tăng cường độ đàn hồi và độ săn chắc cho da, làm da mềm mịn, rạng rỡ và tươi sáng.",
+				"teaser": "Tinh chất dưỡng da cao cấp, cung cấp collagen và các dưỡng chất quan trọng. Hỗ trợ độ ẩm, giúp làn da mềm mịn và rạng rỡ."
 			}
 		]
 	},

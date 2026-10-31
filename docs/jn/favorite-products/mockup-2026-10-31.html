@@ -1,0 +1,2955 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F8F5F0">
+
+  <title>Sản Phẩm Yêu Thích Của Jannie | Beauty Edit</title>
+  <meta name="description" content="Khám phá bộ sưu tập 6 sản phẩm làm đẹp được Jannie yêu thích và tuyển chọn.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       JANNIE BEAUTY EDIT
+       LIGHT EDITORIAL EDITION
+       ========================================= */
+
+    :root {
+      --bg: #F8F5F0;
+      --surface: #FFFFFF;
+      --mat: #EFEAE2;
+      --footer: #F1ECE5;
+      --footer-bottom: #E9E1D7;
+
+      --ink: #1E1A17;
+      --ink-soft: #4A433D;
+      --muted: #6B625A;
+
+      --accent: #8C6A52;
+      --accent-light: #D9C0AE;
+      --line: #E3DCD2;
+      --line-strong: #B3A79A;
+
+      --cta: #3A342E;
+      --cta-hover: #51463D;
+
+      --font-display: "Playfair Display", Georgia, serif;
+      --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+
+      --ease: cubic-bezier(.2,.7,.2,1);
+      --container: 1240px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body:has(dialog[open]) {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .4;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    .ja {
+      width: 100%;
+      overflow: clip;
+      background: var(--bg);
+    }
+
+    .ja-wrap {
+      width: min(90%, var(--container));
+      margin-inline: auto;
+    }
+
+    .ja-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* =========================================
+       01. HEADER
+       ========================================= */
+
+    .ja-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: 82px;
+      background: rgba(248,245,240,.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: box-shadow .35s ease;
+    }
+
+    .ja-header.scrolled {
+      box-shadow: 0 8px 30px rgba(48,38,30,.07);
+    }
+
+    .ja-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    .ja-header-inner {
+      width: 90%;
+      max-width: var(--container);
+      height: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .ja-logo {
+      flex: none;
+      font: 400 37px/1 var(--font-display);
+      letter-spacing: 1px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .ja-logo span {
+      color: var(--accent);
+    }
+
+    .ja-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+    }
+
+    .ja-nav a {
+      position: relative;
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      white-space: nowrap;
+      transition: color .3s ease;
+    }
+
+    .ja-nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -9px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width .3s ease;
+    }
+
+    .ja-nav a:hover,
+    .ja-nav a[aria-current="page"] {
+      color: var(--accent);
+    }
+
+    .ja-nav a:hover::after,
+    .ja-nav a[aria-current="page"]::after {
+      width: 100%;
+    }
+
+    .ja-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ja-cart-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #C7B8A9;
+      border-radius: 99px;
+      background: transparent;
+      padding: 8px 10px 8px 17px;
+      font-size: 12px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .ja-cart-number {
+      display: grid;
+      place-items: center;
+      min-width: 27px;
+      height: 27px;
+      padding: 0 5px;
+      background: #DAC4AF;
+      color: #35271D;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ja-menu-btn {
+      display: none;
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ja-menu-btn svg {
+      width: 21px;
+      height: 21px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+
+    /* =========================================
+       02. LIGHT CINEMATIC HERO
+       ========================================= */
+
+    .ja-hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      min-height: 700px;
+      background:
+        radial-gradient(
+          ellipse at 76% 52%,
+          #EDE2D5 0%,
+          #F5EFE7 45%,
+          #F8F5F0 78%
+        );
+    }
+
+    .ja-hero-light {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          380px circle at var(--mx,75%) var(--my,45%),
+          rgba(255,255,255,.8),
+          transparent 80%
+        );
+    }
+
+    .ja-hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(90%, var(--container));
+      min-height: 700px;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 49% 51%;
+      align-items: center;
+      gap: 0;
+      padding-block: 55px;
+    }
+
+    .ja-hero-copy {
+      position: relative;
+      z-index: 5;
+    }
+
+    .ja-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 0 35px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .24em;
+      color: var(--accent);
+    }
+
+    .ja-eyebrow::before {
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: #BCA28C;
+    }
+
+    .ja-h1 {
+      margin: 0;
+      font: 400 clamp(58px,7.5vw,106px)/1.05 var(--font-display);
+      letter-spacing: -.035em;
+      color: var(--ink);
+    }
+
+    .ja-h1 em {
+      display: block;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .ja-hero-desc {
+      max-width: 500px;
+      margin: 32px 0 36px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.95;
+    }
+
+    .ja-cta {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 26px;
+      min-height: 65px;
+      padding: 10px 10px 10px 27px;
+      border: 0;
+      border-radius: 100px;
+      background: var(--cta);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: left;
+      transition:
+        transform .3s var(--ease),
+        background .3s ease,
+        box-shadow .3s ease;
+    }
+
+    .ja-cta:hover {
+      transform: translateY(-3px);
+      background: var(--cta-hover);
+      color: white;
+      box-shadow: 0 12px 30px rgba(58,52,46,.22);
+    }
+
+    .ja-cta:active {
+      transform: scale(.98);
+    }
+
+    .ja-cta-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      flex: none;
+      border-radius: 50%;
+      background: #947055;
+      color: white;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      transition: transform .3s ease;
+    }
+
+    .ja-cta:hover .ja-cta-icon {
+      transform: rotate(45deg);
+    }
+
+    .ja-story-link {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-top: 30px;
+      padding-bottom: 11px;
+      border-bottom: 1px solid #AD9179;
+      color: #80654F;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      transition: color .25s ease;
+    }
+
+    .ja-story-link:hover {
+      color: var(--ink);
+    }
+
+    .ja-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 65px;
+      color: #8E8074;
+      font-size: 11px;
+      letter-spacing: .1em;
+    }
+
+    .ja-hero-meta i {
+      width: 55px;
+      height: 1px;
+      background: #B7A18E;
+    }
+
+    /* =========================================
+       03. PRODUCT STAGE / 3D ILLUSTRATION
+       ========================================= */
+
+    .ja-stage {
+      position: relative;
+      width: 100%;
+      height: 535px;
+      transform: translate3d(
+        var(--parallax-x,0px),
+        var(--parallax-y,0px),
+        0
+      );
+      transition: transform .18s ease-out;
+    }
+
+    .ja-orbit {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 85%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(185,154,130,.4);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      animation: ja-orbit-turn 32s linear infinite;
+      pointer-events: none;
+    }
+
+    .ja-orbit::after {
+      content: "";
+      position: absolute;
+      left: 15%;
+      top: 12%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #A87E60;
+      box-shadow: 0 0 15px #B5987E;
+    }
+
+    .ja-orbit--inner {
+      width: 62%;
+      border-color: rgba(199,174,150,.5);
+      animation-direction: reverse;
+      animation-duration: 38s;
+    }
+
+    .ja-orbit--outer {
+      width: 104%;
+      border-style: dashed;
+      border-color: rgba(185,154,130,.25);
+      animation-duration: 52s;
+    }
+
+    @keyframes ja-orbit-turn {
+      to {
+        transform: translate(-50%,-50%) rotate(360deg);
+      }
+    }
+
+    .ja-stage-note {
+      position: absolute;
+      z-index: 3;
+      right: 3%;
+      top: 10%;
+      font: italic 23px var(--font-display);
+      color: #AD8C73;
+      transform: rotate(10deg);
+    }
+
+    .ja-pedestal {
+      position: absolute;
+      left: 11%;
+      width: 80%;
+      height: 110px;
+      bottom: 25px;
+      border-radius: 50%;
+      background: linear-gradient(
+        #EADBCB 0%,
+        #D7BEAA 40%,
+        #B99C85 76%,
+        #98816D 100%
+      );
+      box-shadow:
+        0 19px 35px rgba(128,103,82,.27),
+        inset 0 7px 12px rgba(255,255,255,.6);
+    }
+
+    .ja-stage-products {
+      position: absolute;
+      z-index: 4;
+      left: 0;
+      right: 0;
+      bottom: 105px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 2px;
+      filter: drop-shadow(11px 16px 10px rgba(65,48,34,.35));
+      animation: ja-float 6s ease-in-out infinite;
+    }
+
+    @keyframes ja-float {
+      0%,100% { translate: 0 0; }
+      50% { translate: 0 -10px; }
+    }
+
+    /* Shared product models */
+
+    .ja-model {
+      --pack: #E4D1B9;
+      position: relative;
+      flex: none;
+      width: 130px;
+      height: 250px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ja-model-cap {
+      position: absolute;
+      top: 0;
+      left: calc(50% - 22px);
+      width: 44px;
+      height: 48px;
+      border-radius: 6px 6px 2px 2px;
+      background: linear-gradient(
+        90deg,
+        #9D907E,
+        #F5E7C8 43%,
+        #AB9880
+      );
+      box-shadow: 2px 3px 5px rgba(0,0,0,.15);
+    }
+
+    .ja-model-vessel {
+      position: relative;
+      width: 130px;
+      height: 211px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px 15px 22px 22px;
+      background: linear-gradient(
+        95deg,
+        #9E9283 0%,
+        var(--pack) 18%,
+        #FFF7E8 44%,
+        #E1CEB6 75%,
+        #9B8B7C 100%
+      );
+      box-shadow:
+        inset 5px 0 12px #ffffffa0,
+        inset -9px 0 14px #47372a40,
+        4px 8px 12px #604c3b4a;
+    }
+
+    .ja-model-vessel::before {
+      content: "";
+      position: absolute;
+      left: 10%;
+      top: 7%;
+      width: 6%;
+      height: 84%;
+      border-radius: 50%;
+      background: rgba(255,255,255,.52);
+      filter: blur(4px);
+    }
+
+    .ja-model-label {
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      padding: 17px 3px;
+      border-top: 1px solid #917d6955;
+      border-bottom: 1px solid #917d6955;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+      text-align: center;
+      color: #49392D;
+    }
+
+    .ja-model-label strong {
+      font: 600 14px var(--font-display);
+      letter-spacing: .045em;
+      white-space: nowrap;
+    }
+
+    .ja-model-label i {
+      width: 28px;
+      height: 1px;
+      background: #98785C;
+    }
+
+    .ja-model-label span {
+      font-size: 8px;
+      line-height: 1.6;
+      letter-spacing: .08em;
+    }
+
+    .ja-model-label small {
+      font-size: 7px;
+      letter-spacing: .1em;
+      opacity: .65;
+    }
+
+    .ja-stage-products > .ja-model:first-child {
+      z-index: 2;
+      transform: scale(.84) rotate(-11deg)
+        translate(13px,15px);
+    }
+
+    .ja-stage-products > .ja-model:nth-child(2) {
+      z-index: 4;
+      transform: scale(1.13);
+    }
+
+    .ja-stage-products > .ja-model:last-child {
+      z-index: 3;
+      transform: scale(.86) rotate(9deg)
+        translate(-14px,23px);
+    }
+
+    /* Cream jar */
+    .ja-model--jar .ja-model-cap {
+      top: 89px;
+      left: -10px;
+      width: 150px;
+      height: 27px;
+      border-radius: 6px;
+      background: linear-gradient(
+        #F7EBDD,
+        #AD9D89 48%,
+        #E7D6BF
+      );
+    }
+
+    .ja-model--jar .ja-model-vessel {
+      width: 145px;
+      height: 135px;
+      border-radius: 12px 12px 23px 23px;
+    }
+
+    .ja-model--jar .ja-model-label {
+      padding: 10px 0;
+      gap: 8px;
+    }
+
+    .ja-model--jar .ja-model-label strong {
+      font-size: 12px;
+    }
+
+    /* Herbal soap */
+    .ja-model--soap .ja-model-cap {
+      display: none;
+    }
+
+    .ja-model--soap .ja-model-vessel {
+      width: 151px;
+      height: 101px;
+      border-radius: 16px;
+      background: linear-gradient(
+        105deg,
+        #74896D,
+        #C2CFB7 35%,
+        #ECE5C9 72%,
+        #8B9E81
+      );
+      transform: rotate(-7deg);
+    }
+
+    .ja-model--soap .ja-model-label {
+      color: #40523A;
+      padding: 11px 0;
+      gap: 7px;
+    }
+
+    /* Golden ampoule */
+    .ja-model--ampoule .ja-model-cap {
+      width: 33px;
+      height: 58px;
+      left: calc(50% - 16.5px);
+      background: linear-gradient(
+        90deg,
+        #79634D,
+        #EDDBB5,
+        #8C7559
+      );
+    }
+
+    .ja-model--ampoule .ja-model-vessel {
+      width: 88px;
+      height: 194px;
+      border-radius: 13px 13px 24px 24px;
+      background: linear-gradient(
+        95deg,
+        #754525,
+        #CA925D 25%,
+        #EDC18B 52%,
+        #A3673D 86%
+      );
+    }
+
+    .ja-model--ampoule .ja-model-label {
+      color: #FFF4E5;
+      border-color: #fff5;
+    }
+
+    .ja-model--ampoule .ja-model-label i {
+      background: #FFE0BD;
+    }
+
+    /* =========================================
+       04. MOVING EDITORIAL MARQUEE
+       ========================================= */
+
+    .ja-marquee {
+      overflow: hidden;
+      padding: 16px 0;
+      background: #E8D9C9;
+      color: #806049;
+      border-top: 1px solid #DCC9B7;
+      border-bottom: 1px solid #DCC9B7;
+    }
+
+    .ja-marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      width: max-content;
+      white-space: nowrap;
+      font: italic 24px var(--font-display);
+      animation: ja-marquee-slide 38s linear infinite;
+    }
+
+    .ja-marquee-track b {
+      font: 600 11px var(--font-body);
+    }
+
+    @keyframes ja-marquee-slide {
+      to { transform: translateX(-50%); }
+    }
+
+    /* =========================================
+       05. ORIGINAL EDITORIAL INTRO
+       ========================================= */
+
+    .ja-intro {
+      padding: 66px 0 52px;
+      background: var(--bg);
+    }
+
+    .ja-intro p {
+      max-width: 1050px;
+      margin: auto;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 2;
+      text-wrap: pretty;
+    }
+
+    .ja-intro p::first-letter {
+      float: left;
+      padding: 7px 11px 0 0;
+      font: 68px/.85 var(--font-display);
+      color: var(--accent);
+    }
+
+    /* =========================================
+       06. ORIGINAL PRODUCT COLLECTION
+       ========================================= */
+
+    .ja-collection {
+      padding: 90px 0 120px;
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .ja-section-title {
+      margin: 0 0 62px;
+      font: 400 clamp(32px,4.5vw,48px)/1.2 var(--font-display);
+      letter-spacing: -.01em;
+      text-wrap: balance;
+    }
+
+    .ja-section-title em {
+      display: block;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .ja-product-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      column-gap: 38px;
+      row-gap: 76px;
+    }
+
+    .ja-card {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ja-card-art {
+      padding: 10px;
+      border-radius: 12px;
+      background: var(--mat);
+      transition:
+        transform .45s var(--ease),
+        box-shadow .45s ease;
+    }
+
+    .ja-card:hover .ja-card-art,
+    .ja-card:focus-within .ja-card-art {
+      transform: translateY(-7px);
+      box-shadow: 0 17px 32px rgba(50,40,30,.1);
+    }
+
+    .ja-card-scene {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 4.8;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          #FFF8ED,
+          #E5D6C5 60%,
+          #CBB8A6
+        );
+    }
+
+    .ja-card-scene::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 75%;
+      aspect-ratio: 1;
+      border: 1px solid #ffffffab;
+      border-radius: 50%;
+      box-shadow: 0 0 0 25px #ffffff18;
+    }
+
+    .ja-card:nth-child(2) .ja-card-scene {
+      background: radial-gradient(circle,#FDF0E2,#D7BFA5);
+    }
+
+    .ja-card:nth-child(3) .ja-card-scene {
+      background: radial-gradient(circle,#FFFAF2,#D8C5B6);
+    }
+
+    .ja-card:nth-child(4) .ja-card-scene {
+      background: radial-gradient(circle,#F5F4E8,#B9C0AC);
+    }
+
+    .ja-card:nth-child(5) .ja-card-scene {
+      background: radial-gradient(circle,#F8E7E6,#C4A8A2);
+    }
+
+    .ja-card:nth-child(6) .ja-card-scene {
+      background: radial-gradient(circle,#FB EBD2,#C9A981);
+      background: radial-gradient(circle,#FBEBD2,#C9A981);
+    }
+
+    .ja-card-model {
+      position: relative;
+      z-index: 2;
+      transform: scale(.76);
+      filter: drop-shadow(9px 13px 8px #46322345);
+      transition: transform .7s var(--ease);
+    }
+
+    .ja-card:hover .ja-card-model,
+    .ja-card:focus-within .ja-card-model {
+      transform: scale(.84) rotate(-3deg)
+        translateY(-5px);
+    }
+
+    .ja-card-number {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 21px 0 10px;
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: .15em;
+      font-weight: 600;
+    }
+
+    .ja-card-number::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .ja-card h3 {
+      margin: 0;
+      font: 500 clamp(21px,2.4vw,26px)/1.3 var(--font-display);
+      text-wrap: balance;
+    }
+
+    .ja-card-description {
+      flex: 1;
+      margin: 13px 0 20px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .ja-card-price {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+      font-size: 20px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ja-card-price--contact {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .ja-card-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ja-product-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 19px;
+      border-radius: 99px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .ja-product-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .ja-product-btn--primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .ja-product-btn--primary:hover {
+      background: #4A3E35;
+      box-shadow: 0 6px 15px #0002;
+    }
+
+    .ja-product-btn--secondary {
+      background: transparent;
+      border-color: var(--line-strong);
+      color: var(--ink);
+    }
+
+    .ja-product-btn--secondary:hover {
+      background: #fff;
+    }
+
+    /* =========================================
+       07. LIGHT MANIFESTO
+       ========================================= */
+
+    .ja-manifesto {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      min-height: 610px;
+      padding: 100px 7%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--footer);
+    }
+
+    .ja-manifesto::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 760px;
+      aspect-ratio: 1;
+      border: 1px solid #BDA18A85;
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      box-shadow:
+        0 0 0 110px #BFA48B12,
+        0 0 0 230px #BFA48B0C;
+      pointer-events: none;
+    }
+
+    .ja-manifesto-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .ja-manifesto-eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .28em;
+    }
+
+    .ja-manifesto h2 {
+      margin: 33px 0 24px;
+      color: var(--ink);
+      font: 400 clamp(43px,6vw,78px)/1.2 var(--font-display);
+      letter-spacing: -.025em;
+      text-wrap: balance;
+    }
+
+    .ja-manifesto h2 em {
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .ja-manifesto p {
+      max-width: 635px;
+      margin: 0 auto 36px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.95;
+    }
+
+    /* =========================================
+       08. FOOTER
+       ========================================= */
+
+    .ja-footer {
+      min-height: 118px;
+      padding: 30px 6%;
+      background: var(--footer-bottom);
+      border-top: 1px solid #D6C6B6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .ja-footer .ja-logo {
+      font-size: 31px;
+    }
+
+    .ja-footer p {
+      margin: 0;
+      color: #796A5E;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    /* =========================================
+       09. SCROLL ANIMATION
+       ========================================= */
+
+    .ja.is-motion .ja-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(4px);
+      transition:
+        opacity .85s var(--ease),
+        transform .85s var(--ease),
+        filter .85s ease;
+      transition-delay: var(--delay,0ms);
+    }
+
+    .ja.is-motion .ja-reveal.visible {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+
+    /* =========================================
+       10. BACK TO TOP & TOAST
+       ========================================= */
+
+    .ja-backtop {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      z-index: 90;
+      width: 48px;
+      height: 48px;
+      border: 1px solid #B9A18D;
+      border-radius: 50%;
+      background: #40342C;
+      color: #fff;
+      font-size: 21px;
+      box-shadow: 0 8px 24px #40342c33;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+    }
+
+    .ja-backtop.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: none;
+    }
+
+    .ja-backtop:hover {
+      transform: translateY(-4px);
+    }
+
+    .ja-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 83px;
+      z-index: 120;
+      width: max-content;
+      max-width: min(90vw,460px);
+      padding: 13px 19px;
+      border-radius: 10px;
+      background: #40342C;
+      color: white;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+      box-shadow: 0 10px 30px #0003;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%,12px);
+      transition: opacity .3s,transform .3s,visibility .3s;
+    }
+
+    .ja-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%,0);
+    }
+
+    /* =========================================
+       11. CART / CONSULTATION DIALOGS
+       ========================================= */
+
+    .ja-dialog {
+      width: min(520px,calc(100% - 28px));
+      max-height: min(80vh,760px);
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: 0 30px 100px #23181155;
+      overflow: auto;
+    }
+
+    .ja-dialog::backdrop {
+      background: rgba(30,26,23,.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .ja-dialog-inner {
+      padding: 31px;
+    }
+
+    .ja-dialog-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .ja-dialog h2 {
+      margin: 0;
+      font: 400 32px var(--font-display);
+    }
+
+    .ja-dialog-close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ink);
+      font-size: 22px;
+    }
+
+    .ja-dialog-subtitle {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .ja-cart-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .ja-cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ja-cart-item-name {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ja-cart-item-price {
+      margin-top: 5px;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .ja-qty {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: none;
+    }
+
+    .ja-qty button {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: white;
+    }
+
+    .ja-cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin: 23px 0;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .ja-dialog-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .ja-dialog-actions button {
+      flex: 1;
+    }
+
+    .ja-consult-text {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      padding: 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: white;
+      color: var(--ink-soft);
+      font: 13px/1.8 var(--font-body);
+      margin-bottom: 18px;
+    }
+
+    .ja-dialog-note {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* =========================================
+       12. RESPONSIVE TABLET
+       ========================================= */
+
+    @media (max-width: 1100px) {
+      .ja-nav {
+        display: none;
+      }
+
+      .ja-menu-btn {
+        display: inline-flex;
+      }
+
+      .ja-nav.open {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        top: 100%;
+        left: 3%;
+        right: 3%;
+        margin: 0;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 0 0 13px 13px;
+        background: #FCF9F5;
+        box-shadow: 0 17px 33px rgba(40,30,23,.12);
+      }
+
+      .ja-nav.open a {
+        min-height: 43px;
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+      }
+
+      .ja-nav.open a::after {
+        display: none;
+      }
+
+      .ja-hero-inner {
+        grid-template-columns: 50% 50%;
+      }
+
+      .ja-h1 {
+        font-size: clamp(52px,6.8vw,82px);
+      }
+
+      .ja-stage {
+        height: 465px;
+      }
+
+      .ja-stage-products {
+        transform: scale(.83);
+        bottom: 80px;
+      }
+
+      .ja-product-grid {
+        column-gap: 25px;
+      }
+    }
+
+    /* =========================================
+       13. RESPONSIVE MOBILE
+       ========================================= */
+
+    @media (max-width: 760px) {
+      html {
+        scroll-padding-top: 72px;
+      }
+
+      .ja-header {
+        height: 69px;
+      }
+
+      .ja-logo {
+        font-size: 29px;
+      }
+
+      .ja-cart-trigger {
+        font-size: 10px;
+        gap: 7px;
+        padding: 7px 9px;
+      }
+
+      .ja-hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        padding: 56px 0 35px;
+      }
+
+      .ja-h1 {
+        font-size: clamp(54px,11vw,78px);
+      }
+
+      .ja-hero-desc {
+        font-size: 15px;
+        margin: 27px 0 30px;
+      }
+
+      .ja-hero-meta {
+        display: none;
+      }
+
+      .ja-stage {
+        height: 390px;
+        margin-top: 30px;
+        transform: none !important;
+      }
+
+      .ja-orbit {
+        width: 345px;
+      }
+
+      .ja-orbit--inner {
+        width: 255px;
+      }
+
+      .ja-orbit--outer {
+        width: 410px;
+      }
+
+      .ja-pedestal {
+        height: 78px;
+        bottom: 8px;
+      }
+
+      .ja-stage-products {
+        transform: scale(.72);
+        bottom: 54px;
+      }
+
+      .ja-stage-note {
+        font-size: 18px;
+      }
+
+      .ja-intro {
+        padding: 45px 0 43px;
+      }
+
+      .ja-intro p {
+        font-size: 15px;
+      }
+
+      .ja-product-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 52px 24px;
+      }
+
+      .ja-collection {
+        padding: 70px 0 85px;
+      }
+
+      .ja-card h3 {
+        font-size: 22px;
+      }
+
+      .ja-card-description {
+        font-size: 13px;
+      }
+
+      .ja-manifesto {
+        min-height: 520px;
+        padding: 80px 7%;
+      }
+
+      .ja-manifesto::before {
+        width: 470px;
+      }
+
+      .ja-manifesto h2 {
+        font-size: clamp(39px,8vw,59px);
+      }
+
+      .ja-manifesto p {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .ja-header-inner {
+        width: 92%;
+      }
+
+      .ja-logo {
+        font-size: 26px;
+      }
+
+      .ja-hero-inner {
+        padding: 47px 0 28px;
+      }
+
+      .ja-eyebrow {
+        font-size: 10px;
+        letter-spacing: .18em;
+      }
+
+      .ja-h1 {
+        font-size: clamp(51px,12vw,65px);
+      }
+
+      .ja-hero-desc {
+        font-size: 14px;
+      }
+
+      .ja-cta {
+        font-size: 11px;
+        min-height: 58px;
+        gap: 15px;
+      }
+
+      .ja-cta-icon {
+        width: 37px;
+        height: 37px;
+      }
+
+      .ja-stage {
+        height: 350px;
+        margin-top: 20px;
+      }
+
+      .ja-stage-products {
+        transform: scale(.68);
+        bottom: 41px;
+      }
+
+      .ja-pedestal {
+        height: 70px;
+        bottom: 5px;
+      }
+
+      .ja-orbit {
+        width: 320px;
+      }
+
+      .ja-orbit--inner {
+        width: 240px;
+      }
+
+      .ja-orbit--outer {
+        width: 395px;
+      }
+
+      .ja-marquee-track {
+        font-size: 20px;
+      }
+
+      .ja-intro p {
+        font-size: 14px;
+      }
+
+      .ja-product-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .ja-card-scene {
+        aspect-ratio: 4 / 3.8;
+      }
+
+      .ja-card-model {
+        transform: scale(.88);
+      }
+
+      .ja-card:hover .ja-card-model {
+        transform: scale(.95) translateY(-5px);
+      }
+
+      .ja-card h3 {
+        font-size: 25px;
+      }
+
+      .ja-card-description {
+        font-size: 15px;
+      }
+
+      .ja-section-title {
+        font-size: 35px;
+        margin-bottom: 40px;
+      }
+
+      .ja-manifesto h2 {
+        font-size: 43px;
+      }
+
+      .ja-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .ja-dialog-inner {
+        padding: 22px;
+      }
+    }
+
+    /* =========================================
+       14. ACCESSIBILITY
+       ========================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .ja.is-motion .ja-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+
+      .ja-stage {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="ja" id="top">
+
+  <!-- =======================================
+       HEADER
+       ======================================= -->
+
+  <header class="ja-header" id="siteHeader">
+    <span class="ja-progress" id="scrollProgress"
+          aria-hidden="true"></span>
+
+    <div class="ja-header-inner">
+
+      <a href="#top" class="ja-logo"
+         aria-label="Jannie — Trang chủ">
+        JANNIE<span>.</span>
+      </a>
+
+      <nav class="ja-nav" id="mainNav"
+           aria-label="Điều hướng chính">
+        <a href="#top">TRANG CHỦ</a>
+        <a href="#cau-chuyen">CÂU CHUYỆN</a>
+        <a href="#bo-suu-tap" aria-current="page">SẢN PHẨM</a>
+        <a href="#lien-he">LIÊN HỆ</a>
+      </nav>
+
+      <div class="ja-header-actions">
+
+        <button class="ja-cart-trigger"
+                type="button"
+                id="openCart"
+                aria-label="Mở giỏ hàng demo">
+          GIỎ HÀNG
+          <span class="ja-cart-number" id="cartCount">0</span>
+        </button>
+
+        <button class="ja-menu-btn"
+                type="button"
+                id="menuToggle"
+                aria-controls="mainNav"
+                aria-expanded="false"
+                aria-label="Mở menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =====================================
+         HERO
+         ===================================== -->
+
+    <section class="ja-hero" id="hero">
+      <div class="ja-hero-light" aria-hidden="true"></div>
+
+      <div class="ja-hero-inner">
+
+        <div class="ja-hero-copy">
+
+          <p class="ja-eyebrow ja-reveal">
+            THE JANNIE EDIT · 2026
+          </p>
+
+          <h1 class="ja-h1 ja-reveal"
+              style="--delay:100ms">
+            Vẻ đẹp,
+            <em>rất riêng.</em>
+          </h1>
+
+          <p class="ja-hero-desc ja-reveal"
+             style="--delay:180ms">
+            Không cần quá nhiều. Chỉ cần những điều
+            thực sự xứng đáng. Khám phá 6 sản phẩm
+            được Jannie yêu thích và tuyển chọn.
+          </p>
+
+          <a class="ja-cta ja-reveal"
+             style="--delay:260ms"
+             href="#bo-suu-tap">
+            KHÁM PHÁ BỘ SƯU TẬP
+            <span class="ja-cta-icon" aria-hidden="true">↗</span>
+          </a>
+
+          <a href="#cau-chuyen"
+             class="ja-story-link ja-reveal"
+             style="--delay:330ms">
+            CÂU CHUYỆN CỦA JANNIE ↗
+          </a>
+
+          <div class="ja-hero-meta ja-reveal"
+               style="--delay:390ms">
+            <span>01 — 03</span>
+            <i aria-hidden="true"></i>
+            <span>THE CURATED COLLECTION</span>
+          </div>
+
+        </div>
+
+        <!-- Floating skincare products -->
+
+        <div class="ja-stage" id="productStage"
+             role="img"
+             aria-label="Minh họa bộ ba sản phẩm The Balance EGF">
+
+          <div class="ja-orbit ja-orbit--outer"></div>
+          <div class="ja-orbit"></div>
+          <div class="ja-orbit ja-orbit--inner"></div>
+
+          <div class="ja-stage-note">a little luxury ✦</div>
+          <div class="ja-pedestal"></div>
+
+          <div class="ja-stage-products">
+
+            <div class="ja-model" style="--pack:#D9BDA4">
+              <div class="ja-model-cap"></div>
+              <div class="ja-model-vessel">
+                <div class="ja-model-label">
+                  <strong>THE BALANCE</strong>
+                  <i></i>
+                  <span>EGF PEELING GEL</span>
+                  <small>JANNIE EDIT</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-model">
+              <div class="ja-model-cap"></div>
+              <div class="ja-model-vessel">
+                <div class="ja-model-label">
+                  <strong>THE BALANCE</strong>
+                  <i></i>
+                  <span>EGF CLEANSING GEL</span>
+                  <small>JANNIE EDIT</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-model ja-model--jar">
+              <div class="ja-model-cap"></div>
+              <div class="ja-model-vessel">
+                <div class="ja-model-label">
+                  <strong>THE BALANCE</strong>
+                  <i></i>
+                  <span>EGF MELTING MASK</span>
+                  <small>JANNIE EDIT</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================
+         MOVING MARQUEE
+         ===================================== -->
+
+    <div class="ja-marquee" aria-hidden="true">
+      <div class="ja-marquee-track">
+
+        <span>Curated with love</span><b>✦</b>
+        <span>Beauty is a ritual</span><b>✦</b>
+        <span>The Jannie Selection</span><b>✦</b>
+        <span>Little moments of luxury</span><b>✦</b>
+
+        <span>Curated with love</span><b>✦</b>
+        <span>Beauty is a ritual</span><b>✦</b>
+        <span>The Jannie Selection</span><b>✦</b>
+        <span>Little moments of luxury</span><b>✦</b>
+
+      </div>
+    </div>
+
+    <!-- =====================================
+         ORIGINAL INTRODUCTION
+         ===================================== -->
+
+    <section class="ja-intro" id="cau-chuyen">
+      <div class="ja-wrap">
+
+        <p class="ja-reveal">
+          Tại đây, chúng tôi tự hào giới thiệu bộ sưu tập
+          sản phẩm yêu thích, đáng tin cậy để mang đến
+          sự tươi mới và hoàn hảo cho làn da và tóc của
+          bạn. Với sự tập trung vào chất lượng và chăm sóc,
+          chúng tôi chỉ sử dụng các sản phẩm chất lượng cao
+          từ các thương hiệu danh tiếng. Từ chăm sóc da
+          tự nhiên đến chăm sóc tóc chuyên sâu, cam kết
+          của chúng tôi là mang đến trải nghiệm làm đẹp
+          tuyệt vời và kết quả đáng mong đợi. Hãy khám phá
+          bộ sưu tập sản phẩm yêu thích của Jannie và trải
+          nghiệm làn da và mái tóc khỏe mạnh và rạng rỡ.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- =====================================
+         ORIGINAL COLLECTION — SIX PRODUCTS
+         ===================================== -->
+
+    <section class="ja-collection" id="bo-suu-tap">
+      <div class="ja-wrap">
+
+        <h2 class="ja-section-title ja-reveal">
+          Sắc Xuân Mới –
+          <em>Bộ Sản Phẩm Yêu Thích Của Jannie</em>
+        </h2>
+
+        <div class="ja-product-grid">
+
+          <!-- PRODUCT 01 -->
+
+          <article class="ja-card ja-reveal" data-id="0">
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>THE BALANCE</strong>
+                        <i></i>
+                        <span>EGF CLEANSING GEL</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">01</div>
+
+            <h3>The Balance EGF Cleansing Gel</h3>
+
+            <p class="ja-card-description">
+              Sữa rửa mặt đặc biệt, làm sạch sâu,
+              điều chỉnh dầu và cân bằng da.
+              Kết hợp với EGF và chiết xuất tự nhiên,
+              mang lại làn da tươi sáng, mềm mịn.
+            </p>
+
+            <div class="ja-card-price">496.000 ₫</div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-add="0">
+                Mua Ngay
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="0">
+                Tư vấn qua Zalo
+              </button>
+            </div>
+          </article>
+
+          <!-- PRODUCT 02 -->
+
+          <article class="ja-card ja-reveal"
+                   data-id="1" style="--delay:90ms">
+
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model" style="--pack:#D6BDA3">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>THE BALANCE</strong>
+                        <i></i>
+                        <span>EGF PEELING GEL</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">02</div>
+
+            <h3>The Balance EGF Peeling Gel</h3>
+
+            <p class="ja-card-description">
+              Gel tẩy da chết độc đáo, làm sạch sâu
+              và hỗ trợ tái tạo da một cách nhẹ nhàng.
+              Với EGF và các thành phần tự nhiên,
+              sản phẩm giúp da sáng mịn.
+            </p>
+
+            <div class="ja-card-price">646.000 ₫</div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-add="1">
+                Mua Ngay
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="1">
+                Tư vấn qua Zalo
+              </button>
+            </div>
+          </article>
+
+          <!-- PRODUCT 03 -->
+
+          <article class="ja-card ja-reveal"
+                   data-id="2" style="--delay:180ms">
+
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model ja-model--jar">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>THE BALANCE</strong>
+                        <i></i>
+                        <span>EGF MELTING MASK</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">03</div>
+
+            <h3>The Balance EGF Melting Mask</h3>
+
+            <p class="ja-card-description">
+              Mặt nạ tan chảy độc đáo, dưỡng ẩm,
+              làm mềm da và cung cấp dưỡng chất.
+              Hỗ trợ làm dịu và chăm sóc làn da
+              rạng rỡ mỗi ngày.
+            </p>
+
+            <div class="ja-card-price">646.000 ₫</div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-add="2">
+                Mua Ngay
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="2">
+                Tư vấn qua Zalo
+              </button>
+            </div>
+          </article>
+
+          <!-- PRODUCT 04 -->
+
+          <article class="ja-card ja-reveal" data-id="3">
+
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model ja-model--soap">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>BOTANICAL</strong>
+                        <i></i>
+                        <span>HERBAL SOAP</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">04</div>
+
+            <h3>Xà Bông Thảo Dược</h3>
+
+            <p class="ja-card-description">
+              Sự kết hợp giữa các thành phần tự nhiên
+              và công nghệ hiện đại, giúp làm sạch da
+              hiệu quả, mang lại cảm giác mềm mại
+              và tươi mới.
+            </p>
+
+            <div class="ja-card-price ja-card-price--contact">
+              Liên hệ
+            </div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-consult="3">
+                Tư vấn qua Zalo
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="3">
+                Xem sản phẩm
+              </button>
+            </div>
+          </article>
+
+          <!-- PRODUCT 05 -->
+
+          <article class="ja-card ja-reveal"
+                   data-id="4" style="--delay:90ms">
+
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model" style="--pack:#DFC0B8">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>THE BALANCE</strong>
+                        <i></i>
+                        <span>HERPES TREATMENT</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">05</div>
+
+            <h3>The Herpes Treatment</h3>
+
+            <p class="ja-card-description">
+              Sản phẩm chăm sóc đặc biệt dành cho vùng da
+              cần được quan tâm. Công thức hỗ trợ làm dịu
+              và chăm sóc làn da mỗi ngày.
+            </p>
+
+            <div class="ja-card-price">1.296.000 ₫</div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-add="4">
+                Mua Ngay
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="4">
+                Tư vấn qua Zalo
+              </button>
+            </div>
+          </article>
+
+          <!-- PRODUCT 06 -->
+
+          <article class="ja-card ja-reveal"
+                   data-id="5" style="--delay:180ms">
+
+            <div class="ja-card-art">
+              <div class="ja-card-scene">
+                <div class="ja-card-model" aria-hidden="true">
+                  <div class="ja-model ja-model--ampoule">
+                    <div class="ja-model-cap"></div>
+                    <div class="ja-model-vessel">
+                      <div class="ja-model-label">
+                        <strong>THE BALANCE</strong>
+                        <i></i>
+                        <span>COLLAGEN AMPOULE</span>
+                        <small>JANNIE EDIT</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ja-card-number">06</div>
+
+            <h3>The Balance Collagen Ampoule</h3>
+
+            <p class="ja-card-description">
+              Tinh chất dưỡng da cao cấp, cung cấp collagen
+              và các dưỡng chất quan trọng. Hỗ trợ độ ẩm,
+              giúp làn da mềm mịn và rạng rỡ.
+            </p>
+
+            <div class="ja-card-price">796.000 ₫</div>
+
+            <div class="ja-card-buttons">
+              <button class="ja-product-btn ja-product-btn--primary"
+                      data-add="5">
+                Mua Ngay
+              </button>
+              <button class="ja-product-btn ja-product-btn--secondary"
+                      data-consult="5">
+                Tư vấn qua Zalo
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================
+         LIGHT MANIFESTO / FINAL SECTION
+         ===================================== -->
+
+    <section class="ja-manifesto" id="lien-he">
+      <div class="ja-manifesto-content ja-reveal">
+
+        <div class="ja-manifesto-eyebrow">
+          BEAUTY IS PERSONAL
+        </div>
+
+        <h2>
+          Bạn xứng đáng với những điều
+          <em>tinh tế nhất.</em>
+        </h2>
+
+        <p>
+          Vẻ đẹp không nằm ở số lượng sản phẩm,
+          mà ở cách mỗi lựa chọn khiến bạn
+          yêu thương chính mình hơn.
+        </p>
+
+        <button class="ja-cta"
+                type="button"
+                id="contactJannie">
+          KẾT NỐI VỚI JANNIE
+          <span class="ja-cta-icon" aria-hidden="true">↗</span>
+        </button>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================
+       FOOTER
+       ======================================= -->
+
+  <footer class="ja-footer">
+    <a href="#top" class="ja-logo">
+      JANNIE<span>.</span>
+    </a>
+
+    <p>THE BEAUTY EDIT · CURATED WITH LOVE</p>
+    <p>© 2026 Jannie Nguyen</p>
+  </footer>
+
+  <!-- =======================================
+       BACK TO TOP
+       ======================================= -->
+
+  <button class="ja-backtop"
+          id="backToTop"
+          type="button"
+          aria-label="Về đầu trang"
+          tabindex="-1">
+    ↑
+  </button>
+
+  <!-- =======================================
+       TOAST
+       ======================================= -->
+
+  <div class="ja-toast"
+       id="toast"
+       role="status"
+       aria-live="polite">
+  </div>
+
+  <!-- =======================================
+       CART DIALOG
+       ======================================= -->
+
+  <dialog class="ja-dialog" id="cartDialog">
+    <div class="ja-dialog-inner">
+
+      <div class="ja-dialog-heading">
+        <h2>Giỏ hàng của bạn</h2>
+        <button class="ja-dialog-close"
+                type="button"
+                data-close-dialog
+                aria-label="Đóng giỏ hàng">×</button>
+      </div>
+
+      <p class="ja-dialog-subtitle">
+        Đây là giỏ hàng demo. Bạn có thể thêm, giảm số lượng
+        và sao chép danh sách sản phẩm để gửi tư vấn.
+      </p>
+
+      <ul class="ja-cart-list" id="cartItems"></ul>
+
+      <p id="cartEmpty" class="ja-dialog-subtitle">
+        Giỏ hàng của bạn đang trống.
+      </p>
+
+      <div class="ja-cart-total">
+        <span>Tạm tính</span>
+        <span id="cartTotal">0 ₫</span>
+      </div>
+
+      <div class="ja-dialog-actions">
+        <button class="ja-product-btn ja-product-btn--primary"
+                id="copyOrder">
+          Sao chép đơn hàng
+        </button>
+
+        <button class="ja-product-btn ja-product-btn--secondary"
+                type="button"
+                data-close-dialog>
+          Tiếp tục xem
+        </button>
+      </div>
+
+      <p class="ja-dialog-note">
+        Chưa kết nối thanh toán trực tuyến hoặc lưu đơn hàng
+        lên máy chủ.
+      </p>
+    </div>
+  </dialog>
+
+  <!-- =======================================
+       CONSULTATION DIALOG
+       ======================================= -->
+
+  <dialog class="ja-dialog" id="consultDialog">
+    <div class="ja-dialog-inner">
+
+      <div class="ja-dialog-heading">
+        <h2>Kết nối với Jannie</h2>
+        <button class="ja-dialog-close"
+                type="button"
+                data-close-dialog
+                aria-label="Đóng tư vấn">×</button>
+      </div>
+
+      <p class="ja-dialog-subtitle">
+        Sao chép tin nhắn bên dưới để gửi khi liên hệ
+        với Jannie qua Zalo.
+      </p>
+
+      <label class="ja-sr-only" for="consultText">
+        Nội dung tin nhắn tư vấn
+      </label>
+
+      <textarea class="ja-consult-text"
+                id="consultText"
+                readonly></textarea>
+
+      <div class="ja-dialog-actions">
+        <button class="ja-product-btn ja-product-btn--primary"
+                id="copyConsult">
+          Sao chép lời nhắn
+        </button>
+
+        <button class="ja-product-btn ja-product-btn--secondary"
+                id="openZalo">
+          Mở Zalo
+        </button>
+      </div>
+
+      <p class="ja-dialog-note">
+        Nút Mở Zalo đưa bạn đến Zalo Web.
+        Chưa liên kết trực tiếp đến tài khoản tư vấn
+        của Jannie.
+      </p>
+    </div>
+  </dialog>
+
+</div>
+
+<!-- =========================================
+     JAVASCRIPT
+     ========================================= -->
+
+<script>
+(() => {
+  "use strict";
+
+  // =========================================
+  // DOM REFERENCES
+  // =========================================
+
+  const root = document.querySelector(".ja");
+  const header = document.getElementById("siteHeader");
+  const progress = document.getElementById("scrollProgress");
+  const menuButton = document.getElementById("menuToggle");
+  const navigation = document.getElementById("mainNav");
+  const backToTop = document.getElementById("backToTop");
+
+  const hero = document.querySelector(".ja-hero");
+  const stage = document.getElementById("productStage");
+
+  const toast = document.getElementById("toast");
+
+  const cartDialog = document.getElementById("cartDialog");
+  const consultDialog = document.getElementById("consultDialog");
+
+  const cartItems = document.getElementById("cartItems");
+  const cartEmpty = document.getElementById("cartEmpty");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartCount = document.getElementById("cartCount");
+  const copyOrderButton = document.getElementById("copyOrder");
+
+  const consultText = document.getElementById("consultText");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  // =========================================
+  // PRODUCTS
+  // =========================================
+
+  const products = [
+    {
+      id: 0,
+      name: "The Balance EGF Cleansing Gel",
+      price: 496000
+    },
+    {
+      id: 1,
+      name: "The Balance EGF Peeling Gel",
+      price: 646000
+    },
+    {
+      id: 2,
+      name: "The Balance EGF Melting Mask",
+      price: 646000
+    },
+    {
+      id: 3,
+      name: "Xà Bông Thảo Dược",
+      price: null
+    },
+    {
+      id: 4,
+      name: "The Herpes Treatment",
+      price: 1296000
+    },
+    {
+      id: 5,
+      name: "The Balance Collagen Ampoule",
+      price: 796000
+    }
+  ];
+
+  // Cart stays in memory for this page session.
+  const cart = new Map();
+
+  function formatVND(value) {
+    return new Intl.NumberFormat("vi-VN").format(value) + " ₫";
+  }
+
+  // =========================================
+  // TOAST NOTIFICATIONS
+  // =========================================
+
+  let toastTimer;
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
+
+  // =========================================
+  // MOBILE MENU
+  // =========================================
+
+  function closeMenu() {
+    navigation.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Mở menu");
+  }
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = navigation.classList.toggle("open");
+
+    menuButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Đóng menu" : "Mở menu"
+    );
+  });
+
+  navigation.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("pointerdown", event => {
+    if (!header.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", closeMenu, {
+    passive: true
+  });
+
+  // =========================================
+  // SCROLL PROGRESS + BACK TO TOP
+  // =========================================
+
+  let scrollScheduled = false;
+
+  function updateScroll() {
+    const current = window.scrollY;
+
+    const maxScroll = Math.max(
+      1,
+      document.documentElement.scrollHeight -
+      window.innerHeight
+    );
+
+    const ratio = Math.min(1, current / maxScroll);
+
+    progress.style.transform = `scaleX(${ratio})`;
+
+    header.classList.toggle(
+      "scrolled",
+      current > 15
+    );
+
+    const showBack = current > 450;
+
+    backToTop.classList.toggle(
+      "show",
+      showBack
+    );
+
+    backToTop.tabIndex = showBack ? 0 : -1;
+
+    scrollScheduled = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (scrollScheduled) return;
+
+    scrollScheduled = true;
+    requestAnimationFrame(updateScroll);
+  }, { passive: true });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: reducedMotion.matches
+        ? "auto"
+        : "smooth"
+    });
+  });
+
+  updateScroll();
+
+  // =========================================
+  // SCROLL REVEAL
+  // =========================================
+
+  function initializeReveal() {
+    const targets = root.querySelectorAll(".ja-reveal");
+
+    if (
+      reducedMotion.matches ||
+      !("IntersectionObserver" in window)
+    ) {
+      targets.forEach(element => {
+        element.classList.add("visible");
+      });
+      return;
+    }
+
+    root.classList.add("is-motion");
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -25px 0px"
+      }
+    );
+
+    targets.forEach(element => {
+      observer.observe(element);
+    });
+  }
+
+  initializeReveal();
+
+  // =========================================
+  // HERO MOUSE PARALLAX + SOFT SPOTLIGHT
+  // =========================================
+
+  const finePointer = window.matchMedia("(pointer:fine)");
+
+  function updatePointer(event) {
+    if (reducedMotion.matches) return;
+
+    const rect = hero.getBoundingClientRect();
+
+    const x = Math.min(
+      1,
+      Math.max(0, (event.clientX - rect.left) / rect.width)
+    );
+
+    const y = Math.min(
+      1,
+      Math.max(0, (event.clientY - rect.top) / rect.height)
+    );
+
+    hero.style.setProperty(
+      "--mx",
+      `${x * 100}%`
+    );
+
+    hero.style.setProperty(
+      "--my",
+      `${y * 100}%`
+    );
+
+    stage.style.setProperty(
+      "--parallax-x",
+      `${(x - 0.5) * -13}px`
+    );
+
+    stage.style.setProperty(
+      "--parallax-y",
+      `${(y - 0.5) * -11}px`
+    );
+  }
+
+  if (finePointer.matches) {
+    hero.addEventListener("pointermove", updatePointer, {
+      passive: true
+    });
+
+    hero.addEventListener("pointerleave", () => {
+      stage.style.setProperty(
+        "--parallax-x", "0px"
+      );
+
+      stage.style.setProperty(
+        "--parallax-y", "0px"
+      );
+    });
+  }
+
+  // =========================================
+  // CART ACTIONS
+  // =========================================
+
+  function getCartQuantity() {
+    let quantity = 0;
+
+    for (const count of cart.values()) {
+      quantity += count;
+    }
+
+    return quantity;
+  }
+
+  function getCartTotal() {
+    let total = 0;
+
+    for (const [id, count] of cart) {
+      const product = products[id];
+
+      if (product.price !== null) {
+        total += product.price * count;
+      }
+    }
+
+    return total;
+  }
+
+  function addToCart(id) {
+    const product = products[id];
+
+    if (!product || product.price === null) {
+      openConsultation(id);
+      return;
+    }
+
+    const oldQuantity = cart.get(id) || 0;
+
+    cart.set(id, oldQuantity + 1);
+
+    renderCart();
+
+    showToast(
+      `Đã thêm "${product.name}" vào giỏ hàng demo.`
+    );
+  }
+
+  function changeQuantity(id, delta) {
+    const current = cart.get(id) || 0;
+    const next = current + delta;
+
+    if (next <= 0) {
+      cart.delete(id);
+    } else {
+      cart.set(id, next);
+    }
+
+    renderCart();
+  }
+
+  function renderCart() {
+    cartItems.replaceChildren();
+
+    for (const [id, quantity] of cart) {
+      const product = products[id];
+
+      const item = document.createElement("li");
+      item.className = "ja-cart-item";
+
+      const info = document.createElement("div");
+
+      const name = document.createElement("div");
+      name.className = "ja-cart-item-name";
+      name.textContent = product.name;
+
+      const price = document.createElement("div");
+      price.className = "ja-cart-item-price";
+      price.textContent = formatVND(product.price);
+
+      info.append(name, price);
+
+      const controls = document.createElement("div");
+      controls.className = "ja-qty";
+
+      const decrease = document.createElement("button");
+      decrease.type = "button";
+      decrease.textContent = "−";
+      decrease.setAttribute(
+        "aria-label",
+        `Giảm số lượng ${product.name}`
+      );
+
+      decrease.addEventListener("click", () => {
+        changeQuantity(id, -1);
+      });
+
+      const quantityText = document.createElement("span");
+      quantityText.textContent = String(quantity);
+
+      const increase = document.createElement("button");
+      increase.type = "button";
+      increase.textContent = "+";
+      increase.setAttribute(
+        "aria-label",
+        `Tăng số lượng ${product.name}`
+      );
+
+      increase.addEventListener("click", () => {
+        changeQuantity(id, 1);
+      });
+
+      controls.append(
+        decrease,
+        quantityText,
+        increase
+      );
+
+      item.append(info, controls);
+      cartItems.append(item);
+    }
+
+    cartCount.textContent = String(getCartQuantity());
+
+    cartTotal.textContent = formatVND(getCartTotal());
+
+    cartEmpty.hidden = cart.size > 0;
+
+    copyOrderButton.disabled = cart.size === 0;
+  }
+
+  // =========================================
+  // CLIPBOARD
+  // =========================================
+
+  async function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (error) {
+        // Continue with browser compatibility fallback.
+      }
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+
+    document.body.append(textarea);
+    textarea.focus();
+    textarea.select();
+
+    let copied = false;
+
+    try {
+      copied = document.execCommand("copy");
+    } catch (error) {
+      copied = false;
+    }
+
+    textarea.remove();
+    return copied;
+  }
+
+  // =========================================
+  // DIALOG HELPERS
+  // =========================================
+
+  function openDialog(dialog) {
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+  }
+
+  function closeDialog(dialog) {
+    if (dialog.open) {
+      dialog.close();
+    }
+  }
+
+  document.querySelectorAll("[data-close-dialog]")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        closeDialog(button.closest("dialog"));
+      });
+    });
+
+  [cartDialog, consultDialog].forEach(dialog => {
+    dialog.addEventListener("click", event => {
+      if (event.target === dialog) {
+        closeDialog(dialog);
+      }
+    });
+  });
+
+  // =========================================
+  // CART INTERACTION
+  // =========================================
+
+  document.getElementById("openCart")
+    .addEventListener("click", () => {
+      renderCart();
+      openDialog(cartDialog);
+    });
+
+  document.querySelectorAll("[data-add]")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        const id = Number(button.dataset.add);
+        addToCart(id);
+      });
+    });
+
+  copyOrderButton.addEventListener("click", async () => {
+    if (!cart.size) {
+      showToast("Giỏ hàng đang trống.");
+      return;
+    }
+
+    const lines = [
+      "Xin chào Jannie,",
+      "Tôi muốn được tư vấn các sản phẩm sau:",
+      ""
+    ];
+
+    for (const [id, count] of cart) {
+      const product = products[id];
+
+      lines.push(
+        `- ${product.name} x${count}: ` +
+        formatVND(product.price * count)
+      );
+    }
+
+    lines.push("");
+    lines.push(
+      `Tạm tính: ${formatVND(getCartTotal())}`
+    );
+    lines.push("");
+    lines.push("Mong được Jannie tư vấn thêm. Cảm ơn!");
+
+    const success = await copyText(lines.join("\n"));
+
+    showToast(
+      success
+        ? "Đã sao chép danh sách sản phẩm."
+        : "Không thể sao chép tự động trên trình duyệt này."
+    );
+  });
+
+  // =========================================
+  // CONSULTATION
+  // =========================================
+
+  function openConsultation(id = null) {
+    if (id === null) {
+      consultText.value =
+        "Xin chào Jannie!\n" +
+        "Tôi muốn tìm hiểu thêm về bộ sưu tập sản phẩm " +
+        "yêu thích của Jannie.\n" +
+        "Mong được tư vấn. Cảm ơn!";
+    } else {
+      const product = products[id];
+
+      consultText.value =
+        "Xin chào Jannie!\n" +
+        "Tôi quan tâm đến sản phẩm:\n" +
+        product.name + "\n" +
+        "Giá tham khảo: " +
+        (
+          product.price === null
+            ? "Liên hệ"
+            : formatVND(product.price)
+        ) +
+        "\nMong được tư vấn thêm. Cảm ơn!";
+    }
+
+    openDialog(consultDialog);
+  }
+
+  document.querySelectorAll("[data-consult]")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        const id = Number(button.dataset.consult);
+        openConsultation(id);
+      });
+    });
+
+  document.getElementById("contactJannie")
+    .addEventListener("click", () => {
+      openConsultation();
+    });
+
+  document.getElementById("copyConsult")
+    .addEventListener("click", async () => {
+      const success = await copyText(
+        consultText.value
+      );
+
+      showToast(
+        success
+          ? "Đã sao chép lời nhắn tư vấn."
+          : "Không thể sao chép tự động trên trình duyệt này."
+      );
+    });
+
+  document.getElementById("openZalo")
+    .addEventListener("click", () => {
+      // Opens Zalo Web only. A real business contact
+      // has not yet been connected.
+      window.open(
+        "https://chat.zalo.me/",
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+
+  // =========================================
+  // INITIALIZE
+  // =========================================
+
+  renderCart();
+})();
+</script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Step 15 (ADR-022) — old jannieedu.com content on /my-favorite-product/, /course/,
-   /client-success-story/: split image + text rows, course clusters, press logos,
+   Step 15 (ADR-022) — old jannieedu.com content on /course/ and /client-success-story/ (the
+   /my-favorite-product/ cards moved to favorite-products.css in Step 18): split image + text rows, course clusters, press logos,
    video testimonials (`jn/video` facade), course groups, values and process.
    Step 16 (ADR-023) — /my-story/ and /coaching/: split hero, photo bands (core/cover).
    Tokens only; animates transform/opacity only.
@@ -42,65 +42,6 @@
 	margin-top: var(--jn-space-md);
 }
 
-/* 2. /my-favorite-product/: the product grid sits inside the section container */
-.jn-legacy-product-list .wp-block-woocommerce-product-collection {
-	padding-inline: 0;
-	padding-top: var(--jn-space-xl);
-	padding-bottom: 0;
-}
-
-/* WooCommerce sizes `columns-3` for its own 1.25em gap; the theme's wider gutter would drop it to two columns. */
-.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-@media (max-width: 1023.98px) {
-	.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-}
-
-@media (max-width: 639.98px) {
-	.jn-legacy-products .wc-block-product-template__responsive.columns-3 {
-		grid-template-columns: minmax(0, 1fr);
-	}
-}
-
-.jn-legacy-product-summary {
-	color: var(--jn-muted-stone);
-	font-size: var(--jn-text-body-md);
-	line-height: var(--jn-lh-body-md);
-	margin-bottom: var(--jn-space-md);
-	flex-grow: 1;
-}
-
-.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now {
-	display: inline-flex;
-	align-self: flex-start;
-	align-items: center;
-	min-height: 44px;
-	margin-top: var(--jn-space-md);
-	padding: 0 var(--jn-space-lg);
-	border-radius: var(--jn-radius-pill);
-	background-color: var(--jn-ink);
-	color: var(--jn-surface-pure);
-	font-family: var(--jn-font-body);
-	font-size: var(--jn-text-label-md);
-	font-weight: 600;
-	letter-spacing: var(--jn-ls-label-md);
-	text-decoration: none;
-	transition: background-color var(--jn-transition), transform var(--jn-transition);
-}
-
-.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now:hover {
-	background-color: var(--jn-primary-deep);
-}
-
-.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now:focus-visible {
-	outline: 2px solid var(--jn-secondary);
-	outline-offset: 3px;
-}
-
 /* `.jn-video` clips its overflow, so the ring sits inside the frame to stay visible (WCAG 2.4.7). */
 .jn-video__link:focus-visible {
 	outline: 3px solid var(--jn-surface-pure);
@@ -118,6 +59,8 @@
 	font-weight: 600;
 	color: var(--jn-champagne-text-sm);
 }
+
+/* 2. (Step 18) The /my-favorite-product/ card rules moved to favorite-products.css (ADR-025). */
 
 /* 3. /course/: banner, category titles, alternating clusters */
 .jn-course-banner.wp-block-image {
@@ -586,8 +529,7 @@ ol.jn-booking-steps.jn-legacy-process > li strong {
 
 @media (prefers-reduced-motion: reduce) {
 	.jn-video__poster,
-	.jn-video__play,
-	.jn-legacy-products .wp-block-read-more.jn-legacy-buy-now {
+	.jn-video__play {
 		transition: none;
 	}
 

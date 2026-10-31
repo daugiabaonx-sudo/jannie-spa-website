@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/product-stage",
+	"version": "1.0.0",
+	"title": "JN Product Stage",
+	"category": "media",
+	"icon": "art",
+	"description": "Decorative hero illustration: three product bottles floating on a pedestal inside slow orbits, with a soft spotlight that follows the mouse (ADR-025).",
+	"keywords": [ "hero", "product", "illustration", "jannie" ],
+	"textdomain": "jn-core",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": "Minh họa bộ ba sản phẩm The Balance EGF"
+		},
+		"note": {
+			"type": "string",
+			"default": "a little luxury ✦"
+		},
+		"brand": {
+			"type": "string",
+			"default": "THE BALANCE"
+		},
+		"tag": {
+			"type": "string",
+			"default": "JANNIE EDIT"
+		},
+		"bottles": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": [ "EGF PEELING GEL", "EGF CLEANSING GEL", "EGF MELTING MASK" ]
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "jn-block-product-stage-editor",
+	"viewScript": "jn-block-product-stage-view",
+	"render": "file:./render.php"
+}

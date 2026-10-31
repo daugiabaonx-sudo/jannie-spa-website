@@ -2,7 +2,8 @@
 /**
  * Block Registration Manager & Core Block Accessibility/Performance Filters for JN Core.
  *
- * Registers `jn/icon`, `jn/rating`, `jn/booking-form`, `jn/hero-portrait` and `jn/video`, and enforces:
+ * Registers `jn/icon`, `jn/rating`, `jn/booking-form`, `jn/hero-portrait`, `jn/video`, `jn/product-stage`,
+ * `jn/marquee` and `jn/product-actions`, and enforces:
  * - `loading="eager"` + `fetchpriority="high"` (never lazy-loaded) on `.jn-hero-lcp-image`
  *
  * @package JN_Core
@@ -104,11 +105,36 @@ class JN_Blocks {
 			)
 		);
 
+		// /my-favorite-product/ (ADR-025): editor + deferred view script per block.
+		foreach ( array( 'product-stage', 'marquee', 'product-actions' ) as $slug ) {
+			wp_register_script(
+				"jn-block-{$slug}-editor",
+				JN_CORE_URL . "blocks/{$slug}/editor.js",
+				$editor_deps,
+				JN_CORE_VERSION,
+				true
+			);
+
+			wp_register_script(
+				"jn-block-{$slug}-view",
+				JN_CORE_URL . "blocks/{$slug}/view.js",
+				array(),
+				JN_CORE_VERSION,
+				array(
+					'in_footer' => true,
+					'strategy'  => 'defer',
+				)
+			);
+		}
+
 		register_block_type( JN_CORE_PATH . 'blocks/icon' );
 		register_block_type( JN_CORE_PATH . 'blocks/rating' );
 		register_block_type( JN_CORE_PATH . 'blocks/booking-form' );
 		register_block_type( JN_CORE_PATH . 'blocks/hero-portrait' );
 		register_block_type( JN_CORE_PATH . 'blocks/video' );
+		register_block_type( JN_CORE_PATH . 'blocks/product-stage' );
+		register_block_type( JN_CORE_PATH . 'blocks/marquee' );
+		register_block_type( JN_CORE_PATH . 'blocks/product-actions' );
 	}
 
 	/**

@@ -69,7 +69,11 @@ function jannie_print_motion_script() {
 			'.jn-tiers-grid > .wp-block-column',
 			'.jn-testimonials-grid > li',
 			'.jn-faq > *',
-			'.jn-booking-shell'
+			'.jn-booking-shell',
+			'.jn-fav-intro__text',
+			'.jn-fav-collection__title',
+			'.jn-fav-products .wc-block-product',
+			'.jn-fav-manifesto__content'
 		];
 		var MAX_STAGGER_STEPS = 4;
 		var fold = window.innerHeight;

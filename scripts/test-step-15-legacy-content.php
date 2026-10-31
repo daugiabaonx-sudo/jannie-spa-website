@@ -44,11 +44,13 @@ function jn_t15_expected_strings( string $slug ): array {
 	$c   = jn_lb_content();
 	$out = array();
 	if ( 'my-favorite-product' === $slug ) {
+		// Step 18 (ADR-025): the page now opens with the owner's new hero (test-step-18) and the cards show the
+		// mockup teaser; the jannieedu.com descriptions moved to the product pages (checked below).
 		$p   = $c['products'];
-		$out = array_merge( array_values( $p['page'] ), array( $p['intro']['body'], $p['section_title'] ) );
+		$out = array( $p['intro']['body'], $p['section_title'] );
 		foreach ( $p['items'] as $item ) {
 			$out[] = $item['name'];
-			$out[] = $item['description'];
+			$out[] = $item['teaser'];
 		}
 	} elseif ( 'course' === $slug ) {
 		$k   = $c['courses'];
@@ -210,7 +212,7 @@ foreach ( $jn_c['products']['items'] as $jn_order => $jn_item ) {
 		$jn_product->get_status() . ' / ' . $jn_product->get_name() . ' / ' . $jn_product->get_regular_price()
 	);
 	jn_t_assert( in_array( 41, $jn_product->get_category_ids(), true ) && $jn_order + 1 === (int) $jn_product->get_menu_order(), "{$jn_item['slug']}: favourite category, old order" );
-	jn_t_assert( $jn_item['description'] === $jn_product->get_short_description(), "{$jn_item['slug']}: short description verbatim" );
+	jn_t_assert( $jn_item['teaser'] === $jn_product->get_short_description() && $jn_item['description'] === $jn_product->get_description(), "{$jn_item['slug']}: card teaser (short) and jannieedu.com copy (description) verbatim (ADR-025 D6)" );
 	jn_t_assert( (int) jn_lb_media( $jn_item['image'] )['id'] === (int) $jn_product->get_image_id(), "{$jn_item['slug']}: image" );
 	jn_t_assert( JN_SEO_Sitemap::is_product_indexable( $jn_product ), "{$jn_item['slug']}: indexable" );
 }
@@ -269,6 +271,10 @@ foreach ( array_keys( JN_T15_PAGES ) as $jn_slug ) {
 }
 $jn_product_page = jn_lt_get( '/san-pham/egf-cleansing-gel/' );
 jn_t_assert( 200 === $jn_product_page['code'] && false !== strpos( jn_lt_text( $jn_product_page['body'] ), '496.000' ), '/san-pham/egf-cleansing-gel/ shows the archived price' );
+foreach ( $jn_c['products']['items'] as $jn_item ) {
+	$jn_text = jn_lt_text( jn_lt_get( "/san-pham/{$jn_item['slug']}/" )['body'] );
+	jn_t_assert( false !== mb_strpos( $jn_text, jn_lt_text( $jn_item['description'] ) ), "/san-pham/{$jn_item['slug']}/ keeps the jannieedu.com description" );
+}
 $jn_home = jn_lt_text( jn_lt_get( '/' )['body'] );
 jn_t_assert( false !== mb_strpos( $jn_home, 'Loan Nguyễn' ) && false === mb_strpos( $jn_home, 'Minh Thảo' ), 'home testimonials now show the legacy students' );
 

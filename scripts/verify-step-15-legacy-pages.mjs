@@ -96,7 +96,8 @@ function verbatimFailures() {
   );
   for (const c of content.corrections) evidence = evidence.split(c.from.toLocaleLowerCase('vi')).join(c.to.toLocaleLowerCase('vi'));
   // Keys that hold identifiers, URLs or labels written for the new site, not copy from the old pages.
-  const skip = new Set(['_about', 'sources', 'corrections', 'flags', 'image', 'slug', 'video', 'poster', 'url', 'id', 'note', 'price', 'eyebrow_site']);
+  // `teaser` is the owner's 2026-10-31 card copy, checked against the archived mockup by verify-step-18.
+  const skip = new Set(['_about', 'sources', 'corrections', 'flags', 'image', 'slug', 'video', 'poster', 'url', 'id', 'note', 'price', 'eyebrow_site', 'teaser']);
   const missing = [];
   let checked = 0;
   const walk = (node, trail) => {

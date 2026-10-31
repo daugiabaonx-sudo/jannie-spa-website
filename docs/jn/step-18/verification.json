@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-10-31T04:34:47.944Z",
+  "baseUrl": "http://localhost:8080",
+  "results": [
+    {
+      "check": "archived mockup sha256",
+      "viewport": "-",
+      "failures": [],
+      "data": {
+        "sha": "4ed06038d48bf55a54a2b14018780cb58004822ec611c886cd88e7ddfa003a68"
+      }
+    },
+    {
+      "check": "21 page strings + teasers are verbatim from the mockup",
+      "viewport": "-",
+      "failures": [],
+      "data": {}
+    },
+    {
+      "check": "21 strings are on the live page",
+      "viewport": "-",
+      "failures": [],
+      "data": {}
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 116ms)",
+      "viewport": 320,
+      "failures": [],
+      "data": {
+        "scrollWidth": 320,
+        "innerWidth": 320,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 179,
+        "cards": 6,
+        "columns": 1,
+        "rows": 6,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 116
+        }
+      }
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "scrollWidth": 375,
+        "innerWidth": 375,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 179,
+        "cards": 6,
+        "columns": 1,
+        "rows": 6,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 56
+        }
+      }
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 48ms)",
+      "viewport": 768,
+      "failures": [],
+      "data": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 250,
+        "cards": 6,
+        "columns": 2,
+        "rows": 3,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 48
+        }
+      }
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "viewport": 1024,
+      "failures": [],
+      "data": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 231,
+        "cards": 6,
+        "columns": 3,
+        "rows": 2,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 56
+        }
+      }
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 60ms)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 262,
+        "cards": 6,
+        "columns": 3,
+        "rows": 2,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 60
+        }
+      }
+    },
+    {
+      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "viewport": 1920,
+      "failures": [],
+      "data": {
+        "scrollWidth": 1920,
+        "innerWidth": 1920,
+        "h1Text": "Vẻ đẹp, rất riêng.",
+        "h1Opacity": "1",
+        "h1Hidden": false,
+        "h1Top": 262,
+        "cards": 6,
+        "columns": 3,
+        "rows": 2,
+        "stage": true,
+        "lcp": {
+          "tag": "P.jn-hero-lead",
+          "ms": 56
+        }
+      }
+    },
+    {
+      "check": "keyboard: open dialog, copy, Escape, focus returns",
+      "viewport": 375,
+      "failures": [],
+      "data": {}
+    },
+    {
+      "check": "keyboard: open dialog, copy, Escape, focus returns",
+      "viewport": 1440,
+      "failures": [],
+      "data": {}
+    },
+    {
+      "check": "pause button stops every decorative loop (WCAG 2.2.2)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "before": {
+          "marquee": "jn-fav-marquee/running",
+          "orbit": "jn-fav-orbit/running",
+          "float": "jn-fav-float/running",
+          "toggleDisplay": "grid",
+          "pressed": "false",
+          "paused": false
+        },
+        "paused": {
+          "marquee": "jn-fav-marquee/paused",
+          "orbit": "jn-fav-orbit/paused",
+          "float": "jn-fav-float/paused",
+          "toggleDisplay": "grid",
+          "pressed": "true",
+          "paused": true
+        }
+      }
+    },
+    {
+      "check": "axe WCAG 2.2 AA",
+      "viewport": 375,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "reduced motion: no decorative loop",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "marquee": "none/running",
+        "orbit": "none/running",
+        "float": "none/running",
+        "toggleDisplay": "none",
+        "pressed": "false",
+        "paused": false
+      }
+    },
+    {
+      "check": "axe WCAG 2.2 AA",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "axe WCAG 2.2 AA (dialog open)",
+      "viewport": 1440,
+      "failures": [],
+      "data": {
+        "violations": []
+      }
+    },
+    {
+      "check": "no console errors",
+      "viewport": "-",
+      "failures": [],
+      "data": {
+        "consoleErrors": []
+      }
+    }
+  ],
+  "summary": {
+    "checks": 17,
+    "failed": 0
+  }
+}

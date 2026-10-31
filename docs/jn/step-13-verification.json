@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T17:42:30.019Z",
+  "generatedAt": "2026-10-31T04:16:59.459Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -287,24 +287,17 @@
           {
             "top": 176,
             "words": [
-              "Sản",
-              "Phẩm"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
-              "Yêu",
-              "Thích"
+              "Vẻ",
+              "đẹp,"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
-              "Của",
-              "Jannie"
+              "rất",
+              "riêng."
             ]
           }
         ],
@@ -313,7 +306,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 280,
-        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
+        "leadText": "Không cần quá nhiều. Chỉ cần những điều thực sự xứng đáng. Khám phá 6 sản phẩm được Jannie yêu thích và tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -801,24 +794,17 @@
           {
             "top": 176,
             "words": [
-              "Sản",
-              "Phẩm"
-            ]
-          },
-          {
-            "top": 224,
-            "words": [
-              "Yêu",
-              "Thích"
+              "Vẻ",
+              "đẹp,"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 272,
+            "top": 224,
             "words": [
-              "Của",
-              "Jannie"
+              "rất",
+              "riêng."
             ]
           }
         ],
@@ -827,7 +813,7 @@
         "titleLeft": 20,
         "headerContentLeft": 20,
         "leadWidth": 335,
-        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
+        "leadText": "Không cần quá nhiều. Chỉ cần những điều thực sự xứng đáng. Khám phá 6 sản phẩm được Jannie yêu thích và tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1268,21 +1254,19 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 200,
+            "top": 247,
             "words": [
-              "Sản",
-              "Phẩm",
-              "Yêu",
-              "Thích"
+              "Vẻ",
+              "đẹp,"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 248,
+            "top": 295,
             "words": [
-              "Của",
-              "Jannie"
+              "rất",
+              "riêng."
             ]
           }
         ],
@@ -1290,8 +1274,8 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
+        "leadWidth": 345,
+        "leadText": "Không cần quá nhiều. Chỉ cần những điều thực sự xứng đáng. Khám phá 6 sản phẩm được Jannie yêu thích và tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1486,7 +1470,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 172,
+            "top": 173,
             "words": [
               "Khám",
               "Phá",
@@ -1494,7 +1478,7 @@
             ]
           },
           {
-            "top": 239,
+            "top": 240,
             "words": [
               "Cân",
               "Bằng",
@@ -1504,7 +1488,7 @@
         ],
         "accentLines": [
           {
-            "top": 306,
+            "top": 307,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -1517,7 +1501,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 582,
+        "leadWidth": 592,
         "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1535,7 +1519,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Sứ",
               "Mệnh",
@@ -1546,7 +1530,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Với",
               "Tình",
@@ -1555,7 +1539,7 @@
             ]
           },
           {
-            "top": 330,
+            "top": 331,
             "words": [
               "Sự",
               "Cân",
@@ -1567,7 +1551,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 514,
+        "leadWidth": 523,
         "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1585,7 +1569,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Khám",
               "Phá",
@@ -1593,7 +1577,7 @@
             ]
           },
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Quyết",
               "Làm",
@@ -1601,7 +1585,7 @@
             ]
           },
           {
-            "top": 330,
+            "top": 331,
             "words": [
               "Và",
               "Chăm",
@@ -1610,7 +1594,7 @@
             ]
           },
           {
-            "top": 397,
+            "top": 398,
             "words": [
               "Nhiên",
               "Tại",
@@ -1620,7 +1604,7 @@
         ],
         "accentLines": [
           {
-            "top": 464,
+            "top": 465,
             "words": [
               "Cùng",
               "Jannie",
@@ -1632,7 +1616,7 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 514,
+        "leadWidth": 523,
         "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
@@ -1650,7 +1634,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Sang",
               "Trọng",
@@ -1660,7 +1644,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Đẳng",
               "Cấp"
@@ -1689,7 +1673,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Những",
               "Cảm",
@@ -1702,7 +1686,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Tại",
               "Jannie",
@@ -1732,21 +1716,19 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 225,
             "words": [
-              "Sản",
-              "Phẩm",
-              "Yêu",
-              "Thích"
+              "Vẻ",
+              "đẹp,"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 292,
             "words": [
-              "Của",
-              "Jannie"
+              "rất",
+              "riêng."
             ]
           }
         ],
@@ -1754,8 +1736,8 @@
         "leadGap": 24,
         "titleLeft": 32,
         "headerContentLeft": 32,
-        "leadWidth": 640,
-        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
+        "leadWidth": 470,
+        "leadText": "Không cần quá nhiều. Chỉ cần những điều thực sự xứng đáng. Khám phá 6 sản phẩm được Jannie yêu thích và tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -1772,7 +1754,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Đăng",
               "Ký",
@@ -1784,7 +1766,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Xếp",
               "Lịch",
@@ -1815,7 +1797,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Chính",
               "Sách",
@@ -1826,7 +1808,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Dữ",
               "Liệu",
@@ -1857,7 +1839,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Điều",
               "Khoản",
@@ -1869,7 +1851,7 @@
         ],
         "accentLines": [
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Quy",
               "Định",
@@ -1900,7 +1882,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 197,
             "words": [
               "Trang",
               "Bạn",
@@ -1909,7 +1891,7 @@
             ]
           },
           {
-            "top": 263,
+            "top": 264,
             "words": [
               "Đã",
               "Chuyển",
@@ -1920,7 +1902,7 @@
         ],
         "accentLines": [
           {
-            "top": 330,
+            "top": 331,
             "words": [
               "Không",
               "Tồn",
@@ -1950,7 +1932,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 216,
+            "top": 221,
             "words": [
               "Khám",
               "Phá",
@@ -1963,7 +1945,7 @@
         ],
         "accentLines": [
           {
-            "top": 288,
+            "top": 293,
             "words": [
               "Vẻ",
               "Đẹp",
@@ -1974,8 +1956,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Sứ mệnh của Jannie là tạo ra sự cân bằng và khám phá vẻ đẹp đích thực trong mỗi người. Hơn 20 năm thực chiến được đúc kết thành ba hướng đồng hành: cố vấn 1:1 cá nhân hóa, chương trình đào tạo thẩm mỹ và phun xăm, cùng những sản phẩm được Jannie tự tay tuyển chọn.",
         "colors": {
@@ -2024,8 +2006,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Khám phá hành trình đầy đam mê và tài năng của Jannie Nguyễn trong ngành thẩm mỹ.",
         "colors": {
@@ -2044,7 +2026,7 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 238,
+            "top": 237,
             "words": [
               "Khám",
               "Phá",
@@ -2084,8 +2066,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Học tập từ chuyên gia hàng đầu để trở thành Ngôi Sao Làm Đẹp của chính bạn",
         "colors": {
@@ -2123,8 +2105,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Jannie Academy – Sự Đẳng Cấp và Chuyên Nghiệp",
         "colors": {
@@ -2166,8 +2148,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "\"Khi Sự Chuyên Nghiệp Và Tận Tâm Tạo Nên Vẻ Đẹp Tự Tin\"",
         "colors": {
@@ -2186,30 +2168,28 @@
       "metrics": {
         "statementLines": [
           {
-            "top": 196,
+            "top": 255,
             "words": [
-              "Sản",
-              "Phẩm",
-              "Yêu",
-              "Thích"
+              "Vẻ",
+              "đẹp,"
             ]
           }
         ],
         "accentLines": [
           {
-            "top": 268,
+            "top": 327,
             "words": [
-              "Của",
-              "Jannie"
+              "rất",
+              "riêng."
             ]
           }
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
-        "leadWidth": 640,
-        "leadText": "Khám phá bộ sưu tập sản phẩm chất lượng cao của Jannie Academy",
+        "titleLeft": 96,
+        "headerContentLeft": 96,
+        "leadWidth": 612,
+        "leadText": "Không cần quá nhiều. Chỉ cần những điều thực sự xứng đáng. Khám phá 6 sản phẩm được Jannie yêu thích và tuyển chọn.",
         "colors": {
           "eyebrow": "rgb(113, 106, 97)",
           "title": "rgb(31, 30, 29)",
@@ -2249,8 +2229,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Chương trình cố vấn 1:1 độc quyền cùng Chuyên gia Jannie Nguyễn dành cho cá nhân định hình vẻ đẹp tự nhiên và các chủ cơ sở thẩm mỹ, phun xăm, spa cao cấp.",
         "colors": {
@@ -2291,8 +2271,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": null,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": null,
         "leadText": "",
         "colors": {
@@ -2334,8 +2314,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": null,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": null,
         "leadText": "",
         "colors": {
@@ -2384,8 +2364,8 @@
         ],
         "eyebrowGap": 16,
         "leadGap": 24,
-        "titleLeft": 89,
-        "headerContentLeft": 89,
+        "titleLeft": 96,
+        "headerContentLeft": 96,
         "leadWidth": 640,
         "leadText": "Đường dẫn bạn vừa truy cập không còn hiệu lực hoặc đã được cập nhật. Bạn có thể quay về Trang chủ hoặc đặt lịch cố vấn 1:1 trực tiếp cùng chuyên gia Jannie Nguyễn.",
         "colors": {

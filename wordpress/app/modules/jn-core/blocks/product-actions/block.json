@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/product-actions",
+	"version": "1.0.0",
+	"title": "JN Product Actions",
+	"category": "widgets",
+	"icon": "cart",
+	"description": "Product card buttons ordered by price state (Mua Ngay + consult, or consult + Xem sản phẩm), or one general consult button; both open the shared consult dialog (ADR-025).",
+	"keywords": [ "product", "zalo", "consult", "buy", "jannie" ],
+	"textdomain": "jn-core",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"mode": {
+			"type": "string",
+			"enum": [ "product", "contact" ],
+			"default": "product"
+		},
+		"buyLabel": {
+			"type": "string",
+			"default": "Mua Ngay"
+		},
+		"viewLabel": {
+			"type": "string",
+			"default": "Xem sản phẩm"
+		},
+		"contactLabel": {
+			"type": "string",
+			"default": "Kết Nối Với Jannie"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "jn-block-product-actions-editor",
+	"viewScript": "jn-block-product-actions-view",
+	"render": "file:./render.php"
+}

@@ -59,3 +59,19 @@ Khi tạo một trang mới hoặc muốn thêm một phân đoạn chuẩn phon
 3. Chọn **Mở thư viện Media (`Open Media Library`)** hoặc **Tải lên (`Upload`)** để chọn bức ảnh thật từ máy tính.
 4. Ở cột cài đặt bên phải (`Block` → `Image`), điền mô tả ngắn gọn có nghĩa bằng tiếng Việt vào ô **Văn bản thay thế (`Alt Text`)** (ví dụ: *"Chuyên gia Jannie Nguyễn tư vấn định hình chân mày phong thủy 1:1 tại Học viện"*).
 5. Bấm **Lưu (`Update`)**.
+
+---
+
+## 5. Trang "Sản Phẩm Yêu Thích" (`/my-favorite-product/`) — Bản Nâng Cấp 2026-10-31
+
+Trang gồm 3 mẫu thiết kế có thể chèn lại từ thư viện (**Jannie Nguyen**): *My Favorite Product — Hero & Marquee*, *Giới thiệu & Bộ sưu tập*, *Manifesto*. Mọi chữ sửa trực tiếp trên trang như các khối thường; 3 khối đặc biệt sửa ở **thanh bên phải** (`Settings`) khi bấm chọn khối:
+
+| Khối | Sửa được gì |
+| :--- | :--- |
+| **JN Product Stage** (minh họa 3 chai ở hero) | Mô tả cho trình đọc màn hình, dòng chữ viết tay ("a little luxury ✦"), dòng thương hiệu và tên 3 chai. Đây là hình minh họa trang trí, không phải ảnh sản phẩm. |
+| **JN Marquee** (dải chữ chạy) | Các cụm chữ (mỗi dòng một cụm) và ngôn ngữ của chúng (`en`/`vi`). Nút tạm dừng luôn đi kèm, không xoá được — đây là yêu cầu trợ năng. |
+| **JN Product Actions** (nút trên thẻ sản phẩm & nút "Kết Nối Với Jannie") | Nhãn nút "Mua Ngay" / "Xem sản phẩm" / nút liên hệ. Thứ tự nút tự theo giá: sản phẩm có giá → "Mua Ngay" trước; không có giá → nút tư vấn trước. |
+
+- **Tên, ảnh, giá, mô tả ngắn trên thẻ** lấy từ **WooCommerce → Sản phẩm** (ô *Mô tả ngắn của sản phẩm*). Mô tả dài (tab *Mô tả* trên trang sản phẩm) là nội dung gốc jannieedu.com.
+- **Đổi số Zalo** (nút "Tư vấn qua Zalo" và "Mở Zalo"): nhờ kỹ thuật chạy `wp option update jn_contact_zalo_url https://zalo.me/<số-mới>` rồi xoá bộ nhớ đệm trang. Nếu xoá option này, nút tự đổi thành "Nhận tư vấn" và hộp thoại chuyển sang gửi email `contact@jannienguyen.vn`.
+- Sau khi sửa trang, bấm **Cập nhật** rồi xoá bộ nhớ đệm (WP Super Cache) để khách thấy bản mới.

@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jn/marquee",
+	"version": "1.0.0",
+	"title": "JN Marquee",
+	"category": "design",
+	"icon": "leftright",
+	"description": "Decorative strip of short phrases that scrolls in a seamless loop, with a button that pauses every decorative animation on the page (WCAG 2.2.2, ADR-025).",
+	"keywords": [ "marquee", "ticker", "strip", "jannie" ],
+	"textdomain": "jn-core",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": [ "Curated with love", "Beauty is a ritual", "The Jannie Selection", "Little moments of luxury" ]
+		},
+		"lang": {
+			"type": "string",
+			"default": "en"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "full" ]
+	},
+	"editorScript": "jn-block-marquee-editor",
+	"viewScript": "jn-block-marquee-view",
+	"render": "file:./render.php"
+}
