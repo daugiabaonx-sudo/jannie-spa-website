@@ -14,6 +14,7 @@ import { spawn, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const LIGHTHOUSE_BIN = '/Users/daugiabao/.npm/_npx/0f94ee7615faf582/node_modules/.bin/lighthouse';
@@ -246,17 +247,40 @@ function slugForUrl(urlStr) {
   return pathname.replace(/\//g, '-');
 }
 
-function evaluateBudget(entry, preset) {
-  const pathname = new URL(entry.url).pathname;
-  const isContent = /^\/(?:|coaching\/|my-story\/|course\/|client-success-story\/|booking\/)$/.test(pathname);
-  const isShop = /^\/(?:my-favorite-product\/|product\/.*)$/.test(pathname);
+// Budgets come from lighthouserc.json (single source): the assertMatrix group whose matchingUrlPattern matches
+// the URL gives the page kind and its thresholds. Only the §5 rules that config cannot express stay below
+// (content desktop >= 98, LCP image <= 150 KB, no WooCommerce assets on content pages, noindex utility pages).
+const ASSERT_MATRIX = JSON.parse(fs.readFileSync(LHCI_CONFIG_PATH, 'utf8')).ci.assert.assertMatrix;
 
-  let minPerf = 85;
-  if (isContent) {
-    minPerf = preset === 'desktop' ? 98 : 95;
-  } else if (isShop) {
-    minPerf = 90;
+function budgetGroupFor(url) {
+  const group = ASSERT_MATRIX.find((g) => new RegExp(g.matchingUrlPattern).test(url));
+  if (!group) {
+    throw new Error(`No lighthouserc.json assertMatrix group matches ${url}`);
   }
+  return group;
+}
+
+// Page kind = the group a representative URL of that kind falls into.
+const CONTENT_GROUP = budgetGroupFor(`${BASE_URL}/coaching/`);
+const UTILITY_GROUP = budgetGroupFor(`${BASE_URL}/cart/`);
+
+function isContentUrl(url) {
+  return budgetGroupFor(url) === CONTENT_GROUP;
+}
+
+function threshold(group, key, field) {
+  const option = group.assertions[key]?.[1];
+  return option && typeof option[field] === 'number' ? option[field] : null;
+}
+
+function evaluateBudget(entry, preset) {
+  const group = budgetGroupFor(entry.url);
+  const isContent = group === CONTENT_GROUP;
+  const isUtility = group === UTILITY_GROUP;
+  const max = (key) => threshold(group, key, 'maxNumericValue');
+
+  // §5: content pages need >= 98 on desktop; lighthouserc.json holds the mobile minimum.
+  const minPerf = isContent && preset === 'desktop' ? 98 : Math.round((threshold(group, 'categories:performance', 'minScore') ?? 0.85) * 100);
 
   const failures = [];
   if (entry.scores.performance < minPerf) {
@@ -270,7 +294,6 @@ function evaluateBudget(entry, preset) {
   }
   // Step 10 / ADR-013: cart, checkout and account pages are intentionally `noindex` (and disallowed in
   // robots.txt), so Lighthouse `is-crawlable` fails there by design. Every other SEO audit must pass.
-  const isUtility = /^\/(?:cart\/|checkout\/|tai-khoan\/)$/.test(pathname);
   if (isUtility) {
     const unexpected = (entry.seoFailedAudits || []).filter((id) => id !== 'is-crawlable');
     if (unexpected.length > 0) {
@@ -279,36 +302,33 @@ function evaluateBudget(entry, preset) {
   } else if (entry.scores.seo < 100) {
     failures.push(`SEO ${entry.scores.seo} < 100`);
   }
-  // Shop pages: 1.7 s (owner's choice, ADR-025) — the inlined page CSS pushes the HTML past a simulated TCP round
-  // trip on slow 4G; content and cart/checkout pages keep 1.5 s.
-  const maxFcpMs = isShop ? 1700 : 1500;
-  if (entry.metrics.fcpMs > maxFcpMs) {
-    failures.push(`FCP ${entry.metrics.fcpMs}ms > ${maxFcpMs}ms`);
+  // Shop FCP is 1.7 s (owner's choice, ADR-025), LCP 2.5 s (ADR-024): both read from lighthouserc.json.
+  const timing = [
+    ['first-contentful-paint', 'FCP', entry.metrics.fcpMs, 'ms'],
+    ['largest-contentful-paint', 'LCP', entry.metrics.lcpMs, 'ms'],
+    ['total-blocking-time', 'TBT', entry.metrics.tbtMs, 'ms'],
+    ['cumulative-layout-shift', 'CLS', entry.metrics.cls, ''],
+  ];
+  for (const [key, label, value, unit] of timing) {
+    const limit = max(key);
+    if (limit !== null && value > limit) {
+      failures.push(`${label} ${value}${unit} > ${limit}${unit}`);
+    }
   }
-  // 2.5 s = Core Web Vitals "good". Raised from 2.0 s when Blocksy's CSS became render-blocking (ADR-024).
-  if (entry.metrics.lcpMs > 2500) {
-    failures.push(`LCP ${entry.metrics.lcpMs}ms > 2500ms`);
-  }
-  if (entry.metrics.tbtMs > 100) {
-    failures.push(`TBT ${entry.metrics.tbtMs}ms > 100ms`);
-  }
-  if (entry.metrics.cls > 0.05) {
-    failures.push(`CLS ${entry.metrics.cls} > 0.05`);
-  }
-  if (entry.resources.fontCount > 3) {
-    failures.push(`Fonts ${entry.resources.fontCount} > 3`);
-  }
-  if (entry.resources.thirdPartyCount > 0) {
-    failures.push(`Third-party requests ${entry.resources.thirdPartyCount} > 0`);
+  const resources = [
+    ['resource-summary:font:count', 'Fonts', entry.resources.fontCount, ''],
+    ['resource-summary:third-party:count', 'Third-party requests', entry.resources.thirdPartyCount, ''],
+    ['resource-summary:script:size', 'JS', entry.resources.jsBytes, 'B'],
+    ['resource-summary:stylesheet:size', 'CSS', entry.resources.cssBytes, 'B'],
+  ];
+  for (const [key, label, value, unit] of resources) {
+    const limit = max(key);
+    if (limit !== null && value > limit) {
+      failures.push(`${label} ${value}${unit} > ${limit}${unit}`);
+    }
   }
 
   if (isContent) {
-    if (entry.resources.jsBytes > 61440) {
-      failures.push(`JS ${entry.resources.jsBytes}B > 60KB`);
-    }
-    if (entry.resources.cssBytes > 51200) {
-      failures.push(`CSS ${entry.resources.cssBytes}B > 50KB`);
-    }
     if (entry.resources.maxImageBytes > 153600) {
       failures.push(`LCP Image ${entry.resources.maxImageBytes}B > 150KB`);
     }
@@ -366,7 +386,7 @@ async function main() {
       for (const targetUrl of urls) {
         const slug = slugForUrl(targetUrl);
         const pathname = new URL(targetUrl).pathname;
-        const isContent = /^\/(?:|coaching\/|my-story\/|course\/|client-success-story\/|booking\/)$/.test(pathname);
+        const isContent = isContentUrl(targetUrl);
         const needsCartSession = pathname === '/cart/' || pathname === '/checkout/';
 
         const runEntries = [];
@@ -506,7 +526,12 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('LHCI runner error:', err);
-  process.exit(1);
-});
+export { budgetGroupFor, evaluateBudget, isContentUrl };
+
+// Run only when executed directly, so the budget logic can be imported and checked without a Lighthouse run.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error('LHCI runner error:', err);
+    process.exit(1);
+  });
+}
