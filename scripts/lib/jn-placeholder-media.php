@@ -325,10 +325,11 @@ function jn_media_validate_item( array $item ): ?WP_Error {
 	if ( '' === $filename || basename( $filename ) !== $filename || sanitize_file_name( $filename ) !== $filename ) {
 		return new WP_Error( 'jn_invalid_item', "Unsafe filename: {$filename}" );
 	}
-	$is_sized = is_int( $item['width'] ?? null ) && $item['width'] > 0 && is_int( $item['height'] ?? null ) && $item['height'] > 0;
-	$quality  = $item['quality'] ?? null;
-	if ( ! $is_sized || ! is_int( $quality ) || $quality < 0 || $quality > JN_MEDIA_MAX_QUALITY ) {
-		return new WP_Error( 'jn_invalid_item', "{$slug}: width/height must be positive integers and quality 0–100" );
+	$is_sized     = is_int( $item['width'] ?? null ) && $item['width'] > 0 && is_int( $item['height'] ?? null ) && $item['height'] > 0;
+	$quality      = $item['quality'] ?? null;
+	$avif_quality = $item['avif_quality'] ?? JN_PLACEHOLDER_AVIF_QUALITY;
+	if ( ! $is_sized || ! is_int( $quality ) || $quality < 0 || $quality > JN_MEDIA_MAX_QUALITY || ! is_int( $avif_quality ) || $avif_quality < 0 || $avif_quality > JN_MEDIA_MAX_QUALITY ) {
+		return new WP_Error( 'jn_invalid_item', "{$slug}: width/height must be positive integers and quality/avif_quality 0–100" );
 	}
 	if ( isset( $item['ink'] ) && ! jn_media_is_rgb( $item['ink'] ) ) {
 		return new WP_Error( 'jn_invalid_item', "{$slug}: ink must be [r, g, b] integers in 0–255, got " . wp_json_encode( $item['ink'] ) );
@@ -572,7 +573,11 @@ function jn_import_media_item( array $item, array $extra_meta = array() ) {
 	if ( is_wp_error( $attach_id ) ) {
 		return $attach_id;
 	}
-	$regenerated = jn_regenerate_attachment_with_avif( (int) $attach_id );
+	$regenerated = jn_regenerate_attachment_with_avif(
+		(int) $attach_id,
+		(int) ( $item['avif_quality'] ?? JN_PLACEHOLDER_AVIF_QUALITY ),
+		(float) ( $item['sharpen'] ?? 0.0 )
+	);
 	if ( is_wp_error( $regenerated ) ) {
 		return $regenerated;
 	}
@@ -653,10 +658,12 @@ function jn_run_media_import( array $items, array $only_keys, string $map_option
  * Regenerate an attachment's sub-sizes (AVIF via `jn-performance`) plus a full-size `.avif`
  * companion next to the `.webp` original, keeping `file` pointed at the WebP fallback.
  *
- * @param int $att_id Attachment ID.
+ * @param int   $att_id       Attachment ID.
+ * @param int   $avif_quality AVIF quality (0–100).
+ * @param float $sharpen      Optional post-resize sharpen amount for AVIF sub-sizes.
  * @return array{id: int, file: string, sizes: array<string, array<string, mixed>>}|WP_Error
  */
-function jn_regenerate_attachment_with_avif( int $att_id ) {
+function jn_regenerate_attachment_with_avif( int $att_id, int $avif_quality = JN_PLACEHOLDER_AVIF_QUALITY, float $sharpen = 0.0 ) {
 	$file = get_attached_file( $att_id );
 	if ( ! $file || ! is_file( $file ) ) {
 		return new WP_Error( 'jn_attachment_missing', "Attachment {$att_id} has no file on disk." );
@@ -671,8 +678,11 @@ function jn_regenerate_attachment_with_avif( int $att_id ) {
 		}
 	}
 
+	$quality_cb = static fn( $q, $mime ) => 'image/avif' === $mime ? $avif_quality : $q;
+	add_filter( 'wp_editor_set_quality', $quality_cb, 30, 2 );
 	// Regenerate metadata & sub-sizes (creates AVIF sub-sizes via `jn_filter_image_editor_output_format`).
 	$new_meta = wp_generate_attachment_metadata( $att_id, $file );
+	remove_filter( 'wp_editor_set_quality', $quality_cb, 30 );
 	if ( ! is_array( $new_meta ) || empty( $new_meta['sizes'] ) ) {
 		return new WP_Error( 'jn_metadata_failed', "Sub-size generation failed for attachment {$att_id}." );
 	}
@@ -689,17 +699,26 @@ function jn_regenerate_attachment_with_avif( int $att_id ) {
 	if ( function_exists( 'imagecreatefromwebp' ) && function_exists( 'imageavif' ) && str_ends_with( $file, '.webp' ) ) {
 		$src_im = @imagecreatefromwebp( $file ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		if ( $src_im ) {
-			imageavif( $src_im, (string) preg_replace( '/\.webp$/i', '.avif', $file ), JN_PLACEHOLDER_AVIF_QUALITY );
+			imageavif( $src_im, (string) preg_replace( '/\.webp$/i', '.avif', $file ), $avif_quality );
 			imagedestroy( $src_im );
 		}
 	}
 
 	wp_update_attachment_metadata( $att_id, $new_meta );
 
-	$dir   = dirname( $file );
-	$sizes = array();
+	$dir        = dirname( $file );
+	$sizes      = array();
+	$sub_amount = min( 0.18, $sharpen );
 	foreach ( $new_meta['sizes'] as $size_name => $size_data ) {
-		$sub_path            = $dir . '/' . $size_data['file'];
+		$sub_path = $dir . '/' . $size_data['file'];
+		if ( $sub_amount > 0.0 && (int) $size_data['width'] >= 300 && str_ends_with( $sub_path, '.avif' ) && function_exists( 'imagecreatefromavif' ) && is_file( $sub_path ) ) {
+			$sub_im = @imagecreatefromavif( $sub_path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			if ( $sub_im ) {
+				jn_media_sharpen( $sub_im, $sub_amount );
+				imageavif( $sub_im, $sub_path, $avif_quality );
+				imagedestroy( $sub_im );
+			}
+		}
 		$sizes[ $size_name ] = array(
 			'file'      => $size_data['file'],
 			'width'     => $size_data['width'],

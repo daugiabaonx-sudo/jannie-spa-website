@@ -565,7 +565,7 @@
 	},
 	"my_story_banner": {
 		"slug": "jn-legacy-my-story-banner",
-		"filename": "jn-legacy-my-story-banner.webp",
+		"filename": "jn-legacy-my-story-banner-hd.webp",
 		"title": "jannieedu.com – My Story – Banner",
 		"alt": "Người phụ nữ tóc ngắn mặc áo sáng màu cười rạng rỡ bên cửa kính.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/banner-my-story.png",
@@ -573,15 +573,17 @@
 		"sha256": "e4189bb50c8020930b5deb945a07bdd288b095f886b2e7117d1bbf265f827cd5",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 1920,
 		"height": 1080,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	},
 	"my_story_1": {
 		"slug": "jn-legacy-my-story-1",
-		"filename": "jn-legacy-my-story-1.webp",
+		"filename": "jn-legacy-my-story-1-hd.webp",
 		"title": "jannieedu.com – My Story – Khởi nguồn sự nghiệp",
 		"alt": "Người phụ nữ mặc áo trắng ngồi bên bàn trước bức tường cây xanh, mỉm cười đan tay.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/1.png",
@@ -589,15 +591,17 @@
 		"sha256": "7bda2342eedbbec08ccdd132da4ea961c3b1ddf990d8ed393c01f3e361083b22",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 800,
 		"height": 1200,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	},
 	"my_story_prize": {
 		"slug": "jn-legacy-my-story-prize",
-		"filename": "jn-legacy-my-story-prize.webp",
+		"filename": "jn-legacy-my-story-prize-hd.webp",
 		"title": "jannieedu.com – My Story – Giải thưởng",
 		"alt": "Người phụ nữ mặc đầm trắng dài cầm bó hoa và cúp trong sảnh lớn.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-PRIZE-1.png",
@@ -605,15 +609,17 @@
 		"sha256": "d6be07b0216fcb57820daa6be1fe5e9901f58273de38d84ced64131c8576121f",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 800,
 		"height": 1200,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	},
 	"my_story_su_menh": {
 		"slug": "jn-legacy-my-story-su-menh",
-		"filename": "jn-legacy-my-story-su-menh.webp",
+		"filename": "jn-legacy-my-story-su-menh-hd.webp",
 		"title": "jannieedu.com – My Story – Tầm nhìn và sứ mệnh",
 		"alt": "Kỹ thuật viên đeo khẩu trang thực hiện phun xăm cho khách nằm dưới đèn vòng, có người quay phim phía sau.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-SU-MENH-2.png",
@@ -621,15 +627,17 @@
 		"sha256": "fc516ba9e474b1ddb80c462040b0b1cd55551436ed22da8fd8512e009b5d5303",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 800,
 		"height": 1200,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	},
 	"my_story_value": {
 		"slug": "jn-legacy-my-story-value",
-		"filename": "jn-legacy-my-story-value.webp",
+		"filename": "jn-legacy-my-story-value-hd.webp",
 		"title": "jannieedu.com – My Story – Tầm nhìn tương lai",
 		"alt": "Người phụ nữ mặc vest trắng cầm micro phát biểu.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-VALUE-1.png",
@@ -637,15 +645,17 @@
 		"sha256": "594149d3c8a380f1b29cca0b9f1079e8f0a7102bdf943f73f605e795bf4b1016",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 800,
 		"height": 1200,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	},
 	"my_story_mission": {
 		"slug": "jn-legacy-my-story-mission",
-		"filename": "jn-legacy-my-story-mission.webp",
+		"filename": "jn-legacy-my-story-mission-hd.webp",
 		"title": "jannieedu.com – My Story – Lan tỏa giá trị",
 		"alt": "Người phụ nữ mặc đồ trắng cầm micro trên sân khấu, phía sau là màn hình lớn.",
 		"source_url": "https://jannieedu.com/wp-content/uploads/2023/06/ABOUT-HN-MISSION-1.png",
@@ -653,10 +663,12 @@
 		"sha256": "93c7bb78fc72c16933f0e670be10ba919565769e7016041b596180d1748bd188",
 		"model": "realesrgan-x4plus",
 		"ai_upscale": true,
+		"face_restore": true,
 		"require_master": true,
-		"sharpen": 0.15,
+		"sharpen": 0.25,
 		"width": 800,
 		"height": 1200,
-		"quality": 82
+		"quality": 88,
+		"avif_quality": 82
 	}
 }

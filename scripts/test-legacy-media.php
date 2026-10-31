@@ -177,12 +177,13 @@ $jn_originals = array_filter( $jn_all, static fn( array $item ): bool => ! empty
 jn_t_assert( JN_TLM_ITEM_COUNT === count( $jn_items ), 'All 14 legacy items are defined', (string) count( $jn_items ) );
 jn_t_assert( JN_TLM_ORIGINAL_COUNT === count( $jn_originals ), 'All 34 Step 15–16 originals are defined', (string) count( $jn_originals ) );
 foreach ( $jn_originals as $jn_key => $jn_item ) {
-	$jn_expect_ai = str_starts_with( (string) $jn_key, 'my_story_' );
-	$jn_is_valid  = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
-		&& $jn_item['slug'] . '.webp' === $jn_item['filename']
+	$jn_expect_ai     = str_starts_with( (string) $jn_key, 'my_story_' );
+	$jn_expected_file = $jn_expect_ai ? $jn_item['slug'] . '-hd.webp' : $jn_item['slug'] . '.webp';
+	$jn_is_valid      = str_starts_with( (string) $jn_item['slug'], 'jn-legacy-' )
+		&& $jn_expected_file === $jn_item['filename']
 		&& '' !== trim( (string) $jn_item['alt'] )
 		&& $jn_expect_ai === ! empty( $jn_item['ai_upscale'] )
-		&& ( ! $jn_expect_ai || ! empty( $jn_item['sharpen'] ) )
+		&& ( ! $jn_expect_ai || ( ! empty( $jn_item['face_restore'] ) && ! empty( $jn_item['sharpen'] ) && (int) ( $jn_item['avif_quality'] ?? 0 ) >= 80 ) )
 		&& ! empty( $jn_item['require_master'] )
 		&& null === jn_media_validate_item( $jn_item )
 		&& str_starts_with( (string) $jn_item['source_url'], 'https://' );

@@ -127,6 +127,22 @@ function upscale(input, output, model) {
 	}
 }
 
+function restoreFaces(output) {
+	const modelsDir = path.join(path.dirname(REALESRGAN_BIN), 'models');
+	const script = path.join(SCRIPTS_DIR, 'lib', 'jn-restore-faces.py');
+	const run = spawnSync(
+		'uv',
+		['run', '--with', 'onnxruntime', '--with', 'numpy', '--with', 'opencv-python-headless', 'python3', script, output, modelsDir],
+		{ cwd: REPO_DIR, encoding: 'utf8', maxBuffer: SPAWN_MAX_BUFFER }
+	);
+	if (run.error) {
+		throw run.error;
+	}
+	if (run.status !== 0) {
+		throw new Error(`face_restore exited ${run.status}: ${(run.stderr || run.stdout || '').trim().split('\n').pop()}`);
+	}
+}
+
 async function buildMaster(item) {
 	// `master_slug` points an item at another item's master (Step 3 hero/expert reuse the legacy photos).
 	const slug = item.master_slug || item.slug;
@@ -155,6 +171,9 @@ async function buildMaster(item) {
 		flattenOnWhite(src, input);
 	}
 	upscale(input, out, item.model || DEFAULT_MODEL);
+	if (item.face_restore) {
+		restoreFaces(out);
+	}
 	return out;
 }
 
