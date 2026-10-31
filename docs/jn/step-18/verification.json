@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T04:34:47.944Z",
+  "generatedAt": "2026-10-31T04:52:10.396Z",
   "baseUrl": "http://localhost:8080",
   "results": [
     {
@@ -23,7 +23,7 @@
       "data": {}
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 116ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 104ms)",
       "viewport": 320,
       "failures": [],
       "data": {
@@ -39,12 +39,12 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 116
+          "ms": 104
         }
       }
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 48ms)",
       "viewport": 375,
       "failures": [],
       "data": {
@@ -60,12 +60,12 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 56
+          "ms": 48
         }
       }
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 48ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 44ms)",
       "viewport": 768,
       "failures": [],
       "data": {
@@ -81,12 +81,12 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 48
+          "ms": 44
         }
       }
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 60ms)",
       "viewport": 1024,
       "failures": [],
       "data": {
@@ -102,12 +102,12 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 56
+          "ms": 60
         }
       }
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 60ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
       "viewport": 1440,
       "failures": [],
       "data": {
@@ -123,12 +123,12 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 60
+          "ms": 56
         }
       }
     },
     {
-      "check": "layout, first frame (LCP P.jn-hero-lead 56ms)",
+      "check": "layout, first frame (LCP P.jn-hero-lead 52ms)",
       "viewport": 1920,
       "failures": [],
       "data": {
@@ -144,7 +144,7 @@
         "stage": true,
         "lcp": {
           "tag": "P.jn-hero-lead",
-          "ms": 56
+          "ms": 52
         }
       }
     },

@@ -75,3 +75,4 @@ Trang gồm 3 mẫu thiết kế có thể chèn lại từ thư viện (**Janni
 - **Tên, ảnh, giá, mô tả ngắn trên thẻ** lấy từ **WooCommerce → Sản phẩm** (ô *Mô tả ngắn của sản phẩm*). Mô tả dài (tab *Mô tả* trên trang sản phẩm) là nội dung gốc jannieedu.com.
 - **Đổi số Zalo** (nút "Tư vấn qua Zalo" và "Mở Zalo"): nhờ kỹ thuật chạy `wp option update jn_contact_zalo_url https://zalo.me/<số-mới>` rồi xoá bộ nhớ đệm trang. Nếu xoá option này, nút tự đổi thành "Nhận tư vấn" và hộp thoại chuyển sang gửi email `contact@jannienguyen.vn`.
 - Sau khi sửa trang, bấm **Cập nhật** rồi xoá bộ nhớ đệm (WP Super Cache) để khách thấy bản mới.
+- **Số Hotline / số điện thoại trong dữ liệu có cấu trúc** (demo: `0559 912 642`): hộp *Hotline Hỗ Trợ Khẩn* là khối đồng bộ — sửa một lần ở **Giao diện → Mẫu (Patterns) → Mẫu đã đồng bộ** là đổi trên mọi trang; số trong schema đổi bằng `wp option update jn_brand_telephone "+84 …"`.

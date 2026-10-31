@@ -294,6 +294,13 @@ foreach ( $jn_c['items'] as $jn_item ) {
 }
 
 // -----------------------------------------------------------------------------
+jn_t_section( 'Demo contact number (owner, 2026-10-31)' );
+$jn_hotline = (string) get_post_field( 'post_content', 95 );
+jn_t_assert( 'wp_block' === get_post_type( 95 ) && false === strpos( $jn_hotline, '908-XXX' ) && 1 === substr_count( $jn_hotline, '<a href="tel:+84559912642">0559 912 642</a>' ), 'Booking hotline (synced block 95) shows 0559 912 642 as a tel: link' );
+jn_t_assert( false !== strpos( jn_t18_read( "{$jn_theme}/patterns/booking-section.php" ), '<a href="tel:+84559912642">0559 912 642</a>' ), 'patterns/booking-section.php seeds the same number' );
+jn_t_assert( '+84 559 912 642' === get_option( 'jn_brand_telephone' ), 'Schema telephone (jn_brand_telephone) is +84 559 912 642' );
+
+// -----------------------------------------------------------------------------
 jn_t_section( 'Stylesheet' );
 $jn_css = jn_t18_read( "{$jn_theme}/assets/css/favorite-products.css" );
 jn_t_assert( '' !== $jn_css, 'assets/css/favorite-products.css exists' );
@@ -327,6 +334,7 @@ foreach ( array( 'wc-blocks-style-product-image', 'wc-blocks-style-product-summa
 jn_t_assert( 1 === substr_count( $jn_live, 'id="jn-consult"' ) && false !== strpos( $jn_live, 'href="' . JN_T18_ZALO . '"' ), 'One consult dialog, linked to Jannie\'s Zalo' );
 jn_t_assert( 6 === substr_count( $jn_live, 'class="jn-product-actions jn-product-actions--product"' ) && 1 === substr_count( $jn_live, 'class="jn-product-actions jn-product-actions--contact"' ), 'Six product cards carry their actions, plus one contact button' );
 jn_t_assert( false === strpos( $jn_live, 'fonts.googleapis' ) && false === strpos( $jn_live, 'chat.zalo.me' ), 'No Google Fonts, no generic Zalo Web link' );
+jn_t_assert( false !== strpos( $jn_live, '"telephone":"+84 559 912 642"' ), 'The JSON-LD graph carries the demo telephone' );
 foreach ( array( 'product-stage', 'marquee', 'product-actions' ) as $jn_slug ) {
 	$jn_ok = (bool) preg_match( '/<script\b[^>]*src="[^"]*blocks\/' . $jn_slug . '\/view\.js[^"]*"[^>]*>/', $jn_live, $jn_tag );
 	jn_t_assert( $jn_ok && false !== strpos( $jn_tag[0], 'defer' ), "{$jn_slug} view script is deferred" );

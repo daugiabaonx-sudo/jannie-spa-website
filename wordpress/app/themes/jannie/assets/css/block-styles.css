@@ -1399,6 +1399,23 @@ ol.jn-booking-steps > li strong {
 	margin: 0 !important;
 }
 
+/* The tel: link sits on the dark card: keep the cream text, mark it with a champagne underline. */
+.jn-booking-hotline__value a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: var(--jn-champagne);
+	text-underline-offset: 4px;
+}
+
+.jn-booking-hotline__value a:hover {
+	color: var(--jn-champagne);
+}
+
+.jn-booking-hotline__value a:focus-visible {
+	outline: 2px solid var(--jn-champagne);
+	outline-offset: 3px;
+}
+
 /* `jn/booking-form` Block Styles */
 .jn-booking-form-wrap {
 	width: 100%;

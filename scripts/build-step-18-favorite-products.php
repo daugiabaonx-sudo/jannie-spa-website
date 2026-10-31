@@ -6,6 +6,8 @@
  * - the six official products (slug + `_jn_legacy_source`): short description = mockup teaser, description =
  *   the jannieedu.com copy (D6) — nothing else on the product is touched
  * - page `my-favorite-product`: content = jn_lb_products_page() (the `jannie/favorite-*` patterns)
+ * - demo contact number 0559 912 642 (owner, 2026-10-31): booking hotline in synced block 95 (replaces the
+ *   `(+84) 908-XXX-XXX` placeholder) and `jn_brand_telephone` for the JSON-LD graph
  *
  * Idempotent: items that already match are skipped. `wp_update_post()` keeps a revision of the page (rollback
  * point) and the content is read back to make sure kses changed nothing; product copy can be restored from
@@ -29,6 +31,10 @@ require_once __DIR__ . '/lib/jn-legacy-blocks.php';
 const JN_S18_PAGE_SLUG    = 'my-favorite-product';
 const JN_S18_FAVORITE_CAT = 41;
 const JN_S18_ZALO_URL     = 'https://zalo.me/0559912642';
+const JN_S18_HOTLINE_BLOCK = 95;
+const JN_S18_PHONE_OLD     = '(+84) 908-XXX-XXX';
+const JN_S18_PHONE_NEW     = '<a href="tel:+84559912642">0559 912 642</a>';
+const JN_S18_TELEPHONE     = '+84 559 912 642';
 
 $jn_s18_dry = in_array( 'dry-run', (array) ( $args ?? array() ), true );
 
@@ -118,6 +124,34 @@ foreach ( $jn_products as list( $jn_item, $jn_product ) ) {
 	$jn_product->set_description( $jn_item['description'] );
 	$jn_product->save();
 	echo "[OK] product {$jn_item['slug']} (#{$jn_product->get_id()}) copy updated\n";
+}
+
+// 2b. Demo contact number. The hotline paragraph is replaced only where the exact placeholder occurs once.
+if ( 'wp_block' !== get_post_type( JN_S18_HOTLINE_BLOCK ) ) {
+	jn_s18_fail( 'post ' . JN_S18_HOTLINE_BLOCK . ' is not the synced booking section' );
+}
+$jn_hotline = (string) get_post_field( 'post_content', JN_S18_HOTLINE_BLOCK, 'raw' );
+if ( false !== strpos( $jn_hotline, JN_S18_PHONE_NEW ) ) {
+	echo '[SKIP] hotline (block ' . JN_S18_HOTLINE_BLOCK . ") already shows the demo number\n";
+} elseif ( 1 !== substr_count( $jn_hotline, JN_S18_PHONE_OLD ) ) {
+	jn_s18_fail( 'hotline placeholder found ' . substr_count( $jn_hotline, JN_S18_PHONE_OLD ) . ' times in block ' . JN_S18_HOTLINE_BLOCK . ' (expected 1)' );
+} elseif ( $jn_s18_dry ) {
+	echo '[DRY] would set the hotline in block ' . JN_S18_HOTLINE_BLOCK . " to 0559 912 642\n";
+} else {
+	try {
+		jn_lb_write_page( JN_S18_HOTLINE_BLOCK, str_replace( JN_S18_PHONE_OLD, JN_S18_PHONE_NEW, $jn_hotline ) );
+	} catch ( RuntimeException $jn_error ) {
+		jn_s18_fail( $jn_error->getMessage() );
+	}
+	echo '[OK] hotline (block ' . JN_S18_HOTLINE_BLOCK . ") = 0559 912 642; previous content kept as a revision\n";
+}
+if ( JN_S18_TELEPHONE === get_option( 'jn_brand_telephone' ) ) {
+	echo '[SKIP] jn_brand_telephone already ' . JN_S18_TELEPHONE . "\n";
+} elseif ( $jn_s18_dry ) {
+	echo '[DRY] would set jn_brand_telephone = ' . JN_S18_TELEPHONE . "\n";
+} else {
+	update_option( 'jn_brand_telephone', JN_S18_TELEPHONE, false );
+	echo '[OK] jn_brand_telephone = ' . JN_S18_TELEPHONE . "\n";
 }
 
 // 3. Page content.

@@ -355,9 +355,13 @@ jn_step8_assert(
 	&& str_contains( $coaching_html, 'property="og:image"' ),
 	'/coaching/ has its Vietnamese meta description (JN_SEO_Meta map), canonical URL, and Open Graph image'
 );
+// A telephone appears only when the owner set one (jn_brand_telephone; demo number 2026-10-31, ADR-025), never invented.
+$jn_owner_tel = (string) get_option( 'jn_brand_telephone', '' );
 jn_step8_assert(
 	str_contains( $coaching_html, '"@type":"Organization"' )
-	&& false === strpos( $coaching_html, '"telephone"' )
+	&& ( '' === $jn_owner_tel
+		? false === strpos( $coaching_html, '"telephone"' )
+		: 1 === preg_match_all( '/"telephone":"([^"]*)"/', $coaching_html, $jn_tels ) && wp_json_encode( $jn_owner_tel ) === '"' . $jn_tels[1][0] . '"' )
 	&& str_contains( $coaching_html, '"Jannie Nguyễn"' )
 	&& str_contains( $coaching_html, '"Master Mentorship (Đồng Hành 3 Tháng)"' )
 	&& false === stripos( $coaching_html, 'AggregateRating' )

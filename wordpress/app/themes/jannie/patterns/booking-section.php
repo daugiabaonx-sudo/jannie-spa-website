@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<!-- /wp:paragraph -->
 
 					<!-- wp:paragraph {"className":"jn-booking-hotline__value"} -->
-					<p class="jn-booking-hotline__value">contact@jannienguyen.vn • (+84) 908-XXX-XXX</p>
+					<p class="jn-booking-hotline__value">contact@jannienguyen.vn • <a href="tel:+84559912642">0559 912 642</a></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->

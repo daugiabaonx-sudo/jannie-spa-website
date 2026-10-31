@@ -139,6 +139,8 @@ if ( count( array_filter( $jn_classes, 'class_exists' ) ) !== count( $jn_classes
 // 1. F1 — Brand / NAP data provenance
 // -----------------------------------------------------------------------------
 echo "\n--- 1. Brand data provenance (F1) ---\n";
+// The owner's number (2026-10-31 demo: 0559 912 642) is restored after these checks, whatever they do.
+$jn_saved_telephone = get_option( 'jn_brand_telephone', null );
 delete_option( 'jn_brand_telephone' );
 $jn_brand = JN_SEO_Brand::get();
 jn_step10_assert( '' === $jn_brand['telephone'], 'Telephone is empty while the owner has not provided one (no invented NAP data)' );
@@ -162,7 +164,11 @@ jn_step10_assert( false === strpos( $jn_json, 'priceRange' ), 'JSON-LD graph omi
 update_option( 'jn_brand_telephone', '+84 28 0000 0000', false );
 $jn_json_tel = (string) wp_json_encode( JN_SEO_Schema::build_graph( $jn_ctx ) );
 jn_step10_assert( false !== strpos( $jn_json_tel, '"telephone":"+84 28 0000 0000"' ), 'Telephone appears only after the owner sets option jn_brand_telephone' );
-delete_option( 'jn_brand_telephone' );
+if ( null === $jn_saved_telephone ) {
+	delete_option( 'jn_brand_telephone' );
+} else {
+	update_option( 'jn_brand_telephone', $jn_saved_telephone, false );
+}
 
 // -----------------------------------------------------------------------------
 // 2. F6 — Unified JSON-LD graph integrity
