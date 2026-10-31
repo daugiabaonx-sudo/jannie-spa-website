@@ -279,8 +279,11 @@ function evaluateBudget(entry, preset) {
   } else if (entry.scores.seo < 100) {
     failures.push(`SEO ${entry.scores.seo} < 100`);
   }
-  if (entry.metrics.fcpMs > 1500) {
-    failures.push(`FCP ${entry.metrics.fcpMs}ms > 1500ms`);
+  // Shop pages: 1.7 s (owner's choice, ADR-025) — the inlined page CSS pushes the HTML past a simulated TCP round
+  // trip on slow 4G; content and cart/checkout pages keep 1.5 s.
+  const maxFcpMs = isShop ? 1700 : 1500;
+  if (entry.metrics.fcpMs > maxFcpMs) {
+    failures.push(`FCP ${entry.metrics.fcpMs}ms > ${maxFcpMs}ms`);
   }
   // 2.5 s = Core Web Vitals "good". Raised from 2.0 s when Blocksy's CSS became render-blocking (ADR-024).
   if (entry.metrics.lcpMs > 2500) {
